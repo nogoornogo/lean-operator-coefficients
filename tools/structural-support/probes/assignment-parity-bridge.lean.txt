@@ -1,0 +1,52 @@
+import Physics.StandardModel.Operators.SMQLPatternRequests
+import Physics.StandardModel.Operators.SMJointHiggsSupport
+import Physics.StandardModel.Operators.InverseLeptonParitySelection
+import Physics.StandardModel.Operators.SMParityKernelRank
+open Math GUT
+
+ theorem signedChargeLinear {k : Nat} (q l : ZMod k)
+    (s : DeltaLOneSignedInput.Species) :
+    DuqlHiggsContent.signedCharge q l s =
+    (DeltaLOneSignedInput.baryon s : ZMod k)*q +
+    (DeltaLOneSignedInput.lepton s : ZMod k)*l := by
+  fin_cases s <;> simp [DuqlHiggsContent.signedCharge,
+    DeltaLOneSignedInput.baryon, DeltaLOneSignedInput.lepton]
+
+ theorem residualLinear {k : Nat} (q l : ZMod k) {n : Nat}
+    (p : Fin n → DeltaLOneSignedInput.Species) :
+    QLFiniteSupport.charge q l p =
+    ((∑ i, DeltaLOneSignedInput.baryon (p i) : Int) : ZMod k)*q +
+    ((∑ i, DeltaLOneSignedInput.lepton (p i) : Int) : ZMod k)*l := by
+  simp only [QLFiniteSupport.charge, signedChargeLinear, Int.cast_sum,
+    Finset.sum_add_distrib, Finset.sum_mul]
+
+ theorem parityExclusion (k : Nat) [NeZero k] (q l : Int) (target : Nat)
+    (gate : ∀ b z : Int, b.natAbs = target → (b+z)%2=0 →
+      (b*q+z*l) % (k : Int) ≠ 0) :
+    SMQLPatternRequests.OriginalForbidden (q : ZMod k) (l : ZMod k)
+      (fun c => c.1.natAbs=target) := by
+  intro n p h d hb
+  rw [SelectionCriteria.forbidden_iff_not_allowed, SMLowerHiggsSupport.ql_original_iff]
+  rintro ⟨hc,m,_,ha⟩
+  have hn : n % 2 = 0 := by
+    by_contra hn
+    exact (SelectionCriteria.forbidden_iff_not_allowed _).mp
+      (SMParityKernelRank.forbidden _ p _ _ hn) ha
+  have hp := InverseLeptonParitySelection.content_parity p
+  have hn' : (n : ZMod 2) = 0 := (ZMod.natCast_eq_zero_iff n 2).mpr (Nat.dvd_of_mod_eq_zero hn)
+  rw [hn'] at hp
+  have he : ((∑ i, DeltaLOneSignedInput.baryon (p i)) +
+      ∑ i, DeltaLOneSignedInput.lepton (p i)) % 2 = 0 :=
+    Int.emod_eq_zero_of_dvd ((ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mp hp)
+  have hc' : (((∑ i, DeltaLOneSignedInput.baryon (p i))*q +
+      (∑ i, DeltaLOneSignedInput.lepton (p i))*l : Int) : ZMod k)=0 := by
+    simpa only [Int.cast_add, Int.cast_mul] using (residualLinear (q : ZMod k) l p).symm.trans hc
+  exact gate _ _ hb he
+    (Int.emod_eq_zero_of_dvd ((ZMod.intCast_zmod_eq_zero_iff_dvd _ k).mp hc'))
+
+ theorem testExclusion : SMQLPatternRequests.OriginalForbidden (1 : ZMod 2) 0
+    (fun c => c.1.natAbs=3) := by
+  apply parityExclusion 2 1 0 3
+  intro b z hb he
+  have hab := (Int.natAbs_eq_iff).mp hb
+  rcases hab with hb | hb <;> omega

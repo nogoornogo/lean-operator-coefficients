@@ -1,0 +1,52 @@
+import Physics.StandardModel.Operators.SMComputableSupport
+
+/-! Kernel-checked arithmetic controls, separate from the external Weyl premise. -/
+namespace GUT.SMComputableCharacterExamples
+set_option autoImplicit false
+open Math SMComputableCharacter
+
+def constantCounts (s : DeltaLOneSignedInput.Species) (n : ℕ) : DeltaLOneSignedInput.Species → ℕ :=
+  fun t => if t=s then n else 0
+
+theorem empty : multiplicity (fun _ => 0) 0 0 = 1 := by decide +kernel
+theorem llhh : multiplicity (constantCounts 3 2) 2 2 = 6 := by decide +kernel
+theorem conjugate_llhh : multiplicity (constantCounts 8 2) 2 (-2) = 6 := by decide +kernel
+theorem l_four : multiplicity (constantCounts 3 4) 4 4 = 6 := by decide +kernel
+theorem charged : multiplicity (constantCounts 3 2) 2 0 = 0 := by decide +kernel
+theorem odd : multiplicity (constantCounts 4 1) 2 2 = 0 := by decide +kernel
+theorem top : multiplicity (constantCounts 4 6) 12 12 = 0 := by decide +kernel
+theorem above_capacity : multiplicity (constantCounts 4 7) 0 0 = 0 := by decide +kernel
+theorem mixed_spin : multiplicity (fun s => if s=4 ∨ s=9 then 1 else 0) 0 0 = 0 := by decide +kernel
+
+theorem neutral_test : SMComputableQLSupport.test (0 : ZMod 2) 0
+    (![3,3] : Fin 2 → DeltaLOneSignedInput.Species) 2 2 = true := by decide +kernel
+theorem charged_test : SMComputableQLSupport.test (0 : ZMod 3) 1
+    (![3,3] : Fin 2 → DeltaLOneSignedInput.Species) 2 2 = false := by decide +kernel
+
+theorem l_four_counts : SMIteratedContent.counts (fun _ : Fin 4 => (3 : DeltaLOneSignedInput.Species)) =
+    constantCounts 3 4 := by
+  funext s
+  by_cases h : s=3 <;> simp [SMIteratedContent.counts,constantCounts,h,eq_comm]
+
+noncomputable section
+variable {H : Type*} [Group H]
+  (flavor : ∀ s, Representation ℂ H (ThreeGenerationFermionBound.Flavor s))
+  (input : SMCompactMultiplicity.Input flavor (fun _ : Fin 4 => 3) 4 4)
+
+include input in
+theorem l_four_kernel : Module.finrank ℂ (SMFullLocalKernel.Kernel flavor (fun _ : Fin 4 => 3) 4 4) = 6 := by
+  have h := SMComputableSupport.kernel_dimension flavor (fun _ : Fin 4 => 3) 4 4 input
+  have h6 : (6 : ℤ).toNat = 6 := by decide +kernel
+  simpa only [l_four_counts,l_four,h6] using h
+
+include input in
+theorem l_four_rank : Module.finrank ℂ
+    (LinearMap.range (SMFullLocalKernel.constraints flavor (fun _ : Fin 4 => 3) 4 4)) = 2469 := by
+  have hn := SMIteratedContent.rank_add_nullity flavor (fun _ : Fin 4 => 3) 4 4
+  have hk := l_four_kernel flavor input
+  have hc : SMIteratedContent.columns (fun _ : Fin 4 => 3) 4 = 2475 := by decide +kernel
+  omega
+
+end
+
+end GUT.SMComputableCharacterExamples

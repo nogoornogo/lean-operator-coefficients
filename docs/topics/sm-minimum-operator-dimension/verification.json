@@ -1,0 +1,135 @@
+{
+  "branch": "proof/sm-minimum-operator-dimension",
+  "profile": {
+    "threads": 1,
+    "timeout_seconds": 300,
+    "sampled_group_rss_limit_gib": 10,
+    "host_available_reserve_gib": 4,
+    "sampled_peak_is_not_exact_maximum": true,
+    "imports_cached": true
+  },
+  "runs": [
+    {
+      "label": "initial",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMMinimumOperatorDimension /tmp/sm-minimum-initial.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 5.8,
+      "sampled_group_peak_kib": 5259952,
+      "result": "missing local opt-in joint-decision instances"
+    },
+    {
+      "label": "witnesses",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMMinimumOperatorDimension /tmp/sm-minimum-witnesses.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 6.8,
+      "sampled_group_peak_kib": 5308972,
+      "result": "witnesses and three sharp minima passed"
+    },
+    {
+      "label": "gap-draft-1",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMMinimumOperatorDimension /tmp/sm-minimum-complete.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 7.3,
+      "sampled_group_peak_kib": 5324820,
+      "result": "arithmetic proof did not expose absolute-charge bounds"
+    },
+    {
+      "label": "gap-draft-2",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMMinimumOperatorDimension /tmp/sm-minimum-final.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 6.8,
+      "sampled_group_peak_kib": 5325096,
+      "result": "arithmetic proof lacked existing actual charge-parity consequence"
+    },
+    {
+      "label": "focused-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.Audit.AuditSMMinimumOperatorDimension /tmp/sm-minimum-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 12.3,
+      "sampled_group_peak_kib": 5346400,
+      "result": "four exact minima; 140 strict transitive checks"
+    },
+    {
+      "label": "direct-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMMinimumOperatorDimension.lean /tmp/sm-minimum-direct-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.0,
+      "sampled_group_peak_kib": 5121772,
+      "result": "140 freshly executed strict transitive checks"
+    },
+    {
+      "label": "fresh-consumers",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/SMMinimumOperatorDimensionExamples.lean /tmp/sm-minimum-fresh-examples.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 3.5,
+      "sampled_group_peak_kib": 5085748,
+      "result": "fresh elaboration of importing consumers"
+    },
+    {
+      "label": "full-build",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build GUT /tmp/sm-minimum-full.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 8.5,
+      "sampled_group_peak_kib": 6708832,
+      "result": "7348 jobs; zero warnings/errors; includes registered audits"
+    }
+  ],
+  "source_sha256": {
+    "Physics.lean": "4eb91214ab55d82c18524071c64b1b6fa81dc6ad20c272f4cfb892a0f6c6baa4",
+    "Physics/StandardModel/Operators/SMMinimumOperatorDimension.lean": "445b95564ebe292a3bfe74f903779a3eca3722eb1ca174e88018726b92b9c374",
+    "Physics/StandardModel/Operators/SMMinimumOperatorDimensionExamples.lean": "5f75b5d3c69258658762c0d951920c349054ab8c61eca904ee3ea2132b72b95e",
+    "Physics/StandardModel/Operators/Audit/AuditSMMinimumOperatorDimension.lean": "8949a447c7cb806699be45825685333f835344a99a75ddbdc79f68cc061a1345"
+  },
+  "cases": [
+    {
+      "case": "C1",
+      "k": 2,
+      "q": 0,
+      "l": 0,
+      "b3_absolute": 3,
+      "minimum_twice_dimension": 12,
+      "minimum_dimension": 6
+    },
+    {
+      "case": "C2",
+      "k": 2,
+      "q": 0,
+      "l": 0,
+      "b3_absolute": 6,
+      "minimum_twice_dimension": 18,
+      "minimum_dimension": 9
+    },
+    {
+      "case": "H1",
+      "k": 3,
+      "q": 1,
+      "l": 1,
+      "b3_absolute": 3,
+      "minimum_twice_dimension": 18,
+      "minimum_dimension": 9
+    },
+    {
+      "case": "H2",
+      "k": 5,
+      "q": 1,
+      "l": 1,
+      "b3_absolute": 3,
+      "minimum_twice_dimension": 20,
+      "minimum_dimension": 10
+    }
+  ],
+  "resource_stop": false,
+  "scope_extension": false,
+  "master_merge": false,
+  "push": false,
+  "auxiliary_checks": {
+    "layout_modules": 1962,
+    "markdown_files": 998,
+    "local_links": 6072,
+    "heading_fragments": 115,
+    "link_errors": 0,
+    "diff_check": "passed",
+    "source_hashes": "passed",
+    "source_policy": "passed; initial substring scan matched audit error text, corrected to declaration-aware scan"
+  }
+}

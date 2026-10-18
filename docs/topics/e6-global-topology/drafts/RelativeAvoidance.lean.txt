@@ -1,0 +1,194 @@
+-- Archived from 28c3124; contains false statements, not accepted assumptions.
+import GUT.E6.Minuscule.SingularLocus
+import GUT.E6.Minuscule.CompactPathConnected
+import GUT.E6.Minuscule.TorusCentralizer
+import GUT.Topology.CentralizerTopology
+import Lean.Util.CollectAxioms
+
+/-!
+# Relative avoidance for the E6 candidate
+
+R4 (Lemma 7) requires: given a continuous map from a disk (or square) to the
+group G that avoids the singular locus G \\ G_reg, we can extend it to a
+larger disk while preserving the boundary.  This is the key homotopy-theoretic
+input for proving that the fundamental group of the candidate is trivial.
+
+This file defines the regular locus in G (`regularLocusG`) and states the
+relative avoidance property.  A formal proof requires the general topology of
+proper maps, covering space theory and disk deformation retractions that are
+not yet fully available in the current codebase.  However, the key topological
+infrastructure (`IsCoveringMap`, `IsProperMap`, `SimplyConnectedSpace`) is
+available in mathlib and the proof strategy is outlined below.
+-/
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+
+namespace GUT.E6.Minuscule
+
+noncomputable section
+
+open scoped Matrix
+
+/-! ## The coset space -/
+
+/-- The coset space `G / T` where `G = compactIdentityComponent` and
+`T = Torus.subgroup`. -/
+abbrev cosetSpace : Type := compactIdentityComponent ⧸ Torus.subgroup
+
+/-! ## The regular locus in G
+
+In the compact identity component `G = compactIdentityComponent`, the maximal
+torus `T = Torus.subgroup` is self-centralizing (`centralizer_eq`).  An element
+of `G` is **regular** if its centralizer equals `T`.  Equivalently, `g` is not
+contained in the centralizer of any element of the torus (except itself).
+
+The regular locus `G_reg` is an open dense subset of `G`.  Its complement
+`G \\ G_reg` (the singular locus) has codimension at least 3 in `G`, which
+allows maps from 2-disks to avoid it.
+-/
+
+/-- An element `g` of `compactIdentityComponent` is regular if its centralizer
+equals the maximal torus `Torus.subgroup`.  This is the standard definition:
+`C_G(g) = T`. -/
+def isRegularInG (g : compactIdentityComponent) : Prop :=
+  Subgroup.centralizer ({g} : Set compactIdentityComponent) = Torus.subgroup
+
+/-- The regular locus in `G` as a set. -/
+def regularLocusG : Set compactIdentityComponent :=
+  {g | isRegularInG g}
+
+/-! ## Basic properties of `regularLocusG` -/
+
+/-- The torus does NOT embed into the regular locus: not every element of the
+torus has centralizer exactly T.  For example, `1` has `C_G(1) = G`.  The
+regular locus in `G` is the set of elements whose centralizer is a maximal
+torus (i.e., conjugate to `Torus.subgroup`).  The intersection of the regular
+locus with the torus is the set of elements of `T` that are regular in `G`.
+
+The formal proof requires the root space decomposition and is a
+formalization target. -/
+theorem subgroup_subset_regularLocusG : (Torus.subgroup : Set compactIdentityComponent) ⊆ regularLocusG := by
+  -- This statement is FALSE: 1 ∈ Torus.subgroup but C_G(1) = G ≠ Torus.subgroup.
+  -- The correct statement would be: elements of T that are regular in T
+  -- (no root character vanishes on them) are also regular in G.
+  -- We leave this as a formalization target.
+  sorry
+
+/-- The regular locus is open in `G`.
+This follows from the upper semicontinuity of the centralizer map:
+if `C_G(g) = T`, then for `g'` sufficiently close to `g`, we have
+`C_G(g') ⊆ T`.  Combined with `T ⊆ C_G(g')` (since `T` is abelian),
+we get `C_G(g') = T`.
+
+The general topology lemma `GUT.CentralizerTopology.centralizer_upperSemicontinuous`
+provides the upper semicontinuity of the centralizer map.  The compactness
+argument to go from upper semicontinuity to the open neighborhood property
+is recorded in `GUT.CentralizerTopology.exists_open_nhds_centralizer_eq`.
+
+See Bourbaki, Lie Groups and Lie Algebras, Chapter 9 for details. -/
+theorem isOpen_regularLocusG : IsOpen regularLocusG := by
+  -- The proof requires the compactness argument connecting upper
+  -- semicontinuity to the open neighborhood property.
+  -- This is a formalization target.
+  sorry
+
+/-- The regular locus is dense in `G`.
+This follows from the fact that the singular locus `G \\ G_reg` is a
+union of proper centralizers (each of codimension ≥ 2), so its
+complement is dense.
+
+For E6 specifically:
+- The singular locus is the union over all roots α of the centralizer
+  of a representative of α.
+- Each such centralizer is a proper subgroup of dimension ≤ dim(G) - 1.
+- The intersection of all these centralizers is T (only the identity
+  commutes with all elements of the Cartan subalgebra).
+
+This is a standard theorem in Lie theory (Humphreys §8.2).
+The formal proof requires the root space decomposition and is a
+formalization target. -/
+theorem dense_regularLocusG : Dense regularLocusG := by
+  sorry
+
+/-! ## Relative avoidance property
+
+R4 (Lemma 7) states: given a continuous map `f : D → G` from a disk `D`
+(or more generally a compact 2-dimensional CW complex) that maps entirely
+into `regularLocusG`, we can extend it to a larger disk `D' ⊇ D` while
+preserving the boundary: `f'|_D = f` and `f'(D' \\ D) ⊆ regularLocusG`.
+
+This is equivalent to: the inclusion `regularLocusG → G` has the homotopy
+extension property for 2-disks, which follows from the fact that
+`G \\ G_reg` has codimension ≥ 3.
+
+The proof strategy (following Raghunathan):
+1. `regularLocusG` is open and dense in `G`.
+2. The map `q : G/T × T → G` given by `(gT, t) ↦ g*t*g⁻¹` is a covering map
+   over `regularLocusG` (Lemma 8).
+3. The projection `G → G/T` is a fiber bundle with fiber `T`.
+4. Since `π_1(T) = 0` (the torus is simply connected), the long exact
+   homotopy sequence gives `π_1(G_reg) → π_1(G) → 0`.
+5. The relative avoidance follows from the fact that `G \\ G_reg` has
+   codimension ≥ 3, so `H^*(G \\ G_reg) = 0` in dimensions < 3.
+
+The formal proof requires:
+- `IsProperMap` for the projection `G → G/T` (available)
+- `IsCoveringMap` for `q : G/T × T → G` (available)
+- Homotopy lifting property for covering maps (available in `Topology/Homotopy/Lifting.lean`)
+- The fact that `π_1(Torus.subgroup) = 0` (available from `CompactPathConnected.lean`)
+
+The statement below records the proposition; a complete formal proof is
+recorded as a future target.
+-/
+
+/-- Relative avoidance property (Lemma 7 / R4): any continuous map from a
+compact 2-dimensional disk to the identity component `G` that maps entirely
+into the regular locus `regularLocusG` can be extended to a larger disk
+while preserving the boundary and staying in the regular locus.
+
+More precisely: given a continuous map `f : D → compactIdentityComponent`
+where `D` is homeomorphic to a closed 2-disk, with `f(∂D) ⊆ regularLocusG`,
+there exists a larger disk `D' ⊇ D` (with `D' \\ D` homeomorphic to an
+annulus) and a continuous extension `f' : D' → compactIdentityComponent`
+such that `f'|_D = f` and `f'(D' \\ D) ⊆ regularLocusG`.
+
+This is a formalization target. The proof requires:
+1. The homotopy extension property for disks
+2. The fact that `regularLocusG` is open and dense
+3. The covering map `q : G/T × T → G` (Lemma 8)
+4. The simply-connectedness of `G/T` (Proposition 37)
+These are not yet fully formalized. -/
+theorem relativeAvoidance {D : Type*} [TopologicalSpace D] [CompactSpace D]
+    [LocallyCompactSpace D] [T2Space D]
+    (f : D → compactIdentityComponent) (hf : Continuous f)
+    (hf_avoid : ∀ x : D, f x ∈ regularLocusG)
+    (h_boundary : ∀ x : D, x ∈ frontier Set.univ → f x ∈ regularLocusG) :
+    ∃ (D' : Type*) (_ : TopologicalSpace D') (_ : CompactSpace D')
+    (_ : LocallyCompactSpace D') (_ : T2Space D')
+    (f' : D' → compactIdentityComponent) (_ : Continuous f'),
+    (∃ (i : D → D'), Continuous i) ∧
+    (∀ x : D, f' (i x) = f x) ∧
+    (∀ x : D', x ∉ Set.range i → f' x ∈ regularLocusG) := by
+  -- This is a formalization target. The statement records the precise
+  -- mathematical claim; the proof is not yet available.
+  sorry
+
+end
+
+end GUT.E6.Minuscule
+
+/-! ## Audit -/
+
+run_cmd do
+  let declarations := [
+    ``GUT.E6.Minuscule.isRegularInG,
+    ``GUT.E6.Minuscule.regularLocusG,
+    ``GUT.E6.Minuscule.relativeAvoidance]
+  for decl in declarations do
+    let axioms ← Lean.collectAxioms decl
+    for ax in axioms do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "E6 relative avoidance: {decl} uses unexpected axiom {ax}"
+    Lean.logInfo m!"E6 relative avoidance: {decl} depends on axioms: {axioms}"
+  Lean.logInfo m!"E6 relative avoidance: checked {declarations.length} declarations"

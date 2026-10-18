@@ -1,0 +1,45 @@
+import Physics.StandardModel.Operators.SMCompactSupportDecision
+import Lean.Util.CollectAxioms
+open Math GUT
+attribute [local instance] SMCompactSupportDecision.expressionDecision
+attribute [local instance] SMCompactSupportDecision.jointDecision
+
+-- Explicit witnesses avoid enumerating all occupations on positive queries.
+def indexedOccupationChoice {G : Type*} [Group G] (k : Nat)
+    (a : Fin (k+1) → ExteriorContentTree.Leaf G)
+    (o : ∀ i, GenerationTensorSupport.Occupation (a i).degree) :
+    GenerationTensorSupport.Choice (IndexedExteriorContent.tree k a) :=
+  match k with
+  | 0 => o 0
+  | k+1 => (o 0, indexedOccupationChoice k (fun i => a i.succ) (fun i => o i.succ))
+
+def pickOccupation (n a b : Nat) (ha : a<n+1) (hb : b<n-a+1) :
+    GenerationTensorSupport.Occupation n :=
+  CompactGenerationOccupations.toOccupation n ⟨⟨a,ha⟩,⟨b,hb⟩⟩
+
+noncomputable def constantOccupationChoice (s : DeltaLOneSignedInput.Species) (n a b : Nat)
+    (ha : a<n+1) (hb : b<n-a+1) :
+    GenerationTensorSupport.Choice
+      (SMJointContentSupport.tree (fun t => if t=s then n else 0)) := by
+  apply indexedOccupationChoice 9 (SMJointContentSupport.leaves (fun t => if t=s then n else 0))
+  intro t
+  dsimp only [SMJointContentSupport.leaves]
+  change GenerationTensorSupport.Occupation (if t=s then n else 0)
+  exact pickOccupation (if t=s then n else 0) (if t=s then a else 0)
+    (if t=s then b else 0) (by split_ifs <;> omega) (by split_ifs <;> omega)
+
+-- A candidate branch is data, not an assumed occurrence. Its existence and
+-- full joint validity are checked separately in every closed certificate.
+def firstChoice : (e : JointSourceExpression.Expr) → Option (JointSourceExpression.Choice e)
+  | .zero => none
+  | .atom _ => some ()
+  | .sum l r => match firstChoice l with
+    | some i => some (.inl i)
+    | none => (firstChoice r).map Sum.inr
+  | .tensor l r => do
+    let i ← firstChoice l
+    let j ← firstChoice r
+    pure (i,j)
+
+def firstBranch (e : JointSourceExpression.Expr) (h : (firstChoice e).isSome = true) :
+    JointSourceExpression.Choice e := (firstChoice e).get (by simpa using h)

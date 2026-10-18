@@ -1,0 +1,126 @@
+import Physics.StandardModel.Operators.SMJointHiggsSupport
+import Lean
+open Math GUT
+instance su2Decision (w : SU2TensorWordSupport.Word) :
+    Decidable (SU2TensorWordSupport.Supports w) := by
+  unfold SU2TensorWordSupport.Supports
+  infer_instance
+#eval decide (SU2TensorWordSupport.Supports (.leaf 0))
+#eval decide (SU2TensorWordSupport.Supports (.leaf 1))
+theorem control01 : SU2TensorWordSupport.Supports (.tensor (.leaf 1) (.leaf 1)) := by decide +kernel
+theorem control02 : ¬ SU2TensorWordSupport.Supports (.tensor (.leaf 1) (.leaf 2)) := by decide +kernel
+
+def q0 : JointSourceExpression.Expr := by
+  run_tac do
+    let e ← Lean.Elab.Term.elabTerm (← `( (SMSignedCoreJointPresentation.presentation 0 0).expression )) none
+    let v ← Lean.Meta.reduce e
+    Lean.Elab.Tactic.closeMainGoal `metadata v
+theorem control03 : q0 = (SMSignedCoreJointPresentation.presentation 0 0).expression := rfl
+
+def q6 : JointSourceExpression.Expr := by
+  run_tac do
+    let e ← Lean.Elab.Term.elabTerm (← `( (SMSignedCoreJointPresentation.presentation 0 6).expression )) none
+    let v ← Lean.Meta.reduce e
+    Lean.Elab.Tactic.closeMainGoal `metadata v
+theorem control04 : q6 = (SMSignedCoreJointPresentation.presentation 0 6).expression := rfl
+
+def expressionSize : JointSourceExpression.Expr → Nat
+  | .zero => 0
+  | .atom _ => 1
+  | .sum l r => expressionSize l + expressionSize r
+  | .tensor l r => expressionSize l * expressionSize r
+#eval expressionSize q0
+#eval expressionSize q6
+instance ownerEq : (w : ColorTensorTree.Shape) → DecidableEq (ColorTensorTree.Leaf w)
+  | .leaf _ _ => inferInstanceAs (DecidableEq Unit)
+  | .tensor l r => by
+    letI := ownerEq l
+    letI := ownerEq r
+    exact inferInstanceAs (DecidableEq (ColorTensorTree.Leaf l ⊕ ColorTensorTree.Leaf r))
+instance positiveDecision (w : ColorTensorTree.Shape) (k : Nat)
+    (h : ColorTensorTree.positive w = ColorTensorTree.negative w + 3*k)
+    (s : Equiv.Perm (Fin (ColorTensorTree.negative w + 3*k))) :
+    Decidable (ColorTreeDiagrams.PositiveValid w k h s) := by
+  unfold ColorTreeDiagrams.PositiveValid Function.Injective
+  infer_instance
+instance negativeDecision (w : ColorTensorTree.Shape) (k : Nat)
+    (h : ColorTensorTree.negative w = ColorTensorTree.positive w + 3*k)
+    (s : Equiv.Perm (Fin (ColorTensorTree.positive w + 3*k))) :
+    Decidable (ColorTreeDiagrams.NegativeValid w k h s) := by
+  unfold ColorTreeDiagrams.NegativeValid Function.Injective
+  infer_instance
+instance diagramDecision (t : ColorFlagTree.Tree) : Decidable (ColorTreeSupport.DiagramSupport t) := by
+  unfold ColorTreeSupport.DiagramSupport
+  infer_instance
+noncomputable instance colorDecision (w : RestrictedColorWordSupport.Word) :
+    Decidable (RestrictedColorWordSupport.Supports w) := by
+  unfold RestrictedColorWordSupport.Supports
+  infer_instance
+noncomputable instance jointDecision (w : JointColorSpinWord.Word) : Decidable (JointColorSpinWord.Supports w) := by
+  unfold JointColorSpinWord.Supports
+  infer_instance
+noncomputable instance expressionDecision (e : JointSourceExpression.Expr) : Decidable (JointSourceExpression.Supports e) := by
+  unfold JointSourceExpression.Supports
+  infer_instance
+theorem control05 : RestrictedColorWordSupport.Supports (.leaf (.symmetric 0)) := by decide +kernel
+theorem control06 : ¬ RestrictedColorWordSupport.Supports (.leaf (.symmetric 1)) := by decide +kernel
+theorem control07 : RestrictedColorWordSupport.Supports (.tensor (.leaf (.symmetric 1)) (.leaf (.oppositeSymmetric 1))) := by decide +kernel
+theorem control08 : ¬ RestrictedColorWordSupport.Supports (.leaf (.symmetric 3)) := by decide +kernel
+theorem control09 : ¬ RestrictedColorWordSupport.Supports (.leaf .adjoint) := by decide +kernel
+noncomputable instance contentDecision (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) :
+    Decidable (SMJointContentSupport.Supports c m) := by
+  unfold SMJointContentSupport.Supports JointContentPresentation.Supports
+  infer_instance
+#synth Decidable (SMJointContentSupport.Supports (fun _ => 0) 0)
+theorem control10 : JointSourceExpression.Supports q0 := by decide +kernel
+theorem control11 : ¬ JointSourceExpression.Supports .zero := by decide +kernel
+noncomputable instance higgsDecision {n : Nat} (p : Fin n → DeltaLOneSignedInput.Species) (h d : Nat) :
+    Decidable (SMJointHiggsSupport.HiggsSupport p h d) := by
+  unfold SMJointHiggsSupport.HiggsSupport
+  unfold BoundedHiggsSupport.Admissible
+  infer_instance
+-- First original-space gates: no stress or 107-row checks before these pass.
+theorem control12 : SMJointHiggsSupport.HiggsSupport (fun _ : Fin 2 => 3) 2 0 := by decide +kernel
+theorem control13 : ¬ SMJointHiggsSupport.HiggsSupport (fun _ : Fin 2 => 4) 4 0 := by decide +kernel
+theorem control14 : SelectionCriteria.Allowed (SMFiniteHiggsSupport.OriginalSpace
+    (QLFiniteSupport.flavor (0 : ZMod 1) 0) (fun _ : Fin 2 => 3) 2 0) := by
+  apply (SMJointHiggsSupport.original_ql_iff (fun _ : Fin 2 => 3) (0 : ZMod 1) 0 2 0).mpr
+  refine ⟨?_, ?_, ?_⟩
+  · decide +kernel
+  · decide +kernel
+  · decide +kernel
+theorem control15 : SelectionCriteria.Forbidden (SMFiniteHiggsSupport.OriginalSpace
+    (QLFiniteSupport.flavor (0 : ZMod 1) 0) (fun _ : Fin 2 => 4) 4 0) := by
+  apply (SMJointHiggsSupport.original_ql_forbidden_iff (fun _ : Fin 2 => 4) (0 : ZMod 1) 0 4 0).mpr
+  exact Or.inr (Or.inr (by decide +kernel))
+-- Remaining local gates, reversed and dual kinds.
+theorem control16 : RestrictedColorWordSupport.Supports (.tensor (.leaf (.symmetric 1))
+    (.tensor (.leaf (.symmetric 1)) (.leaf (.symmetric 1)))) := by decide +kernel
+theorem control17 : RestrictedColorWordSupport.Supports (.tensor (.leaf (.oppositeSymmetric 1))
+    (.tensor (.leaf (.oppositeSymmetric 1)) (.leaf (.oppositeSymmetric 1)))) := by decide +kernel
+theorem control18 : RestrictedColorWordSupport.Supports (.tensor (.leaf (.symmetricDual 1))
+    (.leaf (.oppositeSymmetricDual 1))) := by decide +kernel
+theorem control19 : ¬ RestrictedColorWordSupport.Supports (.leaf (.oppositeSymmetric 3)) := by decide +kernel
+theorem control20 : ¬ RestrictedColorWordSupport.Supports (.leaf .oppositeAdjoint) := by decide +kernel
+theorem control21 : ¬ RestrictedColorWordSupport.Supports (.leaf .adjointDual) := by decide +kernel
+theorem control22 : ¬ RestrictedColorWordSupport.Supports (.leaf .oppositeAdjointDual) := by decide +kernel
+-- Conjugate LLHH and mixed-conjugate, charge-neutral independent-spin failure.
+theorem control23 : SMJointHiggsSupport.HiggsSupport (fun _ : Fin 2 => 8) 0 2 := by decide +kernel
+theorem control24 : ¬ SMJointHiggsSupport.HiggsSupport (fun i : Fin 2 => if i.val = 0 then 0 else 5) 0 0 := by decide +kernel
+theorem control25 : SMJointHiggsSupport.HiggsSupport (![2,1,0,3] : Fin 4 → DeltaLOneSignedInput.Species) 0 0 := by decide +kernel
+theorem control26 : SMJointHiggsSupport.HiggsSupport (![0,0,1,4] : Fin 4 → DeltaLOneSignedInput.Species) 0 0 := by decide +kernel
+theorem control27 : SMJointHiggsSupport.HiggsSupport (![0,0,0,3] : Fin 4 → DeltaLOneSignedInput.Species) 0 0 := by decide +kernel
+theorem control28 : SMJointHiggsSupport.HiggsSupport (![2,1,1,4] : Fin 4 → DeltaLOneSignedInput.Species) 0 0 := by decide +kernel
+
+-- Strict transitive audit of every declaration introduced by this probe,
+-- including all named controls and elaborator-generated helpers.
+run_cmd do
+  let env ← Lean.getEnv
+  let mut count : Nat := 0
+  for (name, _) in env.constants.toList do
+    if (env.getModuleIdxFor? name).isNone then
+      for ax in (← Lean.collectAxioms name) do
+        unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+          throwError "probe declaration {name} uses unexpected axiom {ax}"
+      count := count + 1
+  Lean.logInfo m!"probe: {count} strict transitive checks passed"

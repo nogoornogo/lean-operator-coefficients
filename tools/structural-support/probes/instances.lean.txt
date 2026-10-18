@@ -1,0 +1,7 @@
+import Physics.StandardModel.Operators.SMJointHiggsSupport
+open Math GUT
+#synth Fintype (GenerationTensorSupport.Occupation 18)
+#synth Decidable (∃ _ : GenerationTensorSupport.Occupation 18, True)
+#print Set.fintypeRange
+#print Subtype.fintype
+#print Math.GenerationTensorSupport.choiceFinite

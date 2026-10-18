@@ -1,0 +1,40 @@
+import Physics.StandardModel.Operators.SMCompactSupportDecision
+import Physics.StandardModel.Operators.SMConstantWeakCapacity
+import Physics.StandardModel.Operators.SMChiralitySupport
+import Lean.Util.CollectAxioms
+open Math GUT
+
+-- Existing symbolic cutoff, transported to the same semisimple predicate as
+-- the comparison. No multiplicity/Weyl/CSV premise appears in this theorem.
+theorem constantWeakCutoff (s : DeltaLOneSignedInput.Species) (n m : Nat) (delta : Int)
+    (hc : SMContentWeakBound.hypercharge (SMConstantWeakCapacity.pattern s n) + 3*delta = 0)
+    (hm : SMConstantWeakCapacity.bound s n < m) :
+    ¬ SMJointContentSupport.Supports (fun t => if t=s then n else 0) m := by
+  intro hs
+  have hcounts : SMIteratedContent.counts (SMConstantWeakCapacity.pattern s n) =
+      (fun t => if t=s then n else 0) := by
+    funext t
+    by_cases ht : t=s
+    · subst t
+      simp [SMIteratedContent.counts,SMConstantWeakCapacity.pattern]
+    · simp [SMIteratedContent.counts,SMConstantWeakCapacity.pattern,ht,Ne.symm ht]
+  have ha := (SMJointHiggsSupport.local_iff (QLFiniteSupport.flavor (0 : ZMod 1) 0)
+    (SMConstantWeakCapacity.pattern s n) m delta).mpr ⟨hc,by simpa only [hcounts] using hs⟩
+  obtain ⟨f,hf⟩ := ha
+  exact hf (SMConstantWeakCapacity.local_high_zero (QLFiniteSupport.flavor (0 : ZMod 1) 0)
+    s n m delta hm f)
+
+-- This handles the frozen mixed stress key by its actual independent chirality,
+-- rather than enumerating every color diagram before discovering odd spin.
+theorem mixedOddForbidden : SelectionCriteria.Forbidden
+    (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor (0 : ZMod 1) 0)
+      (fun i : Fin 21 => if i.val < 18 then 0 else 5) 0 5) := by
+  apply SMChiralitySupport.original_forbidden _ _ true
+  decide +kernel
+
+run_cmd do
+  for d in [``constantWeakCutoff, ``mixedOddForbidden] do
+    for ax in (← Lean.collectAxioms d) do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "negative bridge {d} uses unexpected axiom {ax}"
+  Lean.logInfo "negative filter bridge: 2 strict transitive checks passed"

@@ -1,0 +1,133 @@
+-- Archived from 28c3124; unverified draft, not a Lean library module.
+import Mathlib.Algebra.Lie.Weights.RootSystem
+import Mathlib.Geometry.Manifold.Algebra.LieGroup
+import Lean.Util.CollectAxioms
+
+/-!
+# Root space decomposition and group centralizers
+
+This file provides general lemmas bridging the gap between mathlib's Lie algebra
+infrastructure (root spaces, weights, Cartan subalgebras) and the group-theoretic
+notion of centralizers. These lemmas are needed for the E6 candidate proof (L5)
+and are intended to be general enough to be upstreamed to mathlib.
+
+## Contents
+
+1. `IsRegularInTorus` — An element of the maximal torus is regular if its
+   centralizer equals the torus.
+
+2. `centralizer_eq_torus_of_regular` — For a regular element of the maximal torus,
+   the centralizer equals the torus.
+
+3. `lieAlgebra_centralizer_eq_cartan_of_regular` — The Lie algebraic counterpart:
+   for a regular element of the Cartan subalgebra, the centralizer in the
+   Lie algebra is exactly the Cartan subalgebra.
+
+The proofs of (2) and (3) require the full root space decomposition theory
+which is not yet fully formalized in mathlib. They are recorded here as
+formalization targets.
+-/
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+
+open LieModule
+
+namespace GUT.RootSpace
+
+/-!
+## 1. Regular elements and centralizers
+-/
+
+/-- An element `g` of the maximal torus `T` is **regular** if its centralizer
+equals `T`. In a compact connected semisimple Lie group, this is equivalent to
+no non-zero root character vanishing on `g`. -/
+def IsRegularInTorus {G : Type*} [Group G] (T : Subgroup G) (g : G) : Prop :=
+  g ∈ T ∧ Subgroup.centralizer ({g} : Set G) = T
+
+/-- For a regular element `g` of the maximal torus `T`, the centralizer of `g`
+in `G` equals `T`. -/
+theorem centralizer_eq_torus_of_regular {G : Type*} [Group G] (T : Subgroup G) {g : G}
+    (hreg : IsRegularInTorus T g) : Subgroup.centralizer ({g} : Set G) = T :=
+  hreg.2
+
+/-- The regular locus in `G` (relative to the maximal torus `T`) is the set of
+all elements whose centralizer equals `T`. This is the standard definition of
+the regular locus in a compact Lie group. -/
+def regularLocus {G : Type*} [Group G] (T : Subgroup G) : Set G :=
+  {g | Subgroup.centralizer ({g} : Set G) = T}
+
+/-- The torus embeds into the regular locus: every regular element of the maximal
+torus is in the regular locus. -/
+theorem regular_torus_subset_regularLocus {G : Type*} [Group G] (T : Subgroup G) {g : G}
+    (hg : IsRegularInTorus T g) : g ∈ regularLocus T :=
+  hg.2
+
+/-!
+## 2. Lie algebraic counterpart (gap lemma)
+
+The following theorem states the relationship between the root space decomposition
+of the Lie algebra and the centralizer in the group. This is the key mathematical
+fact that connects the Lie algebraic notion of "regular element" (no root vanishes)
+to the group-theoretic notion (centralizer equals the torus).
+
+The proof requires:
+- The root space decomposition `𝔤 = 𝔥 ⊕ ⊕_α 𝔤_α`
+- The fact that `C_G(g)` is the connected subgroup with Lie algebra `𝔤_g`
+- The fact that `𝔤_g = 𝔥 ⊕ ⊕_{α: α(g)=0} 𝔤_α`
+- The fact that `α(g) = 1` iff `g` is in the kernel of the root character `α`
+
+These are all standard results in the theory of compact semisimple Lie groups
+(Humphreys, Borel, etc.) but are not yet fully formalized in mathlib.
+-/
+
+/-- The centralizer of an element `g` in a Lie algebra `𝔤`:
+all `x` such that `⁅g, x⁆ = 0`. -/
+def lieCentralizer (𝔤 : Type*) [LieRing 𝔤] (g : 𝔤) : Set 𝔤 :=
+  {x | ⁅g, x⁆ = 0}
+
+/-- For a regular element `g` of the Cartan subalgebra `𝔥`, the centralizer in the
+Lie algebra `𝔤` is exactly `𝔥`. This is the Lie algebraic counterpart of
+`centralizer_eq_torus_of_regular`.
+
+The hypothesis `hreg` states that no non-zero root `α` satisfies `α(g) = 0`,
+which is the Lie algebraic definition of regularity: `g` is not in the kernel
+of any non-zero root.  Here `IsNonZero α` means `α` is not the zero weight,
+and `α g ≠ 0` means `g` is not annihilated by the root character `α`.
+
+If `α(g) = 0`, then the entire root space `𝔤_α` lies in the centralizer of `g`,
+so the centralizer would strictly contain `𝔥`.  The condition `α g ≠ 1` would
+be incorrect for this purpose (it would correspond to a different condition).
+
+This theorem is a **formalization target**: the proof requires the full root
+space decomposition theory which is not yet available in mathlib. -/
+theorem lieAlgebra_centralizer_eq_cartan_of_regular
+    (𝔤 : Type*) [LieRing 𝔤] [LieAlgebra ℝ 𝔤]
+    (𝔥 : LieSubalgebra ℝ 𝔤) [LieAlgebra.IsKilling ℝ 𝔤] [FiniteDimensional ℝ 𝔤]
+    [𝔥.IsCartanSubalgebra] [IsTriangularizable ℝ 𝔥 𝔤]
+    (g : 𝔥) (hreg : ∀ α : Weight ℝ 𝔥 𝔤, α.IsNonZero → α g ≠ 0) :
+    lieCentralizer 𝔤 (g : 𝔤) = (𝔥 : Set 𝔤) := by
+  -- This is a gap lemma: the proof requires the root space decomposition.
+  -- Placeholder: the actual proof would use the decomposition
+  -- 𝔤 = 𝔥 ⊕ ⊕_α 𝔤_α and the fact that α(g) ≠ 0 implies [g, 𝔤_α] ≠ 0.
+  sorry
+
+end GUT.RootSpace
+
+/-! ## Audit -/
+
+run_cmd do
+  let declarations := [
+    ``GUT.RootSpace.IsRegularInTorus,
+    ``GUT.RootSpace.centralizer_eq_torus_of_regular,
+    ``GUT.RootSpace.regularLocus,
+    ``GUT.RootSpace.regular_torus_subset_regularLocus,
+    ``GUT.RootSpace.lieCentralizer,
+    ``GUT.RootSpace.lieAlgebra_centralizer_eq_cartan_of_regular]
+  for decl in declarations do
+    let axioms ← Lean.collectAxioms decl
+    for ax in axioms do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "RootSpace: {decl} uses unexpected axiom {ax}"
+    Lean.logInfo m!"RootSpace: {decl} depends on axioms: {axioms}"
+  Lean.logInfo m!"RootSpace: checked {declarations.length} declarations"

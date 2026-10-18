@@ -1,0 +1,186 @@
+{
+  "branch": "proof/sm-b1-weak-connection",
+  "integration_target": "proof/sm-minimum-operator-dimension",
+  "profile": {
+    "threads": 1,
+    "timeout_seconds": 300,
+    "sampled_group_rss_limit_gib": 10,
+    "host_available_reserve_gib": 4,
+    "sampled_peak_is_not_exact_maximum": true,
+    "cached_imports": true
+  },
+  "runs": [
+    {
+      "label": "initial-marker-error",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py /tmp/b1-weak-localization.lean /tmp/b1-weak-localization.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 4.5,
+      "sampled_group_peak_kib": 5143972,
+      "result": "unavailable unqualified liftIO identifier; instrumentation error"
+    },
+    {
+      "label": "finite-count-localization",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py /tmp/b1-weak-localization.lean /tmp/b1-weak-localization2.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.5,
+      "sampled_group_peak_kib": 5149832,
+      "result": "old count lemma alone passes; counts-passed marker"
+    },
+    {
+      "label": "abstract-arithmetic",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1WeakCountArithmetic /tmp/b1-weak-arithmetic.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 6.0,
+      "sampled_group_peak_kib": 5245168,
+      "result": "explicit nonnegative identities and capacity sums"
+    },
+    {
+      "label": "initial-connection-draft",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py /tmp/b1-weak-connection.lean /tmp/b1-weak-connection.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 4.5,
+      "sampled_group_peak_kib": 5132644,
+      "result": "doc-marker placement and finite-array/association elaboration errors"
+    },
+    {
+      "label": "split-connection",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py /tmp/b1-weak-connection2.lean /tmp/b1-weak-connection2.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 5.0,
+      "sampled_group_peak_kib": 5134292,
+      "result": "all connection stages passed; empty diagnostic log"
+    },
+    {
+      "label": "strong-lower-build",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1StrongDimensionBounds /tmp/b1-weak-strong.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 13.3,
+      "sampled_group_peak_kib": 5281252,
+      "result": "actual connection and pure signed lower helpers"
+    },
+    {
+      "label": "initial-row-bridge",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1ExactMinima /tmp/b1-weak-exact-minima.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 14.0,
+      "sampled_group_peak_kib": 5894276,
+      "result": "Bool equality versus decidable equality wrapper error"
+    },
+    {
+      "label": "exact-audit-first",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.Audit.AuditSMB1ExactMinima /tmp/b1-weak-exact-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 19.0,
+      "sampled_group_peak_kib": 5895940,
+      "result": "all row minima/counts and 66 strict checks before added generic consumer"
+    },
+    {
+      "label": "exact-audit-final",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.Audit.AuditSMB1ExactMinima /tmp/b1-weak-final-audit-build.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 8.8,
+      "sampled_group_peak_kib": 5216580,
+      "result": "67 strict checks including generic weak consumer"
+    },
+    {
+      "label": "direct-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1ExactMinima.lean /tmp/b1-weak-direct-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.8,
+      "sampled_group_peak_kib": 5128876,
+      "result": "67 freshly executed strict checks"
+    },
+    {
+      "label": "fresh-consumers",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/SMB1ExactMinimaExamples.lean /tmp/b1-weak-fresh-examples.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 3.5,
+      "sampled_group_peak_kib": 5100688,
+      "result": "fresh elaborated importing consumers"
+    },
+    {
+      "label": "full-build",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build GUT /tmp/b1-weak-full.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 8.8,
+      "sampled_group_peak_kib": 6701072,
+      "result": "7364 jobs; zero warnings/errors"
+    },
+    {
+      "label": "merged-direct-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1ExactMinima.lean /tmp/b1-weak-merged-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.3,
+      "sampled_group_peak_kib": 5130916
+    },
+    {
+      "label": "merged-cached-full",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build GUT /tmp/b1-weak-merged-full.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 3.3,
+      "sampled_group_peak_kib": 916468
+    }
+  ],
+  "counts": {
+    "domain": 572,
+    "allowed_exact_minima": 326,
+    "all_degree_forbidden": 246,
+    "unresolved": 0
+  },
+  "minimum_engineering_dimension_distribution": {
+    "7": 48,
+    "9": 98,
+    "10": 62,
+    "14": 28,
+    "15": 16,
+    "19": 16,
+    "20": 10,
+    "24": 28,
+    "27": 10,
+    "31": 10
+  },
+  "strict_transitive_checks": 67,
+  "source_sha256": {
+    "Physics.lean": "1411c643e69a6b703bacb685ee509453386b670ee0121dc30539665556cd5917",
+    "Physics/StandardModel/Operators/SMB1WeakCountArithmetic.lean": "be36a35508fe5130104d08dd64d9ee680f7b4c3a8789347ca8ca696ee83ebaea",
+    "Physics/StandardModel/Operators/SMB1WeakDimensionBounds.lean": "7ff772f270e470a6b704a4264db2c71ebce18a10a9230d0814f96e0f4a9e9caa",
+    "Physics/StandardModel/Operators/SMB1StrongDimensionBounds.lean": "05f19e92cd1d5c87293c374ac680b01ee01c53cd9a15ece413968ae67deff395",
+    "Physics/StandardModel/Operators/SMB1ExactMinima.lean": "456493a84ff2000548b3daa69097c60995058ae46ca7c809d9a623770a2881e0",
+    "Physics/StandardModel/Operators/SMB1ExactMinimaExamples.lean": "9b31f215a07ba61afb2149a3de4eba9defe8192fdb9efff160334beb4a8387e2",
+    "Physics/StandardModel/Operators/Audit/AuditSMB1ExactMinima.lean": "7510e78d068e58e9a9144905c46e74fc3083aa040251af28b7b81a33cd1168fe",
+    "tools/structural-support/b1-weak-localize.py": "45832a97c6b9ba39981ca910c6d0cc795d2d320c344481dcfa391369d3afb9f1",
+    "Physics/StandardModel/Operators/SMB1DimensionWitnesses.lean": "bc1f0bfb4d3ea2ab244cb3cd58ef7470914fb20c1a3bf833f555531614187504"
+  },
+  "resource_stop_in_revision": false,
+  "old_whole_stopped_source_rerun": false,
+  "new_witness_search": false,
+  "source_policy": "passed",
+  "localization_probe_regeneration": "byte-identical",
+  "layout_modules": 1978,
+  "master_merge": false,
+  "push": false,
+  "full_build_jobs": 7364,
+  "warnings": 0,
+  "errors": 0,
+  "diff_check": "passed",
+  "links": {
+    "markdown_files": 1009,
+    "local_links": 6123,
+    "fragments": 115,
+    "errors": 0,
+    "read_only_checker_outside_sandbox": true
+  },
+  "integration": {
+    "target": "proof/sm-minimum-operator-dimension",
+    "tree_equal_to_verified_checkpoint": true,
+    "direct_strict_checks": 67,
+    "cached_full_jobs": 7364,
+    "local_child_safely_deleted": true
+  },
+  "final_links": {
+    "markdown_files": 1010,
+    "local_links": 6125,
+    "fragments": 115,
+    "errors": 0
+  }
+}

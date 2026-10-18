@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "original": "Physics/StandardModel/Operators/SMComputableCharacterExamples.lean",
+      "snapshot": "SMComputableCharacterExamples.lean.txt",
+      "sha256": "d2c1cd1ad62c32a5479b4116817471727109b454b1e5758bd00e8eb0fbfc13d6",
+      "retired_module": true
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralSparseExamples.lean",
+      "snapshot": "SMNeutralSparseExamples.lean.txt",
+      "sha256": "907930a61dd17a739668026732a755bfc98e1d980222fd3a8a0fcd29654ddff9",
+      "retired_module": true
+    },
+    {
+      "original": "Physics/StandardModel/Operators/Audit/AuditSMComputableCharacter.lean",
+      "snapshot": "AuditSMComputableCharacter.lean.txt",
+      "sha256": "d6a3c535818cb8cc784b9217f3a0d358195de30bc4b9daebcea3e813bd892ede",
+      "retired_module": false
+    },
+    {
+      "original": "Physics/StandardModel/Operators/Audit/AuditSMSparseCharacter.lean",
+      "snapshot": "AuditSMSparseCharacter.lean.txt",
+      "sha256": "6f2881a60c2584bed984ede2438d2e1a4992d147fb8dcdd5f6fcb3874f21db34",
+      "retired_module": false
+    }
+  ]
+}

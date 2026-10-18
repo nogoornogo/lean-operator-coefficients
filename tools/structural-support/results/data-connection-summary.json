@@ -1,0 +1,157 @@
+{
+  "status": "verified_connection_and_named_downstream_consumers",
+  "base_checkpoint": "8cfc88a6",
+  "guard": {
+    "seconds": 120,
+    "rss_gib": 10,
+    "host_reserve_gib": 4,
+    "lean_threads": 1,
+    "proof_options_changed": false
+  },
+  "new_computational_support_proofs": false,
+  "public_math_audit_targets": 2,
+  "public_physics_audit_targets": 34,
+  "fresh_consumer_audit_targets": 5,
+  "measurements": [
+    {
+      "check": "imports_only",
+      "outcome": "pass",
+      "seconds": 4.0,
+      "peak_kib": 5037924
+    },
+    {
+      "check": "reexpression_build",
+      "outcome": "pass",
+      "seconds": 5.0,
+      "peak_kib": 4892440
+    },
+    {
+      "check": "core_presentation_build",
+      "outcome": "pass",
+      "seconds": 5.5,
+      "peak_kib": 5143284
+    },
+    {
+      "check": "joint_support_build",
+      "outcome": "pass",
+      "seconds": 6.0,
+      "peak_kib": 5142728
+    },
+    {
+      "check": "ordinary_examples_build",
+      "outcome": "pass",
+      "seconds": 5.5,
+      "peak_kib": 5137528
+    },
+    {
+      "check": "persistent_audits_build",
+      "outcome": "pass",
+      "seconds": 7.8,
+      "peak_kib": 5463064
+    },
+    {
+      "check": "fresh_consumers_final_with_audit",
+      "outcome": "pass",
+      "seconds": 3.8,
+      "peak_kib": 5040200
+    },
+    {
+      "check": "runtime_degree6",
+      "outcome": "pass",
+      "seconds": 3.8,
+      "peak_kib": 5048212
+    },
+    {
+      "check": "runtime_degree13",
+      "outcome": "pass",
+      "seconds": 3.5,
+      "peak_kib": 5036556
+    },
+    {
+      "check": "physics_strict_audit_direct",
+      "outcome": "pass",
+      "seconds": 3.5,
+      "peak_kib": 5390636
+    },
+    {
+      "check": "math_strict_audit_direct",
+      "outcome": "pass",
+      "seconds": 3.8,
+      "peak_kib": 5171520
+    },
+    {
+      "check": "full_library_GUT",
+      "outcome": "pass",
+      "seconds": 16.0,
+      "peak_kib": 6694332,
+      "jobs": 7335,
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "superseded_failures": [
+    {
+      "check": "old_untyped_localization",
+      "outcome": "rss_guard",
+      "seconds": 54.6,
+      "peak_kib": 10501780
+    },
+    {
+      "check": "direct_natural_case_projection",
+      "outcome": "rss_guard",
+      "seconds": 60.7,
+      "peak_kib": 10492008
+    },
+    {
+      "check": "direct_first_species_projection",
+      "outcome": "rss_guard",
+      "seconds": 62.1,
+      "peak_kib": 10489052
+    },
+    {
+      "check": "reexpress_first_without_concrete_local_instances",
+      "outcome": "default_heartbeat_limit",
+      "seconds": 18.8,
+      "peak_kib": 5183392
+    }
+  ],
+  "controlled_adapter_with_concrete_local_instances": {
+    "outcome": "pass",
+    "seconds": 3.5,
+    "peak_kib": 5053252
+  },
+  "cancelled_diagnostics_without_assigned_metrics": [
+    "stderr_revised_core",
+    "file_progress_core",
+    "explicit_normalization",
+    "generic_instance_only",
+    "normalized_first_species",
+    "reexpress_old_SM_wrapper",
+    "direct_projection_with_concrete_instances"
+  ],
+  "resource_scope": "Measured connection and named downstream applications, not universal proof or witness-search complexity.",
+  "data_runtime_checks": {
+    "degree6": "degree=6; signed_core_branches=[20, 1, 1, 0, 0, 20, 1, 1, 0, 0]; Q_last_generation=20; Q18_balanced=8000",
+    "degree13": "degree=13; signed_core_branches=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; Q_last_generation=0; Q18_balanced=8000"
+  },
+  "source_sha256": {
+    "Math/RepresentationTheory/JointSourceReexpression.lean": "edec972ecf5113ac2297ca403f1b39c30d881f4a46d86975850e35ce144694ab",
+    "Math/RepresentationTheory/Audit/AuditJointSourceReexpression.lean": "226461481bf3042e840b1d298840e7f6c87fd22258dd5d5b2b5dd0f954ac212e",
+    "Physics/StandardModel/Operators/SMCoreSourceData.lean": "4809153166a0cc7a4001e10986558a156b3525877a9695aae0ec2a8ef74fc9c9",
+    "Physics/StandardModel/Operators/SMJointSupportData.lean": "6ec070774194d71fa8e8a61581d0633909e2ddc856a3c5cd7024099951931af3",
+    "Physics/StandardModel/Operators/SMJointSupportDataExamples.lean": "dabc06190c75c9d97ce60355ed58a12b164e21d742005b14bf7f12ed2acf7c1c",
+    "Physics/StandardModel/Operators/Audit/AuditSMJointSupportData.lean": "f5d390421d7b102cb66cabcf50ddca57f7203fe8943c987566fcce009a5b9315",
+    "tools/structural-support/probes/sm-joint-data-use.lean.txt": "2a4def82f890995cf95567256ac2cdfbf11bd40f18f7bd4dd788d8f4561d4b32",
+    "tools/structural-support/probes/sm-joint-data-consumers.lean.txt": "fe8d67cbb7bfd1374da47a137af11663f234cf1924de440f4461c16ae915f4d2",
+    "tools/structural-support/connection-probe.py": "895cc20b8ee0a2963d74baa85bff0305f10ce1d2403180d67e125806ab197ac6"
+  },
+  "integration": "not_merged_not_pushed",
+  "repository_checks": {
+    "modules": 1949,
+    "markdown_files": 980,
+    "local_links": 5993,
+    "fragments": 113,
+    "link_errors": 0,
+    "diff_check": "pass"
+  }
+}

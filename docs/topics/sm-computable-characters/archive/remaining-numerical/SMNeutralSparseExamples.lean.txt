@@ -1,0 +1,51 @@
+import Physics.StandardModel.Operators.SMNeutralSparseRanks
+import Physics.StandardModel.Operators.SMGroupedCharacter
+
+/-! Small kernel-checked controls for the sparse and cached evaluators.
+The full 107-row compiled export is a separate diagnostic artifact. -/
+namespace GUT.SMNeutralSparseExamples
+set_option autoImplicit false
+open SMNeutralSparseRanks
+
+theorem empty : SMSparseCharacter.multiplicity (fun _ => 0) 0 0 = 1 := by
+  decide +kernel
+
+theorem llhh : SMSparseCharacter.multiplicity (counts ⟨3, 2, 2, 2⟩) 2 2 = 6 := by
+  decide +kernel
+
+theorem l_four : solve ⟨3, 4, 4, 4⟩ = ⟨6, 2469⟩ := by
+  decide +kernel
+
+theorem conjugate_llhh : solve ⟨8, 2, 2, -2⟩ = ⟨6, 192⟩ := by
+  decide +kernel
+
+theorem q_six_evaluation : solveDirectWith SMKernelWeightData.tables ⟨0,6,2,-2⟩ =
+    ⟨261,5843115⟩ := by decide +kernel
+
+theorem q_six : solve ⟨0,6,2,-2⟩ = ⟨261,5843115⟩ :=
+  (solveDirectWith_data _).symm.trans q_six_evaluation
+
+theorem l_four_bounded : SMGroupedCharacter.solveBounded ⟨3,4,4,4⟩ = ⟨6,2469⟩ := by
+  decide +kernel
+
+noncomputable section
+theorem l_four_kernel (input : Input ⟨3, 4, 4, 4⟩) : Module.finrank ℂ
+    (SMFullLocalKernel.Kernel LLHHKernelRank.flavor
+      (SMConstantContentRanks.pattern 3 4) 4 4) = 6 :=
+  (kernel_dimension _ input).trans (congrArg (fun r => r.multiplicity.toNat) l_four)
+
+theorem l_four_rank (input : Input ⟨3, 4, 4, 4⟩) :
+    SMConstantContentRanks.actualRank 3 4 4 4 = 2469 :=
+  (rank_sound _ input).trans (congrArg Result.rank l_four)
+
+theorem q_six_kernel (input : Input ⟨0,6,2,-2⟩) : Module.finrank ℂ
+    (SMFullLocalKernel.Kernel LLHHKernelRank.flavor
+      (SMConstantContentRanks.pattern 0 6) 2 (-2)) = 261 :=
+  (kernel_dimension _ input).trans (congrArg (fun r => r.multiplicity.toNat) q_six)
+
+theorem q_six_rank (input : Input ⟨0,6,2,-2⟩) :
+    SMConstantContentRanks.actualRank 0 6 2 (-2) = 5843115 :=
+  (rank_sound _ input).trans (congrArg Result.rank q_six)
+
+end
+end GUT.SMNeutralSparseExamples

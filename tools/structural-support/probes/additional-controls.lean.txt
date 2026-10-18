@@ -1,0 +1,37 @@
+import Physics.StandardModel.Operators.SMCompactSupportDecision
+import Lean.Util.CollectAxioms
+open Math GUT
+attribute [local instance] SMCompactSupportDecision.higgsDecision
+
+def branches : JointSourceExpression.Expr → Nat
+  | .zero => 0
+  | .atom _ => 1
+  | .sum l r => branches l + branches r
+  | .tensor l r => branches l * branches r
+
+theorem conjugateMetadata : branches (SMSignedCoreJointPresentation.presentation 5 6).expression = 20 := by
+  decide +kernel
+
+theorem positiveOverflow : (SMSignedCoreJointPresentation.presentation 0 13).expression = .zero := rfl
+theorem conjugateOverflow : (SMSignedCoreJointPresentation.presentation 5 13).expression = .zero := rfl
+
+theorem emptySupport : SMJointHiggsSupport.HiggsSupport (fun i : Fin 0 => i.elim0) 0 0 := by
+  decide +kernel
+
+-- The largest constant-species occupation table is independently executable.
+local instance compact36 : Fintype (GenerationTensorSupport.Occupation 36) :=
+  CompactGenerationOccupations.fintype 36
+#eval Fintype.card (GenerationTensorSupport.Occupation 36)
+theorem compactCard36 : Fintype.card (GenerationTensorSupport.Occupation 36) = 703 := by
+  decide +kernel
+
+run_cmd do
+  let env ← Lean.getEnv
+  let mut count : Nat := 0
+  for (name, _) in env.constants.toList do
+    if (env.getModuleIdxFor? name).isNone then
+      for ax in (← Lean.collectAxioms name) do
+        unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+          throwError "additional control {name} uses unexpected axiom {ax}"
+      count := count+1
+  Lean.logInfo m!"additional controls: {count} strict transitive checks passed"

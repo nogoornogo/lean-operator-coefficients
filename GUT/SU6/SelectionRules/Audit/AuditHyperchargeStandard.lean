@@ -1,0 +1,58 @@
+import GUT.SU6.Hypercharge.HyperchargeBranchArithmetic
+import GUT.SU6.SelectionRules.FlippedBranch.ColorNeutralSMTarget
+import GUT.SU6.Characters.FifthMomentHypercharge
+import GUT.SU6.SelectionRules.StandardBranch.StandardBranchProtonObstruction
+import GUT.SU6.Branching.StandardSU5Orbit
+
+open Math
+
+/-!
+# Axiom audit for hypercharge-branch arithmetic and the standard branch
+
+This reusable third-milestone audit covers the exact integer-lattice
+reduction, the normalized finite-weight fifth-moment invariant theory, the
+direct fifth-moment arithmetic classification, the color-neutral exclusion,
+the standard `SU(5)` Weyl-orbit coefficient equalities, and the two
+standard-branch proton-functional identities.  It intentionally does not
+claim the remaining actual-character-to-normalized-weight-source bridge.
+-/
+
+#print axioms GUT.HyperchargeBranchArithmetic.primitive_neutral_block_classification
+#print axioms GUT.HyperchargeBranchArithmetic.colorNeutralPair_not_flipped_or_standard
+#print axioms GUT.HyperchargeBranchArithmetic.eq_flipped_or_standard_of_primitive_of_oriented_neutrality
+#print axioms GUT.HyperchargeBranchArithmetic.physicalCircleHom_eq_flipped_or_standard_of_injective_of_oriented_neutrality
+#print axioms GUT.HyperchargeBranchArithmetic.eq_flipped_or_standard_of_primitive_of_oriented_neutralBlock_of_ne_color
+#print axioms GUT.HyperchargeBranchArithmetic.physicalCircleHom_eq_flipped_or_standard_of_injective_of_neutralBlock_of_ne_color
+#print axioms GUT.SignedWeylTransposition.signedTranspositionSU_conj_diagonal
+#print axioms GUT.ColorNeutralBranch.swap56_colorNeutralSMCharacter_ne
+#print axioms GUT.ColorNeutralBranch.diagonalLaurentFaithful
+#print axioms GUT.ColorNeutralBranch.restrictedCharacter_swap56_fixed
+#print axioms GUT.ColorNeutralBranch.no_nonzero_generation_colorNeutralSM_add_singlets_uplift
+#print axioms GUT.ColorNeutralSMGroup.embedding_injective
+#print axioms GUT.ColorNeutralSMGroup.embedding_torusPoint
+#print axioms GUT.ColorNeutralSMTarget.target_character_torus
+#print axioms GUT.ColorNeutralSMTarget.no_colorNeutralSMTarget_characterEquivalent_restriction
+#print axioms GUT.AmbientWeylMoment.fifthMomentPolynomial_isSymmetric
+#print axioms GUT.AmbientWeylMoment.fifthMomentPolynomial_isHomogeneous
+#print axioms GUT.AmbientWeylMoment.fifthMoment_traceZero_span
+#print axioms GUT.DegreeFiveWeylInvariant.symmetric_degreeFive_traceZero_span
+#print axioms GUT.FifthMomentHypercharge.ambientCartanCoordinates_sum
+#print axioms GUT.FifthMomentHypercharge.powerSumValue_ambientCartanCoordinates
+#print axioms GUT.FifthMomentHypercharge.hasFifthMomentExtension_of_weylInvariantSource
+#print axioms GUT.FifthMomentHypercharge.scaledFifthMomentExtension_of_weylInvariantSource
+#print axioms GUT.FifthMomentHypercharge.scaledWeylInvariantSource_of_ambientWeightCharacter
+#print axioms GUT.FifthMomentHypercharge.eq_standard_of_hasFifthMomentExtension
+#print axioms GUT.FifthMomentHypercharge.eq_standard_of_weylInvariantFifthMomentSource
+#print axioms GUT.FifthMomentHypercharge.standard_hasFifthMomentExtension
+#print axioms GUT.FifthMomentHypercharge.hasFifthMomentExtension_iff
+#print axioms GUT.FifthMomentHypercharge.eq_standardPair_of_integerPairHasFifthMomentExtension
+#print axioms GUT.FifthMomentHypercharge.eq_standard_of_scaled_fifthMomentExtension
+#print axioms GUT.FifthMomentHypercharge.eq_standard_of_scaled_weylInvariantFifthMomentSource
+#print axioms GUT.FifthMomentHypercharge.eq_standard_of_ambientWeylWeightCharacterSource
+#print axioms Math.StandardSU5Orbit.coeff_permute_eq
+#print axioms Math.StandardSU5Orbit.ten_coefficients_equal
+#print axioms Math.StandardSU5Orbit.barFive_coefficients_equal
+#print axioms GUT.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_su5OrbitCompatible
+#print axioms GUT.StandardBranchProtonObstruction.protonSecond_eq_weakAnomaly_sub_colorAnomaly
+#print axioms GUT.StandardBranchProtonObstruction.protonFirst_eq_anomaly_combination
+#print axioms GUT.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_anomaly_free

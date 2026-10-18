@@ -1,0 +1,85 @@
+import GUT.SU6.SelectionRules.Models.PhysicalMassSpectrumBridge
+import GUT.SU6.SelectionRules.Models.StandardMassSpectrumBridge
+
+/-!
+# Axiom audit for equivariant mass-index spectrum bridges
+
+This reusable audit covers the finite-dimensional kernel/range character
+index, faithful evaluation at arbitrary physical torus weights and Abelian
+residual charges, and the resulting hypercharge character rigidity-to-standard charge-orbit bridge-to-Abelian proton-operator neutrality strict ordinary bridge.
+
+For the strict ordinary source, the ultraviolet model identification is now
+constructed from the actual charged `SU(6)` summands.  The weakest mass
+interface asks only that the resulting light virtual character equal the
+SM-plus-singlets target.  A stronger interface obtains that equality from
+separate representation equivalences for the unmatched kernel and cokernel,
+and the block interface constructs the mass map and both equivalences from
+unitary light-plus-heavy decompositions with one common paired heavy block.
+The audit does not assert that every intended Lagrangian supplies an invariant
+mass pairing, or that its induced map has the stated low-energy chiral index.
+-/
+
+#print axioms GUT.EquivariantMassIndex.InvariantMassPairing.intertwines
+#print axioms GUT.EquivariantMassIndex.InvariantMassPairing.toIntertwiningMap
+#print axioms GUT.EquivariantMassIndex.InvariantMassPairing.ofIntertwiningMap
+#print axioms GUT.EquivariantMassIndex.InvariantMassPairing.ofIntertwiningMap_toIntertwiningMap
+
+#print axioms GUT.EquivariantMassIndex.orthogonalDecompositionEquiv
+#print axioms GUT.EquivariantMassIndex.character_eq_add_orthogonal
+#print axioms GUT.EquivariantMassIndex.kernelComplementRangeEquiv
+#print axioms GUT.EquivariantMassIndex.lightIndexCharacter_eq_source_sub_target
+#print axioms GUT.EquivariantMassIndex.lightIndex_characterEquivalent_ultravioletIndex
+#print axioms GUT.EquivariantMassIndex.ultravioletIndex_characterEquivalent_of_lightIndex
+
+#print axioms GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.productRepresentation_unitary
+#print axioms GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.product_character
+#print axioms GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.positive_character_sub_negative_character
+#print axioms GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.ultravioletIndex_characterEquivalent
+#print axioms GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.lightIndex_characterEquivalent_of_equiv
+
+#print axioms GUT.UnitaryBlockMass.ActualUnitaryGroupRepresentation.kernelEquivPositive
+#print axioms GUT.UnitaryBlockMass.ActualUnitaryGroupRepresentation.cokernelEquivNegative
+#print axioms GUT.UnitaryBlockMass.ActualUnitaryGroupRepresentation.transportedKernelEquivPositive
+#print axioms GUT.UnitaryBlockMass.ActualUnitaryGroupRepresentation.transportedCokernelEquivNegative
+#print axioms GUT.UnitaryBlockMass.FiniteUnitaryVirtualRepresentation.BlockDecomposition.lightIndexEquiv
+
+#print axioms GUT.PhysicalChargeResolvedEvaluation.keyMonoidHom_injective
+#print axioms GUT.PhysicalChargeResolvedEvaluation.eval_faithful
+#print axioms GUT.PhysicalChargeResolvedEvaluation.character_ofCharacter
+#print axioms GUT.PhysicalChargeResolvedEvaluation.character_eq_of_models_of_characterEquivalent
+
+#print axioms GUT.PhysicalChargedCharacterBridge.chargedPhysicalRho_unitary
+#print axioms GUT.PhysicalChargedCharacterBridge.chargedPhysicalRho_character
+#print axioms GUT.PhysicalChargedCharacterBridge.sourceProductRepresentation_character
+#print axioms GUT.PhysicalChargedCharacterBridge.canonicalUltravioletIndex_characterEquivalent
+
+#print axioms GUT.PhysicalLightSpectrumBridge.norm_keyMonoidHom
+#print axioms GUT.PhysicalLightSpectrumBridge.weightRho_unitary
+#print axioms GUT.PhysicalLightSpectrumBridge.unitaryOfCharacter_toFiniteVirtual
+#print axioms GUT.PhysicalLightSpectrumBridge.lightIndex_characterEquivalent_of_equiv
+#print axioms GUT.PhysicalLightSpectrumBridge.BlockDecomposition.lightSpectrumEquiv
+
+#print axioms GUT.StandardMassSpectrumBridge.Source.resolvedCharacter_eq_target
+#print axioms GUT.StandardMassSpectrumBridge.Source.coefficientSpectrum
+#print axioms GUT.StandardMassSpectrumBridge.Source.protonCharacters_eq_one
+#print axioms GUT.StandardMassSpectrumBridge.Source.finiteAbelian_protonCharacters_eq_one
+
+#print axioms GUT.PhysicalMassSpectrumBridge.CharacterSource.resolvedCharacter_eq_target
+#print axioms GUT.PhysicalMassSpectrumBridge.CharacterSource.coefficientSpectrum
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinaryChiralIndexSource.exactPhysicalSpectrum
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinaryChiralIndexSource.hyperchargePair_eq_standard
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinaryChiralIndexSource.standardCoefficientSpectrum
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinaryChiralIndexSource.physicalCharge_equalities
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinaryChiralIndexSource.protonCharacters_eq_one
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinaryChiralIndexSource.finiteAbelian_protonCharacters_eq_one
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinarySource.toChiralIndexSource
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinarySource.exactPhysicalSpectrum
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinarySource.hyperchargePair_eq_standard
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinarySource.standardCoefficientSpectrum
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinarySource.protonCharacters_eq_one
+#print axioms GUT.PhysicalMassSpectrumBridge.OrdinarySource.finiteAbelian_protonCharacters_eq_one
+#print axioms GUT.PhysicalMassSpectrumBridge.BlockSource.exactPhysicalSpectrum
+#print axioms GUT.PhysicalMassSpectrumBridge.BlockSource.hyperchargePair_eq_standard
+#print axioms GUT.PhysicalMassSpectrumBridge.BlockSource.standardCoefficientSpectrum
+#print axioms GUT.PhysicalMassSpectrumBridge.BlockSource.protonCharacters_eq_one
+#print axioms GUT.PhysicalMassSpectrumBridge.BlockSource.finiteAbelian_protonCharacters_eq_one

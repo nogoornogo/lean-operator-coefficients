@@ -1,0 +1,8 @@
+import Math.RepresentationTheory.CompactGenerationOccupations
+open Math
+local instance : Fintype (GenerationTensorSupport.Occupation 18) :=
+  CompactGenerationOccupations.fintype 18
+theorem compactCard : Fintype.card (GenerationTensorSupport.Occupation 18) = 190 := by decide +kernel
+#check compactCard
+theorem compactExists : ∃ _ : GenerationTensorSupport.Occupation 18, True := by decide +kernel
+#check compactExists

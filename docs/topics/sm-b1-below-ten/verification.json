@@ -1,0 +1,123 @@
+{
+  "branch": "proof/sm-b1-below-ten",
+  "integration_target": "proof/sm-minimum-operator-dimension",
+  "profile": {
+    "threads": 1,
+    "timeout_seconds": 300,
+    "sampled_group_rss_limit_gib": 10,
+    "host_available_reserve_gib": 4,
+    "sampled_peak_is_not_exact_maximum": true,
+    "cached_imports": true
+  },
+  "runs": [
+    {
+      "label": "criterion",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1BelowTen /tmp/b1-below-ten-criterion.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 5.3,
+      "sampled_group_peak_kib": 5235048
+    },
+    {
+      "label": "assignments",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1BelowTenAssignments /tmp/b1-below-ten-assignments.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 7.5,
+      "sampled_group_peak_kib": 5599628
+    },
+    {
+      "label": "audit-build",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.Audit.AuditSMB1BelowTen /tmp/b1-below-ten-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 7.3,
+      "sampled_group_peak_kib": 5205428
+    },
+    {
+      "label": "direct-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1BelowTen.lean /tmp/b1-below-ten-direct.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.3,
+      "sampled_group_peak_kib": 5125392
+    },
+    {
+      "label": "fresh-consumers",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/SMB1BelowTenExamples.lean /tmp/b1-below-ten-fresh.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 3.5,
+      "sampled_group_peak_kib": 5110428
+    },
+    {
+      "label": "full-build",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build GUT /tmp/b1-below-ten-full.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 8.3,
+      "sampled_group_peak_kib": 6704528
+    },
+    {
+      "label": "merged-child-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1BelowTen.lean /tmp/b1-below-ten-merged-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.5,
+      "sampled_group_peak_kib": 5123500
+    },
+    {
+      "label": "merged-parent-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMMinimumOperatorDimension.lean /tmp/b1-below-ten-merged-parent-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.3,
+      "sampled_group_peak_kib": 5124352
+    },
+    {
+      "label": "merged-full-build",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build GUT /tmp/b1-below-ten-merged-full.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 3.3,
+      "sampled_group_peak_kib": 914324
+    }
+  ],
+  "strict_transitive_checks": 69,
+  "full_build_jobs": 7352,
+  "warnings": 0,
+  "errors": 0,
+  "failures": [],
+  "counts": {
+    "domain": 572,
+    "below_ten_allowed": 146,
+    "below_ten_forbidden": 426,
+    "later_allowed": 180,
+    "all_degree_forbidden": 246,
+    "unresolved": 0
+  },
+  "source_sha256": {
+    "Physics.lean": "c3fdc8e6a584dd49fe8259e984cca59afbcef0f9519e676062e600eaf6a72bd1",
+    "Physics/StandardModel/Operators/SMB1BelowTen.lean": "ce104d23dd94028eadb5ed07eb4e045dda1cfe54fa46a6dd2144e13842383d97",
+    "Physics/StandardModel/Operators/SMB1BelowTenAssignments.lean": "ee12d74bbe3aeabc4c9149439fb7447508bcaa9866136337aa8a3e235382edf1",
+    "Physics/StandardModel/Operators/SMB1BelowTenExamples.lean": "2cfc69468c8fc129b74361b8af734d768680e99f3ee2bb71f1955f97743ab3aa",
+    "Physics/StandardModel/Operators/Audit/AuditSMB1BelowTen.lean": "7a7691753ee5ba14d64b3cc5307ebc3da0e0fd7ebb7c6e1437858ab4b3a0c8db"
+  },
+  "auxiliary_checks": {
+    "layout_modules": 1966,
+    "source_policy": "passed",
+    "diff_check": "passed",
+    "markdown_files": 1001,
+    "local_links": 6086,
+    "heading_fragments": 115,
+    "link_errors": 0,
+    "final_markdown_files": 1002,
+    "final_local_links": 6088,
+    "final_heading_fragments": 115,
+    "final_link_errors": 0,
+    "final_link_retry": "sandbox git subprocess EPERM; unchanged read-only checker passed with permitted escalation"
+  },
+  "route_b_needed": false,
+  "resource_stop": false,
+  "scope_extension": false,
+  "master_merge": false,
+  "push": false,
+  "integration": {
+    "target": "proof/sm-minimum-operator-dimension",
+    "tree_equal_to_checkpoint": true,
+    "strict_checks_freshly_executed": 209,
+    "full_build_cached": true,
+    "local_child_branch_safely_deleted": true
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "status": "resource_stop_verified_math_partial_result",
+  "planning_checkpoint": "f0b947e5",
+  "new_computational_support_proofs": false,
+  "active_sm_bridge": false,
+  "strict_transitive_checks": 56,
+  "resource_policy": {
+    "rss_guard_gib": 10,
+    "host_reserve_gib": 4,
+    "timeout_seconds": 300,
+    "lean_threads": 1,
+    "proof_options_changed": false
+  },
+  "measurements": [
+    {
+      "check": "single_pair_data_initial_build",
+      "outcome": "pass",
+      "seconds": 8.5,
+      "peak_kib": 4899000
+    },
+    {
+      "check": "colored_q_data_final_build",
+      "outcome": "pass",
+      "seconds": 5.3,
+      "peak_kib": 4985464
+    },
+    {
+      "check": "generic_composition_build",
+      "outcome": "pass",
+      "seconds": 4.8,
+      "peak_kib": 4947216
+    },
+    {
+      "check": "retained_modules_and_audit_build",
+      "outcome": "pass",
+      "seconds": 14.0,
+      "peak_kib": 5295848
+    },
+    {
+      "check": "sm_bridge_candidate",
+      "outcome": "rss_guard_interrupt",
+      "seconds": 60.1,
+      "peak_kib": 10508652,
+      "child_exit": -2,
+      "declaration_bottleneck_identified": false
+    },
+    {
+      "check": "runtime_degree6",
+      "outcome": "pass_diagnostic_only",
+      "seconds": 3.3,
+      "peak_kib": 4874852,
+      "stdout": "degree=6; pair=0; single=0; colored=1; Q=20; conjugateQ=20; two_species=400"
+    },
+    {
+      "check": "runtime_degree13",
+      "outcome": "pass_diagnostic_only",
+      "seconds": 3.5,
+      "peak_kib": 4884444,
+      "stdout": "degree=13; pair=0; single=0; colored=0; Q=0; conjugateQ=0; two_species=0"
+    },
+    {
+      "check": "strict_audit_direct",
+      "outcome": "pass",
+      "seconds": 3.8,
+      "peak_kib": 5229344
+    },
+    {
+      "check": "full_library_build_GUT",
+      "outcome": "pass",
+      "seconds": 16.5,
+      "peak_kib": 6695132,
+      "jobs": 7329,
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "source_sha256": {
+    "Math/RepresentationTheory/JointSourceData.lean": "521fdb2bef1b02a66b5fa144d4779c09f15874075b5389e612a0bc3b2259c22f",
+    "Math/RepresentationTheory/ColoredSourceData.lean": "1ce26fad6f93461782301ea01aa7bf4c58b54d4ef5c628008dfc4005cce28ebf",
+    "Math/RepresentationTheory/JointContentData.lean": "6bf0f998664528ba63c50006ab850c56692214f106b1b6eccf7e366e96ce6adc",
+    "Math/RepresentationTheory/Audit/AuditJointSourceData.lean": "d0590177116eccef4a817be5f899c641c0ff37a76dfc93fc18dd7a2b154e05a4",
+    "tools/structural-support/probes/joint-source-data-smoke.lean.txt": "90566b91e7c06db1b7ab3a57e8158e7fdd1976c1b887e5863600280e9df3f051",
+    "tools/structural-support/probes/sm-joint-support-data-candidate.lean.txt": "9e20182a0928d8993207cc801b6b74b0be56b692316b85ccde0382be4e2341af"
+  },
+  "remaining": [
+    "checked ten-species dispatch",
+    "complete SM content and Higgs support bridge",
+    "original-space corollary",
+    "ordinary mixed positive and negative consumers"
+  ],
+  "integration": "not_merged_not_pushed",
+  "tested_sm_candidate_sha256_without_storage_warning": "2aae2f82021a210398adfa69e7e4975cf29ead44813aca3c762ac47ec49a6754"
+}

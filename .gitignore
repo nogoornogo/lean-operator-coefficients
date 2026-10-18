@@ -1,0 +1,11 @@
+.lake/
+.lsp/
+build/
+*.olean
+*.ilean
+.DS_Store
+
+# Local recovery snapshots and editor/agent artifacts
+/.local-backup/
+/.clj-kondo/
+/.kilo/plans/

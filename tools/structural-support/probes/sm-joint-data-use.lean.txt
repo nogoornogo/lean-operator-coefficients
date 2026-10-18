@@ -1,0 +1,24 @@
+import Physics.StandardModel.Operators.SMJointSupportData
+open Math GUT
+
+-- Runtime metadata diagnostics only; no support claim follows from output.
+def zeroSlot : CompactGenerationOccupations.Index 0 := ⟨0,0⟩
+def balancedQ18 : SMJointSupportData.Index (fun s => if s=0 then 18 else 0) :=
+  (⟨(6 : Fin 19),(6 : Fin 13)⟩,
+    (zeroSlot,(zeroSlot,(zeroSlot,(zeroSlot,(zeroSlot,(zeroSlot,(zeroSlot,(zeroSlot,zeroSlot)))))))))
+
+def lastSlot (n : Nat) : CompactGenerationOccupations.Index n :=
+  ⟨⟨0,Nat.zero_lt_succ n⟩,⟨0,Nat.zero_lt_succ (n-0)⟩⟩
+def lastChoice : (k : Nat) → (d : Fin (k+1) → Nat) → JointContentData.Index k d
+  | 0,d => lastSlot (d 0)
+  | k+1,d => (lastSlot (d 0), lastChoice k (fun i => d i.succ))
+
+#eval show IO Unit from do
+  let raw ← IO.getEnv "SM_DATA_DEGREE"
+  let n := (raw.bind String.toNat?).getD 0
+  let cores := (List.finRange 10).map fun s =>
+    JointSourceData.branchCount (SMCoreSourceData.coreData s n)
+  let c : DeltaLOneSignedInput.Species → Nat := fun s => if s=0 then n else 0
+  let expr := SMJointSupportData.expressionData c 0 (lastChoice 9 c)
+  let q18 := SMJointSupportData.expressionData (fun s => if s=0 then 18 else 0) 6 balancedQ18
+  IO.println s!"degree={n}; signed_core_branches={cores}; Q_last_generation={JointSourceData.branchCount expr}; Q18_balanced={JointSourceData.branchCount q18}"

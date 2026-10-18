@@ -1,0 +1,165 @@
+{
+  "status": "verified",
+  "scope": "fixed signed three-generation SM; derivative-free; neutral Higgs; scalar cyclic q/l",
+  "minLepton_type": "Option Nat",
+  "allowed_row_target_applications": 796,
+  "b1_high_degree_rows": 278,
+  "b2_high_degree_rows": 284,
+  "strict_transitive_new_checks": 52,
+  "strict_transitive_base_checks": 13,
+  "rss_guard_gib": 10,
+  "min_available_gib": 4,
+  "timeout_seconds": 300,
+  "lean_threads": 1,
+  "focused": {
+    "general": {
+      "seconds": 5.0,
+      "peak_kib": 5208356
+    },
+    "rows": {
+      "seconds": 22.5,
+      "peak_kib": 6744324
+    },
+    "audit": {
+      "seconds": 7.5,
+      "peak_kib": 5204216
+    }
+  },
+  "optional_export": {
+    "status": "exported",
+    "csv_is_proof_input": false,
+    "elapsed_seconds": 6.4,
+    "sampled_group_peak_kib": 5101496,
+    "rows": 572,
+    "compared": true
+  },
+  "file_sha256": {
+    "Physics/StandardModel/Operators/SMFiniteLeptonDegreeBounds.lean": "6885c182b7cd8507a851151e35ad98167ffa47989abf532cd07f29528c907b0e",
+    "Physics/StandardModel/Operators/SMFiniteLeptonDegreeExamples.lean": "438dd8640cfc0b6d359e6e012f172c9ae67fd0fe359194fba5087fb939e8917b",
+    "Physics/StandardModel/Operators/Audit/AuditSMFiniteLeptonDegreeBounds.lean": "cd02bc52993796c1895ac69929f5ea3ddcb3aa83e2c72b23b77a0b86ffbccbba",
+    "tools/structural-support/probes/export-assignments.lean.txt": "2b760993a091f04c8114d26bedf8f8c56860bca5f0cb22f1617ebf81c4145119",
+    "tools/structural-support/verify-assignments.py": "4ae500cf7957e853cd28ad21601b5e7fc04ca8beab62edfd5c36190f472aa034",
+    "tools/structural-support/export-assignments.py": "47bc555b4ee3ea1f2685524354e60982d9188aeaabd4e43f33d0d46a12eb7db2",
+    "tools/structural-support/degree-certificates.py": "98b98b3829c1961e3a0f1c5056a164941872f81bbe810819ea210e62ab681f08"
+  },
+  "independent_regression": {
+    "status": "kernel_verified",
+    "rss_guard_gib": 10,
+    "min_available_gib": 4,
+    "timeout_seconds": 300,
+    "lean_threads": 1,
+    "runs": [
+      {
+        "label": "finite-support-audit",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.8,
+        "sampled_group_peak_kib": 878948
+      },
+      {
+        "label": "minimum-degree-audit",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.5,
+        "sampled_group_peak_kib": 882900
+      },
+      {
+        "label": "import-0",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.3,
+        "sampled_group_peak_kib": 871212
+      },
+      {
+        "label": "import-1",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.5,
+        "sampled_group_peak_kib": 878628
+      },
+      {
+        "label": "import-2",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.8,
+        "sampled_group_peak_kib": 877720
+      },
+      {
+        "label": "import-3",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 3.0,
+        "sampled_group_peak_kib": 869016
+      },
+      {
+        "label": "import-4",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.8,
+        "sampled_group_peak_kib": 877764
+      },
+      {
+        "label": "certificates",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 66.5,
+        "sampled_group_peak_kib": 7041596
+      },
+      {
+        "label": "degree-import",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.8,
+        "sampled_group_peak_kib": 880900
+      },
+      {
+        "label": "degree-certificates",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 85.2,
+        "sampled_group_peak_kib": 7013516
+      }
+    ],
+    "lean_export": {
+      "status": "exported",
+      "csv_is_proof_input": false,
+      "elapsed_seconds": 6.5,
+      "sampled_group_peak_kib": 5102072,
+      "rows": 572,
+      "compared": true
+    },
+    "generated_lean_sha256": "9ec32decd430d29b6aac3fdf83fa33df2fccab9ca65d8a494e373568297fcd0b",
+    "absolute_lepton_distributions": {
+      "b1": {
+        "1": 48,
+        "3": 160,
+        "5": 44,
+        "7": 26,
+        "9": 38,
+        "11": 10
+      },
+      "b2": {
+        "0": 186,
+        "2": 72,
+        "4": 80,
+        "6": 92,
+        "8": 20,
+        "10": 20
+      }
+    },
+    "degree_generated_lean_sha256": "556050b6f5800b8a78d713c3cb206d554dbf51a5db2f2f65cc57cc4d63ffdd98",
+    "degree_bounds": 796,
+    "degree_strict_transitive_checks": 2812,
+    "assignments": 572,
+    "strict_transitive_local_checks": 3724
+  },
+  "full_build": {
+    "command": "lake build GUT",
+    "jobs": 7345,
+    "warnings": 0,
+    "errors": 0,
+    "elapsed_seconds": 9.5,
+    "sampled_group_peak_kib": 6706728
+  },
+  "layout_modules": 1959
+}

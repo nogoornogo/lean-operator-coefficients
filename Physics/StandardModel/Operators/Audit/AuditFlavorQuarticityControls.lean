@@ -1,0 +1,90 @@
+import Math.Audit.ImportOrigin
+import Physics.StandardModel.Operators.DgtFlavorRestriction
+import Physics.StandardModel.Operators.QuarticityAdapters
+
+open Lean in
+run_cmd do
+  let env ← getEnv
+  for mod in env.header.moduleNames do
+    if (`GUT).isPrefixOf mod then
+      throwError "Flavor/quarticity imports forbidden layer {mod}; original {SourceLayout.originalModule mod}"
+  let ds := [
+    ``GUT.DgtFlavorRestriction.Flavor,
+    ``GUT.DgtFlavorRestriction.IR,
+    ``GUT.DgtFlavorRestriction.embedding,
+    ``GUT.DgtFlavorRestriction.embedding_injective,
+    ``GUT.DgtFlavorRestriction.xcharge,
+    ``GUT.DgtFlavorRestriction.diagonal,
+    ``GUT.DgtFlavorRestriction.uvFlavor,
+    ``GUT.DgtFlavorRestriction.cyclicCopies,
+    ``GUT.DgtFlavorRestriction.irFlavor,
+    ``GUT.DgtFlavorRestriction.irScalar,
+    ``GUT.DgtFlavorRestriction.uvScalar,
+    ``GUT.DgtFlavorRestriction.scalar_restriction,
+    ``GUT.DgtFlavorRestriction.phase_restriction,
+    ``GUT.DgtFlavorRestriction.charge_restriction,
+    ``GUT.DgtFlavorRestriction.flavor_restriction,
+    ``GUT.DgtFlavorRestriction.actual_field_restriction,
+    ``GUT.DgtFlavorRestriction.blCharacter,
+    ``GUT.DgtFlavorRestriction.bl_detect,
+    ``GUT.DgtFlavorRestriction.all_bnv_forbidden,
+    ``GUT.DgtFlavorRestriction.residual_bnv_forbidden,
+    ``GUT.DgtFlavorRestriction.leptonUV,
+    ``GUT.DgtFlavorRestriction.leptonIR,
+    ``GUT.DgtFlavorRestriction.electronUV_eq,
+    ``GUT.DgtFlavorRestriction.electron_restriction,
+    ``GUT.DgtFlavorRestriction.leptonIR_trivial,
+    ``GUT.DgtFlavorRestriction.mu,
+    ``GUT.DgtFlavorRestriction.targetVector,
+    ``GUT.DgtFlavorRestriction.targetCovector,
+    ``GUT.DgtFlavorRestriction.uv_mu_weight,
+    ``GUT.DgtFlavorRestriction.uv_target_weight,
+    ``GUT.DgtFlavorRestriction.uv_dipoles_forbidden,
+    ``GUT.DgtFlavorRestriction.bridge,
+    ``GUT.DgtFlavorRestriction.bridge_selected,
+    ``GUT.DgtFlavorRestriction.restrictMap,
+    ``GUT.DgtFlavorRestriction.uv_evaluation_zero,
+    ``GUT.DgtFlavorRestriction.bridge_not_restricted,
+    ``GUT.DgtFlavorRestriction.restriction_not_surjective,
+    ``GUT.DgtFlavorRestriction.irWitness,
+    ``GUT.DgtFlavorRestriction.irWitness_selected,
+    ``GUT.DgtFlavorRestriction.ir_dipoles_allowed,
+    ``GUT.DgtFlavorRestriction.condensate_fixed,
+    ``GUT.DgtFlavorRestriction.fermion_conjugates,
+    ``GUT.DgtFlavorRestriction.printed_dictionary,
+    ``GUT.QuarticityAdapters.H,
+    ``GUT.QuarticityAdapters.P,
+    ``GUT.QuarticityAdapters.chi,
+    ``GUT.QuarticityAdapters.chi_mul,
+    ``GUT.QuarticityAdapters.compensated,
+    ``GUT.QuarticityAdapters.eta_phase_square,
+    ``GUT.QuarticityAdapters.eta_phase_real,
+    ``GUT.QuarticityAdapters.copies,
+    ``GUT.QuarticityAdapters.neutrino,
+    ``GUT.QuarticityAdapters.eta,
+    ``GUT.QuarticityAdapters.neutrino_action,
+    ``GUT.QuarticityAdapters.eta_action,
+    ``GUT.QuarticityAdapters.neutrino_gauge_neutral,
+    ``GUT.QuarticityAdapters.eta_gauge_neutral,
+    ``GUT.QuarticityAdapters.epsilonExterior,
+    ``GUT.QuarticityAdapters.epsilonExterior_apply,
+    ``GUT.QuarticityAdapters.epsilon_neutrino,
+    ``GUT.QuarticityAdapters.Bare,
+    ``GUT.QuarticityAdapters.Dressed,
+    ``GUT.QuarticityAdapters.dressed,
+    ``GUT.QuarticityAdapters.dressed_evaluation,
+    ``GUT.QuarticityAdapters.dressed_nonzero,
+    ``GUT.QuarticityAdapters.exists_dressed,
+    ``GUT.QuarticityAdapters.detector,
+    ``GUT.QuarticityAdapters.detector_square,
+    ``GUT.QuarticityAdapters.bare_forbidden,
+    ``GUT.QuarticityAdapters.smFlavor,
+    ``GUT.QuarticityAdapters.smScalar,
+    ``GUT.QuarticityAdapters.blCharacter,
+    ``GUT.QuarticityAdapters.lTwo_detect,
+    ``GUT.QuarticityAdapters.sm_lTwo_forbidden]
+  for d in ds do
+    for ax in (← Lean.collectAxioms d) do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "Flavor/quarticity {d} uses unexpected axiom {ax}"
+  Lean.logInfo m!"Flavor/quarticity: {ds.length} strict transitive checks passed"

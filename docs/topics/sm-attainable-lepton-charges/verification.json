@@ -1,0 +1,135 @@
+{
+  "status": "verified",
+  "strict_transitive_checks": 1154,
+  "witnesses": 37,
+  "rows": 572,
+  "unresolved_charges": [],
+  "focused_build": {
+    "elapsed_seconds": 49.4,
+    "sampled_group_peak_kib": 5853708
+  },
+  "audit_build": {
+    "elapsed_seconds": 8.0,
+    "sampled_group_peak_kib": 5206172
+  },
+  "rss_guard_gib": 10,
+  "min_available_gib": 4,
+  "timeout_seconds": 300,
+  "lean_threads": 1,
+  "file_sha256": {
+    "tools/structural-support/finite-charge-witnesses.py": "bdaeb6d0cb72d49b7f50befb5d6fa0d7c3ad12a98bde769c1b134e2ffcc7b4c5",
+    "Physics/StandardModel/Operators/SMLeptonChargeWitnesses.lean": "329f42eff49ef9e6ef12c745e3feed3dc8b967e41f1340afd25096aa32258a67",
+    "tools/structural-support/finite-charge-assignments.py": "f8f39a284b7e75a8f7f8cf3962014d9c5b46a143695ae28c4128de80bf6e86bd",
+    "Physics/StandardModel/Operators/SMFiniteLeptonAssignments.lean": "6fb0fdb780644fd0253b6b686a94d387cd5e4b06ddbd134f4d319ce899910449",
+    "Physics/StandardModel/Operators/SMFiniteLeptonSupport.lean": "87f0dff8f777c7dc91ccb5e3f35dde4c3ace32e594faba047c779ecc5f813ffa",
+    "Physics/StandardModel/Operators/SMFiniteLeptonSupportExamples.lean": "a86b14bfb3df01fc6e177555f5de7c3de335b12e02109214d6242cbbf2bcdefc",
+    "Physics/StandardModel/Operators/Audit/AuditSMFiniteLeptonSupport.lean": "878501a164609f42ef8e99186738f300263846260312e03cbe19d443eea8588c",
+    "tools/structural-support/verify-assignments.py": "3b4abc339b8bc160cdc041720e5d9cf005ba8d4e15b11782e6f2b48d233b6eaf",
+    "tools/structural-support/degree-certificates.py": "7c4ad139df68e047ad57028652742b7738e9bced70565b652caa96c2cc6fef09"
+  },
+  "independent_crosscheck": {
+    "status": "kernel_verified",
+    "rss_guard_gib": 10,
+    "min_available_gib": 4,
+    "timeout_seconds": 300,
+    "lean_threads": 1,
+    "runs": [
+      {
+        "label": "finite-support-audit",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.8,
+        "sampled_group_peak_kib": 879904
+      },
+      {
+        "label": "import-0",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.3,
+        "sampled_group_peak_kib": 871180
+      },
+      {
+        "label": "import-1",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 3.8,
+        "sampled_group_peak_kib": 878688
+      },
+      {
+        "label": "import-2",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 3.3,
+        "sampled_group_peak_kib": 877448
+      },
+      {
+        "label": "import-3",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.5,
+        "sampled_group_peak_kib": 874668
+      },
+      {
+        "label": "import-4",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 3.0,
+        "sampled_group_peak_kib": 877432
+      },
+      {
+        "label": "certificates",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 68.8,
+        "sampled_group_peak_kib": 7007596
+      },
+      {
+        "label": "degree-import",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 2.8,
+        "sampled_group_peak_kib": 880892
+      },
+      {
+        "label": "degree-certificates",
+        "returncode": 0,
+        "exit": 0,
+        "elapsed_seconds": 84.0,
+        "sampled_group_peak_kib": 7014352
+      }
+    ],
+    "generated_lean_sha256": "9ec32decd430d29b6aac3fdf83fa33df2fccab9ca65d8a494e373568297fcd0b",
+    "absolute_lepton_distributions": {
+      "b1": {
+        "1": 48,
+        "3": 160,
+        "5": 44,
+        "7": 26,
+        "9": 38,
+        "11": 10
+      },
+      "b2": {
+        "0": 186,
+        "2": 72,
+        "4": 80,
+        "6": 92,
+        "8": 20,
+        "10": 20
+      }
+    },
+    "degree_generated_lean_sha256": "556050b6f5800b8a78d713c3cb206d554dbf51a5db2f2f65cc57cc4d63ffdd98",
+    "degree_bounds": 796,
+    "degree_strict_transitive_checks": 2812,
+    "assignments": 572,
+    "strict_transitive_local_checks": 3724
+  },
+  "full_build": {
+    "command": "lake build GUT",
+    "jobs": 7342,
+    "warnings": 0,
+    "errors": 0,
+    "elapsed_seconds": 9.0,
+    "sampled_group_peak_kib": 6700660
+  },
+  "layout_modules": 1956
+}

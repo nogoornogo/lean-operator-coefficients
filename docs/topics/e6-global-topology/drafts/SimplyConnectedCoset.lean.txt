@@ -1,0 +1,60 @@
+-- Archived from 28c3124; unproved target, not an accepted theorem.
+import GUT.E6.Minuscule.ConjugationCover
+import GUT.E6.Minuscule.CompactPathConnected
+import Mathlib.AlgebraicTopology.FundamentalGroupoid.SimplyConnected
+import Lean.Util.CollectAxioms
+
+/-!
+# Simply connectedness of the coset space
+
+R6 (Proposition 37) states: the coset space `B = G/T` is simply connected.
+This is the key topological input for proving that the fundamental group of
+the candidate is trivial (via the induced map `pi1(T) → pi1(G)`).
+
+The proof uses:
+1. The conjugation cover `q : B × T → G` (Lemma 8, L6)
+2. Relative avoidance: disk deformations avoiding the singular locus (Lemma 7, L5)
+3. Path connectedness of `G` and `B` (R0, L1)
+4. The homotopy lifting argument to show `pi1(B) = 0`
+
+This file states the simply connectedness result and records the dependencies.
+A formal proof requires the full compact group structure and the conjugation
+cover map which are not yet available.
+-/
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+
+namespace GUT.E6.Minuscule
+
+noncomputable section
+
+open scoped Matrix
+
+end
+
+/-! ## Simply connectedness of the coset space
+
+R6 (Proposition 37) states: the coset space `B = G/T` is simply connected.
+This is the key topological input for proving that the fundamental group of
+the candidate is trivial (via the induced map `pi1(T) → pi1(G)`).
+
+The proof uses:
+1. The conjugation cover `q : B × T → G` (Lemma 8, L6)
+2. Relative avoidance: disk deformations avoiding the singular locus (Lemma 7, L5)
+3. Path connectedness of `G` and `B` (R0, L1)
+4. The homotopy lifting argument to show `pi1(B) = 0`
+
+This file states the simply connectedness result and records the dependencies.
+A formal proof requires the full compact group structure and the conjugation
+cover map which are not yet available.
+-/
+
+/-- The coset space `B = G/T` is simply connected.  This is Proposition 37
+from Raghunathan's lectures. -/
+theorem cosetSpace_simplyConnected : SimplyConnectedSpace cosetSpace := by
+  -- The proof requires L5 (relative avoidance), L6 (conjugation cover),
+  -- and path connectedness of G and B (L1).  These are not yet available.
+  sorry
+
+end GUT.E6.Minuscule

@@ -1,0 +1,90 @@
+-- Archived from 28c3124; replaced by an explicitly conditional theorem.
+import GUT.E6.Minuscule.TorusFundamentalGroup
+import GUT.E6.Minuscule.SimplyConnectedCoset
+import GUT.E6.Minuscule.CompactPathConnected
+import Lean.Util.CollectAxioms
+
+/-!
+# Surjectivity of the fundamental group map (L8 / R7)
+
+The endpoint of the E6 candidate proof is:
+
+```text
+Function.Surjective GUT.E6.Minuscule.Torus.fundamentalMap
+```
+
+where `fundamentalMap : π₁(T) → π₁(G)` is the map induced by the
+torus inclusion `T → G`.  Since `π₁(T) = 0` (the torus is simply
+connected, proved in `CompactPathConnected.lean`), surjectivity of
+`fundamentalMap` implies `π₁(G) = 0`, i.e., `G` is simply connected.
+
+This file states the surjectivity proposition and records the
+infrastructure required for its proof.  The proof of Raghunathan's
+Proposition 38 requires:
+
+1. **Quotient fibration lifting:** The bundle `G → G/T` with fiber `T`
+   has the homotopy lifting property (it is a fiber bundle).
+2. **Low-degree exactness:** From the fibration `T → G → B` and
+   `π₁(T) = 0`, `π₁(B) = 0`, we get `π₁(G) = 0`.
+3. **Global section:** A continuous section `B → G` of the quotient
+   map `G → B` (or at least a lift of a given map `B → G/T` to `G`).
+
+The formal proof requires mathlib infrastructure that is not yet fully
+available.  The relevant existing declarations are noted below.
+-/
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+
+namespace GUT.E6.Minuscule
+
+noncomputable section
+
+open scoped Matrix
+
+/-! ## Surjectivity of `fundamentalMap`
+
+R8 (Proposition 38) states that the map
+`fundamentalMap : π₁(Point) → π₁(compactIdentityComponent)`
+is surjective.  Since `π₁(Point) = 0`, this is equivalent to
+`π₁(compactIdentityComponent) = 0`.
+
+The proof uses:
+1. The fiber bundle `G → G/T` with fiber `T` (L1, path connectedness)
+2. The conjugation cover `q : B × T → G` (L6 / R5)
+3. Simply connectedness of `B = G/T` (L7 / R6)
+4. Homotopy lifting through the fibration
+-/
+
+/-- The fundamental group map from the maximal torus to the identity
+component is surjective.  Together with `π₁(T) = 0` (proved in
+`CompactPathConnected.lean`), this implies `π₁(G) = 0`. -/
+theorem fundamentalMap_surjective :
+    Function.Surjective (Torus.fundamentalMap : FundamentalGroup Torus.Point 1 →*
+      FundamentalGroup compactIdentityComponent 1) := by
+  -- Proof requires:
+  -- 1. The fibration G → G/T with fiber T
+  -- 2. The homotopy lifting property for this fibration
+  -- 3. Simply connectedness of G/T (L7)
+  -- 4. The fact that π₁(T) = 0 (proved in CompactPathConnected.lean)
+  sorry
+
+end
+
+end GUT.E6.Minuscule
+
+/-! ## Audit -/
+
+run_cmd do
+  -- Note: fundamentalMap_surjective uses sorry and is not yet proved.
+  -- We audit only the definitions that are complete.
+  let declarations := [
+    ``GUT.E6.Minuscule.fundamentalMap_surjective]
+  for decl in declarations do
+    let axioms ← Lean.collectAxioms decl
+    -- Allow sorryAx for stated but not-yet-proved theorems
+    for ax in axioms do
+      unless [``propext, ``Classical.choice, ``Quot.sound, ``sorryAx].contains ax do
+        throwError "E6 fundamental group surjectivity: {decl} uses unexpected axiom {ax}"
+    Lean.logInfo m!"E6 fundamental group surjectivity: {decl} depends on axioms: {axioms}"
+  Lean.logInfo m!"E6 fundamental group surjectivity: checked {declarations.length} declarations"

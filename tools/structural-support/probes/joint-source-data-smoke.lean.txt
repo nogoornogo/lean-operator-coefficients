@@ -1,0 +1,19 @@
+import Math.RepresentationTheory.ColoredSourceData
+import Math.RepresentationTheory.JointContentData
+
+-- Runtime diagnostics only. Printed counts do not establish support.
+open Math
+
+def lastGeneration (n : Nat) : CompactGenerationOccupations.Index n :=
+  ⟨⟨0, Nat.zero_lt_succ n⟩, ⟨0, Nat.zero_lt_succ (n-0)⟩⟩
+
+def summary (n : Nat) : String :=
+  let count := JointSourceData.branchCount
+  let c := JointContentData.occupied 1 (fun _ => n)
+    (fun _ => JointSourceData.quark false) (lastGeneration n, lastGeneration n)
+  s!"degree={n}; pair={count (JointSourceData.doubletPair false n)}; single={count (JointSourceData.single true n)}; colored={count (JointSourceData.colored true n)}; Q={count (JointSourceData.quark false n)}; conjugateQ={count (JointSourceData.dual (JointSourceData.quark true n))}; two_species={count c}"
+
+#eval show IO Unit from do
+  let raw ← IO.getEnv "SM_DATA_DEGREE"
+  let n := (raw.bind String.toNat?).getD 0
+  IO.println (summary n)

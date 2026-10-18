@@ -1,0 +1,79 @@
+{
+  "files": [
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18.lean",
+      "snapshot": "Q18.lean.txt",
+      "sha256": "bd24643d9693125983e75f92c297dfe734b037f4d13d439198ec59302e150ee2"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part0.lean",
+      "snapshot": "Q18Part0.lean.txt",
+      "sha256": "eca1dee7c3994f6c95c933f9b25dcc8c9559b2672471695bf44a829f0bbe5416"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part1.lean",
+      "snapshot": "Q18Part1.lean.txt",
+      "sha256": "741f2f67b1938a7dba8a5e5a221eb5dea824cb3e5b2f89071edbf20fe04ffe13"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part10.lean",
+      "snapshot": "Q18Part10.lean.txt",
+      "sha256": "ba474cc27c1ad90592c50d51784d10f38d5f13d4493394c0dfdb0b71ac088cd8"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part11.lean",
+      "snapshot": "Q18Part11.lean.txt",
+      "sha256": "f96d4521b3772b078093c37012012f8897b3992e07d3c8f08c3a11047c549c57"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part2.lean",
+      "snapshot": "Q18Part2.lean.txt",
+      "sha256": "1d39896cb5d485f309a9ee34c5c9a660d8642b07e5b7d35c952b197e2da34992"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part3.lean",
+      "snapshot": "Q18Part3.lean.txt",
+      "sha256": "e9895d21275064a796fe960a932258a12ba60d337620ee6a559d9a672d057e9c"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part4.lean",
+      "snapshot": "Q18Part4.lean.txt",
+      "sha256": "515f410b13542f76e58167f29ec02f2b40663fa74ccec0714b30b2d91b40ca89"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part5.lean",
+      "snapshot": "Q18Part5.lean.txt",
+      "sha256": "522aea1f8c8eb1563caad5371c506c36dce04e0395b5144577c925e2262ab8bb"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part6.lean",
+      "snapshot": "Q18Part6.lean.txt",
+      "sha256": "c132474e8e5fe8b57782e0452b8160bbbcf39c192800cb20ef6d417262434524"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part7.lean",
+      "snapshot": "Q18Part7.lean.txt",
+      "sha256": "87ef9d4ae884bb320909486690a57e77ef4968544e424c9fc8c5a4d8314229d0"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part8.lean",
+      "snapshot": "Q18Part8.lean.txt",
+      "sha256": "775b4987d033784b8195225d11eddb2b27208862db3c9b167cb8f3b3ac4eb097"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralCertificates/Q18Part9.lean",
+      "snapshot": "Q18Part9.lean.txt",
+      "sha256": "cdb0e419db3cdb665759ad4cf56182e99bbf614c04e1a2ad767e7022695a6ec6"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/SMNeutralSparseExamples.lean",
+      "snapshot": "SMNeutralSparseExamples.lean.txt",
+      "sha256": "1acb376eb5f29e2e05bcacb0cb02f0dd75b11bd68292b689d79fd97d84448ecf"
+    },
+    {
+      "original": "Physics/StandardModel/Operators/Audit/AuditSMSparseCharacter.lean",
+      "snapshot": "AuditSMSparseCharacter.lean.txt",
+      "sha256": "78c74d64731f79c8d8efe767de620084ccaa2dd3077c0145af4bd798018f8d4f"
+    }
+  ]
+}

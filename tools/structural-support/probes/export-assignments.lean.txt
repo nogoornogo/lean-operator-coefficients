@@ -1,0 +1,23 @@
+import Physics.StandardModel.Operators.SMFiniteLeptonDegreeBounds
+
+/-! Optional CSV export from Lean-owned definitions. This file and its output
+are not imported by any proof. No CSV is read. -/
+open GUT SMFiniteLeptonAssignments SMFiniteLeptonSupport SMFiniteLeptonDegreeBounds
+
+def selectedLepton (r : Row) (b : Nat) : Option Int :=
+  match rowMinimum b r with
+  | none => none
+  | some m => ((neutralLeptons b (r.q : ZMod r.k) r.l).sort (· ≤ ·)).find?
+      (fun (L : Int) => L.natAbs==m)
+
+def flag (b : Bool) : String := if b then "True" else "False"
+def witness (r : Row) (b : Nat) : String :=
+  match selectedLepton r b with
+  | none => ""
+  | some L => toString L
+
+#eval show IO Unit from do
+  let out ← IO.getStdout
+  out.putStrLn "k,q,l,b1_forbidden,b1_witness_L,b2_forbidden,b2_witness_L,b1_forbidden_b2_allowed"
+  for r in rows do
+    out.putStrLn s!"{r.k},{r.q},{r.l},{flag r.b1Forbidden},{witness r 3},{flag r.b2Forbidden},{witness r 6},{flag (r.b1Forbidden && !r.b2Forbidden)}"

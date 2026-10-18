@@ -1,0 +1,16 @@
+import Physics.StandardModel.Operators.SMJointHiggsSupport
+open Math GUT
+-- Route A: no classical decision instance is silently inserted.
+#synth Decidable (SU2TensorWordSupport.Supports (.leaf 0))
+#synth Decidable (SU2TensorWordSupport.Supports (.leaf 1))
+#synth Decidable (RestrictedColorWordSupport.Supports (.leaf (.symmetric 0)))
+#synth Decidable (SMJointContentSupport.Supports (fun _ => 0) 0)
+#eval Fintype.card (GenerationTensorSupport.Occupation 0)
+#eval Fintype.card (GenerationTensorSupport.Occupation 2)
+def expressionSize : JointSourceExpression.Expr → Nat
+  | .zero => 0
+  | .atom _ => 1
+  | .sum l r => expressionSize l + expressionSize r
+  | .tensor l r => expressionSize l * expressionSize r
+#eval expressionSize (SMSignedCoreJointPresentation.presentation 0 0).expression
+#eval expressionSize (SMSignedCoreJointPresentation.presentation 0 6).expression

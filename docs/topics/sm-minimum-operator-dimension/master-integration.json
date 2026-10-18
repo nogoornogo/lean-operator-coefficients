@@ -1,0 +1,71 @@
+{
+  "tree_equal_to_topic": true,
+  "audits": [
+    {
+      "audit": "AuditSMMinimumOperatorDimension",
+      "strict_transitive_checks": 140,
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMMinimumOperatorDimension.lean /tmp/master-minimum-AuditSMMinimumOperatorDimension.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.3,
+      "sampled_group_peak_kib": 5122288
+    },
+    {
+      "audit": "AuditSMB1BelowTen",
+      "strict_transitive_checks": 69,
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1BelowTen.lean /tmp/master-minimum-AuditSMB1BelowTen.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.0,
+      "sampled_group_peak_kib": 5126068
+    },
+    {
+      "audit": "AuditSMB1MinimumClassification",
+      "strict_transitive_checks": 288,
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1MinimumClassification.lean /tmp/master-minimum-AuditSMB1MinimumClassification.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.0,
+      "sampled_group_peak_kib": 5127752
+    },
+    {
+      "audit": "AuditSMB1ExactMinima",
+      "strict_transitive_checks": 67,
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1ExactMinima.lean /tmp/master-minimum-AuditSMB1ExactMinima.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.5,
+      "sampled_group_peak_kib": 5130936
+    }
+  ],
+  "full_build": {
+    "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build GUT /tmp/master-minimum-full.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+    "exit": 0,
+    "jobs": 7364,
+    "elapsed_seconds": 4.0,
+    "sampled_group_peak_kib": 912684,
+    "cached_replay": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "layout_modules": 1978,
+  "connection_probe_byte_identical": true,
+  "source_sha256": {
+    "Physics.lean": "1411c643e69a6b703bacb685ee509453386b670ee0121dc30539665556cd5917",
+    "Physics/StandardModel/Operators/SMB1WeakCountArithmetic.lean": "be36a35508fe5130104d08dd64d9ee680f7b4c3a8789347ca8ca696ee83ebaea",
+    "Physics/StandardModel/Operators/SMB1WeakDimensionBounds.lean": "7ff772f270e470a6b704a4264db2c71ebce18a10a9230d0814f96e0f4a9e9caa",
+    "Physics/StandardModel/Operators/SMB1StrongDimensionBounds.lean": "05f19e92cd1d5c87293c374ac680b01ee01c53cd9a15ece413968ae67deff395",
+    "Physics/StandardModel/Operators/SMB1ExactMinima.lean": "456493a84ff2000548b3daa69097c60995058ae46ca7c809d9a623770a2881e0",
+    "Physics/StandardModel/Operators/SMB1ExactMinimaExamples.lean": "9b31f215a07ba61afb2149a3de4eba9defe8192fdb9efff160334beb4a8387e2",
+    "Physics/StandardModel/Operators/Audit/AuditSMB1ExactMinima.lean": "7510e78d068e58e9a9144905c46e74fc3083aa040251af28b7b81a33cd1168fe",
+    "tools/structural-support/b1-weak-localize.py": "45832a97c6b9ba39981ca910c6d0cc795d2d320c344481dcfa391369d3afb9f1",
+    "Physics/StandardModel/Operators/SMB1DimensionWitnesses.lean": "bc1f0bfb4d3ea2ab244cb3cd58ef7470914fb20c1a3bf833f555531614187504"
+  },
+  "safe_local_topic_deletion": true,
+  "master_authorized": true,
+  "push": false,
+  "untracked_user_docs_zip_preserved": true,
+  "final_links": {
+    "markdown_files": 1011,
+    "local_links": 6127,
+    "fragments": 115,
+    "errors": 0
+  },
+  "diff_check": "passed"
+}

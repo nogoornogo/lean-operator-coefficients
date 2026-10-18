@@ -1,0 +1,60 @@
+import GUT.SU6.Hypercharge.ActualCentralizerTangent
+
+open Math
+
+/-!
+# Axiom audit for hypercharge centralizer geometry
+
+This reusable audit checks the Schur-theoretic reduction of the standard
+`3+2+1` commutant, its traceless `Y5/X` parameterization, reconstruction
+of the actual compact centralizer as a topological two-torus, and the
+cocharacter-to-matrix-tangent bridge.  Run
+
+`lake env lean GUT/SU6/SelectionRules/Audit/AuditHyperchargeCentralizer.lean`
+
+after cloning or changing the representation-theory dependency chain.
+-/
+
+#print axioms Math.BlockCentralizer.intertwiningMap_eq_zero_of_finrank_ne
+#print axioms Math.BlockCentralizer.comp_isIrreducible_of_surjective
+#print axioms GUT.BlockCentralizer.trace_transportCommutant
+#print axioms GUT.BlockCentralizer.det_transportCommutant
+#print axioms GUT.BlockCentralizer.transportCommutant_injective
+#print axioms GUT.BlockCentralizer.threeBlock_commutant_is_blockScalar
+#print axioms GUT.BlockCentralizer.standardBlock_commutant_is_blockScalar
+#print axioms GUT.BlockCentralizer.trace_blockScalarLinearMap
+#print axioms GUT.BlockCentralizer.standardExtraIntertwiner_injective
+#print axioms GUT.BlockCentralizer.traceless_standardBlock_commutant_eq_standardExtra
+#print axioms GUT.BlockCentralizer.traceless_commutant_eq_standardExtra_of_equiv
+#print axioms GUT.BlockCentralizer.tracelessCommutantEquiv
+#print axioms GUT.BlockCentralizer.rationalGeneratorIntertwiner_trace_zero
+#print axioms GUT.ActualBlockCentralizer.decomposedEquivOrderedBlocks
+#print axioms GUT.ActualBlockCentralizer.representationEquivOrderedBlocks
+#print axioms GUT.ActualBlockCentralizer.orderedBlock_commutant_is_blockScalar
+#print axioms GUT.ActualBlockCentralizer.trace_orderedBlockScalarLinearMap
+#print axioms GUT.ActualBlockCentralizer.det_orderedBlockScalarLinearMap
+#print axioms GUT.ActualBlockCentralizer.traceless_actual_commutant_eq_orderedExtra_unique
+#print axioms GUT.ActualBlockCentralizer.injectiveEmbedding_traceless_commutant_has_unique_Y5_X_coefficients
+#print axioms GUT.CompactBlockCentralizer.torusContinuousMulEquiv
+#print axioms Math.UnitarySubrepresentationOrthogonality.isOrtho_of_irreducible_of_finrank_ne
+#print axioms GUT.ActualCompactCentralizer.compactBlockCoefficientHom_injective
+#print axioms GUT.ActualCompactCentralizer.originalCircleLinearEquiv_inner_map_map
+#print axioms GUT.ActualCompactCentralizer.blockCoefficientMatrix_mem_unitaryGroup
+#print axioms GUT.ActualCompactCentralizer.blockCoefficientMatrix_det_one
+#print axioms GUT.ActualCompactCentralizer.compactBlockCoefficientHom_surjective
+#print axioms GUT.ActualCompactCentralizer.physicalCentralizerMulEquivTorus
+#print axioms GUT.ActualCompactCentralizer.continuous_reconstructedCentralizerElement
+#print axioms GUT.ActualCompactCentralizer.physicalCentralizerContinuousMulEquivTorus
+#print axioms GUT.ActualCompactCentralizer.existsUnique_eq_physicalCircleHom
+#print axioms GUT.ActualCompactCentralizer.integerPairEquivPhysicalCircleHom
+#print axioms GUT.ActualCompactCentralizer.physicalCircleHom_singletExponent
+#print axioms GUT.ActualCompactCentralizer.physicalCircleHom_injective_iff
+#print axioms GUT.ActualCompactCentralizer.integerPairToRealExtra_injective
+#print axioms GUT.ActualCompactCentralizer.physicalCircleTangentVector_eq_originalIExtra
+#print axioms GUT.ActualCompactCentralizer.physicalCircleMatrixCurve_eq_actual
+#print axioms GUT.ActualCompactCentralizer.hasDerivAt_physicalCircleMatrixCurve
+#print axioms GUT.ActualCompactCentralizer.existsUnique_integerPair_and_matrix_tangent
+#print axioms GUT.ActualSkewCentralizer.eigenvalue_star_eq_neg
+#print axioms GUT.ActualSkewCentralizer.skew_traceless_commutant_eq_iOrderedExtra_unique
+#print axioms GUT.ActualSkewCentralizer.originalIExtraIntertwiner_mem_skewAdjoint
+#print axioms GUT.ActualSkewCentralizer.skewTracelessCommutantEquiv

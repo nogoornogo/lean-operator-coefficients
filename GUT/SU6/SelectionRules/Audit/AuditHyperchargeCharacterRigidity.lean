@@ -1,0 +1,92 @@
+import GUT.SU6.Adapters.CompactRepresentationUnitarization
+import GUT.SU6.SelectionRules.Models.ContinuousPhysicalSourceBridge
+import GUT.SU6.Branching.PhysicalSMTorusTarget
+
+open Math
+
+/-!
+# Axiom audit for hypercharge character rigidity
+
+This reusable audit covers the canonical integral weight lattice of the
+diagonal `SU(6)` torus, its faithful Laurent evaluator, Weyl invariance derived
+from actual trace conjugacy, closure under finite virtual combinations, and
+the integer character lattice of a finite compact torus.  It also audits the
+construction of an actual Laurent model for every finite-dimensional jointly
+continuous unitary `SU(6)` representation, and transfer along a supplied
+continuous-unitarizable realization.  Finally it audits the exact finite
+physical-weight character whose fifth moment is the Standard Model polynomial,
+including weight collisions and arbitrary gauge singlets, and connects it to
+actual finite continuous-unitary sources.  A second faithful Fourier bridge
+recovers that finite character from equality of actual character functions on
+the compact physical four-torus.  The explicit Standard Model plus singlets
+character is then realized as an actual finite virtual sum of one-dimensional
+physical-torus representations, and character equivalence with the restricted
+source implies the standard cocharacter pair.  Haar averaging now constructs
+the Laurent model for every finite-dimensional complex representation supplied
+with a seed Hermitian norm and jointly continuous action, without assuming the
+seed norm invariant.  The audit does not identify an informal smooth or
+algebraic source category with that analytic scope, nor does it infer a formal
+character equivalence from an informal physical spectrum statement.
+-/
+
+#print axioms GUT.AmbientWeightLattice.centeredWeight_injective
+#print axioms GUT.AmbientWeightLattice.permuteExponent_mul
+#print axioms GUT.AmbientWeightLattice.prod_zpow_permuteExponent
+#print axioms GUT.AmbientWeightLattice.isWeylInvariant_iff_toWeightCharacter
+#print axioms GUT.AmbientWeightLattice.fifthMoment_traceZero_span
+#print axioms GUT.AmbientLaurent.Fourier.evalUnitAddTorus_faithful
+#print axioms GUT.AmbientLaurent.DiagonalPoint.toSU6_swap_eq_conj
+#print axioms GUT.AmbientLaurent.restrictedCharacter_swap_fixed
+#print axioms GUT.AmbientLaurent.diagonalEval_faithful
+#print axioms GUT.AmbientCharacterBridge.ActualAmbientLaurentModel.isWeylInvariant
+#print axioms GUT.AmbientCharacterBridge.VirtualAmbientLaurentModel.isWeylInvariant
+#print axioms GUT.AmbientCharacterBridge.ModeledFiniteVirtualRepresentation.poly_evaluates
+#print axioms GUT.AmbientCharacterBridge.eq_standard_of_actualModel_fifthMoment
+#print axioms GUT.AmbientCharacterBridge.eq_standard_of_virtualModel_fifthMoment
+#print axioms Math.CircleTorusCharacterLattice.existsUnique_eq_torusCharacter
+#print axioms Math.CircleTorusCharacterLattice.integerLatticeEquivContinuousCharacter
+#print axioms GUT.AmbientTorus.toSU6
+#print axioms GUT.AmbientTorus.diagonalPoint_ofDiagonalPoint
+#print axioms GUT.AmbientTorus.exponent_eval_diagonalPoint
+#print axioms Math.OneDimensionalUnitaryCharacter.existsUnique_integerWeight
+#print axioms GUT.ContinuousUnitaryWeightDecomposition.IntegerWeightBasis.restrictedCharacter_eq_sum
+#print axioms GUT.ContinuousUnitaryWeightDecomposition.integerWeightBasisOfContinuousUnitary
+#print axioms GUT.ContinuousUnitaryWeightDecomposition.actualAmbientLaurentModelOfContinuousUnitary
+#print axioms GUT.ContinuousUnitaryWeightDecomposition.ContinuousUnitarizableWitness.ambientLaurentModel
+#print axioms GUT.ContinuousUnitaryWeightDecomposition.ContinuousUnitarizableProvider.finiteVirtualAmbientLaurentModel
+#print axioms GUT.ContinuousUnitaryWeightDecomposition.ContinuousUnitarizableProvider.finiteVirtual_poly_isWeylInvariant
+#print axioms Math.CompactRepresentationUnitarization.averagedInner_re_pos
+#print axioms Math.CompactRepresentationUnitarization.averagedInner_invariant
+#print axioms GUT.CompactRepresentationUnitarization.HaarTorusCopy.torus_jointlyContinuous
+#print axioms GUT.CompactRepresentationUnitarization.HaarTorusCopy.torus_unitary
+#print axioms GUT.CompactRepresentationUnitarization.actualAmbientLaurentModelOfContinuous
+#print axioms GUT.CompactRepresentationUnitarization.FiniteContinuousVirtualRepresentation.ambientLaurentModel
+#print axioms GUT.CompactRepresentationUnitarization.FiniteContinuousVirtualRepresentation.poly_isWeylInvariant
+#print axioms GUT.ContinuousPhysicalSourceBridge.eq_standard_of_exactSMRestriction
+#print axioms GUT.ContinuousPhysicalSourceBridge.eq_standard_of_characterOnPhysicalTorus
+#print axioms GUT.ContinuousPhysicalSourceBridge.eq_standard_of_characterEquivalent
+#print axioms GUT.StandardPhysicalSource.FiniteChargedModeledVirtualSource.forgetCharges_toVirtual
+#print axioms GUT.StandardPhysicalSource.FiniteChargedContinuousUnitarySource.ambientLaurentModel
+#print axioms GUT.PhysicalFifthMomentBridge.restrictWeight_eval
+#print axioms GUT.PhysicalFifthMomentBridge.fifthMomentValue_smCharacter
+#print axioms GUT.PhysicalFifthMomentBridge.fifthMomentValue_restrictCharacter
+#print axioms GUT.PhysicalFifthMomentBridge.hasSMFifthMoment_of_exactSMRestriction
+#print axioms GUT.PhysicalFifthMomentBridge.eq_standard_of_virtualModel_exactSMRestriction
+#print axioms GUT.PhysicalFifthMomentBridge.eq_standard_of_continuousUnitarySource_exactSMRestriction
+#print axioms GUT.PhysicalTorusCharacterBridge.exponentWeight_restrictExponent
+#print axioms GUT.PhysicalTorusCharacterBridge.toRationalCharacter_restrictIntegralCharacter
+#print axioms GUT.PhysicalTorusCharacterBridge.Fourier.eval_faithful
+#print axioms GUT.PhysicalTorusCharacterBridge.toRationalCharacter_exactSMCharacter
+#print axioms GUT.PhysicalTorusCharacterBridge.mFourier_ambientTorusPoint
+#print axioms GUT.PhysicalTorusCharacterBridge.eval_restrictIntegralCharacter_eq_diagonalEval
+#print axioms GUT.PhysicalTorusCharacterBridge.exactSMRestriction_of_characterOnPhysicalTorus
+#print axioms GUT.PhysicalTorusCharacterBridge.eq_standard_of_virtualModel_characterOnPhysicalTorus
+#print axioms GUT.PhysicalTorusCharacterBridge.eq_standard_of_continuousUnitarySource_characterOnPhysicalTorus
+#print axioms GUT.PhysicalSMTorusTarget.weightRho_character
+#print axioms GUT.PhysicalSMTorusTarget.character_ofCharacter
+#print axioms GUT.PhysicalSMTorusTarget.target_character
+#print axioms GUT.PhysicalSMTorusTarget.embedding_ofAdd
+#print axioms GUT.PhysicalSMTorusTarget.restrictVirtual_character
+#print axioms GUT.PhysicalSMTorusTarget.exactCharacterOnPhysicalTorus_of_characterEquivalent
+#print axioms GUT.PhysicalSMTorusTarget.eq_standard_of_virtualModel_characterEquivalent
+#print axioms GUT.PhysicalSMTorusTarget.eq_standard_of_continuousUnitarySource_characterEquivalent

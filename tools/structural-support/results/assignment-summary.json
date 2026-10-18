@@ -1,0 +1,37 @@
+{
+  "status": "kernel_verified",
+  "base_checkpoint": "27cf0919",
+  "domain": "2 <= k <= 12; 3q+l != 0; fixed signed SM/Higgs scalar q/l input",
+  "assignments": 572,
+  "unit_orbits": 151,
+  "b1_allowed_b2_allowed": 326,
+  "b1_forbidden_b2_allowed": 144,
+  "b1_forbidden_b2_forbidden": 102,
+  "unknown": 0,
+  "witness_families": 23,
+  "assignment_theorems": 1716,
+  "strict_transitive_local_checks": 3724,
+  "elapsed_seconds": 87.9,
+  "sampled_group_peak_kib": 6941656,
+  "rss_guard_gib": 10,
+  "min_available_gib": 4,
+  "timeout_seconds": 300,
+  "lean_threads": 1,
+  "generated_lean_sha256": "9ec32decd430d29b6aac3fdf83fa33df2fccab9ca65d8a494e373568297fcd0b",
+  "file_sha256": {
+    "tools/sm-rank-enumeration/candidates.csv": "2e54112947c0fdb955d3ba90425d024100acab92a9a7735b8db30a49b26f933b",
+    "tools/structural-support/assignment-certificates.py": "90da2dd0668535cb5a0bfaa375d207abedec61d1a338cd40b3454fa0cfcb8e50",
+    "tools/structural-support/probes/assignment-parity-bridge.lean.txt": "4fd93be068538a42b46ffd7cc459566009afc10dcb5f2a67266e092f04997e0a",
+    "tools/structural-support/probes/occupation-witness-bridge.lean.txt": "736fd947680a49e4935992c0d6ec2e3d407a86e8f8763ca9b65f91a02ac41e1d",
+    "tools/structural-support/results/assignment-verdicts.csv": "d23d56227eebaf4a503bfe3248e6cc6430903a029f986956ff727dffb0485fc4"
+  },
+  "library_sources_changed": false,
+  "full_build_rerun": false,
+  "previous_library_baseline": "7325-job lake build GUT; retained from implementation phase",
+  "scope_limits": [
+    "no generic compiled evaluator",
+    "no multiplicity/rank output",
+    "no claim outside the 572-row domain",
+    "no rewrite, integration or push"
+  ]
+}

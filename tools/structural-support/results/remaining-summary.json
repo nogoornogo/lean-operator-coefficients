@@ -1,0 +1,72 @@
+{
+  "lean_source_checkpoint": "a894a946",
+  "input_sha256": {
+    "neutral-sparse-results.csv": "f36c40c36c9ec597d90b32329dca93b8d8b3f76a8a9e913eb67c600db031eb93",
+    "constant-content-ranks.csv": "e13b899f25a19f18d506e4792ed7bfd7019fd160f2774bc3f3d944ce1c9cc9a5"
+  },
+  "domain": {
+    "reference_rows": 107,
+    "positive": 41,
+    "zero": 66,
+    "exact_original_unclassified_key_match": true
+  },
+  "resource_policy": {
+    "sampled_group_rss_limit_gib": 10,
+    "host_reserve_gib": 4,
+    "per_case_timeout_seconds": 300,
+    "lean_num_threads": 1,
+    "lean_options_changed": false
+  },
+  "raw_decisions": {
+    "completed_neutral_rows": 30,
+    "matched": 9,
+    "memory_unknown": 21,
+    "in_flight_cancelled": 1,
+    "unattempted_neutral_rows": 76,
+    "mismatches_among_completed": 0,
+    "maximum_successful_peak_kib": 10415148,
+    "maximum_guard_interruption_peak_kib": 10520084,
+    "stop_reason": "repeated shared resource failures; all-107 sign comparison moved to independent kernel certificates"
+  },
+  "compiled_controls": {
+    "positive": "unsupported_noncomputable",
+    "negative": "unsupported_noncomputable"
+  },
+  "large_mixed_negative": {
+    "raw": "unknown_memory",
+    "raw_elapsed_seconds": 67.4,
+    "raw_peak_kib": 10500584,
+    "symbolic_chirality_proof": "passed with certificate cohort"
+  },
+  "independent_kernel_certificates": {
+    "rows": 107,
+    "positive": 41,
+    "zero": 66,
+    "mismatches": 0,
+    "strict_transitive_local_checks": 334,
+    "exit": 0,
+    "elapsed_seconds": 26.0,
+    "sampled_group_peak_kib": 5629024,
+    "generated_source_sha256": "cae8ef6f0912fcb5a82b147b1a88c594791c22da6c341565b3360165acce76ae",
+    "route": "existing weak-capacity theorem for zeros; explicit occupation and first-branch witnesses for larger positives; current decisions for small positives"
+  },
+  "additional_controls": {
+    "exit": 0,
+    "elapsed_seconds": 3.8,
+    "sampled_group_peak_kib": 5097732,
+    "strict_transitive_local_checks": 14,
+    "conjugate_metadata": true,
+    "core_overflow": true,
+    "empty_content": true,
+    "degree36_occupation_cardinality_compiled_and_kernel": 703
+  },
+  "external_reference_diagnostic": {
+    "command": "python3 tools/exact-rank/check-sm-weyl.py",
+    "exit": 0,
+    "certified_rows_matched": 19161,
+    "sparse_neutral_rows_matched": 107,
+    "scope": "external exact regression, never theorem premise"
+  },
+  "raw_logs": "/tmp/sm-remaining-check-logs",
+  "certificate_log": "/tmp/sm-neutral-certificate-candidates.log"
+}

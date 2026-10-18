@@ -1,0 +1,233 @@
+{
+  "branch": "proof/sm-b1-minimum-classification",
+  "integration_target": "proof/sm-minimum-operator-dimension",
+  "profile": {
+    "threads": 1,
+    "timeout_seconds": 300,
+    "sampled_group_rss_limit_gib": 10,
+    "host_available_reserve_gib": 4,
+    "sampled_peak_not_exact_maximum": true,
+    "cached_imports": true
+  },
+  "full_minimum_goal_achieved": false,
+  "stronger_route_resource_stop": true,
+  "stop_source_unverified_and_excluded": true,
+  "counts": {
+    "all_degree_allowed": 326,
+    "exact_minima": 160,
+    "unresolved_intervals": 166,
+    "all_degree_forbidden": 246
+  },
+  "retained_diagnostic_groups": [
+    {
+      "lower": 12,
+      "upper": 14,
+      "count": 48
+    },
+    {
+      "lower": 18,
+      "upper": 18,
+      "count": 98
+    },
+    {
+      "lower": 20,
+      "upper": 20,
+      "count": 62
+    },
+    {
+      "lower": 24,
+      "upper": 28,
+      "count": 28
+    },
+    {
+      "lower": 24,
+      "upper": 30,
+      "count": 16
+    },
+    {
+      "lower": 30,
+      "upper": 38,
+      "count": 16
+    },
+    {
+      "lower": 30,
+      "upper": 40,
+      "count": 10
+    },
+    {
+      "lower": 36,
+      "upper": 48,
+      "count": 28
+    },
+    {
+      "lower": 36,
+      "upper": 54,
+      "count": 10
+    },
+    {
+      "lower": 42,
+      "upper": 62,
+      "count": 10
+    }
+  ],
+  "diagnostic_is_not_a_proof_input": true,
+  "diagnostic_repeat_byte_identical": true,
+  "runs": [
+    {
+      "label": "lower-draft-1",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1DimensionBounds /tmp/b1-minimum-lower.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 6.8,
+      "sampled_group_peak_kib": 5216916,
+      "result": "cast and interval-bound elaboration errors"
+    },
+    {
+      "label": "lower-draft-2",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1DimensionBounds /tmp/b1-minimum-lower2.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 19.0,
+      "sampled_group_peak_kib": 5309952,
+      "result": "deterministic 200000-heartbeat proof failure; no limit change"
+    },
+    {
+      "label": "single-pass-new-support",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py /tmp/b1-dimension-proposals.lean /tmp/b1-minimum-proposals.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 7.3,
+      "sampled_group_peak_kib": 5242324,
+      "result": "all eight new supports passed"
+    },
+    {
+      "label": "lower-draft-3",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1DimensionBounds /tmp/b1-minimum-lower3.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 15.0,
+      "sampled_group_peak_kib": 5699748,
+      "result": "weak connection/finite arithmetic draft failed"
+    },
+    {
+      "label": "strengthened-route-stop",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1DimensionWitnesses /tmp/b1-minimum-all-witnesses.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": -2,
+      "elapsed_seconds": 69.9,
+      "sampled_group_peak_kib": 10496820,
+      "result": "RSS guard; no stronger-route retry"
+    },
+    {
+      "label": "retained-acceptance-1",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1MinimumClassification /tmp/b1-minimum-retained.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 9.8,
+      "sampled_group_peak_kib": 5233512,
+      "result": "negative-literal/cast witness wrapper errors"
+    },
+    {
+      "label": "retained-acceptance-2",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1MinimumClassification /tmp/b1-minimum-retained2.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 5.8,
+      "sampled_group_peak_kib": 5230492,
+      "result": "witness wrapper correction incomplete"
+    },
+    {
+      "label": "retained-acceptance-3",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.SMB1MinimumClassification /tmp/b1-minimum-retained3.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 23.3,
+      "sampled_group_peak_kib": 6232888,
+      "result": "witnesses accepted; interval wrapper elaboration failed"
+    },
+    {
+      "label": "retained-acceptance-4",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.Audit.AuditSMB1MinimumClassification /tmp/b1-minimum-retained-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 1,
+      "elapsed_seconds": 21.5,
+      "sampled_group_peak_kib": 6239804,
+      "result": "intervals accepted; dependent example binder failed"
+    },
+    {
+      "label": "accepted-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build Physics.StandardModel.Operators.Audit.AuditSMB1MinimumClassification /tmp/b1-minimum-accepted-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 7.0,
+      "sampled_group_peak_kib": 5209892,
+      "result": "288 strict transitive checks"
+    },
+    {
+      "label": "direct-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1MinimumClassification.lean /tmp/b1-minimum-direct-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.0,
+      "sampled_group_peak_kib": 5126176,
+      "result": "288 freshly executed checks"
+    },
+    {
+      "label": "fresh-examples",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/SMB1MinimumClassificationExamples.lean /tmp/b1-minimum-fresh-examples.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 3.5,
+      "sampled_group_peak_kib": 5087152,
+      "result": "fresh importing consumers"
+    },
+    {
+      "label": "full-retained-build",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build GUT /tmp/b1-minimum-full.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 8.3,
+      "sampled_group_peak_kib": 6698312,
+      "result": "7358 jobs; zero warnings/errors"
+    },
+    {
+      "label": "merged-direct-audit",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py Physics/StandardModel/Operators/Audit/AuditSMB1MinimumClassification.lean /tmp/b1-minimum-merged-audit.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 4.3,
+      "sampled_group_peak_kib": 5128004
+    },
+    {
+      "label": "merged-cached-full",
+      "command": "LEAN_NUM_THREADS=1 python3 tools/exact-rank/kernel-probe.py --build GUT /tmp/b1-minimum-merged-full.log --rss-limit-gib 10 --min-available-gib 4 --timeout-seconds 300",
+      "exit": 0,
+      "elapsed_seconds": 3.3,
+      "sampled_group_peak_kib": 917948
+    }
+  ],
+  "source_sha256": {
+    "Physics.lean": "38fa4defb892bd0d23aa1f3a077a331f2c89c9c639a88c447608d01ee95a94c6",
+    "Physics/StandardModel/Operators/SMB1DimensionWitnesses.lean": "bc1f0bfb4d3ea2ab244cb3cd58ef7470914fb20c1a3bf833f555531614187504",
+    "Physics/StandardModel/Operators/SMB1DimensionBounds.lean": "711db1db23ba9c285fa53ab5b19b96a2d1456e5ab54ee92d34991eceeb014497",
+    "Physics/StandardModel/Operators/SMB1DimensionProposals.lean": "191004db0a3a952a3512df3afd0af32b020691cc62225891ae9e492b36d05018",
+    "Physics/StandardModel/Operators/SMB1MinimumClassificationExamples.lean": "0fa4a0f46737cf867665b11e5ae9cbadb2d0097d7004856f6aa574c1dcbbe193",
+    "Physics/StandardModel/Operators/SMB1MinimumClassification.lean": "2e75172ec40a6d70a9954ad1b50d935a5fe887781778c975dc554ce88074bc73",
+    "Physics/StandardModel/Operators/Audit/AuditSMB1MinimumClassification.lean": "da783a01537acc1d9dc6f1f52d568fb6e9c474d024bb9dc70d3a8b50fe21aac5",
+    "tools/structural-support/b1-minimum-inventory.py": "9b6b8ce0d46023af9ec3714f4e17372fc059bde108b5d16abd1044598ba597f3",
+    "tools/structural-support/probes/b1-weak-envelope-stopped.lean.txt": "d7745227635659619f510ee5ade216fc8bb6d6f9ea2d033e63812864a2d1bea9"
+  },
+  "strict_transitive_checks": 288,
+  "layout_modules": 1972,
+  "source_policy": "passed",
+  "master_merge": false,
+  "push": false,
+  "links": {
+    "markdown_files": 1006,
+    "local_links": 6106,
+    "fragments": 115,
+    "errors": 0,
+    "outside_sandbox_read_only_retry": true
+  },
+  "diff_check": "passed",
+  "python_syntax": "passed",
+  "integration": {
+    "tree_equal_to_verified_checkpoint": true,
+    "direct_strict_checks": 288,
+    "full_build_jobs": 7358,
+    "full_build_cached": true,
+    "local_child_safely_deleted": true
+  },
+  "final_links": {
+    "markdown_files": 1007,
+    "local_links": 6108,
+    "fragments": 115,
+    "errors": 0
+  }
+}

@@ -1,0 +1,5 @@
+import Physics.StandardModel.Operators.SMCompactSupportDecision
+open Math GUT
+attribute [local instance] SMCompactSupportDecision.higgsDecision
+example : SMJointHiggsSupport.HiggsSupport (fun _ : Fin 2 => 4) 4 0 := by decide +kernel
+example : ¬ SMJointHiggsSupport.HiggsSupport (fun _ : Fin 2 => 3) 2 0 := by decide +kernel

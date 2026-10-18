@@ -1,0 +1,9 @@
+import Physics.StandardModel.Operators.SMNeutralCertificates.Q18Part10
+namespace GUT.SMNeutralCoefficientCertificate
+open SMNeutralSparseRanks SMGroupedCharacter
+/- Generated numbers are candidates, each checked independently below. -/
+theorem s0_n18_m6_dneg6_c44 : boundedCoefficient 0 18 ((4),(2),(-6),(2),(0),(-18)) = 1828206 := by decide +kernel
+theorem s0_n18_m6_dneg6_c45 : boundedCoefficient 0 18 ((4),(2),(8),(2),(0),(-18)) = 384615 := by decide +kernel
+theorem s0_n18_m6_dneg6_c46 : boundedCoefficient 0 18 ((4),(2),(-6),(2),(2),(-18)) = 0 := by decide +kernel
+theorem s0_n18_m6_dneg6_c47 : boundedCoefficient 0 18 ((4),(2),(8),(2),(2),(-18)) = 0 := by decide +kernel
+end GUT.SMNeutralCoefficientCertificate

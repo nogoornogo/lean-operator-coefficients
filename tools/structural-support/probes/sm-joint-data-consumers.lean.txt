@@ -1,0 +1,39 @@
+import Physics.StandardModel.Operators.SMJointSupportDataExamples
+import Lean.Util.CollectAxioms
+open Math GUT
+
+-- Fresh downstream checking, rather than only #check on cached theorem names.
+theorem generic_use {k : Nat} [NeZero k] (q l : ZMod k) {n : Nat}
+    (p : Fin n → DeltaLOneSignedInput.Species) (h d : Nat)
+    (hc : QLFiniteSupport.charge q l p=0)
+    (hy : SMContentWeakBound.hypercharge p+3*((h : Int)-d)=0)
+    (hs : SMJointSupportData.HiggsDataSupport p h d) :
+    SelectionCriteria.Allowed (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d) :=
+  SMJointSupportDataExamples.original_of_data q l p h d hc hy hs
+
+theorem small_mixed_use : SMJointSupportData.HiggsDataSupport
+    (DeltaLOneFourFamilyDecomposition.pattern 0) 0 0 :=
+  SMJointSupportDataExamples.mixed_data_witness
+
+theorem q18_use : SMJointSupportData.HiggsDataSupport (fun _ : Fin 18 => 0) 0 6 :=
+  SMJointSupportDataExamples.q18_data_witness
+
+theorem negative_use : ¬ SMJointSupportData.HiggsDataSupport SMJointSupportDataExamples.oppositePair 0 0 :=
+  SMJointSupportDataExamples.oppositePair_no_data
+
+-- These require a supplied component certificate and measure only transport.
+theorem q18_component_use
+    (o : SMJointSupportData.Index (fun s => if s=0 then 18 else 0))
+    (b : JointSourceExpression.Choice (SMJointSupportData.expressionData (fun s => if s=0 then 18 else 0) 6 o))
+    (hb : JointColorSpinWord.Supports (JointSourceExpression.word
+      (SMJointSupportData.expressionData (fun s => if s=0 then 18 else 0) 6 o) b)) :
+    SMJointContentSupport.Supports (fun s => if s=0 then 18 else 0) 6 :=
+  SMJointSupportDataExamples.component_to_support _ _ o b hb
+
+run_cmd do
+  let ds := [``generic_use, ``small_mixed_use, ``q18_use, ``negative_use, ``q18_component_use]
+  for d in ds do
+    for ax in (← Lean.collectAxioms d) do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "fresh consumer {d} uses unexpected axiom {ax}"
+  Lean.logInfo m!"fresh SM data consumers: {ds.length} strict transitive checks passed"

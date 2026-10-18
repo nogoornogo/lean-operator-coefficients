@@ -1,0 +1,117 @@
+-- Archived from 28c3124; contains a false unproved neighborhood claim.
+import Mathlib.Topology.Algebra.Group.Basic
+import Mathlib.Topology.Maps.Proper.Basic
+import Mathlib.Topology.Basic
+import Lean.Util.CollectAxioms
+
+/-!
+# Topology of centralizers in topological groups
+
+This file provides general topology lemmas about the centralizer map
+`g ↦ Subgroup.centralizer {g}` in a topological group. These lemmas bridge
+gaps in mathlib and are needed for the E6 candidate proof (L5).
+
+Mathlib already provides `Set.isClosed_centralizer` for the centralizer as a
+set.  This file adds the upper semicontinuity of the centralizer map, which
+is not yet in mathlib.
+
+## Contents
+
+1. `centralizer_upperSemicontinuous` — The centralizer map is upper semicontinuous:
+   if `g_n → g` and `x_n ∈ C_G(g_n)`, then any limit of `x_n` lies in `C_G(g)`.
+2. `exists_open_nhds_centralizer_subset` — In a compact group, if `C_G(g) = T` and `T`
+   is abelian, then `C_G(g') ⊆ T` for all `g'` in some open neighborhood of `g`.
+
+These lemmas are project-independent and can be upstreamed to mathlib.
+-/
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+
+open Filter Topology
+
+namespace GUT.CentralizerTopology
+
+/-! ## 1. Upper semicontinuity of the centralizer map
+
+The centralizer map `g ↦ Subgroup.centralizer {g}` is upper semicontinuous
+in the sense that if `g_n → g` and `x_n ∈ C_G(g_n)`, then any cluster point
+of `x_n` lies in `C_G(g)`.
+
+We prove a concrete sequential version: if `g_n → g` and `x_n → x` with
+`x_n ∈ C_G(g_n)`, then `x ∈ C_G(g)`. -/
+
+/-- Upper semicontinuity of the centralizer map:
+if `g_n → g` and `x_n ∈ C_G(g_n)` with `x_n → x`, then `x ∈ C_G(g)`. -/
+theorem centralizer_upperSemicontinuous {G : Type*} [TopologicalSpace G] [Group G]
+    [IsTopologicalGroup G] [T2Space G] {g : G} {g_n : ℕ → G} {x : G} {x_n : ℕ → G}
+    (hg : Tendsto g_n atTop (𝓝 g)) (hx : Tendsto x_n atTop (𝓝 x))
+    (h_centralizer : ∀ n, x_n n ∈ Subgroup.centralizer ({g_n n} : Set G)) :
+    x ∈ Subgroup.centralizer ({g} : Set G) := by
+  have h_comm : ∀ n, x_n n * g_n n = g_n n * x_n n := by
+    intro n
+    have hmem := h_centralizer n
+    simpa [Subgroup.mem_centralizer_singleton_iff] using hmem
+  have h_mul_cont : Continuous (fun (p : G × G) => p.1 * p.2) := by fun_prop
+  have h_mul_comm_cont : Continuous (fun (p : G × G) => p.2 * p.1) := by fun_prop
+  have h_prod_tendsto : Tendsto (fun n => (x_n n, g_n n)) atTop (𝓝 (x, g)) :=
+    Tendsto.prodMk_nhds hx hg
+  have h_prod_mul : Tendsto (fun n => x_n n * g_n n) atTop (𝓝 (x * g)) :=
+    (Continuous.tendsto h_mul_cont (x, g)).comp h_prod_tendsto
+  have h_prod_mul_comm : Tendsto (fun n => g_n n * x_n n) atTop (𝓝 (g * x)) :=
+    (Continuous.tendsto h_mul_comm_cont (x, g)).comp h_prod_tendsto
+  -- Since x_n n * g_n n = g_n n * x_n n for all n, the limits are equal
+  have h_limits_eq : x * g = g * x := by
+    have h_eq_seq : (fun n => x_n n * g_n n) = (fun n => g_n n * x_n n) := by
+      ext n; exact h_comm n
+    rw [h_eq_seq] at h_prod_mul
+    exact tendsto_nhds_unique h_prod_mul h_prod_mul_comm
+  simpa [Subgroup.mem_centralizer_singleton_iff] using h_limits_eq
+
+/-! ## 2. Open neighborhood in compact groups
+
+In a compact group, if `C_G(g) = T`, then there is an open neighborhood
+of `g` where every element has centralizer contained in `T` (upper
+semicontinuity).  The reverse inclusion `T ⊆ C_G(g')` does not hold in
+general for `g'` near `g`.
+
+The proof uses the upper semicontinuity of the centralizer map.
+-/
+
+/-- In a compact Hausdorff group, if `C_G(g) = T` and `T` is abelian, then
+there exists an open neighborhood `U` of `g` such that
+`C_G(g') ⊆ T` for all `g' ∈ U`.
+
+This is the upper semicontinuity property: the centralizer can only shrink
+for elements near `g`. The proof uses `centralizer_upperSemicontinuous` and
+sequential compactness.
+
+Note: the full equality `C_G(g') = T` does not hold in general (elements near
+`g` may have centralizer `hTh⁻¹` for `h` close to `1`).  The formalization
+target records the best available version. -/
+theorem exists_open_nhds_centralizer_subset {G : Type*} [TopologicalSpace G] [Group G]
+    [IsTopologicalGroup G] [CompactSpace G] [T2Space G]
+    (T : Subgroup G) (hT_abelian : ∀ a ∈ T, ∀ b ∈ T, a * b = b * a)
+    (g : G) (h_eq : (Subgroup.centralizer ({g} : Set G) : Set G) = (T : Set G)) :
+    ∃ U, IsOpen U ∧ g ∈ U ∧ ∀ g' ∈ U, (Subgroup.centralizer ({g'} : Set G) : Set G) ⊆ (T : Set G) := by
+  -- This is a formalization target. The proof requires:
+  -- 1. Sequential compactness of G (available via `IsCompact.tendsto_subseq`)
+  -- 2. The upper semicontinuity lemma above
+  -- 3. Construction of sequences using the metric on G
+  sorry
+
+end GUT.CentralizerTopology
+
+/-! ## Audit -/
+
+run_cmd do
+  let declarations := [
+    ``GUT.CentralizerTopology.centralizer_upperSemicontinuous,
+    ``GUT.CentralizerTopology.exists_open_nhds_centralizer_subset]
+  for decl in declarations do
+    let axioms ← Lean.collectAxioms decl
+    for ax in axioms do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "CentralizerTopology: {decl} uses unexpected axiom {ax}"
+    Lean.logInfo m!"CentralizerTopology: {decl} depends on axioms: {axioms}"
+  Lean.logInfo m!"CentralizerTopology: checked {declarations.length} declarations"

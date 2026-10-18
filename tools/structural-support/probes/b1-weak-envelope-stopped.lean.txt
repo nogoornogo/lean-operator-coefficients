@@ -1,0 +1,177 @@
+import Physics.StandardModel.Operators.SMB1BelowTenAssignments
+import Physics.StandardModel.Operators.SMChiralitySupport
+
+/-! Signed-charge engineering-dimension bounds on actual B1 coefficients. -/
+namespace GUT.SMB1DimensionBounds
+set_option autoImplicit false
+open Math DeltaLOneSignedInput SMChargeDegreeBounds SMFiniteLeptonSupport
+open scoped BigOperators
+
+/-- The charge/hypercharge lower grade before the chirality congruence. -/
+def rawLower (L : ℤ) : ℕ :=
+  max (max (3*(3+L.natAbs)) ((3+L.natAbs)+2*(2*L-1).natAbs))
+    (max (7*L-15).toNat (-7*L-9).toNat)
+
+/-- Enforce the engineering-grade congruence as well as the two inequalities. -/
+def lowerGrade (L : ℤ) : ℕ :=
+  if ((rawLower L : ℤ)+L-1)%4=0 then rawLower L else rawLower L+2
+
+theorem species_grade_identity (s : Species) :
+    (1 : ZMod 4)-2*(hypercharge s : ZMod 4)-(baryon s : ZMod 4)-
+      (lepton s : ZMod 4)=2*(SMChiralitySupport.slotCount false s : ZMod 4) := by
+  fin_cases s <;> decide +kernel
+
+theorem grade_identity {n : ℕ} (p : Fin n → Species) :
+    (n : ZMod 4)-2*(SMContentWeakBound.hypercharge p : ZMod 4)-
+      ((SMQLPatternRequests.blCharge p).1 : ZMod 4)-
+      ((SMQLPatternRequests.blCharge p).2 : ZMod 4)=
+        2*(SMChiralitySupport.count p false : ZMod 4) := by
+  have he := congrArg (fun f : Fin n → ZMod 4 => ∑ i, f i)
+    (funext (fun i => species_grade_identity (p i)))
+  simpa [SMContentWeakBound.hypercharge,SMQLPatternRequests.blCharge,
+    SMChiralitySupport.count,Finset.sum_sub_distrib,Finset.mul_sum] using he
+
+theorem original_left_even {k : ℕ} [NeZero k] (q l : ZMod k) {n : ℕ}
+    (p : Fin n → Species) (h d : ℕ)
+    (ha : SelectionCriteria.Allowed
+      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d)) :
+    SMChiralitySupport.count p false % 2=0 := by
+  by_contra hn
+  exact (SelectionCriteria.forbidden_iff_not_allowed _).mp
+    (SMChiralitySupport.original_forbidden (QLFiniteSupport.flavor q l) p false hn h d) ha
+
+/-- Necessary engineering-grade congruence from actual independent chirality. -/
+theorem original_grade_congruence {k : ℕ} [NeZero k] (q l : ZMod k) {n : ℕ}
+    (p : Fin n → Species) (h d : ℕ)
+    (ha : SelectionCriteria.Allowed
+      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d)) :
+    ((twiceDimension n h d : ℤ)-3*(SMQLPatternRequests.blCharge p).1+
+      (SMQLPatternRequests.blCharge p).2)%4=0 := by
+  have he := grade_identity p
+  have hl := original_left_even q l p h d ha
+  have hz : (2*(SMChiralitySupport.count p false) : ℕ)%4=0 := by omega
+  have hz' : (2 : ZMod 4)*(SMChiralitySupport.count p false : ZMod 4)=0 := by
+    simpa only [Nat.cast_mul,Nat.cast_ofNat] using
+      (ZMod.natCast_eq_zero_iff _ 4).mpr (Nat.dvd_of_mod_eq_zero hz)
+  rw [hz'] at he
+  have hi : (((n : ℤ)-2*SMContentWeakBound.hypercharge p-
+      (SMQLPatternRequests.blCharge p).1-(SMQLPatternRequests.blCharge p).2 : ℤ) : ZMod 4)=0 := by
+    simpa only [Int.cast_sub,Int.cast_natCast,Int.cast_mul,Int.cast_ofNat] using he
+  have hm := Int.emod_eq_zero_of_dvd ((ZMod.intCast_zmod_eq_zero_iff_dvd _ 4).mp hi)
+  have hy := ((SMJointHiggsSupport.original_ql_iff p q l h d).mp ha).2.1
+  unfold twiceDimension
+  omega
+
+private theorem count_sum {n : ℕ} (p : Fin n → Species) :
+    (n : ℤ) = ∑ s, (SMIteratedContent.counts p s : ℤ) := by
+  simpa using sum_by_species p (fun _ => (1 : ℤ))
+
+private theorem weak_bound_counts (c : Species → ℕ) (h3 : c 3≤12) (h8 : c 8≤12) :
+    (∑ s, SMMixedWeakCapacity.speciesBound s (c s) : ℕ) ≤
+      c 0+c 5+(12-c 3)+c 8 ∧
+    (∑ s, SMMixedWeakCapacity.speciesBound s (c s) : ℕ) ≤
+      c 0+c 5+c 3+(12-c 8) := by
+  simp [SMMixedWeakCapacity.speciesBound,SMConstantWeakCapacity.bound,
+    SMConstantWeakCapacity.dimension_eq,SMWeakWeightBasis.doubletCount,
+    Fin.sum_univ_succ]
+  constructor <;> omega
+
+/-- Complementary weak capacities constrain lepton charge at every grade. -/
+theorem original_weak_envelope {k : ℕ} [NeZero k] (q l : ZMod k) {n : ℕ}
+    (p : Fin n → Species) (h d : ℕ)
+    (ha : SelectionCriteria.Allowed
+      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d)) :
+    |7*(SMQLPatternRequests.blCharge p).2-(SMQLPatternRequests.blCharge p).1| ≤
+      12+(twiceDimension n h d : ℤ) := by
+  have hfit := SMFiniteLeptonSupport.original_fits q l p h d ha
+  have hc3 : SMIteratedContent.counts p 3≤12 := by
+    simpa only [SMConstantWeakCapacity.dimension_eq] using hfit 3
+  have hc8 : SMIteratedContent.counts p 8≤12 := by
+    simpa only [SMConstantWeakCapacity.dimension_eq] using hfit 8
+  have hbounds := weak_bound_counts (SMIteratedContent.counts p) hc3 hc8
+  change SMMixedWeakCapacity.bound p ≤ _ ∧ SMMixedWeakCapacity.bound p ≤ _ at hbounds
+  have hw : -((SMMixedWeakCapacity.bound p : ℕ) : ℤ) ≤ (h : ℤ)-d ∧
+      (h : ℤ)-d ≤ (SMMixedWeakCapacity.bound p : ℕ) := by
+    by_contra hn
+    have hx : (SMMixedWeakCapacity.bound p : ℤ) < (h : ℤ)-d ∨
+        (h : ℤ)-d < -(SMMixedWeakCapacity.bound p : ℤ) := by omega
+    exact (SelectionCriteria.forbidden_iff_not_allowed _).mp
+      (SMMixedWeakCapacity.original_ql_forbidden p q l h d hx) ha
+  have hn := count_sum p
+  have hy : SMContentWeakBound.hypercharge p =
+      ∑ s, (SMIteratedContent.counts p s : ℤ)*hypercharge s := sum_by_species p hypercharge
+  have hb : (SMQLPatternRequests.blCharge p).1 =
+      ∑ s, (SMIteratedContent.counts p s : ℤ)*baryon s := sum_by_species p baryon
+  have hl : (SMQLPatternRequests.blCharge p).2 =
+      ∑ s, (SMIteratedContent.counts p s : ℤ)*lepton s := sum_by_species p lepton
+  simp [Fin.sum_univ_succ] at hn
+  simp [hypercharge,Fin.sum_univ_succ] at hy
+  simp [baryon,Fin.sum_univ_succ] at hb
+  simp [lepton,Fin.sum_univ_succ] at hl
+  have hY := ((SMJointHiggsSupport.original_ql_iff p q l h d).mp ha).2.1
+  rw [abs_le]
+  unfold twiceDimension
+  constructor <;> omega
+
+private theorem arithmetic_positive (n h d : ℕ) (L Y : ℤ)
+    (hc : 3+|L| ≤ (n : ℤ)) (he : |Y-3+6*L| ≤ 3*(n : ℤ))
+    (hw : |7*L-3| ≤ 12+(twiceDimension n h d : ℤ))
+    (hy : Y+3*((h : ℤ)-d)=0) (hp : (3+L)%2=0)
+    (hg : ((twiceDimension n h d : ℤ)-9+L)%4=0)
+    (hL : |L|≤18) : lowerGrade L ≤ twiceDimension n h d := by
+  rw [abs_le] at hL
+  have hbnd : -17 ≤ L ∧ L≤17 := by omega
+  obtain ⟨hlo,hhi⟩ := hbnd
+  rw [abs_le] at he hw
+  interval_cases L <;> norm_num [lowerGrade,rawLower] at * <;>
+    unfold twiceDimension at * <;> omega
+
+private theorem arithmetic_negative (n h d : ℕ) (L Y : ℤ)
+    (hc : 3+|L| ≤ (n : ℤ)) (he : |Y+3+6*L| ≤ 3*(n : ℤ))
+    (hw : |7*L+3| ≤ 12+(twiceDimension n h d : ℤ))
+    (hy : Y+3*((h : ℤ)-d)=0) (hp : (-3+L)%2=0)
+    (hg : ((twiceDimension n h d : ℤ)+9+L)%4=0)
+    (hL : |L|≤18) : lowerGrade (-L) ≤ twiceDimension n h d := by
+  rw [abs_le] at hL
+  have hbnd : -17 ≤ L ∧ L≤17 := by omega
+  obtain ⟨hlo,hhi⟩ := hbnd
+  rw [abs_le] at he hw
+  interval_cases L <;> norm_num [lowerGrade,rawLower] at * <;>
+    unfold twiceDimension at * <;> omega
+
+/-- Normalize both charges while retaining the actual input's engineering grade. -/
+theorem original_lower {k : ℕ} [NeZero k] (q l : ZMod k) {n : ℕ}
+    (p : Fin n → Species) (h d : ℕ)
+    (hb : (SMQLPatternRequests.blCharge p).1.natAbs=3)
+    (ha : SelectionCriteria.Allowed
+      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d)) :
+    ∃ L ∈ leptonRange 3, (3 : ZMod k)*q+(L : ZMod k)*l=0 ∧
+      lowerGrade L ≤ twiceDimension n h d := by
+  have hc := charge_degree p
+  have he := SMMinimumOperatorDimension.hypercharge_envelope p
+  have hw := original_weak_envelope q l p h d ha
+  have hy := ((SMJointHiggsSupport.original_ql_iff p q l h d).mp ha).2.1
+  have hp := original_parity q l p h d ha
+  have hg := original_grade_congruence q l p h d ha
+  have hL := original_lepton_capacity q l p h d ha
+  have hq := (residual_linear q l p).symm.trans
+    ((SMJointHiggsSupport.original_ql_iff p q l h d).mp ha).1
+  have hB : |(SMQLPatternRequests.blCharge p).1|=3 := by
+    rw [← Int.natCast_natAbs,hb]
+    rfl
+  rw [hB] at hc
+  rcases Int.natAbs_eq_iff.mp hb with hb | hb
+  · refine ⟨(SMQLPatternRequests.blCharge p).2,(mem_range 3 _).mpr ⟨hL,by omega⟩,?_,?_⟩
+    · simpa [hb] using hq
+    · rw [hb] at he hw hg
+      exact arithmetic_positive n h d _ _ hc he hw hy (by omega) (by simpa using hg) hL
+  · refine ⟨-(SMQLPatternRequests.blCharge p).2,
+      (mem_range 3 _).mpr ⟨by simpa using hL,by omega⟩,?_,?_⟩
+    · rw [hb] at hq
+      push_cast at hq ⊢
+      linear_combination -hq
+    · rw [hb] at he hw hg
+      exact arithmetic_negative n h d _ _ hc (by simpa using he) (by simpa using hw)
+        hy (by omega) (by simpa using hg) hL
+
+end GUT.SMB1DimensionBounds

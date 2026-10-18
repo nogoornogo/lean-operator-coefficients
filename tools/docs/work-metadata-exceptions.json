@@ -1,0 +1,23 @@
+{
+  "external_revisions": {
+    "LeanPool": "01db1d7049cf9668bda1e9e106875ee1278b43e6",
+    "mathlib-current": "1a547d8a48a8fa7877d2decb69d7294723bb0187",
+    "mathlib-earlier": "30a58f795ae8c95b8299fe3c9ded1e6498a9e9fe",
+    "TauCeti-earlier": "355c248fa848acd70c2a4b412ca5f53d37b0402a",
+    "ATLAS": "8004bc185206d3d34cc6a7cf0840edca89cf64ce",
+    "ABC4EFT": "848a1bec81c3459eee67055eb143108bce1f776c",
+    "algebraic-combinatorics": "b6022318e986a0c20764569208ba8ebbe1c04dbf",
+    "TauCeti-current": "b9e2e182804073eb92718b68a9baf37df8e189bd",
+    "Physlib": "c3964f48db4b861c8ebe706d8ff6febe07025827",
+    "algebraic-combinatorics-mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
+    "ATLAS-Physlib-mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+    "ATLAS-v1-mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
+    "LeanPool-mathlib": "c55e6e786f49471c72fbddbec5415808896aec1e"
+  },
+  "publication_dates": {
+    "docs/topics/sm-support-and-lfv-decomposition/references.md": [
+      "2023-12-20",
+      "2026-07-01"
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+import GUT.Common.ProtonProtection.LRLightHiggs
+import Lean.Util.CollectAxioms
+
+run_cmd do
+  let ds := [``GUT.BLResidualRestriction.Residual,
+    ``GUT.BLResidualRestriction.Flavor,
+    ``GUT.BLResidualRestriction.embedding,
+    ``GUT.BLResidualRestriction.embedding_injective,
+    ``GUT.BLResidualRestriction.embedding_pow_six,
+    ``GUT.BLResidualRestriction.range_iff,
+    ``GUT.BLResidualRestriction.vev_stabilizer,
+    ``GUT.BLResidualRestriction.charge,
+    ``GUT.BLResidualRestriction.uvFlavor,
+    ``GUT.BLResidualRestriction.residualFlavor,
+    ``GUT.BLResidualRestriction.phase_restriction,
+    ``GUT.BLResidualRestriction.negative_vev_fixed,
+    ``GUT.BLResidualRestriction.charge_matches,
+    ``GUT.BLResidualRestriction.flavor_restriction,
+    ``GUT.BLResidualRestriction.actual_field_restriction,
+    ``GUT.BLResidualRestriction.charge_conjugates,
+    ``GUT.BLResidualRestriction.uvHiggsFlavor,
+    ``GUT.BLResidualRestriction.residualHiggsFlavor,
+    ``GUT.BLResidualRestriction.actual_higgs_restriction,
+    ``GUT.BLResidualRestriction.higgs_restriction,
+    ``GUT.BLResidualRestriction.restricted_b1_attained,
+    ``GUT.BLResidualRestriction.restricted_b1_lower,
+    ``GUT.LRLightHiggs.LRGroup,
+    ``GUT.LRLightHiggs.Phi,
+    ``GUT.LRLightHiggs.Two,
+    ``GUT.LRLightHiggs.forgetX,
+    ``GUT.LRLightHiggs.bidoublet,
+    ``GUT.LRLightHiggs.smEmbedding,
+    ``GUT.LRLightHiggs.residualEmbedding,
+    ``GUT.LRLightHiggs.restriction_eq,
+    ``GUT.LRLightHiggs.residual_neutral,
+    ``GUT.LRLightHiggs.includeHiggs,
+    ``GUT.LRLightHiggs.projectHiggs,
+    ``GUT.LRLightHiggs.project_include,
+    ``GUT.LRLightHiggs.include_injective,
+    ``GUT.LRLightHiggs.include_equivariant,
+    ``GUT.LRLightHiggs.quadratic,
+    ``GUT.LRLightHiggs.split_quadratic,
+    ``GUT.LRLightHiggs.quadratic_equivariant,
+    ``GUT.LRLightHiggs.kernel_eq_range,
+    ``GUT.LRLightHiggs.kernel_of_coordinates,
+    ``GUT.LRLightHiggs.positive_heavy_kernel,
+    ``GUT.LRLightHiggs.lightEquiv,
+    ``GUT.LRLightHiggs.lightRepresentation,
+    ``GUT.LRLightHiggs.lightRepresentationEquiv,
+    ``GUT.LRLightHiggs.dualLightRepresentationEquiv,
+    ``GUT.LRLightHiggs.light_action,
+    ``GUT.LRLightHiggs.light_residual_action]
+  for d in ds do
+    for ax in (← Lean.collectAxioms d) do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "BL/LR input bridges: {d} uses unexpected axiom {ax}"
+  Lean.logInfo m!"BL/LR input bridges: {ds.length} strict transitive checks passed"

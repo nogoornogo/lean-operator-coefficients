@@ -1,0 +1,104 @@
+-- UNVERIFIED CANDIDATE: the complete build hit the 10 GiB sampled RSS guard.
+-- Not imported by any active module; no theorem here is claimed as verified.
+import Math.RepresentationTheory.ColoredSourceData
+import Math.RepresentationTheory.JointContentData
+import Physics.StandardModel.Operators.SMJointHiggsSupport
+
+/-! Executable SM core/content metadata, with ordinary proofs preserving the
+actual joint expressions and original coefficient support. No decision engine
+or computational proof of an individual support judgment is introduced. -/
+namespace GUT.SMJointSupportData
+set_option autoImplicit false
+open Math JointSourceExpression
+
+/-- Direct syntax dispatch; no projection from a representation or its proof. -/
+def coreData (s : DeltaLOneSignedInput.Species) (n : Nat) : Expr :=
+  Fin.cases (JointSourceData.quark false n) (fun i1 =>
+    Fin.cases (JointSourceData.colored true n) (fun i2 =>
+      Fin.cases (JointSourceData.colored true n) (fun i3 =>
+        Fin.cases (JointSourceData.doubletPair false n) (fun i4 =>
+          Fin.cases (JointSourceData.single true n) (fun i5 =>
+            Fin.cases (JointSourceData.dual (JointSourceData.quark true n)) (fun i6 =>
+              Fin.cases (JointSourceData.dual (JointSourceData.colored false n)) (fun i7 =>
+                Fin.cases (JointSourceData.dual (JointSourceData.colored false n)) (fun i8 =>
+                  Fin.cases (JointSourceData.doubletPair true n) (fun i9 =>
+                    Fin.cases (JointSourceData.single false n) (fun i10 => Fin.elim0 i10) i9) i8)
+                  i7) i6) i5) i4) i3) i2) i1) s
+
+theorem coreData_eq (s : DeltaLOneSignedInput.Species) (n : Nat) :
+    coreData s n = (SMSignedCoreJointPresentation.presentation s n).expression := by
+  refine Fin.cases ?_ (fun i1 => ?_) s
+  · exact JointSourceData.quark_eq false n
+  · refine Fin.cases ?_ (fun i2 => ?_) i1
+    · exact JointSourceData.colored_eq true n
+    · refine Fin.cases ?_ (fun i3 => ?_) i2
+      · exact JointSourceData.colored_eq true n
+      · refine Fin.cases ?_ (fun i4 => ?_) i3
+        · exact JointSourceData.doubletPair_eq false n
+        · refine Fin.cases ?_ (fun i5 => ?_) i4
+          · exact JointSourceData.single_eq true n
+          · refine Fin.cases ?_ (fun i6 => ?_) i5
+            · exact JointSourceData.conjugateQuark_eq true n
+            · refine Fin.cases ?_ (fun i7 => ?_) i6
+              · exact JointSourceData.conjugateColored_eq false n
+              · refine Fin.cases ?_ (fun i8 => ?_) i7
+                · exact JointSourceData.conjugateColored_eq false n
+                · refine Fin.cases ?_ (fun i9 => ?_) i8
+                  · exact JointSourceData.doubletPair_eq true n
+                  · refine Fin.cases ?_ (fun i10 => Fin.elim0 i10) i9
+                    exact JointSourceData.single_eq false n
+
+abbrev Index (c : DeltaLOneSignedInput.Species → Nat) := JointContentData.Index 9 c
+
+def expressionData (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) (o : Index c) : Expr :=
+  .tensor (JointContentData.occupied 9 c coreData o) (JointSourceData.weak m)
+
+def DataSupport (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) : Prop :=
+  ∃ o : Index c, JointSourceExpression.Supports (expressionData c m o)
+
+theorem expressionData_eq (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) (o : Index c) :
+    expressionData c m o = SMJointContentSupport.expression c m
+      (JointContentData.choiceEquiv 9 (SMJointContentSupport.leaves c) o) := by
+  unfold expressionData
+  rw [JointContentData.occupied_eq 9 (SMJointContentSupport.leaves c)
+    SMSignedCoreJointPresentation.presentation coreData coreData_eq o]
+  rfl
+
+/-- Transport a particular witness without performing any support search. -/
+theorem witness_to_original (c : DeltaLOneSignedInput.Species → Nat) (m : Nat)
+    (o : Index c) (h : JointSourceExpression.Supports (expressionData c m o)) :
+    SMJointContentSupport.Supports c m := by
+  rw [expressionData_eq] at h
+  exact ⟨JointContentData.choiceEquiv 9 (SMJointContentSupport.leaves c) o, h⟩
+
+theorem dataSupport_iff (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) :
+    DataSupport c m ↔ SMJointContentSupport.Supports c m := by
+  constructor
+  · rintro ⟨o,h⟩
+    exact witness_to_original c m o h
+  · rintro ⟨o,h⟩
+    let e := JointContentData.choiceEquiv 9 (SMJointContentSupport.leaves c)
+    refine ⟨e.symm o, ?_⟩
+    rw [expressionData_eq, e.apply_symm_apply]
+    exact h
+
+def HiggsDataSupport {n : Nat} (p : Fin n → DeltaLOneSignedInput.Species) (h d : Nat) : Prop :=
+  ∃ m : Fin (SMContentWeakBound.bound p+1), BoundedHiggsSupport.Admissible h d m.val ∧
+    DataSupport (SMIteratedContent.counts p) m.val
+
+theorem higgsDataSupport_iff {n : Nat} (p : Fin n → DeltaLOneSignedInput.Species) (h d : Nat) :
+    HiggsDataSupport p h d ↔ SMJointHiggsSupport.HiggsSupport p h d := by
+  unfold HiggsDataSupport SMJointHiggsSupport.HiggsSupport
+  apply exists_congr
+  intro m
+  exact and_congr_right (fun _ => dataSupport_iff _ _)
+
+theorem original_ql_iff {k : Nat} [NeZero k] (q l : ZMod k) {n : Nat}
+    (p : Fin n → DeltaLOneSignedInput.Species) (h d : Nat) :
+    SelectionCriteria.Allowed (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d) ↔
+    QLFiniteSupport.charge q l p = 0 ∧
+      SMContentWeakBound.hypercharge p + 3*((h : Int)-d) = 0 ∧ HiggsDataSupport p h d := by
+  rw [higgsDataSupport_iff]
+  exact SMJointHiggsSupport.original_ql_iff p q l h d
+
+end GUT.SMJointSupportData

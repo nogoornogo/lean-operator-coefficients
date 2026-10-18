@@ -1,0 +1,307 @@
+-- Archived from 28c3124; uncompiled draft, not a Lean library module.
+import GUT.E6.Minuscule.RelativeAvoidance
+import Lean.Util.CollectAxioms
+
+/-!
+# Conjugation cover for the E6 candidate
+
+R5 (Lemma 8) requires: construct the map `q : B × T → G` defined by
+`q(gT, t) = g*t*g⁻¹` (where `g` is any representative of the coset `gT`), prove
+it is continuous, a local homeomorphism over the regular locus, and a covering
+map when restricted to `B × Treg`.
+
+This file defines the conjugation cover map `conjCoverMap : B × T → G`,
+proves it is well-defined (using the fact that `T` is abelian), and proves
+its continuity.  The local homeomorphism and covering map properties are
+recorded as formalization targets.
+-/
+
+set_option autoImplicit false
+set_option backward.isDefEq.respectTransparency false
+
+namespace GUT.E6.Minuscule
+
+noncomputable section
+
+open scoped Matrix
+
+/-! ## The conjugation map -/
+
+/-- The conjugation action of `compactIdentityComponent` on itself by conjugation.
+This is a continuous map `G × G → G`. -/
+def conjAction (g h : compactIdentityComponent) : compactIdentityComponent :=
+  g * h * g⁻¹
+
+/-- The conjugation map `conjAction : G × G → G` is continuous. -/
+theorem conjAction_continuous : Continuous (fun (p : compactIdentityComponent × compactIdentityComponent) =>
+    conjAction p.1 p.2) := by
+  unfold conjAction
+  fun_prop
+
+/-! ## The conjugation cover map `q : B × T → G` -/
+
+/-- `Torus.subgroup` is abelian: any two elements commute. -/
+theorem subgroup_commute (a b : Torus.subgroup) : Commute (a : compactIdentityComponent) (b : compactIdentityComponent) := by
+  have h_abelian : ∀ (x y : Torus.subgroup), x * y = y * x := by
+    intro x y
+    obtain ⟨zx, hx⟩ := MonoidHom.mem_range.mp x.2
+    obtain ⟨zy, hy⟩ := MonoidHom.mem_range.mp y.2
+    rw [hx, hy]
+    have h_comm : hom zx * hom zy = hom zy * hom zx := by
+      rw [← map_mul, ← map_mul, mul_comm]
+    exact h_comm
+  exact h_abelian a b
+
+/-- The well-definedness condition for `conjCoverMap`.
+If `g⁻¹ * g' ∈ T`, then `g * t * g⁻¹ = g' * t * (g')⁻¹` for any `t ∈ T`. -/
+theorem conjCoverMap_wellDefined (t : Torus.subgroup) (g g' : compactIdentityComponent)
+    (h : g⁻¹ * g' ∈ Torus.subgroup) :
+    g * (t : compactIdentityComponent) * g⁻¹ = g' * (t : compactIdentityComponent) * (g')⁻¹ := by
+  set n := (g⁻¹ * g' : compactIdentityComponent) with hn_def
+  have hg' : g' = g * n := by
+    calc
+      g' = g * (g⁻¹ * g') := by group
+      _ = g * n := by rw [hn_def]
+  rw [hg']
+  have h_comm : Commute (n : compactIdentityComponent) (t : compactIdentityComponent) :=
+    subgroup_commute ⟨n, h⟩ t
+  calc
+    g * (t : compactIdentityComponent) * g⁻¹ = g * (t : compactIdentityComponent) * g⁻¹ := rfl
+    _ = g * ((t : compactIdentityComponent) * 1) * g⁻¹ := by simp
+    _ = g * ((t : compactIdentityComponent) * (n * n⁻¹)) * g⁻¹ := by simp
+    _ = g * ((t : compactIdentityComponent) * n * n⁻¹) * g⁻¹ := by ring
+    _ = g * (n * (t : compactIdentityComponent) * n⁻¹) * g⁻¹ := by rw [h_comm.eq]
+    _ = g * n * (t : compactIdentityComponent) * n⁻¹ * g⁻¹ := by ring
+    _ = g * n * (t : compactIdentityComponent) * (g * n)⁻¹ := by group
+
+/-- The conjugation cover map `q : B × T → G` defined by `q(gT, t) = g*t*g⁻¹`.
+This map is well-defined because `T` is abelian. -/
+def conjCoverMap : cosetSpace × Torus.subgroup → compactIdentityComponent :=
+  fun (x, t) =>
+    Quotient.lift (fun (g : compactIdentityComponent) => g * (t : compactIdentityComponent) * g⁻¹)
+      (fun (g g' : compactIdentityComponent) (h : g⁻¹ * g' ∈ Torus.subgroup) =>
+        conjCoverMap_wellDefined t g g' h) x
+
+/-- The conjugation cover map is continuous. -/
+theorem conjCoverMap_continuous : Continuous conjCoverMap := by
+  -- We use the following trick: conjCoverMap is the composition
+  --   (eval : (G → G) × T → G) ∘ (Φ × id)
+  -- where Φ : B → (G → G) is the map that sends a coset to the conjugation map
+  -- by any representative, and eval(f, t) = f(t).
+  --
+  -- Since eval is continuous (for the product topology on (G → G) × T),
+  -- it suffices to show Φ is continuous.
+  -- Φ(x)(g) = g * (rep x) * g⁻¹... no, this is wrong.
+  --
+  -- Actually, let me use a different trick:
+  -- conjCoverMap(x, t) = (λ g, g * t * g⁻¹)(x)  -- but x is a coset, not an element
+  --
+  -- Let me try yet another approach: use the fact that the map
+  -- (g, t) ↦ g * t * g⁻¹ from G × T to G is continuous and descends
+  -- to the quotient in the first factor.
+  --
+  -- Define F : G × T → G by F(g, t) = g * t * g⁻¹
+  -- F is continuous and F(g₁, t) = F(g₂, t) when g₁⁻¹ * g₂ ∈ T
+  -- Therefore F descends to a continuous map (G/T) × T → G
+  --
+  -- The descent is given by `Quotient.lift` on the first factor.
+  -- To prove continuity of the descended map, we use the universal property
+  -- of the quotient topology.
+  --
+  -- Let's use `continuous_iff_continuousAt` and work pointwise.
+  --
+  -- Let (x, t) ∈ (G/T) × T. Choose g ∈ G such that q(g) = x.
+  -- For any neighborhood V of F(g, t), we need a neighborhood U × W of (x, t)
+  -- such that conjCoverMap(U × W) ⊆ V.
+  --
+  -- Since F is continuous at (g, t), there exist neighborhoods A of g and B of t
+  -- such that F(A × B) ⊆ V.
+  --
+  -- Now take U = q(A) and W = B. Since q is an open map, U is open.
+  -- For any (x', t') ∈ U × W, we have x' = q(g') for some g' ∈ A,
+  -- and t' ∈ B. Then conjCoverMap(x', t') = F(g', t') ∈ F(A × B) ⊆ V.
+  --
+  -- This proves continuity.
+  --
+  -- Let's formalize this.
+  let F : compactIdentityComponent × Torus.subgroup → compactIdentityComponent :=
+    fun p => p.1 * (p.2 : compactIdentityComponent) * p.1⁻¹
+  have hF_cont : Continuous F := by
+    unfold F; fun_prop
+  -- Now prove continuity using the definition of quotient topology
+  rw [continuous_iff_continuousAt]
+  intro p
+  rcases p with ⟨x, t⟩
+  rw [ContinuousAt, nhds_prod_eq]
+  -- Need: conjCoverMap is continuous at (x, t)
+  -- Choose a representative g of x
+  obtain ⟨g, hg⟩ := QuotientGroup.mk_surjective x
+  -- F is continuous at (g, t)
+  have hF_cont_at : ContinuousAt F (g, t) := hF_cont.continuousAt
+  -- This means: map (nhds (g, t)) under F goes to nhds (F(g, t))
+  -- We need: map (nhds (x, t)) under conjCoverMap goes to nhds (conjCoverMap(x, t))
+  -- Note: conjCoverMap(x, t) = F(g, t) by definition
+  --
+  -- The key: the quotient map q : G → G/T is open, so the map
+  -- (g, t) ↦ (q(g), t) is open at (g, t)
+  -- This means: for any neighborhood N of (g, t), there's a neighborhood
+  -- M of (x, t) such that q'⁻¹(M) ⊆ N (where q' = q × id)
+  --
+  -- Actually, we need the opposite direction: q' maps neighborhoods of (g, t)
+  -- to neighborhoods of (x, t). This is true because q' is open.
+  --
+  -- Let's use the filter approach:
+  -- We have: map F (𝓝 (g, t)) ≤ 𝓝 (F(g, t))
+  -- We want: map conjCoverMap (𝓝 (x, t)) ≤ 𝓝 (conjCoverMap(x, t))
+  --
+  -- Since q' is open, map q' (𝓝 (g, t)) = 𝓝 (x, t)
+  -- And conjCoverMap ∘ q' = F
+  -- So: map conjCoverMap (𝓝 (x, t))
+  --   = map conjCoverMap (map q' (𝓝 (g, t)))
+  --   = map (conjCoverMap ∘ q') (𝓝 (g, t))
+  --   = map F (𝓝 (g, t))
+  --   ≤ 𝓝 (F(g, t))
+  --   = 𝓝 (conjCoverMap(x, t))
+  --
+  -- This works! Let's formalize it.
+  let q' : compactIdentityComponent × Torus.subgroup → cosetSpace × Torus.subgroup :=
+    fun p => (QuotientGroup.mk p.1, p.2)
+  have hq'_open : IsOpenMap q' := by
+    -- q' = (QuotientGroup.mk ∘ Prod.fst) × id
+    -- Both components are open maps
+    have h_mk : IsOpenMap (QuotientGroup.mk : compactIdentityComponent → cosetSpace) :=
+      QuotientGroup.isOpenMap_coe
+    have h_id : IsOpenMap (id : Torus.subgroup → Torus.subgroup) :=
+      IsOpenMap.id
+    -- q' is the product of these two open maps
+    -- We can write q' as (h_mk.prodMap h_id) composed with an associativity isomorphism
+    -- Or we can directly prove it's open
+    intro U hU
+    rcases isOpen_prod_iff.mp hU with ⟨U₁, U₂, hU₁, hU₂, rfl⟩
+    have hqU₁ : IsOpen (QuotientGroup.mk '' U₁) :=
+      QuotientGroup.isOpenMap_coe hU₁
+    refine isOpen_prod_iff.mpr ⟨QuotientGroup.mk '' U₁, U₂, hqU₁, hU₂, ?_⟩
+    ext ⟨x, t'⟩; simp [q', Set.mem_image]
+  have hq'_cont_at : ContinuousAt q' (g, t) := by
+    -- q' is continuous everywhere
+    have hq'_cont : Continuous q' := by
+      unfold q'
+      -- QuotientGroup.mk is continuous, Prod.snd is continuous, pairing is continuous
+      continuity
+    exact hq'_cont.continuousAt
+  have hq'_map_nhds : map q' (𝓝 (g, t)) = 𝓝 (x, t) := by
+    -- x = QuotientGroup.mk g
+    have hq'_at : q' (g, t) = (x, t) := by
+      unfold q'
+      simp [hg]
+    rw [← hq'_at]
+    exact IsOpenMap.map_nhds_eq hq'_open hq'_cont_at
+  -- Now compute:
+  have h_conjCoverMap_eq_on_q' : conjCoverMap ∘ q' = F := by
+    ext ⟨g', t'⟩; rfl
+  -- map conjCoverMap (𝓝 (x, t))
+  -- = map conjCoverMap (map q' (𝓝 (g, t)))   [by hq'_map_nhds]
+  -- = map (conjCoverMap ∘ q') (𝓝 (g, t))   [by map_map]
+  -- = map F (𝓝 (g, t))                     [by h_conjCoverMap_eq_on_q']
+  -- ≤ 𝓝 (F(g, t))                          [by hF_cont_at]
+  -- = 𝓝 (conjCoverMap(x, t))                [by hg]
+  calc
+    map conjCoverMap (𝓝 (x, t)) = map conjCoverMap (map q' (𝓝 (g, t))) := by rw [hq'_map_nhds]
+    _ = map (conjCoverMap ∘ q') (𝓝 (g, t)) := by rw [map_map]
+    _ = map F (𝓝 (g, t)) := by rw [h_conjCoverMap_eq_on_q']
+    _ ≤ 𝓝 (F (g, t)) := hF_cont_at
+    _ = 𝓝 (conjCoverMap (x, t)) := by rw [hg]; rfl
+
+/-! ## Covering map properties
+
+The conjugation cover map `conjCoverMap : B × T → G` has the following
+key properties over the regular locus:
+
+1. **Fiber is finite:** For `y ∈ regularLocusG`, the fiber
+   `conjCoverMap ⁻¹' {y}` is finite (in bijection with the Weyl group
+   `W = N_G(T)/T`).  This follows from the characterization:
+   `conjCoverMap(q(g), t) ∈ regularLocusG` iff `g ∈ N_G(T)` and `t ∈ Treg`.
+
+2. **Local homeomorphism:** `conjCoverMap` is a local homeomorphism on
+   `conjCoverMap ⁻¹' regularLocusG`.  This follows from the fact that
+   `F : G × T → G` given by `F(g, t) = g*t*g⁻¹` is a local homeomorphism
+   on `N_G(T) × Treg` (each slice `F(·, t)` is a homeomorphism), and
+   `conjCoverMap` is the descent of `F` along the covering map
+   `π : N_G(T) × Treg → B × Treg`.
+
+3. **Covering map:** By `IsCoveringMapOn.of_isLocalHomeomorphOn`, property (2)
+   implies that `conjCoverMap` is a covering map on the regular locus.
+
+The formal proofs of (2) and (3) require the following ingredients which
+are not yet available in mathlib:
+- Root space decomposition for the characterization of regular elements
+- Lie algebra derivative computations for the local homeomorphism property
+- Smooth manifold structure on the compact group
+
+These are recorded as formalization targets.
+-/
+
+/-- The conjugation cover map is a local homeomorphism on the preimage of
+the regular locus `regularLocusG`.
+
+This follows from the fact that `conjCoverMap` is the descent of the
+conjugation map `F : G × T → G` along the covering map `G → G/T`.
+`F` is a local homeomorphism on `N_G(T) × Treg` because each slice
+`F(·, t)` is a homeomorphism of `N_G(T)`. The descent of a local
+homeomorphism by a covering map is a local homeomorphism.
+
+The formal proof requires:
+1. Characterization of `conjCoverMap ⁻¹' regularLocusG` as `{(q(g), t) | g ∈ N_G(T), t ∈ Treg}`
+   (depends on `lieAlgebra_centralizer_eq_cartan_of_regular`)
+2. Proof that `F` is a local homeomorphism on `N_G(T) × Treg`
+   (depends on smooth manifold structure)
+3. Descent argument for local homeomorphisms
+-/
+theorem conjCoverMap_isLocalHomeomorphOn_regularLocus :
+    IsLocalHomeomorphOn conjCoverMap
+      (conjCoverMap ⁻¹' GUT.E6.Minuscule.regularLocusG : Set (cosetSpace × Torus.subgroup)) := by
+  -- The proof requires the root space decomposition gap lemma and smooth
+  -- manifold infrastructure not yet available in mathlib.
+  -- See the module docstring for details.
+  sorry
+
+/-- The conjugation cover map restricted to the preimage of the regular locus
+is a covering map onto the regular locus.
+
+This follows from `conjCoverMap_isLocalHomeomorphOn_regularLocus` and
+`IsCoveringMapOn.of_isLocalHomeomorphOn`.
+
+The formal proof requires:
+1. `conjCoverMap_isLocalHomeomorphOn_regularLocus` (above)
+2. `IsCoveringMapOn.of_isLocalHomeomorphOn` from mathlib
+-/
+theorem conjCoverMap_isCoveringMap_restrict_preimage :
+    IsCoveringMapOn conjCoverMap (GUT.E6.Minuscule.regularLocusG : Set compactIdentityComponent) := by
+  -- The proof follows from `conjCoverMap_isLocalHomeomorphOn_regularLocus`
+  -- and the existing lemma `IsCoveringMapOn.of_isLocalHomeomorphOn`.
+  -- Requires `T2Space` and `CompactSpace` instances for the relevant spaces.
+  sorry
+
+end
+
+end GUT.E6.Minuscule
+
+/-! ## Audit -/
+
+run_cmd do
+  let declarations := [
+    ``GUT.E6.Minuscule.conjAction,
+    ``GUT.E6.Minuscule.conjAction_continuous,
+    ``GUT.E6.Minuscule.subgroup_commute,
+    ``GUT.E6.Minuscule.conjCoverMap_wellDefined,
+    ``GUT.E6.Minuscule.conjCoverMap,
+    ``GUT.E6.Minuscule.conjCoverMap_continuous,
+    ``GUT.E6.Minuscule.conjCoverMap_isLocalHomeomorphOn_regularLocus,
+    ``GUT.E6.Minuscule.conjCoverMap_isCoveringMap_restrict_preimage]
+  for decl in declarations do
+    let axioms ← Lean.collectAxioms decl
+    for ax in axioms do
+      unless [``propext, ``Classical.choice, ``Quot.sound, ``sorryAx].contains ax do
+        throwError "E6 conjugation cover: {decl} uses unexpected axiom {ax}"
+    Lean.logInfo m!"E6 conjugation cover: {decl} depends on axioms: {axioms}"
+  Lean.logInfo m!"E6 conjugation cover: checked {declarations.length} declarations"
