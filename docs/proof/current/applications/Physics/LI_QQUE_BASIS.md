@@ -8,11 +8,11 @@ qque exterior coefficient sector. The result proves semantic contraction
 agreement and two-sided coordinate reconstruction, not merely a dimension count.
 
 Sources:
-[`LiQqueConvention`](../../../../../Physics/StandardModel/Operators/LiQqueConvention.lean),
-[`LiQqueCoordinates`](../../../../../Physics/StandardModel/Operators/LiQqueCoordinates.lean),
-[`QqueResidualHom`](../../../../../Physics/StandardModel/Operators/QqueResidualHom.lean).
+[`LiQqueConvention`](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/LiQqueConvention.lean),
+[`LiQqueCoordinates`](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/LiQqueCoordinates.lean),
+[`QqueResidualHom`](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/QqueResidualHom.lean).
 Strict checks:
-[`AuditLiQqueBasis`](../../../../../Physics/StandardModel/Operators/Audit/AuditLiQqueBasis.lean).
+[`AuditLiQqueBasis`](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/Audit/AuditLiQqueBasis.lean).
 
 ## Published Data And Explicit Dictionary
 

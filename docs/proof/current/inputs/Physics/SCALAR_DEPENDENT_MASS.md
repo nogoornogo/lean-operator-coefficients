@@ -37,7 +37,7 @@ model classes retain their own hypotheses.
 
 ### Persistent Controls
 
-The [core audit](../../../../../Physics/FieldTheory/Yukawa/Audit/AuditWeylMassFamily.lean)
+The [core audit](../../../../../Physics/FieldTheory/Yukawa/Mass/Audit/AuditWeylMassFamily.lean)
 rejects transitive `GUT.SU5` or `GUT.SU6` imports and checks:
 
 - A compensating scalar/fermion action: `g` in complex units acts as `g^-2`
@@ -54,10 +54,10 @@ rejects transitive `GUT.SU5` or `GUT.SU6` imports and checks:
 
 The complex-unit action is an algebraic control, not a proposed unitary
 residual action in a physical GUT model. The separate
-[compatibility audit](../../../../../Physics/FieldTheory/Yukawa/Audit/AuditWeylMassFamilyCompatibility.lean)
+[compatibility audit](../../../../../Physics/FieldTheory/Yukawa/Mass/Audit/AuditWeylMassFamilyCompatibility.lean)
 checks the old linear, bare-mass, singlet-Yukawa, and subgroup interfaces.
 
-The [finite-source audit](../../../../../Physics/FieldTheory/Yukawa/Audit/AuditMultilinearWeylMass.lean)
+The [finite-source audit](../../../../../Physics/FieldTheory/Yukawa/Mass/Audit/AuditMultilinearWeylMass.lean)
 also rejects transitive SU(5)/SU(6) imports. From actual multilinear maps it
 constructs powers, `1+s+s^2`, the mixed coefficient `s1*s2`, and `s*conj(s)`.
 It checks nonadditivity, nonzero induced mass, both fields being required
@@ -73,18 +73,18 @@ nonzero coupling yields nonzero mass.
 
 ### Implementation Boundary
 
-[InvariantMassData](../../../../../Physics/FieldTheory/Mass/InvariantMassData.lean) isolates
+[InvariantMassData](../../../../../Physics/FieldTheory/Mass/Algebra/InvariantMassData.lean) isolates
 the old `InvariantWeylMass.SymmetricMass`,
 `DiracYukawaMass.InvariantVacuum`, and `WeylYukawaMass.vacuumStabilizer`
 definitions from legacy SU(6) imports. Their names and old import access
 are preserved. The new module uses mathlib only.
 
-[WeylMassFamily](../../../../../Physics/FieldTheory/Yukawa/WeylMassFamily.lean) supplies
+[WeylMassFamily](../../../../../Physics/FieldTheory/Yukawa/Mass/WeylMassFamily.lean) supplies
 `EquivariantFamily`, constant/zero/sum constructions, subgroup restriction,
 fixed-vacuum evaluation, and a sector with an invariant bare mass. Restricting
 and evaluating a sector commute as an equality of `SymmetricMass` values.
 
-[WeylMassFamilyCompatibility](../../../../../Physics/FieldTheory/Yukawa/WeylMassFamilyCompatibility.lean)
+[WeylMassFamilyCompatibility](../../../../../Physics/FieldTheory/Yukawa/Mass/WeylMassFamilyCompatibility.lean)
 forgets the old Yukawa family's scalar-linearity and proves equality of the
 old and new induced masses, including bare-mass, subgroup, and stabilizer
 constructions. Legacy imports remain in this adapter, not the generic core.
@@ -114,7 +114,7 @@ Declarations and reproducible checks are in the
 
 ### Finite Sources
 
-[MultilinearWeylMass](../../../../../Physics/FieldTheory/Yukawa/MultilinearWeylMass.lean) defines
+[MultilinearWeylMass](../../../../../Physics/FieldTheory/Yukawa/Mass/MultilinearWeylMass.lean) defines
 `MultilinearCoupling`: a complex multilinear coefficient in a finite,
 possibly heterogeneous collection of scalar slots, valued in symmetric
 complex bilinear forms on the fermions. Its input equivariance is
@@ -144,7 +144,7 @@ finitely many constructed families of different arities and slot types.
 Every positive-arity term vanishes at the zero scalar value, as does a
 finite sum of such terms. Constants and an independent bare mass need not.
 
-[MultilinearWeylMassContinuity](../../../../../Physics/FieldTheory/Yukawa/MultilinearWeylMassContinuity.lean)
+[MultilinearWeylMassContinuity](../../../../../Physics/FieldTheory/Yukawa/Mass/MultilinearWeylMassContinuity.lean)
 proves a finite-basis expansion and joint continuity of `(s,x,y) -> Y(s)(x,y)`
 when the spaces have the specified finite-dimensional normed structures.
 The source is finite-dimensional over the reals; slot and fermion spaces

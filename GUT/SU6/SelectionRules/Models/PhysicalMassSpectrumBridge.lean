@@ -1,5 +1,7 @@
-import Physics.FieldTheory.Mass.EquivariantMassIndex
+import Physics.FieldTheory.Mass.Spectrum.EquivariantMassIndex
 import GUT.SU6.SelectionRules.Models.PhysicalLightSpectrumBridge
+
+open Physics
 
 open Math
 

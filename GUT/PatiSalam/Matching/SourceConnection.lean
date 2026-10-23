@@ -1,6 +1,8 @@
 import GUT.PatiSalam.Matching.ComponentAdmission
 import GUT.PatiSalam.Matching.NormalizedLight
-import Physics.FieldTheory.Mass.WeylGrassmannAction
+import Physics.FieldTheory.Mass.Algebra.WeylGrassmannAction
+
+open Physics
 
 /-! Literal selected component action to normalized light coefficient, and a
 restricted source-convention compatibility test. No full PS or four-component
@@ -30,22 +32,22 @@ theorem vertex_to_mixing (p : Input) (f : ComponentAdmission.Array) :
     -p.y * ComponentAdmission.contraction (ComponentAdmission.neutralVEV p.v) f =
       -mixing p * f 3 0 := ComponentAdmission.yukawa_neutral _ _ _
 
-def sourceAction (p : Input) : GUT.WeylGrassmannAction.Algebra (Fin 3) :=
-  -(dirac p • GUT.WeylGrassmannAction.pair 0 1 +
-    mixing p • GUT.WeylGrassmannAction.pair 1 2)
+def sourceAction (p : Input) : Physics.WeylGrassmannAction.Algebra (Fin 3) :=
+  -(dirac p • Physics.WeylGrassmannAction.pair 0 1 +
+    mixing p • Physics.WeylGrassmannAction.pair 1 2)
 
 theorem action_to_matrix (p : Input) :
-    sourceAction p = GUT.WeylGrassmannAction.action
+    sourceAction p = Physics.WeylGrassmannAction.action
       (NeutralMass.mass (dirac p) (mixing p) 0) := by
   unfold NeutralMass.mass
-  rw [GUT.WeylGrassmannAction.three_species_action]
+  rw [Physics.WeylGrassmannAction.three_species_action]
   simp [sourceAction]
 
 def parameters (p : Input) : ModelApplication.Parameters :=
   ⟨p.CL,p.CR,p.v,p.Lambda,p.y,p.Y,mixing p,p.m,p.w⟩
 
 theorem action_parameters (p : Input) :
-    sourceAction p = GUT.WeylGrassmannAction.action
+    sourceAction p = Physics.WeylGrassmannAction.action
       (NeutralMass.mass ((parameters p).Y*star (parameters p).w) (parameters p).M 0) := by
   simpa only [parameters, dirac_eq] using action_to_matrix p
 

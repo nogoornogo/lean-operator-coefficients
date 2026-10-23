@@ -1,6 +1,8 @@
 import GUT.SU6.Branching.StandardSMTorus
 import GUT.SU6.Adapters.StandardSMContragredient
 
+open Physics
+
 open Math
 
 /-!

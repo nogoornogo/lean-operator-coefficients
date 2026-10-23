@@ -1,0 +1,53 @@
+import Physics.FieldTheory.Jets.Higgs.QuarticFour.HiggsQuarticFourCoordinateAssembly
+import Physics.FieldTheory.Jets.HiggsQuarticFourMomentValues
+import Math.Lean.Compatibility
+
+deprecated_module "Use Physics.FieldTheory.Jets.Higgs.QuarticFour.HiggsQuarticFourCoordinateAssembly instead." (since := "source-api-v1")
+
+compatibility_declarations [
+  GUT.HiggsQuarticFourCoordinateAssembly.coefficient_dimension => Physics.HiggsQuarticFourCoordinateAssembly.coefficient_dimension,
+  GUT.HiggsQuarticFourCoordinateAssembly.directEquivalence => Physics.HiggsQuarticFourCoordinateAssembly.directEquivalence,
+  GUT.HiggsQuarticFourCoordinateAssembly.directSelected => Physics.HiggsQuarticFourCoordinateAssembly.directSelected,
+  GUT.HiggsQuarticFourCoordinateAssembly.direct_extraction => Physics.HiggsQuarticFourCoordinateAssembly.direct_extraction,
+  GUT.HiggsQuarticFourCoordinateAssembly.equivalence => Physics.HiggsQuarticFourCoordinateAssembly.equivalence,
+  GUT.HiggsQuarticFourCoordinateAssembly.evaluate_reconstruction => Physics.HiggsQuarticFourCoordinateAssembly.evaluate_reconstruction,
+  GUT.HiggsQuarticFourCoordinateAssembly.extraction => Physics.HiggsQuarticFourCoordinateAssembly.extraction,
+  GUT.HiggsQuarticFourCoordinateAssembly.inputEquivalence => Physics.HiggsQuarticFourCoordinateAssembly.inputEquivalence,
+  GUT.HiggsQuarticFourCoordinateAssembly.input_extraction => Physics.HiggsQuarticFourCoordinateAssembly.input_extraction,
+  GUT.HiggsQuarticFourCoordinateAssembly.inverseMatrix => Physics.HiggsQuarticFourCoordinateAssembly.inverseMatrix,
+  GUT.HiggsQuarticFourCoordinateAssembly.inverseMatrix.eq_1 => Physics.HiggsQuarticFourCoordinateAssembly.inverseMatrix.eq_1,
+  GUT.HiggsQuarticFourCoordinateAssembly.normalized => Physics.HiggsQuarticFourCoordinateAssembly.normalized,
+  GUT.HiggsQuarticFourCoordinateAssembly.normalized.congr_simp => Physics.HiggsQuarticFourCoordinateAssembly.normalized.congr_simp,
+  GUT.HiggsQuarticFourCoordinateAssembly.normalized.eq_1 => Physics.HiggsQuarticFourCoordinateAssembly.normalized.eq_1,
+  GUT.HiggsQuarticFourCoordinateAssembly.normalized_value => Physics.HiggsQuarticFourCoordinateAssembly.normalized_value,
+  GUT.HiggsQuarticFourCoordinateAssembly.rawCoefficient => Physics.HiggsQuarticFourCoordinateAssembly.rawCoefficient,
+  GUT.HiggsQuarticFourCoordinateAssembly.rawCoefficient.congr_simp => Physics.HiggsQuarticFourCoordinateAssembly.rawCoefficient.congr_simp,
+  GUT.HiggsQuarticFourCoordinateAssembly.raw_value => Physics.HiggsQuarticFourCoordinateAssembly.raw_value,
+  GUT.HiggsQuarticFourCoordinateAssembly.reconstruct => Physics.HiggsQuarticFourCoordinateAssembly.reconstruct,
+  GUT.HiggsQuarticFourCoordinateAssembly.reconstruction => Physics.HiggsQuarticFourCoordinateAssembly.reconstruction,
+  GUT.HiggsQuarticFourCoordinateAssembly.toDirect => Physics.HiggsQuarticFourCoordinateAssembly.toDirect,
+  GUT.HiggsQuarticFourCoordinateAssembly.toGenerated => Physics.HiggsQuarticFourCoordinateAssembly.toGenerated
+]
+
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.coefficient_dimension => Physics.HiggsQuarticFourCoordinateAssembly.coefficient_dimension
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.directEquivalence => Physics.HiggsQuarticFourCoordinateAssembly.directEquivalence
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.directSelected => Physics.HiggsQuarticFourCoordinateAssembly.directSelected
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.direct_extraction => Physics.HiggsQuarticFourCoordinateAssembly.direct_extraction
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.equivalence => Physics.HiggsQuarticFourCoordinateAssembly.equivalence
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.evaluate_reconstruction => Physics.HiggsQuarticFourCoordinateAssembly.evaluate_reconstruction
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.extraction => Physics.HiggsQuarticFourCoordinateAssembly.extraction
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.inputEquivalence => Physics.HiggsQuarticFourCoordinateAssembly.inputEquivalence
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.input_extraction => Physics.HiggsQuarticFourCoordinateAssembly.input_extraction
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.inverseMatrix => Physics.HiggsQuarticFourCoordinateAssembly.inverseMatrix
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.inverseMatrix.eq_1 => Physics.HiggsQuarticFourCoordinateAssembly.inverseMatrix.eq_1
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.normalized => Physics.HiggsQuarticFourCoordinateAssembly.normalized
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.normalized.congr_simp => Physics.HiggsQuarticFourCoordinateAssembly.normalized.congr_simp
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.normalized.eq_1 => Physics.HiggsQuarticFourCoordinateAssembly.normalized.eq_1
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.normalized_value => Physics.HiggsQuarticFourCoordinateAssembly.normalized_value
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.rawCoefficient => Physics.HiggsQuarticFourCoordinateAssembly.rawCoefficient
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.rawCoefficient.congr_simp => Physics.HiggsQuarticFourCoordinateAssembly.rawCoefficient.congr_simp
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.raw_value => Physics.HiggsQuarticFourCoordinateAssembly.raw_value
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.reconstruct => Physics.HiggsQuarticFourCoordinateAssembly.reconstruct
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.reconstruction => Physics.HiggsQuarticFourCoordinateAssembly.reconstruction
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.toDirect => Physics.HiggsQuarticFourCoordinateAssembly.toDirect
+assert_compatible GUT.HiggsQuarticFourCoordinateAssembly.toGenerated => Physics.HiggsQuarticFourCoordinateAssembly.toGenerated

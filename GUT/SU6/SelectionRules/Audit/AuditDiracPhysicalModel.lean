@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.DiracPhysicalModel
 
+open Physics
+
 /-!
 # Axiom audit for the finite-dimensional Dirac model bridge
 
@@ -14,16 +16,16 @@ Majorana bilinear, derives the Standard Model chiral index from an arbitrary
 Lagrangian, or proves a nonzero decay amplitude.
 -/
 
-#print axioms GUT.DiracYukawaMass.InvariantBareMass.toIntertwiningMap
-#print axioms GUT.DiracYukawaMass.InvariantBareMass.ofIntertwiningMap_toIntertwiningMap
-#print axioms GUT.DiracYukawaMass.EquivariantYukawa.zero
-#print axioms GUT.DiracYukawaMass.InvariantVacuum.zero
-#print axioms GUT.DiracYukawaMass.Sector.zero_inducedMass
-#print axioms GUT.DiracYukawaMass.Sector.inducedMass_equivariant
-#print axioms GUT.DiracYukawaMass.Sector.massMap
-#print axioms GUT.DiracYukawaMass.Sector.toInvariantMassPairing
-#print axioms GUT.DiracYukawaMass.Sector.toInvariantMassPairing_toIntertwiningMap
-#print axioms GUT.DiracYukawaMass.Sector.ofBareMass_massMap
+#print axioms Physics.DiracYukawaMass.InvariantBareMass.toIntertwiningMap
+#print axioms Physics.DiracYukawaMass.InvariantBareMass.ofIntertwiningMap_toIntertwiningMap
+#print axioms Physics.DiracYukawaMass.EquivariantYukawa.zero
+#print axioms Physics.DiracYukawaMass.InvariantVacuum.zero
+#print axioms Physics.DiracYukawaMass.Sector.zero_inducedMass
+#print axioms Physics.DiracYukawaMass.Sector.inducedMass_equivariant
+#print axioms Physics.DiracYukawaMass.Sector.massMap
+#print axioms Physics.DiracYukawaMass.Sector.toInvariantMassPairing
+#print axioms Physics.DiracYukawaMass.Sector.toInvariantMassPairing_toIntertwiningMap
+#print axioms Physics.DiracYukawaMass.Sector.ofBareMass_massMap
 #print axioms GUT.DiracPhysicalModel.HasExactSMChiralIndex
 #print axioms GUT.DiracPhysicalModel.ContinuousDiracYukawaModel.massMap
 #print axioms GUT.DiracPhysicalModel.ContinuousDiracYukawaModel.massPairing

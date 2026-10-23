@@ -34,17 +34,21 @@ def family(target, z):
 
 
 def generate():
-    print('''import Physics.StandardModel.Operators.SMCompactSupportDecision
-import Physics.StandardModel.Operators.SMChargeDegreeBounds
+    print('''import Physics.StandardModel.Operators.Support.Decomposition.SMCompactSupportDecision
+import Physics.StandardModel.Operators.Support.Dimension.SMChargeDegreeBounds
 
 /-! Explicit full joint-support witnesses for every capacity/parity candidate
 lepton charge at B3=3 or 6. Rendered by finite-charge-witnesses.py; every
 declaration is checked by the normal library build. No CSV/table premise. -/
-namespace GUT.SMLeptonChargeWitnesses
-open Math GUT
+-- Elaborate the generated certificates sequentially within this module.
+set_option Elab.async false
+
+namespace Physics.SMLeptonChargeWitnesses
+open Math Physics
 ''')
     helper = (HERE/'probes/occupation-witness-bridge.lean.txt').read_text()
-    print('\n'.join(line for line in helper.splitlines() if not line.startswith('import ')))
+    print('\n'.join(line.replace('open Math GUT', 'open Math Physics')
+                    for line in helper.splitlines() if not line.startswith('import ')))
     print('''noncomputable def balanced (c : DeltaLOneSignedInput.Species → Nat) :
     GenerationTensorSupport.Choice (SMJointContentSupport.tree c) := by
   apply indexedOccupationChoice 9 (SMJointContentSupport.leaves c)
@@ -84,7 +88,7 @@ theorem {tag}_exact {{k : Nat}} [NeZero k] (q l : ZMod k)
   · rw [{tag}_counts_eq]
     exact {tag}_support
 ''')
-    print('end GUT.SMLeptonChargeWitnesses')
+    print('end Physics.SMLeptonChargeWitnesses')
 
 
 if __name__ == '__main__':

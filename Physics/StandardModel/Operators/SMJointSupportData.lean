@@ -1,95 +1,47 @@
+import Physics.StandardModel.Operators.Support.Joint.SMJointSupportData
 import Physics.StandardModel.Operators.SMCoreSourceData
 import Math.RepresentationTheory.JointContentData
 import Physics.StandardModel.Operators.SMJointHiggsSupport
+import Math.Lean.Compatibility
 
-/-! Executable content expressions and support transport through the same
-actual source. Old dependent presentation projections stay abstract. -/
-namespace GUT.SMJointSupportData
-set_option autoImplicit false
-open Math JointSourceExpression
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Support.Joint.SMJointSupportData instead." (since := "source-api-v1")
 
-@[reducible] local instance (A B : Type*) [AddCommGroup A] [Module ℂ A]
-    [AddCommGroup B] [Module ℂ B] : AddCommGroup (A ⊗[ℂ] B) := inferInstance
-@[reducible] local instance : AddCommGroup (SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    (Module.Dual ℂ (SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup (Module.Dual ℂ SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((Module.Dual ℂ SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
+compatibility_declarations [
+  GUT.SMJointSupportData.DataSupport => Physics.SMJointSupportData.DataSupport,
+  GUT.SMJointSupportData.HiggsDataSupport => Physics.SMJointSupportData.HiggsDataSupport,
+  GUT.SMJointSupportData.Index => Physics.SMJointSupportData.Index,
+  GUT.SMJointSupportData.cores => Physics.SMJointSupportData.cores,
+  GUT.SMJointSupportData.dataSupport_iff => Physics.SMJointSupportData.dataSupport_iff,
+  GUT.SMJointSupportData.dataSupport_presented_iff => Physics.SMJointSupportData.dataSupport_presented_iff,
+  GUT.SMJointSupportData.expressionData => Physics.SMJointSupportData.expressionData,
+  GUT.SMJointSupportData.expressionData_eq => Physics.SMJointSupportData.expressionData_eq,
+  GUT.SMJointSupportData.higgsDataSupport_iff => Physics.SMJointSupportData.higgsDataSupport_iff,
+  GUT.SMJointSupportData.instAddCommGroupTensorProductComplexColorDoublet => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexColorDoublet,
+  GUT.SMJointSupportData.instAddCommGroupTensorProductComplexColorDoublet_1 => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexColorDoublet_1,
+  GUT.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet,
+  GUT.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet_1 => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet_1,
+  GUT.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet_2 => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet_2,
+  GUT.SMJointSupportData.instAddCommGroupTensorProductComplex_physics => Physics.SMJointSupportData.instAddCommGroupTensorProductComplex_physics,
+  GUT.SMJointSupportData.original_ql_iff => Physics.SMJointSupportData.original_ql_iff,
+  GUT.SMJointSupportData.presentation => Physics.SMJointSupportData.presentation,
+  GUT.SMJointSupportData.witness_to_original => Physics.SMJointSupportData.witness_to_original
+]
 
-abbrev Index (c : DeltaLOneSignedInput.Species → Nat) := JointContentData.Index 9 c
-
-def expressionData (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) (o : Index c) : Expr :=
-  .tensor (JointContentData.occupied 9 c SMCoreSourceData.coreData o) (JointSourceData.weak m)
-
-noncomputable def cores (c : DeltaLOneSignedInput.Species → Nat) :
-    JointContentPresentation.Cores (SMJointContentSupport.tree c) :=
-  JointContentPresentation.indexedCores 9 (SMJointContentSupport.leaves c) SMCoreSourceData.corePresentation
-
-noncomputable def presentation (c : DeltaLOneSignedInput.Species → Nat) (m : Nat)
-    (o : GenerationTensorSupport.Choice (SMJointContentSupport.tree c)) :=
-  JointSourcePresentation.tensor (JointContentPresentation.occupied _ (cores c) o)
-    (SMQJointPresentation.weak m)
-
-def DataSupport (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) : Prop :=
-  ∃ o : Index c, JointSourceExpression.Supports (expressionData c m o)
-
-theorem expressionData_eq (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) (o : Index c) :
-    expressionData c m o = (presentation c m
-      (JointContentData.choiceEquiv 9 (SMJointContentSupport.leaves c) o)).expression := by
-  exact congrArg (fun e => Expr.tensor e (JointSourceData.weak m))
-    (JointContentData.occupied_eq 9 (SMJointContentSupport.leaves c)
-      SMCoreSourceData.corePresentation SMCoreSourceData.coreData (fun _ _ => rfl) o)
-
-theorem dataSupport_presented_iff (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) :
-    DataSupport c m ↔ JointContentPresentation.Supports (SMJointContentSupport.tree c)
-      (cores c) (SMQJointPresentation.weak m) := by
-  constructor
-  · rintro ⟨o,h⟩
-    rw [expressionData_eq] at h
-    exact ⟨JointContentData.choiceEquiv 9 (SMJointContentSupport.leaves c) o,h⟩
-  · rintro ⟨o,h⟩
-    let e : Index c ≃ GenerationTensorSupport.Choice (SMJointContentSupport.tree c) :=
-      JointContentData.choiceEquiv 9 (SMJointContentSupport.leaves c)
-    refine ⟨e.symm o, ?_⟩
-    rw [expressionData_eq]
-    change Supports (presentation c m (e (e.symm o))).expression
-    rw [e.apply_symm_apply]
-    exact h
-
-/-- Both presentations decompose the same full joint source, so no equality
-between their dependent dispatch projections is required. -/
-theorem dataSupport_iff (c : DeltaLOneSignedInput.Species → Nat) (m : Nat) :
-    DataSupport c m ↔ SMJointContentSupport.Supports c m := by
-  rw [dataSupport_presented_iff]
-  exact (JointContentPresentation.allowed_iff _ (cores c) (SMQJointPresentation.weak m)).symm.trans
-    (JointContentPresentation.allowed_iff _ (SMJointContentSupport.cores c) (SMQJointPresentation.weak m))
-
-theorem witness_to_original (c : DeltaLOneSignedInput.Species → Nat) (m : Nat)
-    (o : Index c) (h : JointSourceExpression.Supports (expressionData c m o)) :
-    SMJointContentSupport.Supports c m :=
-  (dataSupport_iff c m).mp ⟨o,h⟩
-
-def HiggsDataSupport {n : Nat} (p : Fin n → DeltaLOneSignedInput.Species) (h d : Nat) : Prop :=
-  ∃ m : Fin (SMContentWeakBound.bound p+1), BoundedHiggsSupport.Admissible h d m.val ∧
-    DataSupport (SMIteratedContent.counts p) m.val
-
-theorem higgsDataSupport_iff {n : Nat} (p : Fin n → DeltaLOneSignedInput.Species) (h d : Nat) :
-    HiggsDataSupport p h d ↔ SMJointHiggsSupport.HiggsSupport p h d := by
-  unfold HiggsDataSupport SMJointHiggsSupport.HiggsSupport
-  apply exists_congr
-  intro m
-  exact and_congr_right (fun _ => dataSupport_iff _ _)
-
-theorem original_ql_iff {k : Nat} [NeZero k] (q l : ZMod k) {n : Nat}
-    (p : Fin n → DeltaLOneSignedInput.Species) (h d : Nat) :
-    SelectionCriteria.Allowed (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d) ↔
-    QLFiniteSupport.charge q l p = 0 ∧
-      SMContentWeakBound.hypercharge p + 3*((h : Int)-d) = 0 ∧ HiggsDataSupport p h d := by
-  rw [higgsDataSupport_iff]
-  exact SMJointHiggsSupport.original_ql_iff p q l h d
-
-end GUT.SMJointSupportData
+assert_compatible GUT.SMJointSupportData.DataSupport => Physics.SMJointSupportData.DataSupport
+assert_compatible GUT.SMJointSupportData.HiggsDataSupport => Physics.SMJointSupportData.HiggsDataSupport
+assert_compatible GUT.SMJointSupportData.Index => Physics.SMJointSupportData.Index
+assert_compatible GUT.SMJointSupportData.cores => Physics.SMJointSupportData.cores
+assert_compatible GUT.SMJointSupportData.dataSupport_iff => Physics.SMJointSupportData.dataSupport_iff
+assert_compatible GUT.SMJointSupportData.dataSupport_presented_iff => Physics.SMJointSupportData.dataSupport_presented_iff
+assert_compatible GUT.SMJointSupportData.expressionData => Physics.SMJointSupportData.expressionData
+assert_compatible GUT.SMJointSupportData.expressionData_eq => Physics.SMJointSupportData.expressionData_eq
+assert_compatible GUT.SMJointSupportData.higgsDataSupport_iff => Physics.SMJointSupportData.higgsDataSupport_iff
+assert_compatible GUT.SMJointSupportData.instAddCommGroupTensorProductComplexColorDoublet => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexColorDoublet
+assert_compatible GUT.SMJointSupportData.instAddCommGroupTensorProductComplexColorDoublet_1 => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexColorDoublet_1
+assert_compatible GUT.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet
+assert_compatible GUT.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet_1 => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet_1
+assert_compatible GUT.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet_2 => Physics.SMJointSupportData.instAddCommGroupTensorProductComplexDualColorDoublet_2
+assert_compatible GUT.SMJointSupportData.instAddCommGroupTensorProductComplex_physics => Physics.SMJointSupportData.instAddCommGroupTensorProductComplex_physics
+assert_compatible GUT.SMJointSupportData.original_ql_iff => Physics.SMJointSupportData.original_ql_iff
+assert_compatible GUT.SMJointSupportData.presentation => Physics.SMJointSupportData.presentation
+assert_compatible GUT.SMJointSupportData.witness_to_original => Physics.SMJointSupportData.witness_to_original

@@ -1,5 +1,7 @@
-import Physics.StandardModel.Gauge.ResidualGaugeTensor
+import Physics.StandardModel.Gauge.Tensors.ResidualGaugeTensor
 import GUT.SU6.SelectionRules.StandardBranch.FiniteAbelianChargeSectors
+
+open Physics
 
 open Math
 
@@ -14,6 +16,7 @@ specialization, without adding that specialization to the shared core.
 set_option autoImplicit false
 
 namespace GUT.StandardSMResidualTensor
+open Physics.StandardSMResidualTensor
 
 noncomputable section
 

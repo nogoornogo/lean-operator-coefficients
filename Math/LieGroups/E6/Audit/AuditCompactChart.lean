@@ -32,7 +32,7 @@ example (g : compactIdentityComponent) (hg : g ∈ compactExpChart.target) :
 
 example (g : compactIdentityComponent) (hg : g ∈ compactExpChart.target) :
     (compactExpChart.symm g : Matrix27) =
-      logOneAdd ℝ Matrix27 ((g.val.val : Matrix27) - 1) :=
+      NormedSpace.log (g.val.val : Matrix27) :=
   compactExpChart_symm_coe g hg
 
 example : ¬∀ X : Matrix27, exp X ∈ compactNormalizerMatrices → X ∈ compactMatrixLieAlgebra :=

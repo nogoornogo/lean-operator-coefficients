@@ -1,6 +1,8 @@
 import GUT.SU6.Characters.SignedWeylTransposition
 import GUT.SU6.Branching.StandardSMGroup
 
+open Physics
+
 /-! A color/weak exchange fails to normalize the actual standard SM image.
 The witness is independent of any vacuum or mass choice. -/
 namespace GUT.ColorWeakNormalizerSample

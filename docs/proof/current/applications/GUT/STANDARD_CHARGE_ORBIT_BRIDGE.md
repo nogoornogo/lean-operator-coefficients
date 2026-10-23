@@ -249,7 +249,7 @@ residual-action trace equals the canonical SM-plus-singlets target, so the
 ordinary resolved character is tied to the physical action rather than being
 an unaudited auxiliary polynomial.
 
-`Physics/StandardModel/Operators/StandardModelLocalOperator.lean` gives the two Abelian proton-operator neutrality functionals an
+`Physics/StandardModel/Operators/Selection/StandardModelLocalOperator.lean` gives the two Abelian proton-operator neutrality functionals an
 explicit EFT local-operator meaning.  It defines the physical-field
 signatures `q_L q_L u_R e_R` and `d_R u_R q_L l_L`, with the sign conversion
 from the stored left-handed conjugate charges.  Kernel-checked finite
@@ -314,7 +314,7 @@ sources, both at occupancy level and for the exact coefficient-level source,
 with finite-Abelian specializations.  No chosen gauge lift and no continuous
 `U(1)` anomaly premise occurs in these theorem signatures.
 
-`Physics/FieldTheory/Mass/EquivariantMassIndex.lean` now formalizes the vectorlike-decoupling
+`Physics/FieldTheory/Mass/Spectrum/EquivariantMassIndex.lean` now formalizes the vectorlike-decoupling
 step that had previously appeared only in the interpretation of the chiral
 index.  For an equivariant map between arbitrary finite-dimensional unitary
 complex representations, Lean constructs the invariant orthogonal
@@ -340,7 +340,7 @@ pairing back from every intertwiner, and checks the round trip.  Thus
 equivariance need not be duplicated as a model assumption once an invariant
 mass pairing is supplied.
 
-`Physics/FieldTheory/Mass/UnitaryVirtualRealization.lean` now closes the corresponding
+`Physics/FieldTheory/Mass/Spectrum/UnitaryVirtualRealization.lean` now closes the corresponding
 realization step for arbitrary finite integer combinations of unitary
 representations.  Each coefficient is split canonically into its positive and
 negative natural parts, repeated summands are assembled with the Hermitian
@@ -400,7 +400,7 @@ equivariant mass index -> faithful physical resolved character
 The reusable audit `GUT/SU6/SelectionRules/Audit/AuditPhysicalMassSpectrumBridge.lean` reports only
 `propext`, `Classical.choice`, and `Quot.sound` for this complete chain.
 
-`Physics/FieldTheory/Mass/UnitaryBlockMass.lean` now constructs those mass-index data from a
+`Physics/FieldTheory/Mass/Algebra/UnitaryBlockMass.lean` now constructs those mass-index data from a
 more primitive normal form.  Given unitary representation equivalences
 
 ```
@@ -418,7 +418,7 @@ to the faithful charge-resolved SM-plus-singlets target, and
 `PhysicalMassSpectrumBridge.BlockSource` derives hypercharge character rigidity, standard charge-orbit bridge, and Abelian proton-operator neutrality without taking
 a mass map or either kernel/cokernel equivalence as a field.
 
-`Physics/FieldTheory/Yukawa/DiracYukawaMass.lean` and
+`Physics/FieldTheory/Yukawa/Mass/DiracYukawaMass.lean` and
 `GUT/SU6/SelectionRules/Models/DiracPhysicalModel.lean` now close this source adapter for the
 explicitly scoped finite-dimensional Dirac-type class in
 [MODEL_INTERFACE.md](MODEL_INTERFACE.md).  An invariant bare mass, equivariant

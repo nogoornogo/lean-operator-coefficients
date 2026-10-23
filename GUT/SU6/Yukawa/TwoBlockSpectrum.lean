@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVMass
-import Physics.FieldTheory.Mass.OrthogonalMass
+import Physics.FieldTheory.Mass.Algebra.OrthogonalMass
+
+open Physics
 
 open Math
 

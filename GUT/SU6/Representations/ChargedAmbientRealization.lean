@@ -1,6 +1,8 @@
-import GUT.SU6.Representations.UnitaryVirtualRestriction
+import Physics.FieldTheory.Mass.Spectrum.UnitaryVirtualRestriction
 import GUT.SU6.SelectionRules.Models.PhysicalChargedCharacterBridge
 import Math.RepresentationTheory.Unitary.CommutingUnitaryActions
+
+open Physics
 
 open Math
 

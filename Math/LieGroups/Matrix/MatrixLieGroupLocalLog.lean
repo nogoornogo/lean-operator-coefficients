@@ -47,28 +47,27 @@ theorem eventually_exp_mem_matrixCarrier_iff :
 
 /-- The ambient Banach-algebra logarithm, without asserting global inverse properties. -/
 def localLog (g : subgroup L) : Matrix n n ℂ :=
-  logOneAdd ℝ (Matrix n n ℂ) ((g.val : Matrix n n ℂ) - 1)
+  NormedSpace.log (g.val : Matrix n n ℂ)
 
 @[simp] theorem localLog_one : localLog L 1 = 0 := by
   simp [localLog]
 
 theorem localLog_tendsto : Tendsto (localLog L) (𝓝 1) (𝓝 0) := by
-  have hc : Continuous (fun g : subgroup L => (g.val : Matrix n n ℂ) - 1) :=
-    (continuous_subtype_val.comp continuous_subtype_val).sub continuous_const
-  have ht : Tendsto (fun g : subgroup L => (g.val : Matrix n n ℂ) - 1) (𝓝 1) (𝓝 0) := by
-    simpa using hc.tendsto 1
-  have hl : Tendsto (logOneAdd ℝ (Matrix n n ℂ)) (𝓝 0) (𝓝 0) := by
-    simpa only [logOneAdd_zero] using
-      (analyticAt_logOneAdd ℝ (Matrix n n ℂ)).continuousAt.tendsto
+  have ht : Tendsto (fun g : subgroup L => (g.val : Matrix n n ℂ)) (𝓝 1) (𝓝 1) := by
+    simpa only [Function.comp_def, Subgroup.coe_one, Submonoid.coe_one] using
+      (continuous_subtype_val.comp continuous_subtype_val).tendsto (1 : subgroup L)
+  have hl : Tendsto (NormedSpace.log : Matrix n n ℂ → Matrix n n ℂ) (𝓝 1) (𝓝 0) := by
+    simpa only [NormedSpace.log_one] using
+      (analyticAt_log_one ℝ (Matrix n n ℂ)).continuousAt.tendsto
   exact hl.comp ht
 
 theorem eventually_exp_localLog :
     ∀ᶠ g : subgroup L in 𝓝 1, exp (localLog L g) = (g.val : Matrix n n ℂ) := by
-  have ht : Tendsto (fun g : subgroup L => (g.val : Matrix n n ℂ) - 1) (𝓝 1) (𝓝 0) := by
-    simpa [Pi.sub_def, Function.comp_def] using ((continuous_subtype_val.comp continuous_subtype_val).sub
-      (continuous_const (y := (1 : Matrix n n ℂ)))).tendsto (1 : subgroup L)
-  filter_upwards [ht.eventually (eventually_exp_logOneAdd ℝ (Matrix n n ℂ))] with g hg
-  simpa only [localLog, add_comm (1 : Matrix n n ℂ), sub_add_cancel] using hg
+  let : NormedAlgebra ℚ (Matrix n n ℂ) := NormedAlgebra.restrictScalars ℚ ℂ _
+  have ht : Tendsto (fun g : subgroup L => (g.val : Matrix n n ℂ)) (𝓝 1) (𝓝 1) := by
+    simpa only [Function.comp_def, Subgroup.coe_one, Submonoid.coe_one] using
+      (continuous_subtype_val.comp continuous_subtype_val).tendsto (1 : subgroup L)
+  exact ht.eventually (eventually_exp_log (Matrix n n ℂ))
 
 theorem eventually_localLog_conditions :
     ∀ᶠ g : subgroup L in 𝓝 1,

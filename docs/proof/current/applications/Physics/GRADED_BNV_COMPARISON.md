@@ -2,7 +2,7 @@
 
 ## Result
 
-[GradedBnvComparison](../../../../../Physics/StandardModel/Operators/GradedBnvComparison.lean)
+[GradedBnvComparison](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/GradedBnvComparison.lean)
 instantiates [general quotient completeness](../../core/Math/GRADED_OPERATOR_COMPLETENESS.md)
 with all ten signed SM fermions and the Higgs/gauge-dual scalar alphabet.
 `perDegreeEquiv` identifies the independently defined nonzero-baryon support
@@ -34,7 +34,7 @@ Comparison maps use the same actual input and proved inverses, not equal dimensi
 counts or an assumed dictionary. Existing positive/prohibiting controls transfer
 through these equivalences.
 
-The [strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditGradedBnvComparison.lean)
+The [strict audit](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/Audit/AuditGradedBnvComparison.lean)
 checks the interface and comparison diagrams transitively. Reproducible commands
 and final evidence are in the [topic](../../../../topics/graded-operator-completeness/README.md).
 

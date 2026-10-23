@@ -1,0 +1,135 @@
+{
+  "kind": "frozen-source-api-addendum",
+  "reason": "Generic group-homomorphism restriction belongs with its shared Physics-owned bundled representations; preserve old GUT method type heads through a facade",
+  "paths": [
+    {
+      "old": "GUT/SU6/Representations/UnitaryVirtualRestriction.lean",
+      "new": "Physics/FieldTheory/Mass/Spectrum/UnitaryVirtualRestriction.lean"
+    }
+  ],
+  "entries": [
+    {
+      "old": "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict",
+      "new": "Physics.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "def"
+    },
+    {
+      "old": "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_copies",
+      "new": "Physics.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_copies",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "theorem"
+    },
+    {
+      "old": "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_product",
+      "new": "Physics.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_product",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "theorem"
+    },
+    {
+      "old": "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_zero",
+      "new": "Physics.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_zero",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "theorem"
+    },
+    {
+      "old": "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict",
+      "new": "Physics.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "def"
+    },
+    {
+      "old": "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_1",
+      "new": "Physics.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_1",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "theorem"
+    },
+    {
+      "old": "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_2",
+      "new": "Physics.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_2",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "theorem"
+    },
+    {
+      "old": "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_def",
+      "new": "Physics.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_def",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "theorem"
+    },
+    {
+      "old": "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict_positive",
+      "new": "Physics.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict_positive",
+      "module": "GUT.SU6.Representations.UnitaryVirtualRestriction",
+      "kind": "theorem"
+    }
+  ],
+  "physicsOwned": [
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict._f",
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_1",
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_2",
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict_positive",
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict._sunfold",
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.eq_def",
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.match_1",
+    "_private.GUT.SU6.Representations.UnitaryVirtualRestriction.0.GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.match_1.splitter",
+    "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_product",
+    "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_zero",
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict",
+    "_private.GUT.SU6.Representations.UnitaryVirtualRestriction.0.GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.match_1.eq_1",
+    "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict",
+    "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict_copies",
+    "_private.GUT.SU6.Representations.UnitaryVirtualRestriction.0.GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict.match_1.eq_2",
+    "GUT.UnitaryVirtualRealization.ActualUnitaryGroupRepresentation.restrict._proof_1",
+    "GUT.UnitaryVirtualRealization.FiniteUnitaryVirtualRepresentation.restrict._unsafe_rec"
+  ],
+  "physicsUsers": [
+    "GUT/SU6/Representations/UnitaryVirtualRestriction.lean",
+    "GUT/SU6/Representations/ChargedAmbientRealization.lean",
+    "GUT/SU6/SelectionRules/Models/PhysicalChainSource.lean",
+    "GUT/SU6/SelectionRules/Audit/AuditCanonicalChainModel.lean"
+  ],
+  "namespaceUsers": {
+    "GUT.SU5": [
+      "GUT/Common/Chirality/SelfDualSource.lean",
+      "GUT/Common/StandardChain/Audit/AuditStandardChain.lean",
+      "GUT/Common/StandardChain/ConjugationAdapter.lean",
+      "GUT/Common/StandardChain/StandardChain.lean",
+      "GUT/E6/Audit/AuditMinusculeBenchmark.lean",
+      "GUT/E6/Minuscule/SU5Character.lean",
+      "GUT/E6/SelectionRules/MinusculeBenchmark.lean",
+      "GUT/SU5/Audit/AuditRetainedChainSource.lean",
+      "GUT/SU5/Audit/AuditTorusMassSource.lean",
+      "GUT/SU5/Branching/ProfileEvaluation.lean",
+      "GUT/SU5/Branching/TorusCharacterSource.lean",
+      "GUT/SU5/Branching/TorusMatterCharacter.lean",
+      "GUT/SU5/Embeddings/PhysicalTorus.lean",
+      "GUT/SU5/SelectionRules/GeorgiGlashowSource.lean",
+      "GUT/SU5/SelectionRules/RetainedChainSource.lean",
+      "GUT/SU5/SelectionRules/StandardChainBenchmark.lean",
+      "GUT/SU5/SelectionRules/TorusMassSource.lean",
+      "GUT/SU5/SelectionRules/VectorlikeBenchmark.lean",
+      "GUT/SU6/Branching/SU5TorusCompatibility.lean",
+      "GUT/SU6/Embeddings/StandardSU5Inclusion.lean",
+      "GUT/SU6/SelectionRules/Audit/AuditCanonicalChainModel.lean",
+      "GUT/SU6/SelectionRules/Models/PhysicalChainSource.lean",
+      "GUT/SUN/SelectionRules/RankSevenBenchmark.lean",
+      "GUT/Spin10/Audit/AuditHalfSpinBenchmark.lean",
+      "GUT/Spin10/SelectionRules/HalfSpinBenchmark.lean",
+      "GUT/Spin10/SelectionRules/StandardChain.lean"
+    ]
+  },
+  "importBridges": [
+    {
+      "old": "GUT/SU5/Branching/TorusCharacter.lean",
+      "canonicalImports": [
+        "GUT.SU5.Embeddings.MaximalTorus",
+        "Physics.StandardModel.Spectrum.Representations.TorusCharacter"
+      ],
+      "legacyImports": [
+        "GUT.SU5.Embeddings.MaximalTorus",
+        "Physics.StandardModel.Spectrum.TorusCharacter"
+      ],
+      "reason": "Preserve the published import-only GUT bridge and its transitive legacy Physics names; canonical consumers import the same defining modules directly"
+    }
+  ]
+}

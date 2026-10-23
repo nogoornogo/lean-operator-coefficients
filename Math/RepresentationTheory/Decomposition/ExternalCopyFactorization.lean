@@ -1,4 +1,4 @@
-import Math.RepresentationTheory.ExternalInvariantTensor
+import Math.RepresentationTheory.Tensors.ExternalInvariantTensor
 import Math.RepresentationTheory.Decomposition.Schur
 import Mathlib.LinearAlgebra.TensorProduct.Pi
 import Mathlib.LinearAlgebra.Dual.Lemmas

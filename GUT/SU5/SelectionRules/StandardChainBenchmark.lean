@@ -2,6 +2,8 @@ import GUT.Common.StandardChain.StandardChain
 import GUT.SU5.Branching.TorusMatterCharacter
 import Math.RepresentationTheory.Decomposition.HilbertProductRepresentation
 
+open Physics
+
 open Math
 
 /-! A positive actual-source inhabitant of the standard-chain interface.
@@ -12,6 +14,7 @@ this example does not assert a nonzero coupling or realistic flavor data. -/
 set_option autoImplicit false
 
 namespace GUT.SU5.StandardChainBenchmark
+open Physics.SU5
 
 noncomputable section
 

@@ -1,6 +1,8 @@
 import GUT.SU6.Yukawa.ResidualSinglets
 import GUT.SU6.Yukawa.TwoBlockSpectrum
 
+open Physics
+
 open Math
 
 /-! Equivariant ten/five/two-dual-five coordinates for actual matter. -/

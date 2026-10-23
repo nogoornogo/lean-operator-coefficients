@@ -39,6 +39,6 @@ This does not remove those hypotheses from the conjugation-based theorems.
    kernel is a subrepresentation. The ambient conjugators need not preserve
    B or the radical. Their constraint passes through the conserved dual index.
 
-Definitions: [mass data](../../../../../../Physics/FieldTheory/Mass/InvariantMassData.lean),
-[radical and dual-index conservation](../../../../../../Physics/FieldTheory/Mass/SymmetricMassIndex.lean),
-[residual conjugation transport](../../../../../../Physics/FieldTheory/Mass/ResidualMassIndex.lean).
+Definitions: [mass data](../../../../../../Physics/FieldTheory/Mass/Algebra/InvariantMassData.lean),
+[radical and dual-index conservation](../../../../../../Physics/FieldTheory/Mass/Spectrum/SymmetricMassIndex.lean),
+[residual conjugation transport](../../../../../../Physics/FieldTheory/Mass/Spectrum/ResidualMassIndex.lean).

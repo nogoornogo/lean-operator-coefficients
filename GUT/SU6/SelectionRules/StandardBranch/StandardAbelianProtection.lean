@@ -1,5 +1,7 @@
 import GUT.SU6.Hypercharge.ActualBlockConjugacy
-import Physics.StandardModel.Operators.StandardModelLocalOperator
+import Physics.StandardModel.Operators.Selection.StandardModelLocalOperator
+
+open Physics
 
 open Math
 

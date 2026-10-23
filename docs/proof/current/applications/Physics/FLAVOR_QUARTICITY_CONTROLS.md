@@ -12,7 +12,7 @@ as a custom axiom or established by these certificates.
 
 ## DGT Restriction
 
-[Source](../../../../../Physics/StandardModel/Operators/DgtFlavorRestriction.lean)
+[Source](../../../../../Physics/StandardModel/Operators/Selection/DgtFlavorRestriction.lean)
 fixes m=1,n=3 and three gauge-basis flavor coordinates. It proves an injective
 Z9-to-Circle homomorphism and the actual signed SM/Higgs action restriction.
 Residual B1/B2 prohibition follows through the existing composable input and
@@ -26,7 +26,7 @@ UV generation, physical flavor rotation or common-domain merger is claimed.
 
 ## Quarticity Adapters
 
-[Source](../../../../../Physics/StandardModel/Operators/QuarticityAdapters.lean)
+[Source](../../../../../Physics/StandardModel/Operators/Selection/QuarticityAdapters.lean)
 constructs a right-Weyl neutrino, neutral under the full SM gauge cover, with
 Z4 times Z2 charges (1,1), and an eta singlet of charges (2,0). Eta's phases
 are proved real signs; the coefficient carrier is complexified. A bare
@@ -50,7 +50,7 @@ and [persistent verification](../../../../topics/flavor-quarticity-controls/veri
 
 The [representative pattern catalogue](../../../../topics/prohibition-patterns/catalogue.md)
 connects these existing DGT dictionaries through
-`GUT.ProhibitionPatterns.dgt_uv_baryon` and `dgt_joint`. B1/B2 prohibition for
+`Physics.ProhibitionPatterns.dgt_uv_baryon` and `dgt_joint`. B1/B2 prohibition for
 the UV Circle action follows from the proved restriction to Z9 and preservation
 of the underlying coefficient linear map. The same UV group also forbids the
 two prescribed dipole transitions. The joint predicate keeps the mixed-field
@@ -59,7 +59,7 @@ and dipole domains separate; no full LFV or generated matching claim is added.
 ## Mixed Prohibition/Allowance Requests
 
 The [mixed-consumer results](../../../../topics/dgt-quarticity-mixed-requests/results.md)
-use `GUT.DgtQuarticityMixedRequests.dgt_satisfies` to combine IR B1/B2
+use `Physics.DgtQuarticityMixedRequests.dgt_satisfies` to combine IR B1/B2
 prohibition with allowance of each actual selected IR dipole image. The UV
 negative control rejects the same selected allowance under Circle.
 `quarticity_satisfies` combines SM/Higgs L2 and bare-nuR prohibition with

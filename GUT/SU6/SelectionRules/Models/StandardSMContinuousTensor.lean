@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.StandardSMOrdinaryMass
 import Math.RepresentationTheory.Decomposition.RepresentationConjugation
 
+open Physics
+
 open Math
 
 /-! Full-gauge action and ordered internal tensors on the actual radical

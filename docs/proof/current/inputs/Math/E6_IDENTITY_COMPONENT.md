@@ -82,7 +82,7 @@ physical selection-rule theorem.
 
 ```text
 for normalizer elements g sufficiently close to 1,
-logOneAdd (g - 1) belongs to k.
+log g belongs to k.
 ```
 
 It derives normalization, skewness and trace zero from the checked ambient
@@ -101,12 +101,14 @@ target) remain open. No new physical endpoint or hypothesis is introduced.
 
 ### Pinned API Audit
 
-Pins are unchanged from [E6-0](../../../../topics/e6-global-topology/decisions/E6_FEASIBILITY.md). Two ambient matrix
-specializations of TauCeti's `Analysis/Normed/Algebra/LogOneAdd/Inverse.lean`
+The original pin evidence is retained in [E6-0](../../../../topics/e6-global-topology/decisions/E6_FEASIBILITY.md).
+The [v4.35.0 dependency integration](../../../../topics/derivative-ibp/dependency-integration.md)
+ports two ambient matrix specializations to TauCeti's
+`Analysis/Normed/Algebra/Logarithm/Inverse.lean`
 are compiled and included in the axiom audit:
 
-- near zero, `logOneAdd (exp X - 1) = X`;
-- near zero, `exp (logOneAdd X) = 1 + X`.
+- near zero, `log (exp X) = X`;
+- near one, `exp (log X) = X`.
 
 These are local inverse identities in all complex 27-by-27 matrices. They
 do not say that the logarithm of a nearby normalizer element lies in k.
@@ -143,4 +145,6 @@ python3 -m unittest discover -s tools/e6 -p 'test_*.py'
 Disposable logs: `.lake/e6-0h-audit.log` and `.lake/e6-0h-full-build.log`.
 The proofs and persistent audit are tracked; no dependency source was edited.
 
-Reference roles: linked Lean files are implementation or audit evidence; linked repository documents provide supplementary context, not external theorem premises. Any literature input is identified explicitly below or in the linked boundary dossier. Recorded build and audit outcomes are historical checkpoints; this documentation revision did not rerun Lean.
+Reference roles: linked Lean files are implementation or audit evidence; linked repository documents provide supplementary context, not external theorem premises. Any literature input is identified explicitly below or in the linked boundary dossier. Recorded build and audit counts above are historical checkpoints. The later
+[v4.35.0 compatibility verification](../../../../topics/derivative-ibp/dependency-integration.md)
+records the current dependency port and its builds without replacing that evidence.

@@ -1,162 +1,63 @@
+import Physics.StandardModel.Operators.Selection.LeptonTriality
 import Physics.StandardModel.Operators.StandardModelLocalOperator
 import Physics.StandardModel.Spectrum.FiniteChargeProfiles
 import Physics.StandardModel.Gauge.ResidualGaugeTensor
-import Mathlib.Analysis.SpecialFunctions.Complex.CircleAddChar
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Selection.LeptonTriality instead." (since := "source-api-v1")
 
-/-!
-# Lepton triality without UV charge-orbit constraints
+compatibility_declarations [
+  GUT.LeptonTriality.Residual => Physics.LeptonTriality.Residual,
+  GUT.LeptonTriality.assignment => Physics.LeptonTriality.assignment,
+  GUT.LeptonTriality.assignment_characters => Physics.LeptonTriality.assignment_characters,
+  GUT.LeptonTriality.assignment_supported => Physics.LeptonTriality.assignment_supported,
+  GUT.LeptonTriality.canonical_tensors_not_invariant => Physics.LeptonTriality.canonical_tensors_not_invariant,
+  GUT.LeptonTriality.character => Physics.LeptonTriality.character,
+  GUT.LeptonTriality.character.eq_1 => Physics.LeptonTriality.character.eq_1,
+  GUT.LeptonTriality.character_injective => Physics.LeptonTriality.character_injective,
+  GUT.LeptonTriality.character_ne_one => Physics.LeptonTriality.character_ne_one,
+  GUT.LeptonTriality.charges => Physics.LeptonTriality.charges,
+  GUT.LeptonTriality.charges.eq_1 => Physics.LeptonTriality.charges.eq_1,
+  GUT.LeptonTriality.charges_not_orbitCompatible => Physics.LeptonTriality.charges_not_orbitCompatible,
+  GUT.LeptonTriality.cyclic_charge_counterexample => Physics.LeptonTriality.cyclic_charge_counterexample,
+  GUT.LeptonTriality.family => Physics.LeptonTriality.family,
+  GUT.LeptonTriality.forbids_all_supported => Physics.LeptonTriality.forbids_all_supported,
+  GUT.LeptonTriality.label => Physics.LeptonTriality.label,
+  GUT.LeptonTriality.label_ne_zero => Physics.LeptonTriality.label_ne_zero,
+  GUT.LeptonTriality.label_three_nsmul => Physics.LeptonTriality.label_three_nsmul,
+  GUT.LeptonTriality.not_universal_family_obstruction => Physics.LeptonTriality.not_universal_family_obstruction,
+  GUT.LeptonTriality.protonFirst_charges => Physics.LeptonTriality.protonFirst_charges,
+  GUT.LeptonTriality.protonSecond_charges => Physics.LeptonTriality.protonSecond_charges,
+  GUT.LeptonTriality.spectrum => Physics.LeptonTriality.spectrum,
+  GUT.LeptonTriality.spectrum_forgetting => Physics.LeptonTriality.spectrum_forgetting,
+  GUT.LeptonTriality.spectrum_not_weylInvariant => Physics.LeptonTriality.spectrum_not_weylInvariant,
+  GUT.LeptonTriality.supported_iff => Physics.LeptonTriality.supported_iff,
+  GUT.LeptonTriality.supported_spectrum_counterexample => Physics.LeptonTriality.supported_spectrum_counterexample
+]
 
-A nonempty three-generation target forbids all signatures in the existing
-four-fermion predicate. The residual labels are actual characters of a finite
-group. This is a spectrum-level counterexample, not yet a mass-radical source
-construction or a statement about quantum anomalies and decay amplitudes.
--/
-
-namespace GUT.LeptonTriality
-
-noncomputable section
-
-open StandardBranchProtonObstruction StandardAbelianCharge
-open FiniteAbelianChargeSectors FiniteChargeProfiles StandardModelLocalOperator
-
-/-- Left-handed charges; physical right-handed leptons have charge `q`. -/
-def charges {A : Type*} [AddCommGroup A] (q : A) : Charges A :=
-  ⟨0, 0, 0, q, -q⟩
-
-@[simp] theorem protonFirst_charges {A : Type*} [AddCommGroup A] (q : A) :
-    protonFirst (charges q) = q := by simp [charges, protonFirst]
-
-@[simp] theorem protonSecond_charges {A : Type*} [AddCommGroup A] (q : A) :
-    protonSecond (charges q) = q := by simp [charges, protonSecond]
-
-theorem charges_not_orbitCompatible {A : Type*} [AddCommGroup A]
-    (q : A) (hq : q ≠ 0) : ¬ SU5OrbitCompatible (charges q) := by
-  intro h
-  exact hq h.2.2.symm
-
-theorem cyclic_charge_counterexample :
-    protonFirst (charges (1 : ZMod 3)) ≠ 0 ∧
-      protonSecond (charges (1 : ZMod 3)) ≠ 0 := by simp
-
-/-- The group is multiplicative notation for the additive group of order three. -/
-abbrev Residual := Multiplicative (ZMod 3)
-
-def character : Residual →* Circle where
-  toFun h := ZMod.toCircle h.toAdd
-  map_one' := by simp
-  map_mul' x y := by simp [AddChar.map_add_eq_mul]
-
-theorem character_injective : Function.Injective character := by
-  intro x y h
-  exact Multiplicative.toAdd.injective (ZMod.injective_toCircle h)
-
-theorem character_ne_one : character ≠ 1 := by
-  intro h
-  have he := congrArg (fun f : Residual →* Circle => f (Multiplicative.ofAdd 1)) h
-  have hz : ZMod.toCircle (1 : ZMod 3) = ZMod.toCircle (0 : ZMod 3) := by
-    simpa [character] using he
-  have := ZMod.injective_toCircle hz
-  exact one_ne_zero this
-
-def label : ChargeLabel Residual := Additive.ofMul character
-
-theorem label_ne_zero : label ≠ 0 := by
-  intro h
-  exact character_ne_one (congrArg Additive.toMul h)
-
-theorem label_three_nsmul : (3 : ℕ) • label = 0 := by
-  apply Additive.toMul.injective
-  apply MonoidHom.ext
-  intro x
-  change (ZMod.toCircle x.toAdd) ^ 3 = 1
-  rw [← AddChar.map_nsmul_eq_pow]
-  simp only [nsmul_eq_mul]
-  rw [ZMod.natCast_self, zero_mul]
-  exact ZMod.toCircle.map_zero_eq_one
-
-def assignment : Charges (ChargeLabel Residual) := charges label
-
-theorem assignment_characters :
-    protonFirstCharacter assignment = character ∧
-      protonSecondCharacter assignment = character := by
-  constructor
-  · change (protonFirst (charges label)).toMul = character
-    rw [protonFirst_charges]
-    rfl
-  · change (protonSecond (charges label)).toMul = character
-    rw [protonSecond_charges]
-    rfl
-
-def family : Family (ChargeLabel Residual) :=
-  ⟨pure 3 assignment, 3, by decide, pure_totals _ _⟩
-
-def spectrum : ResolvedCharacter (ChargeLabel Residual) := target family.profiles
-
-theorem spectrum_forgetting : forgetCharges spectrum = unchargedTarget 3 :=
-  forgetCharges_target family.totals
-
-theorem supported_iff (k : Charges (ChargeLabel Residual)) :
-    ChargesSupported spectrum k ↔ k = assignment := by
-  change ChargesSupported (target (pure 3 assignment)) k ↔ _
-  rw [← occupied_iff_supported, occupied_pure_iff 3 (by decide)]
-
-theorem assignment_supported : ChargesSupported spectrum assignment :=
-  (supported_iff assignment).mpr rfl
-
-theorem forbids_all_supported :
-    ForbidsEverySupportedPhysicalDeltaBOneOperator spectrum := by
-  apply forbidsEverySupportedStandardOperator_implies_physicalDeltaBOne
-  intro k hk
-  obtain rfl := (supported_iff k).mp hk
-  apply (forbidsAllStandardOperators_iff assignment).mpr
-  rw [assignment_characters.1, assignment_characters.2]
-  exact ⟨character_ne_one, character_ne_one⟩
-
-theorem spectrum_not_weylInvariant : ¬ ResolvedWeylInvariant spectrum := by
-  intro h
-  obtain ⟨k, hk, hc⟩ := exists_supported_su5OrbitCompatible spectrum h
-    (fun hz => assignment_supported.1 (congrArg (fun f => f assignment.quark) hz))
-    (fun hz => assignment_supported.2.2.1 (congrArg (fun f => f assignment.down) hz))
-  obtain rfl := (supported_iff k).mp hk
-  exact charges_not_orbitCompatible label label_ne_zero hc
-
-/-- A positive family with real supported signatures, not vacuous prohibition. -/
-theorem supported_spectrum_counterexample :
-    family.generations = 3 ∧
-      forgetCharges spectrum = unchargedTarget 3 ∧
-      (∃ k, ChargesSupported spectrum k) ∧
-      ForbidsEverySupportedPhysicalDeltaBOneOperator spectrum ∧
-      ¬ ResolvedWeylInvariant spectrum :=
-  ⟨rfl, spectrum_forgetting, ⟨assignment, assignment_supported⟩,
-    forbids_all_supported, spectrum_not_weylInvariant⟩
-
-/-- Positive common generation totals alone do not imply the no-go. -/
-theorem not_universal_family_obstruction :
-    ¬ ∀ F : Family (ChargeLabel Residual),
-      ¬ ForbidsEverySupportedPhysicalDeltaBOneOperator (target F.profiles) := by
-  intro h
-  exact h family forbids_all_supported
-
-/-- The actual canonical SM gauge tensors exist and transform nontrivially.
-This is not an identification with a physical mass radical. -/
-theorem canonical_tensors_not_invariant :
-    StandardSMGaugeTensor.qque ≠ 0 ∧ StandardSMGaugeTensor.duql ≠ 0 ∧
-      (¬ ∀ g x, StandardSMGaugeTensor.qque
-        (StandardSMResidualTensor.qqueRepresentation assignment g x) =
-          StandardSMGaugeTensor.qque x) ∧
-      (¬ ∀ g x, StandardSMGaugeTensor.duql
-        (StandardSMResidualTensor.duqlRepresentation assignment g x) =
-          StandardSMGaugeTensor.duql x) := by
-  refine ⟨StandardSMGaugeTensor.qque_nonzero, StandardSMGaugeTensor.duql_nonzero, ?_, ?_⟩
-  · intro h
-    exact character_ne_one (assignment_characters.1.symm.trans
-      ((StandardSMResidualTensor.qque_invariant_iff assignment).mp h))
-  · intro h
-    exact character_ne_one (assignment_characters.2.symm.trans
-      ((StandardSMResidualTensor.duql_invariant_iff assignment).mp h))
-
-end
-
-end GUT.LeptonTriality
+assert_compatible GUT.LeptonTriality.Residual => Physics.LeptonTriality.Residual
+assert_compatible GUT.LeptonTriality.assignment => Physics.LeptonTriality.assignment
+assert_compatible GUT.LeptonTriality.assignment_characters => Physics.LeptonTriality.assignment_characters
+assert_compatible GUT.LeptonTriality.assignment_supported => Physics.LeptonTriality.assignment_supported
+assert_compatible GUT.LeptonTriality.canonical_tensors_not_invariant => Physics.LeptonTriality.canonical_tensors_not_invariant
+assert_compatible GUT.LeptonTriality.character => Physics.LeptonTriality.character
+assert_compatible GUT.LeptonTriality.character.eq_1 => Physics.LeptonTriality.character.eq_1
+assert_compatible GUT.LeptonTriality.character_injective => Physics.LeptonTriality.character_injective
+assert_compatible GUT.LeptonTriality.character_ne_one => Physics.LeptonTriality.character_ne_one
+assert_compatible GUT.LeptonTriality.charges => Physics.LeptonTriality.charges
+assert_compatible GUT.LeptonTriality.charges.eq_1 => Physics.LeptonTriality.charges.eq_1
+assert_compatible GUT.LeptonTriality.charges_not_orbitCompatible => Physics.LeptonTriality.charges_not_orbitCompatible
+assert_compatible GUT.LeptonTriality.cyclic_charge_counterexample => Physics.LeptonTriality.cyclic_charge_counterexample
+assert_compatible GUT.LeptonTriality.family => Physics.LeptonTriality.family
+assert_compatible GUT.LeptonTriality.forbids_all_supported => Physics.LeptonTriality.forbids_all_supported
+assert_compatible GUT.LeptonTriality.label => Physics.LeptonTriality.label
+assert_compatible GUT.LeptonTriality.label_ne_zero => Physics.LeptonTriality.label_ne_zero
+assert_compatible GUT.LeptonTriality.label_three_nsmul => Physics.LeptonTriality.label_three_nsmul
+assert_compatible GUT.LeptonTriality.not_universal_family_obstruction => Physics.LeptonTriality.not_universal_family_obstruction
+assert_compatible GUT.LeptonTriality.protonFirst_charges => Physics.LeptonTriality.protonFirst_charges
+assert_compatible GUT.LeptonTriality.protonSecond_charges => Physics.LeptonTriality.protonSecond_charges
+assert_compatible GUT.LeptonTriality.spectrum => Physics.LeptonTriality.spectrum
+assert_compatible GUT.LeptonTriality.spectrum_forgetting => Physics.LeptonTriality.spectrum_forgetting
+assert_compatible GUT.LeptonTriality.spectrum_not_weylInvariant => Physics.LeptonTriality.spectrum_not_weylInvariant
+assert_compatible GUT.LeptonTriality.supported_iff => Physics.LeptonTriality.supported_iff
+assert_compatible GUT.LeptonTriality.supported_spectrum_counterexample => Physics.LeptonTriality.supported_spectrum_counterexample

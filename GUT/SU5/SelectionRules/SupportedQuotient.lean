@@ -1,12 +1,17 @@
 import GUT.SU5.SelectionRules.SupportedTensors
 import Math.RepresentationTheory.Decomposition.RepresentationDescent
 
+open Physics
+
 open Math
 
 /-! The supported fields and ordered tensors descend to the actual SM
 central quotient times the residual group, with exact covering pullback. -/
 
 set_option autoImplicit false
+
+-- Bounded instance-search budget for concrete transport/equivalence types.
+set_option synthInstance.maxHeartbeats 200000
 
 namespace GUT.SU5.SupportedQuotient
 

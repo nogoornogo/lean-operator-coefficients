@@ -1,89 +1,38 @@
+import Physics.StandardModel.Operators.Support.Lepton.SMLeptonJointPresentation
 import Math.RepresentationTheory.SU2PairJointPresentation
 import Math.RepresentationTheory.SU2SingleJointPresentation
 import Physics.StandardModel.Operators.SMLeptonCoreBranching
 import Physics.StandardModel.Operators.SMColoredCoreBranching
+import Math.Lean.Compatibility
 
-/-! Actual lepton and conjugate-lepton single-generation cores in the joint
-positive support interface. Hypercharge is reattached by its existing
-separate neutral-extension theorem. -/
-namespace GUT.SMLeptonJointPresentation
-set_option autoImplicit false
-noncomputable section
-open Math Representation JointSourcePresentation SplitRepresentationProjection ExternalInvariantTensor
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Support.Lepton.SMLeptonJointPresentation instead." (since := "source-api-v1")
 
-@[reducible] local instance (A B : Type*) [AddCommGroup A] [Module ℂ A]
-    [AddCommGroup B] [Module ℂ B] : AddCommGroup (A ⊗[ℂ] B) := inferInstance
-@[reducible] local instance : AddCommGroup
-    (WeakDoubletScalars.Doublet ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    (Module.Dual ℂ WeakDoubletScalars.Doublet ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup (ℂ ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup (Module.Dual ℂ ℂ ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
+compatibility_declarations [
+  GUT.SMLeptonJointPresentation.conjugateElectron => Physics.SMLeptonJointPresentation.conjugateElectron,
+  GUT.SMLeptonJointPresentation.conjugateElectronModel => Physics.SMLeptonJointPresentation.conjugateElectronModel,
+  GUT.SMLeptonJointPresentation.conjugateLepton => Physics.SMLeptonJointPresentation.conjugateLepton,
+  GUT.SMLeptonJointPresentation.conjugateLeptonEquiv => Physics.SMLeptonJointPresentation.conjugateLeptonEquiv,
+  GUT.SMLeptonJointPresentation.conjugateLeptonModel => Physics.SMLeptonJointPresentation.conjugateLeptonModel,
+  GUT.SMLeptonJointPresentation.electron => Physics.SMLeptonJointPresentation.electron,
+  GUT.SMLeptonJointPresentation.electronModel => Physics.SMLeptonJointPresentation.electronModel,
+  GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDoublet_physics => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDoublet_physics,
+  GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDoublet_physics_1 => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDoublet_physics_1,
+  GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDualDoublet_physics => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDualDoublet_physics,
+  GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDualDoublet_physics_1 => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDualDoublet_physics_1,
+  GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplex_physics => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplex_physics,
+  GUT.SMLeptonJointPresentation.lepton => Physics.SMLeptonJointPresentation.lepton
+]
 
-def lepton (n : ℕ) : Presentation ((SMColoredCoreBranching.core 3).exteriorPower n) :=
-  alongEquiv (SMLeptonCoreBranching.exteriorEquiv n) (SU2PairJointPresentation.positive false n)
-
-def conjugateLeptonModel : Representation.Equiv (SMColoredCoreBranching.core 8)
-    ((external WeakDoubletScalars.doublet.dual WeakDoubletScalars.doublet).comp
-      (SU2PairJointPresentation.projection true)) where
-  toLinearEquiv := .refl ℂ _
-  isIntertwining' g := by
-    apply TensorProduct.ext'
-    intro f s
-    simp [SMColoredCoreBranching.core,SMGenerationExhaustion.core,SMGenerationCauchy.inclusion,
-      DeltaLOneSignedFields.gauge,DeltaLOneSignedFields.rightHanded,
-      StandardSMGaugeTensor.lepton,StandardSMGaugeTensor.twist,StandardSMGaugeTensor.phase,
-      Representation.tprod_apply,Representation.dual_apply,WeylIndependentAction.spin,
-      SMMixedCompactWeyl.compact,WeylSpinor.left,SL2SymmetricEmbeddings.compactInclusion,
-      WeakDoubletScalars.doublet,TauCeti.stdRep,TauCeti.SU2.toGL,StandardSMGaugeTensor.weak,
-      external,SU2PairJointPresentation.projection]
-    rfl
-
-def conjugateLeptonEquiv : Representation.Equiv (SMColoredCoreBranching.core 8)
-    (SU2PairExterior.tensor.comp (SU2PairJointPresentation.projection true)) :=
-  conjugateLeptonModel.trans (restrictEquiv
-    (externalEquiv SU2DoubletDuality.equivalence.symm (.refl WeakDoubletScalars.doublet))
-      (SU2PairJointPresentation.projection true))
-
-def conjugateLepton (n : ℕ) : Presentation ((SMColoredCoreBranching.core 8).exteriorPower n) :=
-  alongEquiv (conjugateLeptonEquiv.exteriorPower n) (SU2PairJointPresentation.positive true n)
-
-def electronModel : Representation.Equiv (SMColoredCoreBranching.core 4)
-    (WeakDoubletScalars.doublet.comp (SU2SingleJointPresentation.projection true)) where
-  toLinearEquiv := TensorProduct.lid ℂ WeakDoubletScalars.Doublet
-  isIntertwining' g := by
-    apply TensorProduct.ext'
-    intro z s
-    simp [SMColoredCoreBranching.core,SMGenerationExhaustion.core,SMGenerationCauchy.inclusion,
-      DeltaLOneSignedFields.gauge,DeltaLOneSignedFields.rightHanded,
-      StandardSMGaugeTensor.electronRight,StandardSMGaugeTensor.twist,StandardSMGaugeTensor.phase,
-      Representation.tprod_apply,WeylIndependentAction.spin,SMMixedCompactWeyl.compact,
-      WeylSpinor.left,SL2SymmetricEmbeddings.compactInclusion,WeakDoubletScalars.doublet,
-      TauCeti.stdRep,TauCeti.SU2.toGL,SU2SingleJointPresentation.projection,JointSourceAtoms.rightProjection]
-    rfl
-
-def electron (n : ℕ) : Presentation ((SMColoredCoreBranching.core 4).exteriorPower n) :=
-  alongEquiv (electronModel.exteriorPower n) (SU2SingleJointPresentation.positive true n)
-
-def conjugateElectronModel : Representation.Equiv (SMColoredCoreBranching.core 9)
-    (WeakDoubletScalars.doublet.comp (SU2SingleJointPresentation.projection false)) where
-  toLinearEquiv := (TensorProduct.congr (RestrictedColorDuality.scalarDual (G := JointColorSpinWord.Group)).toLinearEquiv
-    (.refl ℂ WeakDoubletScalars.Doublet)).trans (TensorProduct.lid ℂ WeakDoubletScalars.Doublet)
-  isIntertwining' g := by
-    apply TensorProduct.ext'
-    intro f s
-    simp [SMColoredCoreBranching.core,SMGenerationExhaustion.core,SMGenerationCauchy.inclusion,
-      DeltaLOneSignedFields.gauge,DeltaLOneSignedFields.rightHanded,
-      StandardSMGaugeTensor.electronRight,StandardSMGaugeTensor.twist,StandardSMGaugeTensor.phase,
-      Representation.tprod_apply,Representation.dual_apply,WeylIndependentAction.spin,
-      SMMixedCompactWeyl.compact,WeylSpinor.left,SL2SymmetricEmbeddings.compactInclusion,
-      WeakDoubletScalars.doublet,TauCeti.stdRep,TauCeti.SU2.toGL,
-      SU2SingleJointPresentation.projection,JointSourceAtoms.leftProjection]
-    rfl
-
-def conjugateElectron (n : ℕ) : Presentation ((SMColoredCoreBranching.core 9).exteriorPower n) :=
-  alongEquiv (conjugateElectronModel.exteriorPower n) (SU2SingleJointPresentation.positive false n)
-
-end
-end GUT.SMLeptonJointPresentation
+assert_compatible GUT.SMLeptonJointPresentation.conjugateElectron => Physics.SMLeptonJointPresentation.conjugateElectron
+assert_compatible GUT.SMLeptonJointPresentation.conjugateElectronModel => Physics.SMLeptonJointPresentation.conjugateElectronModel
+assert_compatible GUT.SMLeptonJointPresentation.conjugateLepton => Physics.SMLeptonJointPresentation.conjugateLepton
+assert_compatible GUT.SMLeptonJointPresentation.conjugateLeptonEquiv => Physics.SMLeptonJointPresentation.conjugateLeptonEquiv
+assert_compatible GUT.SMLeptonJointPresentation.conjugateLeptonModel => Physics.SMLeptonJointPresentation.conjugateLeptonModel
+assert_compatible GUT.SMLeptonJointPresentation.electron => Physics.SMLeptonJointPresentation.electron
+assert_compatible GUT.SMLeptonJointPresentation.electronModel => Physics.SMLeptonJointPresentation.electronModel
+assert_compatible GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDoublet_physics => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDoublet_physics
+assert_compatible GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDoublet_physics_1 => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDoublet_physics_1
+assert_compatible GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDualDoublet_physics => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDualDoublet_physics
+assert_compatible GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDualDoublet_physics_1 => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplexDualDoublet_physics_1
+assert_compatible GUT.SMLeptonJointPresentation.instAddCommGroupTensorProductComplex_physics => Physics.SMLeptonJointPresentation.instAddCommGroupTensorProductComplex_physics
+assert_compatible GUT.SMLeptonJointPresentation.lepton => Physics.SMLeptonJointPresentation.lepton

@@ -2,6 +2,8 @@ import GUT.SU6.Branching.ConcreteSU6PhysicalTarget
 import GUT.SU6.SelectionRules.Models.DiracPhysicalModel
 import GUT.SU6.Branching.ConcreteStandardGeometry
 
+open Physics
+
 open Math
 
 /-!

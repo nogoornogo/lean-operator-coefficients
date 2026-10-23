@@ -2,7 +2,7 @@
 
 ## Statement and actual carriers
 
-[HiggsEigenlineReduction](../../../../../Math/RepresentationTheory/HiggsEigenlineReduction.lean)
+[HiggsEigenlineReduction](../../../../../Math/RepresentationTheory/Higgs/HiggsEigenlineReduction.lean)
 fixes an arbitrary group G, a complex representation a on X, and a unit-valued
 character chi:G->C*. The two scalar representations are the complex lines
 with characters chi and chi inverse. Define
@@ -70,7 +70,7 @@ not an automatic algorithm to decompose arbitrary source representations.
 
 The SM Higgs is a weak doublet, not one of these scalar eigenlines. Neutrality
 under a residual group does not eliminate its gauge action. In the actual
-three-generation input, [HiggsEigenlineBoundary](../../../../../Physics/StandardModel/Operators/HiggsEigenlineBoundary.lean)
+three-generation input, [HiggsEigenlineBoundary](../../../../../Physics/StandardModel/Operators/Higgs/HiggsEigenlineBoundary.lean)
 proves zero-Higgs LL prohibition and LLHH allowance when 2l=0, hence refutes
 their support equivalence even with neutral residual Higgs action. This does
 not refute reduction to a larger finite primitive set for the weak doublet.

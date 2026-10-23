@@ -1,5 +1,7 @@
 import GUT.SU5.Matching.LightSpeciesMaps
 
+open Physics
+
 open Math
 
 /-! Every vector in the canonical full-species images is a sum of the

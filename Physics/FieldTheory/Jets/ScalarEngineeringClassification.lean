@@ -1,0 +1,68 @@
+import Physics.FieldTheory.Jets.Scalar.Inputs.ScalarEngineeringClassification
+import Math.Algebra.ScalarEngineeringTwo
+import Physics.FieldTheory.Jets.PolynomialScalarEOM
+import Math.Lean.Compatibility
+
+deprecated_module "Use Physics.FieldTheory.Jets.Scalar.Inputs.ScalarEngineeringClassification instead." (since := "source-api-v1")
+
+compatibility_declarations [
+  GUT.ScalarEngineeringClassification.Source => Physics.ScalarEngineeringClassification.Source,
+  GUT.ScalarEngineeringClassification.basis => Physics.ScalarEngineeringClassification.basis,
+  GUT.ScalarEngineeringClassification.coefficient => Physics.ScalarEngineeringClassification.coefficient,
+  GUT.ScalarEngineeringClassification.coefficient_derivative => Physics.ScalarEngineeringClassification.coefficient_derivative,
+  GUT.ScalarEngineeringClassification.coefficient_eom => Physics.ScalarEngineeringClassification.coefficient_eom,
+  GUT.ScalarEngineeringClassification.coefficient_square => Physics.ScalarEngineeringClassification.coefficient_square,
+  GUT.ScalarEngineeringClassification.combined_le_kernel => Physics.ScalarEngineeringClassification.combined_le_kernel,
+  GUT.ScalarEngineeringClassification.coordinate => Physics.ScalarEngineeringClassification.coordinate,
+  GUT.ScalarEngineeringClassification.coordinate_generator => Physics.ScalarEngineeringClassification.coordinate_generator,
+  GUT.ScalarEngineeringClassification.cubicIdeal => Physics.ScalarEngineeringClassification.cubicIdeal,
+  GUT.ScalarEngineeringClassification.dimension => Physics.ScalarEngineeringClassification.dimension,
+  GUT.ScalarEngineeringClassification.eom_evaluation_mem => Physics.ScalarEngineeringClassification.eom_evaluation_mem,
+  GUT.ScalarEngineeringClassification.equivalence => Physics.ScalarEngineeringClassification.equivalence,
+  GUT.ScalarEngineeringClassification.evaluation_derivative => Physics.ScalarEngineeringClassification.evaluation_derivative,
+  GUT.ScalarEngineeringClassification.evaluation_seed => Physics.ScalarEngineeringClassification.evaluation_seed,
+  GUT.ScalarEngineeringClassification.evaluation_shift => Physics.ScalarEngineeringClassification.evaluation_shift,
+  GUT.ScalarEngineeringClassification.first_zero => Physics.ScalarEngineeringClassification.first_zero,
+  GUT.ScalarEngineeringClassification.generator => Physics.ScalarEngineeringClassification.generator,
+  GUT.ScalarEngineeringClassification.generator.eq_1 => Physics.ScalarEngineeringClassification.generator.eq_1,
+  GUT.ScalarEngineeringClassification.generator_nonzero => Physics.ScalarEngineeringClassification.generator_nonzero,
+  GUT.ScalarEngineeringClassification.image => Physics.ScalarEngineeringClassification.image,
+  GUT.ScalarEngineeringClassification.polynomialEvaluation => Physics.ScalarEngineeringClassification.polynomialEvaluation,
+  GUT.ScalarEngineeringClassification.polynomialEvaluation.eq_1 => Physics.ScalarEngineeringClassification.polynomialEvaluation.eq_1,
+  GUT.ScalarEngineeringClassification.quotientCoefficient => Physics.ScalarEngineeringClassification.quotientCoefficient,
+  GUT.ScalarEngineeringClassification.reconstruction => Physics.ScalarEngineeringClassification.reconstruction,
+  GUT.ScalarEngineeringClassification.sourceProjection => Physics.ScalarEngineeringClassification.sourceProjection,
+  GUT.ScalarEngineeringClassification.sourceProjection.eq_1 => Physics.ScalarEngineeringClassification.sourceProjection.eq_1,
+  GUT.ScalarEngineeringClassification.sourceProjection_surjective => Physics.ScalarEngineeringClassification.sourceProjection_surjective,
+  GUT.ScalarEngineeringClassification.square_survives => Physics.ScalarEngineeringClassification.square_survives
+]
+
+assert_compatible GUT.ScalarEngineeringClassification.Source => Physics.ScalarEngineeringClassification.Source
+assert_compatible GUT.ScalarEngineeringClassification.basis => Physics.ScalarEngineeringClassification.basis
+assert_compatible GUT.ScalarEngineeringClassification.coefficient => Physics.ScalarEngineeringClassification.coefficient
+assert_compatible GUT.ScalarEngineeringClassification.coefficient_derivative => Physics.ScalarEngineeringClassification.coefficient_derivative
+assert_compatible GUT.ScalarEngineeringClassification.coefficient_eom => Physics.ScalarEngineeringClassification.coefficient_eom
+assert_compatible GUT.ScalarEngineeringClassification.coefficient_square => Physics.ScalarEngineeringClassification.coefficient_square
+assert_compatible GUT.ScalarEngineeringClassification.combined_le_kernel => Physics.ScalarEngineeringClassification.combined_le_kernel
+assert_compatible GUT.ScalarEngineeringClassification.coordinate => Physics.ScalarEngineeringClassification.coordinate
+assert_compatible GUT.ScalarEngineeringClassification.coordinate_generator => Physics.ScalarEngineeringClassification.coordinate_generator
+assert_compatible GUT.ScalarEngineeringClassification.cubicIdeal => Physics.ScalarEngineeringClassification.cubicIdeal
+assert_compatible GUT.ScalarEngineeringClassification.dimension => Physics.ScalarEngineeringClassification.dimension
+assert_compatible GUT.ScalarEngineeringClassification.eom_evaluation_mem => Physics.ScalarEngineeringClassification.eom_evaluation_mem
+assert_compatible GUT.ScalarEngineeringClassification.equivalence => Physics.ScalarEngineeringClassification.equivalence
+assert_compatible GUT.ScalarEngineeringClassification.evaluation_derivative => Physics.ScalarEngineeringClassification.evaluation_derivative
+assert_compatible GUT.ScalarEngineeringClassification.evaluation_seed => Physics.ScalarEngineeringClassification.evaluation_seed
+assert_compatible GUT.ScalarEngineeringClassification.evaluation_shift => Physics.ScalarEngineeringClassification.evaluation_shift
+assert_compatible GUT.ScalarEngineeringClassification.first_zero => Physics.ScalarEngineeringClassification.first_zero
+assert_compatible GUT.ScalarEngineeringClassification.generator => Physics.ScalarEngineeringClassification.generator
+assert_compatible GUT.ScalarEngineeringClassification.generator.eq_1 => Physics.ScalarEngineeringClassification.generator.eq_1
+assert_compatible GUT.ScalarEngineeringClassification.generator_nonzero => Physics.ScalarEngineeringClassification.generator_nonzero
+assert_compatible GUT.ScalarEngineeringClassification.image => Physics.ScalarEngineeringClassification.image
+assert_compatible GUT.ScalarEngineeringClassification.polynomialEvaluation => Physics.ScalarEngineeringClassification.polynomialEvaluation
+assert_compatible GUT.ScalarEngineeringClassification.polynomialEvaluation.eq_1 => Physics.ScalarEngineeringClassification.polynomialEvaluation.eq_1
+assert_compatible GUT.ScalarEngineeringClassification.quotientCoefficient => Physics.ScalarEngineeringClassification.quotientCoefficient
+assert_compatible GUT.ScalarEngineeringClassification.reconstruction => Physics.ScalarEngineeringClassification.reconstruction
+assert_compatible GUT.ScalarEngineeringClassification.sourceProjection => Physics.ScalarEngineeringClassification.sourceProjection
+assert_compatible GUT.ScalarEngineeringClassification.sourceProjection.eq_1 => Physics.ScalarEngineeringClassification.sourceProjection.eq_1
+assert_compatible GUT.ScalarEngineeringClassification.sourceProjection_surjective => Physics.ScalarEngineeringClassification.sourceProjection_surjective
+assert_compatible GUT.ScalarEngineeringClassification.square_survives => Physics.ScalarEngineeringClassification.square_survives

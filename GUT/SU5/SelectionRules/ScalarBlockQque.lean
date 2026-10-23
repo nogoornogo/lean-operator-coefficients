@@ -1,10 +1,12 @@
 import Math.RepresentationTheory.Unitary.CommutingUnitaryActions
-import Physics.FieldTheory.Mass.InvariantWeylMass
+import Physics.FieldTheory.Mass.Algebra.InvariantWeylMass
 import GUT.SU5.Branching.ExteriorSquare
 import GUT.SU5.Representations.UnitaryMatter
-import Math.RepresentationTheory.ScalarEigencharacter
-import Physics.StandardModel.Operators.NeutralQqueExterior
+import Math.RepresentationTheory.Constructions.ScalarEigencharacter
+import Physics.StandardModel.Operators.BaryonOne.Qque.NeutralQqueExterior
 import Math.RepresentationTheory.Decomposition.RepresentationConjugation
+
+open Physics
 
 /-! Actual SU(5) scalar/block branching and physical qque on the ranges
 of the participating field embeddings. Auxiliary factors are pointwise. -/

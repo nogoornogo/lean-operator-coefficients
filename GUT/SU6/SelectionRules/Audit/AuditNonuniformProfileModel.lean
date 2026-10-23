@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Benchmarks.NonuniformProfileModel
 
+open Physics
+
 /-! Actual finite-residual, non-single-charge realizability for PROFILE-3c.
 The target is derived, and both charges occur in actual radical vectors. -/
 

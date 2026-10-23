@@ -1,0 +1,38 @@
+import Physics.FieldTheory.Jets.Higgs.QuarticFour.HiggsQuarticFourCompleteness
+import Math.Algebra.HiggsFourWaveCubature
+import Physics.FieldTheory.Jets.HiggsQuarticFourCoordinateAssembly
+import Math.Lean.Compatibility
+
+deprecated_module "Use Physics.FieldTheory.Jets.Higgs.QuarticFour.HiggsQuarticFourCompleteness instead." (since := "source-api-v1")
+
+compatibility_declarations [
+  GUT.HiggsQuarticFourCompleteness.coefficient_dimension => Physics.HiggsQuarticFourCompleteness.coefficient_dimension,
+  GUT.HiggsQuarticFourCompleteness.directEquivalence => Physics.HiggsQuarticFourCompleteness.directEquivalence,
+  GUT.HiggsQuarticFourCompleteness.directSelected => Physics.HiggsQuarticFourCompleteness.directSelected,
+  GUT.HiggsQuarticFourCompleteness.direct_extraction => Physics.HiggsQuarticFourCompleteness.direct_extraction,
+  GUT.HiggsQuarticFourCompleteness.equivalence => Physics.HiggsQuarticFourCompleteness.equivalence,
+  GUT.HiggsQuarticFourCompleteness.extract_reconstruction => Physics.HiggsQuarticFourCompleteness.extract_reconstruction,
+  GUT.HiggsQuarticFourCompleteness.extraction => Physics.HiggsQuarticFourCompleteness.extraction,
+  GUT.HiggsQuarticFourCompleteness.inputEquivalence => Physics.HiggsQuarticFourCompleteness.inputEquivalence,
+  GUT.HiggsQuarticFourCompleteness.input_agreement => Physics.HiggsQuarticFourCompleteness.input_agreement,
+  GUT.HiggsQuarticFourCompleteness.moments => Physics.HiggsQuarticFourCompleteness.moments,
+  GUT.HiggsQuarticFourCompleteness.normalized => Physics.HiggsQuarticFourCompleteness.normalized,
+  GUT.HiggsQuarticFourCompleteness.normalized_value => Physics.HiggsQuarticFourCompleteness.normalized_value,
+  GUT.HiggsQuarticFourCompleteness.reconstruct => Physics.HiggsQuarticFourCompleteness.reconstruct,
+  GUT.HiggsQuarticFourCompleteness.reconstruction => Physics.HiggsQuarticFourCompleteness.reconstruction
+]
+
+assert_compatible GUT.HiggsQuarticFourCompleteness.coefficient_dimension => Physics.HiggsQuarticFourCompleteness.coefficient_dimension
+assert_compatible GUT.HiggsQuarticFourCompleteness.directEquivalence => Physics.HiggsQuarticFourCompleteness.directEquivalence
+assert_compatible GUT.HiggsQuarticFourCompleteness.directSelected => Physics.HiggsQuarticFourCompleteness.directSelected
+assert_compatible GUT.HiggsQuarticFourCompleteness.direct_extraction => Physics.HiggsQuarticFourCompleteness.direct_extraction
+assert_compatible GUT.HiggsQuarticFourCompleteness.equivalence => Physics.HiggsQuarticFourCompleteness.equivalence
+assert_compatible GUT.HiggsQuarticFourCompleteness.extract_reconstruction => Physics.HiggsQuarticFourCompleteness.extract_reconstruction
+assert_compatible GUT.HiggsQuarticFourCompleteness.extraction => Physics.HiggsQuarticFourCompleteness.extraction
+assert_compatible GUT.HiggsQuarticFourCompleteness.inputEquivalence => Physics.HiggsQuarticFourCompleteness.inputEquivalence
+assert_compatible GUT.HiggsQuarticFourCompleteness.input_agreement => Physics.HiggsQuarticFourCompleteness.input_agreement
+assert_compatible GUT.HiggsQuarticFourCompleteness.moments => Physics.HiggsQuarticFourCompleteness.moments
+assert_compatible GUT.HiggsQuarticFourCompleteness.normalized => Physics.HiggsQuarticFourCompleteness.normalized
+assert_compatible GUT.HiggsQuarticFourCompleteness.normalized_value => Physics.HiggsQuarticFourCompleteness.normalized_value
+assert_compatible GUT.HiggsQuarticFourCompleteness.reconstruct => Physics.HiggsQuarticFourCompleteness.reconstruct
+assert_compatible GUT.HiggsQuarticFourCompleteness.reconstruction => Physics.HiggsQuarticFourCompleteness.reconstruction

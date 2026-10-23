@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.PhysicalWeylMassSource
 import GUT.SU6.SelectionRules.StandardBranch.WeylConjugateOperator
 
+open Physics
+
 open Math
 
 /-!

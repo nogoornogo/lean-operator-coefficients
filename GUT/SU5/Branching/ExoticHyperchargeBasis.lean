@@ -4,6 +4,8 @@ import GUT.SU5.SelectionRules.InvariantMassNormalForm
 import Mathlib.LinearAlgebra.Basis.Prod
 import Mathlib.Analysis.SpecialFunctions.Complex.CircleAddChar
 
+open Physics
+
 namespace GUT.SU5.ExoticHyperchargeBasis
 set_option autoImplicit false
 noncomputable section
@@ -59,7 +61,7 @@ abbrev symmetricBasis := tenBasis.symmetricPower 2
 theorem symmetric_action (z : Circle) (s : Sym Index 2) :
     (ten.symmetricPower 2) (hom (1,1,z)) (symmetricBasis s) =
       coefficient z s • symmetricBasis s :=
-  SymmetricPower.map_basis_symmetricPower_of_apply_basis tenBasis
+  Module.Basis.map_symmetricPower_of_apply tenBasis
     (ten (hom (1,1,z))) (fun i => ((z^weight i : Circle) : ℂ)) (basis_action z) s
 
 /-- The six relevant Q/U/E and opposite hypercharges are absent from Sym² ten. -/
@@ -182,7 +184,7 @@ theorem fifty_dual_no_eigen (y : ℤ) (hy : y ∈ ([-6,-4,-1,1,4,6] : List ℤ))
 theorem fifty_no_pairings {V : Type*} [AddCommGroup V] [Module ℂ V]
     (r : Representation ℂ GaugeGroup V) (y : ℤ) (hr : HasHypercharge r y)
     (hy : y ∈ ([-6,-4,-1,1,4,6] : List ℤ)) :
-    GUT.BipartiteNormalForm.NoPairings r fifty := by
+    Physics.BipartiteNormalForm.NoPairings r fifty := by
   intro f
   apply IntertwiningMap.ext
   apply LinearMap.ext
@@ -194,9 +196,9 @@ theorem fifty_no_pairings {V : Type*} [AddCommGroup V] [Module ℂ V]
   exact hi.symm
 
 theorem selected_no_pairings :
-    GUT.BipartiteNormalForm.NoPairings quark fifty ∧
-    GUT.BipartiteNormalForm.NoPairings upRight.dual fifty ∧
-    GUT.BipartiteNormalForm.NoPairings electronRight.dual fifty :=
+    Physics.BipartiteNormalForm.NoPairings quark fifty ∧
+    Physics.BipartiteNormalForm.NoPairings upRight.dual fifty ∧
+    Physics.BipartiteNormalForm.NoPairings electronRight.dual fifty :=
   ⟨fifty_no_pairings quark 1 quark_hypercharge (by decide),
     fifty_no_pairings upRight.dual (-4) upLeft_hypercharge (by decide),
     fifty_no_pairings electronRight.dual 6 electronLeft_hypercharge (by decide)⟩
@@ -204,7 +206,7 @@ theorem selected_no_pairings :
 theorem fifty_dual_no_pairings {V : Type*} [AddCommGroup V] [Module ℂ V]
     (r : Representation ℂ GaugeGroup V) (y : ℤ) (hr : HasHypercharge r y)
     (hy : y ∈ ([-6,-4,-1,1,4,6] : List ℤ)) :
-    GUT.BipartiteNormalForm.NoPairings r fifty.dual := by
+    Physics.BipartiteNormalForm.NoPairings r fifty.dual := by
   intro f
   let e := SplitRepresentationProjection.bidualEquiv fifty
   have he := fifty_hom_zero r y hr hy (e.symm.toIntertwiningMap.comp f)

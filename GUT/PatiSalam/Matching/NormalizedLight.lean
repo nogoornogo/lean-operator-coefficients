@@ -1,6 +1,8 @@
 import GUT.PatiSalam.Matching.ModelApplication
 import GUT.PatiSalam.Matching.NeutralMass
-import Math.LinearAlgebra.LightLineNormalization
+import Math.LinearAlgebra.Constructions.LightLineNormalization
+
+open Physics
 
 /-! Normalization in the supplied canonical Euclidean kinetic form.
 The underlying holomorphic mass convention is still an explicit component input. -/
@@ -53,14 +55,14 @@ theorem barred_nonzero_iff (d M : ℂ) (hM : M ≠ 0) :
 /-- Scale only the anti-neutrino coordinate; the quark coordinates are unchanged. -/
 def lightChange (d M : ℂ) : LightFields.Light ≃ₗ[ℂ] LightFields.Light :=
   LinearEquiv.prodCongr (LinearEquiv.refl ℂ (Fin 4 → LightFields.Quark))
-    (LinearEquiv.smulOfNeZero ℂ GUT.WeylSpinor.Space
+    (LinearEquiv.smulOfNeZero ℂ Physics.WeylSpinor.Space
       (star (scale d M)) (star_ne_zero.mpr (scale_nonzero d M)))
 
 def injection (d M : ℂ) := LightFields.injection.comp (lightChange d M).toLinearMap
 
 def coefficient (p : ModelApplication.Parameters) :=
   MixedSingleBosonEvaluation.pull (ModelApplication.smCoefficient p).toLinearMap
-    (Pi.single (1 : GUT.BnvMixedInput.ScalarSpecies) (p.w • TypedVertex.neutralHiggs))
+    (Pi.single (1 : Physics.BnvMixedInput.ScalarSpecies) (p.w • TypedVertex.neutralHiggs))
     (injection (p.Y*star p.w) p.M)
 
 theorem coefficient_eq (p : ModelApplication.Parameters) : coefficient p =

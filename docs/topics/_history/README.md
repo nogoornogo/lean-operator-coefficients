@@ -42,3 +42,5 @@ outcomes without claiming an exact historical completion order.
 - [Volume 005](005_topics_history.md).
 - [Volume 006](006_topics_history.md).
 - [Volume 007](007_topics_history.md).
+- [Volume 008](008_topics_history.md).
+- [Volume 009](009_topics_history.md).

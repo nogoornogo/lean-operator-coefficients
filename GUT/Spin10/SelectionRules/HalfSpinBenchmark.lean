@@ -2,6 +2,8 @@ import GUT.Spin10.SelectionRules.StandardChain
 import GUT.Spin10.SU5Branching
 import GUT.SU5.Branching.TorusMatterCharacter
 
+open Physics
+
 open Math
 
 /-! An inhabited continuous standard-chain model on the actual compact
@@ -16,7 +18,7 @@ namespace GUT.CompactSpin.HalfSpinBenchmark
 open Math.CompactSpin
 noncomputable section
 
-open GUT.SU5 InvariantWeylMass FiniteAbelianChargeSectors
+open GUT.SU5 Physics.SU5 InvariantWeylMass FiniteAbelianChargeSectors
 open StandardAbelianCharge StandardSMCharacterTarget StandardWeylDualTarget
 
 abbrev Space := HalfSpin.HilbertSpace 5

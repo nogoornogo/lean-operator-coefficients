@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.PhysicalChargedCharacterBridge
-import Physics.FieldTheory.Mass.UnitaryBlockMass
+import Physics.FieldTheory.Mass.Algebra.UnitaryBlockMass
+
+open Physics
 
 open Math
 

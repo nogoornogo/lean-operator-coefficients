@@ -1,8 +1,16 @@
 import GUT.SU6.SelectionRules.Models.ScalarBlockQque
+
+open Physics
 /-! Strict transitive audit of the fixed-placement scalar/block obstruction. -/
 open Lean in
 run_cmd do
   let ds := [
+    ``Physics.ProjectedWeylMass.projection,
+    ``Physics.ProjectedWeylMass.projection_apply,
+    ``Physics.ProjectedWeylMass.form,
+    ``Physics.ProjectedWeylMass.form_apply,
+    ``Physics.ProjectedWeylMass.form_eq_split,
+    ``Physics.ProjectedWeylMass.mem_radical_of_projection,
     ``GUT.StandardScalarBlock.coords,
     ``GUT.StandardScalarBlock.six,
     ``GUT.StandardScalarBlock.blocks,

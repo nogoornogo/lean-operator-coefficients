@@ -1,11 +1,4 @@
+import Physics.StandardModel.Spectrum.Representations.Audit.AuditHyperchargeReversalProbe
 import Physics.StandardModel.Spectrum.HyperchargeReversalProbe
-open Lean in
-run_cmd do
-  let ds := [``GUT.HyperchargeReversalProbe.character_of_hypercharge,
-    ``GUT.HyperchargeReversalProbe.generation_character,
-    ``GUT.HyperchargeReversalProbe.generation_probe_nonzero]
-  for d in ds do
-    for ax in (← Lean.collectAxioms d) do
-      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
-        throwError "SM reversal probe {d} uses unexpected axiom {ax}"
-  Lean.logInfo m!"SM reversal probe: {ds.length} strict transitive checks passed"
+
+deprecated_module "Use Physics.StandardModel.Spectrum.Representations.Audit.AuditHyperchargeReversalProbe instead." (since := "source-api-v1")

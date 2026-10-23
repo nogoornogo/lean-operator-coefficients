@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.StandardBranch.WeylZeroModeSupport
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylNonzeroMass
 
+open Physics
+
 open Math
 
 /-!

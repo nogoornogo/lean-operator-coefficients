@@ -1,5 +1,7 @@
 import GUT.SU6.Yukawa.NonSingletCoordinates
-import Physics.StandardModel.Gauge.TwistedFundamentalIrreducibility
+import Physics.StandardModel.Gauge.Tensors.TwistedFundamentalIrreducibility
+
+open Physics
 
 open Math
 

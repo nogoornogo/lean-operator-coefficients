@@ -1,7 +1,7 @@
 import Math.Audit.ImportOrigin
 import Math.RepresentationTheory.Unitary.UnitaryEigenbasis
-import Math.LinearAlgebra.ExteriorEigenbasisTrace
-import Math.LinearAlgebra.RankFiveExteriorSum
+import Math.LinearAlgebra.Exterior.ExteriorEigenbasisTrace
+import Math.LinearAlgebra.Exterior.RankFiveExteriorSum
 import Mathlib.Analysis.InnerProductSpace.PiL2
 
 /-! Generic spectral and exterior-trace controls, isolated from gauge models. -/

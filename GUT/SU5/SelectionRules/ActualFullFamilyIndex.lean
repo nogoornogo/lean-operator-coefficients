@@ -2,6 +2,8 @@ import GUT.SU5.Branching.ActualHyperchargeProfiles
 import GUT.SU5.SelectionRules.ActualExoticMassBounds
 import Math.RepresentationTheory.Characters.CharacterProducts
 
+open Physics
+
 namespace GUT.SU5.ActualFullFamilyIndex
 set_option autoImplicit false
 noncomputable section

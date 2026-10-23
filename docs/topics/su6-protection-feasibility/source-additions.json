@@ -1,0 +1,35 @@
+{
+  "kind": "su6-protection-feasibility",
+  "sources": {
+    "GUT/SU6/Audit/AuditBoundaryProtection.lean": "06c8a0917da27fff973c043d58039fb31743deb94d98f53e903982a075c41881",
+    "GUT/SU6/Audit/AuditProtectionFeasibility.lean": "b2d63add2413f21952d7f9d29a3de10ddc1532a0d8b0c62f8e063f5cd77b3ed9",
+    "GUT/SU6/Boundary/BaryonAction.lean": "1eb7a57c8e63dbbc10a7a4a4b1c55f6fba798bad582c9b82419b4f6cc3f0d442",
+    "GUT/SU6/Boundary/ChiralSelection.lean": "8d008e7be12e4ed4c6ab9d2bcc554be2f89258db8a4b7163c717aacf3f554fa3",
+    "GUT/SU6/Boundary/ExteriorCube.lean": "c319d46c97f0b64943da16b02f30e2a5c5e202de30804b3c0a9d207a82466c9f",
+    "GUT/SU6/Boundary/Interactions.lean": "91c71c9d6991a4683b328aecb0da47095b4f97731311afbe675faad1a9cbc62b",
+    "GUT/SU6/Boundary/Protection.lean": "f0e4be1a24213fe70cfb496d87d37bb1057a5b1e4c993ccea5ebeeda2c4d2c41",
+    "GUT/SU6/SelectionRules/Models/CyclicProtectionFeasibility.lean": "f87e1870eb7c5729a3ab3717b4a701f0a0b40ff481817bd390ea1243fe685a3b",
+    "GUT/SU6/SelectionRules/Models/ProtectionFeasibilityControls.lean": "b45c3d0ed8e24c5be3fa7074bb765681de751212c3a8c22cdc9351a18696cbef",
+    "Math/LinearAlgebra/Boundary/Projectors.lean": "febf7045b5387bfeff1b814661c9894c2a55555cbe995c2b7f2899aeb7bc38b6",
+    "Physics/StandardModel/Operators/Selection/BaryonParitySelection.lean": "09d686c794f504ae23563fb056e01bdf933c37b3323274f715f70e54701d78ae"
+  },
+  "imports": {
+    "Math.lean": [
+      "import Math.LinearAlgebra.Boundary.Projectors"
+    ],
+    "Physics.lean": [
+      "import Physics.StandardModel.Operators.Selection.BaryonParitySelection"
+    ],
+    "GUT.lean": [
+      "import GUT.SU6.Audit.AuditBoundaryProtection",
+      "import GUT.SU6.Audit.AuditProtectionFeasibility",
+      "import GUT.SU6.Boundary.BaryonAction",
+      "import GUT.SU6.Boundary.ChiralSelection",
+      "import GUT.SU6.Boundary.ExteriorCube",
+      "import GUT.SU6.Boundary.Interactions",
+      "import GUT.SU6.Boundary.Protection",
+      "import GUT.SU6.SelectionRules.Models.CyclicProtectionFeasibility",
+      "import GUT.SU6.SelectionRules.Models.ProtectionFeasibilityControls"
+    ]
+  }
+}

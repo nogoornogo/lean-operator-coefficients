@@ -1,6 +1,6 @@
 import Math.LieGroups.Spin.HalfSpinEigenbasis
 import Math.RepresentationTheory.Unitary.UnitaryEigenbasis
-import Math.LinearAlgebra.RankFiveExteriorSum
+import Math.LinearAlgebra.Exterior.RankFiveExteriorSum
 import GUT.SU5.Representations.UnitaryMatter
 
 open Math

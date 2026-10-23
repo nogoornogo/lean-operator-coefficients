@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVMass
 
+open Physics
+
 open Math
 
 /-!
@@ -119,7 +121,7 @@ theorem mass_form_gauge (H : Type*) [CommGroup H] :
     (StandardSMUVMass.mass H).form =
       (StandardSMFullGaugeMass.mass (neutralCharges H)).form.compl₁₂
         gaugeEquiv.toLinearEquiv.toLinearMap gaugeEquiv.toLinearEquiv.toLinearMap := by
-  unfold StandardSMUVMass.mass
+  rw [StandardSMUVMass.mass_form_eq]
   erw [pullback_form]
   exact congrArg (fun e : UV ≃ₗ[ℂ] StandardSMFullGaugeMass.Fields =>
     (StandardSMFullGaugeMass.mass (neutralCharges H)).form.compl₁₂ e.toLinearMap e.toLinearMap)

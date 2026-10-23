@@ -1,5 +1,7 @@
 import GUT.SU5.SelectionRules.ActualFullFamilyQque
-import Physics.StandardModel.Operators.ResidualQquePrefilter
+import Physics.StandardModel.Operators.BaryonOne.Qque.ResidualQquePrefilter
+
+open Physics
 
 /-! Joint SM-copy and residual-action constraints, with an explicit radical bridge. -/
 namespace GUT.SU5.FullFamilyResidualPrefilter

@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.StandardSMContinuousTensor
 
+open Physics
+
 open Math
 
 /-! Persistent audit of the canonical-carrier adapter and the full-gauge

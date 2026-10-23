@@ -1,5 +1,7 @@
 import GUT.SU5.SelectionRules.ScalarBlockQque
-import Physics.FieldTheory.Mass.OrthogonalMass
+import Physics.FieldTheory.Mass.Algebra.OrthogonalMass
+
+open Physics
 
 /-! A bounded nonzero-mass control: add one actual ten/dual-ten pair to
 scalar/block chiral matter. The orthogonal mass retains precisely the chiral

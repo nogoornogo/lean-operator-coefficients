@@ -1,0 +1,90 @@
+import Math.Audit.ImportOrigin
+import Physics.StandardModel.Operators.Selection.DgtFlavorRestriction
+import Physics.StandardModel.Operators.Selection.QuarticityAdapters
+
+open Lean in
+run_cmd do
+  let env ← getEnv
+  for mod in env.header.moduleNames do
+    if (`GUT).isPrefixOf mod then
+      throwError "Flavor/quarticity imports forbidden layer {mod}; original {SourceLayout.originalModule mod}"
+  let ds := [
+    ``Physics.DgtFlavorRestriction.Flavor,
+    ``Physics.DgtFlavorRestriction.IR,
+    ``Physics.DgtFlavorRestriction.embedding,
+    ``Physics.DgtFlavorRestriction.embedding_injective,
+    ``Physics.DgtFlavorRestriction.xcharge,
+    ``Physics.DgtFlavorRestriction.diagonal,
+    ``Physics.DgtFlavorRestriction.uvFlavor,
+    ``Physics.DgtFlavorRestriction.cyclicCopies,
+    ``Physics.DgtFlavorRestriction.irFlavor,
+    ``Physics.DgtFlavorRestriction.irScalar,
+    ``Physics.DgtFlavorRestriction.uvScalar,
+    ``Physics.DgtFlavorRestriction.scalar_restriction,
+    ``Physics.DgtFlavorRestriction.phase_restriction,
+    ``Physics.DgtFlavorRestriction.charge_restriction,
+    ``Physics.DgtFlavorRestriction.flavor_restriction,
+    ``Physics.DgtFlavorRestriction.actual_field_restriction,
+    ``Physics.DgtFlavorRestriction.blCharacter,
+    ``Physics.DgtFlavorRestriction.bl_detect,
+    ``Physics.DgtFlavorRestriction.all_bnv_forbidden,
+    ``Physics.DgtFlavorRestriction.residual_bnv_forbidden,
+    ``Physics.DgtFlavorRestriction.leptonUV,
+    ``Physics.DgtFlavorRestriction.leptonIR,
+    ``Physics.DgtFlavorRestriction.electronUV_eq,
+    ``Physics.DgtFlavorRestriction.electron_restriction,
+    ``Physics.DgtFlavorRestriction.leptonIR_trivial,
+    ``Physics.DgtFlavorRestriction.mu,
+    ``Physics.DgtFlavorRestriction.targetVector,
+    ``Physics.DgtFlavorRestriction.targetCovector,
+    ``Physics.DgtFlavorRestriction.uv_mu_weight,
+    ``Physics.DgtFlavorRestriction.uv_target_weight,
+    ``Physics.DgtFlavorRestriction.uv_dipoles_forbidden,
+    ``Physics.DgtFlavorRestriction.bridge,
+    ``Physics.DgtFlavorRestriction.bridge_selected,
+    ``Physics.DgtFlavorRestriction.restrictMap,
+    ``Physics.DgtFlavorRestriction.uv_evaluation_zero,
+    ``Physics.DgtFlavorRestriction.bridge_not_restricted,
+    ``Physics.DgtFlavorRestriction.restriction_not_surjective,
+    ``Physics.DgtFlavorRestriction.irWitness,
+    ``Physics.DgtFlavorRestriction.irWitness_selected,
+    ``Physics.DgtFlavorRestriction.ir_dipoles_allowed,
+    ``Physics.DgtFlavorRestriction.condensate_fixed,
+    ``Physics.DgtFlavorRestriction.fermion_conjugates,
+    ``Physics.DgtFlavorRestriction.printed_dictionary,
+    ``Physics.QuarticityAdapters.H,
+    ``Physics.QuarticityAdapters.P,
+    ``Physics.QuarticityAdapters.chi,
+    ``Physics.QuarticityAdapters.chi_mul,
+    ``Physics.QuarticityAdapters.compensated,
+    ``Physics.QuarticityAdapters.eta_phase_square,
+    ``Physics.QuarticityAdapters.eta_phase_real,
+    ``Physics.QuarticityAdapters.copies,
+    ``Physics.QuarticityAdapters.neutrino,
+    ``Physics.QuarticityAdapters.eta,
+    ``Physics.QuarticityAdapters.neutrino_action,
+    ``Physics.QuarticityAdapters.eta_action,
+    ``Physics.QuarticityAdapters.neutrino_gauge_neutral,
+    ``Physics.QuarticityAdapters.eta_gauge_neutral,
+    ``Physics.QuarticityAdapters.epsilonExterior,
+    ``Physics.QuarticityAdapters.epsilonExterior_apply,
+    ``Physics.QuarticityAdapters.epsilon_neutrino,
+    ``Physics.QuarticityAdapters.Bare,
+    ``Physics.QuarticityAdapters.Dressed,
+    ``Physics.QuarticityAdapters.dressed,
+    ``Physics.QuarticityAdapters.dressed_evaluation,
+    ``Physics.QuarticityAdapters.dressed_nonzero,
+    ``Physics.QuarticityAdapters.exists_dressed,
+    ``Physics.QuarticityAdapters.detector,
+    ``Physics.QuarticityAdapters.detector_square,
+    ``Physics.QuarticityAdapters.bare_forbidden,
+    ``Physics.QuarticityAdapters.smFlavor,
+    ``Physics.QuarticityAdapters.smScalar,
+    ``Physics.QuarticityAdapters.blCharacter,
+    ``Physics.QuarticityAdapters.lTwo_detect,
+    ``Physics.QuarticityAdapters.sm_lTwo_forbidden]
+  for d in ds do
+    for ax in (← Lean.collectAxioms d) do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "Flavor/quarticity {d} uses unexpected axiom {ax}"
+  Lean.logInfo m!"Flavor/quarticity: {ds.length} strict transitive checks passed"

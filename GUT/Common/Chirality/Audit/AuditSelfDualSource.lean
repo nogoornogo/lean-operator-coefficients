@@ -1,7 +1,9 @@
 import Math.Audit.ImportOrigin
 import GUT.Common.Chirality.SelfDualSource
 import GUT.SU5.SelectionRules.StandardChainBenchmark
-import Physics.StandardModel.Spectrum.Audit.AuditSelfDualChirality
+import Physics.StandardModel.Spectrum.Representations.Audit.AuditSelfDualChirality
+
+open Physics
 
 open Math
 

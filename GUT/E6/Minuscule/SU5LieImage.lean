@@ -33,9 +33,10 @@ set_option maxHeartbeats 4000000 in
 theorem elementary_comparison (i j : Fin 5) (a b : Index) :
     sign a * eval (combination e6Basis (elementaryCoefficients i j))
       (coordinate a) (coordinate b) * sign b = blockMatrix (elementaryInt i j) a b := by
-  revert i j a b
-  dsimp only [blockMatrix, wedgeMatrix, elementaryInt]
-  decide +kernel
+  fin_cases i <;> fin_cases j <;>
+    revert a b <;>
+    dsimp only [blockMatrix, wedgeMatrix, elementaryInt] <;>
+    decide +kernel
 
 noncomputable section
 

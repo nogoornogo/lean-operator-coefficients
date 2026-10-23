@@ -1,0 +1,36 @@
+# Topic Outcomes — Volume 009
+
+- [Weyl/Higgs C5 coefficient completeness](../weyl-higgs-current-completeness/): the resumed whole-grade theorem gives a complex scalar coordinate, normalized inverse and dimension one for the fixed free one-flavor input, with full unbounded relations and actual-group invariance. Li/Murphy native coordinates and DHM sign controls pass. The verified topic remains unmerged; the earlier foundation stop is superseded and finite ranks remain diagnostic.
+
+- [Weyl/Higgs C5 master integration](../weyl-higgs-current-completeness/): the completed fixed-sector theorem and literature consumers are integrated into master. Merged-state audits, full build and repository checks pass; the local topic branch is safely deleted. Further flavor, reality and interacting-model extensions remain separate scope choices.
+
+
+- [Interacting Lagrangian all-order coordinates](../interacting-lagrangian-classification/): complete generated EOM/IBP/group rows and inverse coefficient coordinates are proved for unbounded mixed and bosonic inputs, with exact selected preimages. A nonlinear potential family has closed all-degree coordinates; scoped source comparisons and artificial counterexamples pass. The verified unmerged endpoint is an exact presentation, not a universal finite normal-form solver.
+
+- [Lagrangian model connections](../lagrangian-model-connections/): additive scalar/mixed model packages expose all-order coefficients and exact selections. A complete scalar/Weyl Yukawa density has checked Lorentz symmetry, computed EOM and direct paper-syntax transport. Source and artificial controls pass; the child stops unmerged, retaining the explicit general density-to-Euler automation boundary.
+
+- [Lagrangian connection child integration](../lagrangian-model-connections/): the completed model packages and checked Yukawa connection are integrated into their non-master parent. Merged-state full build and strict audits pass. General density-to-Euler naturality continues as a separate foundational topic.
+
+- [Semantic Euler naturality](../euler-naturality/): actual graded partials and the chain rule prove density-to-Euler naturality for constant linear field/direction actions without a degree or jet-order cutoff. Evaluated invariance now supplies the existing EOM/IBP input. Source comparisons, independent Yukawa agreement, artificial controls, strict audits and full build pass; the completed child remains unmerged.
+
+- [Interacting Lagrangian series master integration](../interacting-lagrangian-classification/): the all-order coefficient presentation, [model connections](../lagrangian-model-connections/) and [Euler naturality](../euler-naturality/) are integrated into master. All six focused audits, the full build and repository gates pass. The exact-presentation and constant-linear-action boundaries remain explicit in the topic records.
+
+- [Compatible source layout and namespaces](../source-api-compatibility/): implementation directories are subdivided by subject and shared Physics declarations use the Physics root. Deprecated legacy imports and 12,989 checked aliases preserve the registered source API. Full build, unchanged strict audits, old-client controls and source/reference comparisons pass; the completed topic remains unmerged.
+
+- [Fresh compilation and proof memory audit](../proof-memory-audit/): all 4,226 current source/dependency fingerprints compile under unchanged guards; 12 proof/scheduling hotspots are reduced. Full build, strict audits, public API/reference checks and exact helper-inventory reconciliation pass. The completed bounded child remains unmerged into its source-API parent; external dependency caches remain outside the fresh-project claim.
+
+- [Structural proof of one Higgs cubature family](../higgs-cubature-structure/): the complete 72-node first-collinear moment follows from tensor symmetry and Gram contractions, preserving all 140 old entry types. Full build, strict audits and compatibility checks pass. Measured compilation including new dependencies is 58.2% shorter; peak resident memory stays about 3.72 GiB. The completed bounded child remains unmerged.
+
+- [All-family structural Higgs cubature](../higgs-cubature-structure/): the transverse proof and second-collinear transport complete all three structural moment identities, preserving all 420 old entry types. Full build, unchanged strict audits and compatibility checks pass. A fresh 92-module closure takes 327.052 seconds versus 1,547.397 seconds in the matching historical baseline; resident peak stays about 3.72 GiB. The resumed child is complete and unmerged.
+
+- [Publication upgrade notice and README maps](../publish-v1-upgrade/): a reader-facing guide explains changes from the publication tag, registered source compatibility and migration. README maps, canonical imports and the source-derived classification figure are refreshed; rendering and documentation checks pass. The documentation child is complete and unmerged, with no new Lean build claimed.
+
+- [SU(6) protecting-input feasibility](../su6-protection-feasibility/): actual standard-chain cyclic targets force the uniform Yukawa B1 charge to vanish at every positive order, excluding the constructed lepton-parity lift without a UV representation cutoff. The boundary phase constructs actual exterior-carrier amplitudes, invariant baryon action/contractions and SM/Higgs B1 prohibition; analytic mixed-mode admission and quantum protection remain separate. Both algebraic endpoints are verified; the child remains unmerged.
+
+- [SU(6) feasibility parent integration](../su6-protection-feasibility/): the standard-class obstruction and boundary-amplitude construction are integrated into their recorded documentation parent. The merged-state full build, direct strict audits and repository checks pass; analytic mixed-mode and quantum boundaries remain explicit.
+
+- [Shared field, selection and symmetry connections](../model-input-connections/): concrete inverse maps construct exact retained-field dictionaries for boundary and mass-kernel mechanisms, with Weyl/dual, all-mixed-degree and actual jet transports. Full-relation input recovery, density/source comparisons and S3/negative controls pass, together with fresh source checks, strict audits and the full build. The completed child remains unmerged.
+
+- [Shared field connections parent integration](../model-input-connections/): the completed constructions, controls and README routes are integrated into their recorded documentation parent. Seven direct strict audits, the merged-state full build and repository gates pass; the topic retains its field-exactness and full-relation hypotheses. The parent remains outside master.
+
+- [Compatible source series master integration](../source-api-compatibility/): the registered API refactor, [memory audit](../proof-memory-audit/), [structural cubature](../higgs-cubature-structure/) and [upgrade guide](../publish-v1-upgrade/), including the [SU(6) boundary](../su6-protection-feasibility/) and [field connections](../model-input-connections/), are integrated through their recorded parents into master. Direct checks, the full build and exact source/API/audit comparisons pass. README routes are updated and the four integrated local branches are safely deleted.

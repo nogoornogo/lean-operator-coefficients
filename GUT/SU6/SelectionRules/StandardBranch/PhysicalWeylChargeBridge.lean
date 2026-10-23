@@ -2,6 +2,8 @@ import GUT.SU6.Characters.PhysicalWeylMomentBridge
 import GUT.SU6.SelectionRules.StandardBranch.PhysicalChargeResolvedBridge
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylDualTarget
 
+open Physics
+
 /-!
 # One physical dual-index target supplies both hypercharge character rigidity and standard charge-orbit bridge
 

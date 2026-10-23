@@ -13,7 +13,7 @@ authorization and verification records.
 
 Core consumers:
 
-- `GUT.SMFiniteHiggsSupport.mem_original_iff` and `originalEquiv`: actual
+- `Physics.SMFiniteHiggsSupport.mem_original_iff` and `originalEquiv`: actual
   fermion/scalar-count support on the full statistical carrier.
 - `original_charge_finite_iff` and `original_forbidden_iff`: support iff an
   exact bounded weak-degree test survives with the correct hypercharge.
@@ -21,7 +21,7 @@ Core consumers:
   Higgs counts s,t with s+t bounded by the fermion doublet count.
 - `original_pair_monotone`, `original_pair_stable`, `original_pairs_stable`:
   upward support and exact stabilization at a proved uniform threshold.
-- `GUT.SMFiniteSupportTable.all_degrees_iff` and `global_table_iff`: actual
+- `Physics.SMFiniteSupportTable.all_degrees_iff` and `global_table_iff`: actual
   finite-table reduction across the 180-dimensional fermion universe.
 
 The finite predicates retain `Allowed(T)` rather than substituting charge

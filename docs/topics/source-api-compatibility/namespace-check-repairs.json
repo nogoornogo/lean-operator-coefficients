@@ -1,0 +1,14 @@
+[
+  {
+    "module": "Math.LieGroups.E6.Audit.AuditCompactIdentityComponent",
+    "historical": "Math.E6.Audit.matrix_exp_log_near_zero",
+    "baseline": "Math.E6.Audit.matrix_exp_log_near_one",
+    "reason": "The near-one theorem already replaced this historical name before the frozen source-API baseline."
+  },
+  {
+    "module": "Math.LieGroups.Matrix.LieNormalizerLocalLog",
+    "historical": "Math.LieNormalizerLocalLog.logOneAdd_apply_mem",
+    "baseline": "Math.LieNormalizerLocalLog.log_one_add_apply_mem",
+    "reason": "The snake-case declaration is already present in the frozen source-API baseline; the older namespace inventory retained its former spelling."
+  }
+]

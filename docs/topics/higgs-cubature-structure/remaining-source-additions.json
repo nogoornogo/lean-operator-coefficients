@@ -1,0 +1,20 @@
+{
+  "kind": "remaining-family-structural-cubature",
+  "sources": {
+    "Math/Algebra/HiggsFourWaveCubature/Structural/RemainingAudit.lean": "2255ee234f4ae0801d3c5a0b0eb5e75f9fd8e20b1eabfa227f62c693a4026bc7",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/SecondCollinear.lean": "fd521a6957b1d551d674bccfe3fdaf05ce69298d7278cbb9eb3c1f82de2fc0fd",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/TransverseChecks.lean": "bb00903b1ee758ce458dec585a8bcfb1d12246f2faa44e526c3a3545bd939c71",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/TransverseData.lean": "a45900d9b633fc84d2dec4c6c9143e15aa62d170014b67c35bd5252e7c245777",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/TransverseMoments.lean": "eb60d14bf9fc56dd2ceac46758e6b8f9765109842d86080fc19d13dc10e47e2b",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/TransverseSymmetry.lean": "b998494f7a4b119d880d508b34ca87686ac14acc482feecc17f6ba2eb30be07d"
+  },
+  "aggregate": "Math.lean",
+  "imports": [
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.RemainingAudit",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.SecondCollinear",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.TransverseChecks",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.TransverseData",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.TransverseMoments",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.TransverseSymmetry"
+  ]
+}

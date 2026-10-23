@@ -1,6 +1,8 @@
 import GUT.SU5.SelectionRules.ResidualSectors
-import Physics.StandardModel.Gauge.ResidualGaugeTensor
-import Physics.StandardModel.Operators.StandardModelLocalOperator
+import Physics.StandardModel.Gauge.Tensors.ResidualGaugeTensor
+import Physics.StandardModel.Operators.Selection.StandardModelLocalOperator
+
+open Physics
 
 open Math
 

@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.AutomorphismCovariantModel
-import Math.RepresentationTheory.DualIndexCompatibility
-import Physics.StandardModel.Spectrum.ExactSMSpectrum
+import Math.RepresentationTheory.Constructions.DualIndexCompatibility
+import Physics.StandardModel.Spectrum.Representations.ExactSMSpectrum
+
+open Physics
 
 /-! Necessary target compatibility for arbitrary supplied normalizing actions.
 No full light-spectrum dictionary is inferred from this criterion. -/

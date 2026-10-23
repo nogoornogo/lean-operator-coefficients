@@ -1,6 +1,8 @@
 import GUT.SU6.Matching.AdjointMass
 import GUT.SU5.Matching.MediatorMatching
-import Physics.StandardModel.Operators.QqueMediatorInheritance
+import Physics.StandardModel.Operators.BaryonOne.Qque.QqueMediatorInheritance
+
+open Physics
 
 open Math
 

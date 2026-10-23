@@ -1,130 +1,115 @@
+import Physics.StandardModel.Operators.BaryonOne.Qque.S3YukawaCompatibleQque
 import Physics.StandardModel.Operators.S3QqueTensorSamples
+import Math.Lean.Compatibility
 
-/-! A fixed S3 dictionary with bijective neutral-Higgs flavor maps and actual
-qque support. No physical mass spectrum or UV realization is asserted. -/
-namespace GUT.S3YukawaCompatibleQque
-set_option autoImplicit false
-noncomputable section
-open Math Representation SelectionCriteria
-open scoped TensorProduct BigOperators
-open S3QqueTensorSamples (H V q sign unit)
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.Qque.S3YukawaCompatibleQque instead." (since := "source-api-v1")
 
-/-- Q, uR, dR have permutation flavor; L, eR have sign flavor. -/
-def quarkFlavor : Representation ℂ H V := q
-def leptonFlavor : Representation ℂ H V := sign
+compatibility_declarations [
+  GUT.S3YukawaCompatibleQque.Species => Physics.S3YukawaCompatibleQque.Species,
+  GUT.S3YukawaCompatibleQque.Species.L => Physics.S3YukawaCompatibleQque.Species.L,
+  GUT.S3YukawaCompatibleQque.Species.L.elim => Physics.S3YukawaCompatibleQque.Species.L.elim,
+  GUT.S3YukawaCompatibleQque.Species.L.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.L.sizeOf_spec,
+  GUT.S3YukawaCompatibleQque.Species.Q => Physics.S3YukawaCompatibleQque.Species.Q,
+  GUT.S3YukawaCompatibleQque.Species.Q.elim => Physics.S3YukawaCompatibleQque.Species.Q.elim,
+  GUT.S3YukawaCompatibleQque.Species.Q.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.Q.sizeOf_spec,
+  GUT.S3YukawaCompatibleQque.Species.casesOn => Physics.S3YukawaCompatibleQque.Species.casesOn,
+  GUT.S3YukawaCompatibleQque.Species.ctorElim => Physics.S3YukawaCompatibleQque.Species.ctorElim,
+  GUT.S3YukawaCompatibleQque.Species.ctorElimType => Physics.S3YukawaCompatibleQque.Species.ctorElimType,
+  GUT.S3YukawaCompatibleQque.Species.ctorIdx => Physics.S3YukawaCompatibleQque.Species.ctorIdx,
+  GUT.S3YukawaCompatibleQque.Species.dR => Physics.S3YukawaCompatibleQque.Species.dR,
+  GUT.S3YukawaCompatibleQque.Species.dR.elim => Physics.S3YukawaCompatibleQque.Species.dR.elim,
+  GUT.S3YukawaCompatibleQque.Species.dR.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.dR.sizeOf_spec,
+  GUT.S3YukawaCompatibleQque.Species.eR => Physics.S3YukawaCompatibleQque.Species.eR,
+  GUT.S3YukawaCompatibleQque.Species.eR.elim => Physics.S3YukawaCompatibleQque.Species.eR.elim,
+  GUT.S3YukawaCompatibleQque.Species.eR.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.eR.sizeOf_spec,
+  GUT.S3YukawaCompatibleQque.Species.noConfusion => Physics.S3YukawaCompatibleQque.Species.noConfusion,
+  GUT.S3YukawaCompatibleQque.Species.noConfusionType => Physics.S3YukawaCompatibleQque.Species.noConfusionType,
+  GUT.S3YukawaCompatibleQque.Species.rec => Physics.S3YukawaCompatibleQque.Species.rec,
+  GUT.S3YukawaCompatibleQque.Species.recOn => Physics.S3YukawaCompatibleQque.Species.recOn,
+  GUT.S3YukawaCompatibleQque.Species.uR => Physics.S3YukawaCompatibleQque.Species.uR,
+  GUT.S3YukawaCompatibleQque.Species.uR.elim => Physics.S3YukawaCompatibleQque.Species.uR.elim,
+  GUT.S3YukawaCompatibleQque.Species.uR.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.uR.sizeOf_spec,
+  GUT.S3YukawaCompatibleQque.allowed => Physics.S3YukawaCompatibleQque.allowed,
+  GUT.S3YukawaCompatibleQque.allowed_dictionary => Physics.S3YukawaCompatibleQque.allowed_dictionary,
+  GUT.S3YukawaCompatibleQque.coefficient => Physics.S3YukawaCompatibleQque.coefficient,
+  GUT.S3YukawaCompatibleQque.coefficient.eq_1 => Physics.S3YukawaCompatibleQque.coefficient.eq_1,
+  GUT.S3YukawaCompatibleQque.coefficient_apply => Physics.S3YukawaCompatibleQque.coefficient_apply,
+  GUT.S3YukawaCompatibleQque.coefficient_invariant => Physics.S3YukawaCompatibleQque.coefficient_invariant,
+  GUT.S3YukawaCompatibleQque.flavor => Physics.S3YukawaCompatibleQque.flavor,
+  GUT.S3YukawaCompatibleQque.flavor_map_gates => Physics.S3YukawaCompatibleQque.flavor_map_gates,
+  GUT.S3YukawaCompatibleQque.higgsFlavor => Physics.S3YukawaCompatibleQque.higgsFlavor,
+  GUT.S3YukawaCompatibleQque.higgsFlavor_apply => Physics.S3YukawaCompatibleQque.higgsFlavor_apply,
+  GUT.S3YukawaCompatibleQque.invariantCoefficient => Physics.S3YukawaCompatibleQque.invariantCoefficient,
+  GUT.S3YukawaCompatibleQque.lastCoordinate => Physics.S3YukawaCompatibleQque.lastCoordinate,
+  GUT.S3YukawaCompatibleQque.lastCoordinate.eq_1 => Physics.S3YukawaCompatibleQque.lastCoordinate.eq_1,
+  GUT.S3YukawaCompatibleQque.leptonFlavor => Physics.S3YukawaCompatibleQque.leptonFlavor,
+  GUT.S3YukawaCompatibleQque.leptonFlavorMap => Physics.S3YukawaCompatibleQque.leptonFlavorMap,
+  GUT.S3YukawaCompatibleQque.leptonFlavorMap_bijective => Physics.S3YukawaCompatibleQque.leptonFlavorMap_bijective,
+  GUT.S3YukawaCompatibleQque.pairCoordinate => Physics.S3YukawaCompatibleQque.pairCoordinate,
+  GUT.S3YukawaCompatibleQque.pairCoordinate.eq_1 => Physics.S3YukawaCompatibleQque.pairCoordinate.eq_1,
+  GUT.S3YukawaCompatibleQque.preserves_sm => Physics.S3YukawaCompatibleQque.preserves_sm,
+  GUT.S3YukawaCompatibleQque.quarkFlavor => Physics.S3YukawaCompatibleQque.quarkFlavor,
+  GUT.S3YukawaCompatibleQque.quarkFlavor.eq_1 => Physics.S3YukawaCompatibleQque.quarkFlavor.eq_1,
+  GUT.S3YukawaCompatibleQque.quarkFlavorMap => Physics.S3YukawaCompatibleQque.quarkFlavorMap,
+  GUT.S3YukawaCompatibleQque.quarkFlavorMap_bijective => Physics.S3YukawaCompatibleQque.quarkFlavorMap_bijective,
+  GUT.S3YukawaCompatibleQque.quark_actions_noncommute => Physics.S3YukawaCompatibleQque.quark_actions_noncommute,
+  GUT.S3YukawaCompatibleQque.residual_nonzero => Physics.S3YukawaCompatibleQque.residual_nonzero,
+  GUT.S3YukawaCompatibleQque.symmetricResidual => Physics.S3YukawaCompatibleQque.symmetricResidual,
+  GUT.S3YukawaCompatibleQque.term => Physics.S3YukawaCompatibleQque.term,
+  GUT.S3YukawaCompatibleQque.term.eq_1 => Physics.S3YukawaCompatibleQque.term.eq_1,
+  GUT.S3YukawaCompatibleQque.witness => Physics.S3YukawaCompatibleQque.witness
+]
 
-/-- The Higgs weak doublet is residual-neutral. -/
-def higgsFlavor : Representation ℂ H (Fin 2 → ℂ) := Representation.trivial ℂ H _
-
-@[simp] theorem higgsFlavor_apply (g : H) (x : Fin 2 → ℂ) : higgsFlavor g x = x := rfl
-
-/-- The same invariant bijection supplies each quark flavor-map gate. -/
-def quarkFlavorMap : IntertwiningMap quarkFlavor quarkFlavor := .id _
-def leptonFlavorMap : IntertwiningMap leptonFlavor leptonFlavor := .id _
-
-theorem quarkFlavorMap_bijective : Function.Bijective quarkFlavorMap :=
-  Function.bijective_id
-
-theorem leptonFlavorMap_bijective : Function.Bijective leptonFlavorMap :=
-  Function.bijective_id
-
-inductive Species where
-  | Q | uR | dR | L | eR
-
-def flavor : Species → Representation ℂ H V
-  | .Q | .uR | .dR => quarkFlavor
-  | .L | .eR => leptonFlavor
-
-/-- These are neutral-Higgs flavor-map gates, not physical Yukawa matching. -/
-theorem flavor_map_gates :
-    (∃ f : IntertwiningMap (flavor .Q) (flavor .uR), Function.Bijective f) ∧
-    (∃ f : IntertwiningMap (flavor .Q) (flavor .dR), Function.Bijective f) ∧
-    (∃ f : IntertwiningMap (flavor .L) (flavor .eR), Function.Bijective f) :=
-  ⟨⟨quarkFlavorMap, quarkFlavorMap_bijective⟩,
-    ⟨quarkFlavorMap, quarkFlavorMap_bijective⟩,
-    ⟨leptonFlavorMap, leptonFlavorMap_bijective⟩⟩
-
-/-- Every species flavor action commutes with its independent SM gauge action. -/
-theorem preserves_sm (s : Species) {X : Type*} [AddCommGroup X] [Module ℂ X]
-    (r : Representation ℂ StandardSMGaugeTensor.GaugeGroup X)
-    (g : StandardSMGaugeTensor.GaugeGroup) (h : H) :
-    Commute ((ExternalInvariantTensor.external r (flavor s)) (g,1))
-      ((ExternalInvariantTensor.external r (flavor s)) (1,h)) :=
-  S3QqueTensorSamples.independent_flavor_preserves_sm r (flavor s) g h
-
-/-- Noncommutativity survives on the actual quark carrier. -/
-theorem quark_actions_noncommute :
-    ¬ Commute (quarkFlavor (Equiv.swap (0 : Fin 3) 1))
-      (quarkFlavor (Equiv.swap (1 : Fin 3) 2)) := by
-  intro he
-  have hv := congrArg (fun f : Module.End ℂ V => f (unit 0) 1) he.eq
-  norm_num [quarkFlavor, Module.End.mul_apply, S3DipoleSelection.action_apply,
-    unit, Pi.single_apply, Equiv.swap_apply_def] at hv
-
-def pairCoordinate (i : Fin 3) : (V ⊗[ℂ] V) →ₗ[ℂ] ℂ :=
-  TensorProduct.lift ((LinearMap.mul ℂ ℂ).compl₁₂ (LinearMap.proj i) (LinearMap.proj i))
-
-def lastCoordinate (j : Fin 3) : (V ⊗[ℂ] V) →ₗ[ℂ] ℂ :=
-  TensorProduct.lift ((LinearMap.mul ℂ ℂ).compl₁₂ (LinearMap.proj j)
-    (FiniteFlavorControls.coordinateSum 3))
-
-def term (i j : Fin 3) : ((V ⊗[ℂ] V) ⊗[ℂ] (V ⊗[ℂ] V)) →ₗ[ℂ] ℂ :=
-  TensorProduct.lift ((LinearMap.mul ℂ ℂ).compl₁₂ (pairCoordinate i) (lastCoordinate j))
-
-/-- det(ones, x*y, z) times sum(r); the product x*y is coordinatewise. -/
-def coefficient : ((V ⊗[ℂ] V) ⊗[ℂ] (V ⊗[ℂ] V)) →ₗ[ℂ] ℂ :=
-  term 1 2 - term 2 1 - term 0 2 + term 2 0 + term 0 1 - term 1 0
-
-theorem coefficient_apply (x y z r : V) :
-    coefficient ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (z ⊗ₜ[ℂ] r)) =
-      (x 1*y 1*z 2 - x 2*y 2*z 1 - x 0*y 0*z 2 + x 2*y 2*z 0 +
-        x 0*y 0*z 1 - x 1*y 1*z 0) * (∑ i, r i) := by
-  simp [coefficient, term, pairCoordinate, lastCoordinate,
-    FiniteFlavorControls.coordinateSum, Fin.sum_univ_succ]
-  ring
-
-theorem coefficient_invariant (g : H) (x y z r : V) :
-    coefficient ((q g x ⊗ₜ[ℂ] q g y) ⊗ₜ[ℂ] (q g z ⊗ₜ[ℂ] sign g r)) =
-      coefficient ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (z ⊗ₜ[ℂ] r)) := by
-  rcases S3DipoleSelection.normal_forms g with h | h | h | h | h | h <;>
-    subst g <;>
-    simp [coefficient_apply, S3DipoleSelection.action_apply,
-      S3QqueTensorSamples.sign_apply, S3QqueTensorSamples.signCharacter,
-      map_mul, Fin.sum_univ_succ, Equiv.swap_apply_def] <;> ring_nf <;> simp
-
-def invariantCoefficient : QquePhysicalOrderedCompleteness.Residual q q sign where
-  toLinearMap := coefficient
-  isIntertwining' g := by
-    repeat first | apply TensorProduct.ext | apply LinearMap.ext; intro
-    rename_i x y z r
-    exact coefficient_invariant g x y z r
-
-def symmetricResidual : QquePhysicalExteriorCompleteness.residualSpace q q sign :=
-  ⟨invariantCoefficient, by
-    intro x y z r
-    change coefficient ((y ⊗ₜ[ℂ] x) ⊗ₜ[ℂ] (z ⊗ₜ[ℂ] r)) =
-      coefficient ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (z ⊗ₜ[ℂ] r))
-    rw [coefficient_apply, coefficient_apply]
-    ring⟩
-
-theorem witness : symmetricResidual.val
-    ((unit 0 ⊗ₜ[ℂ] unit 0) ⊗ₜ[ℂ] (unit 1 ⊗ₜ[ℂ] unit 0)) = 1 := by
-  change coefficient _ = 1
-  norm_num [coefficient_apply, unit, Pi.single_apply, Fin.sum_univ_succ]
-
-theorem residual_nonzero : symmetricResidual ≠ 0 := by
-  intro hz
-  have he := witness
-  rw [hz] at he
-  norm_num at he
-
-theorem allowed : Allowed (QquePhysicalExteriorCompleteness.Sector q q sign) := by
-  rw [(ofEquiv (QquePhysicalExteriorCompleteness.exteriorEquiv q q sign)).allowed]
-  exact ⟨symmetricResidual, residual_nonzero⟩
-
-/-- The result uses the same dictionary as the flavor-map gates. -/
-theorem allowed_dictionary : Allowed (QquePhysicalExteriorCompleteness.Sector
-    (flavor .Q) (flavor .uR) (flavor .eR)) := allowed
-
-end
-end GUT.S3YukawaCompatibleQque
+assert_compatible GUT.S3YukawaCompatibleQque.Species => Physics.S3YukawaCompatibleQque.Species
+assert_compatible GUT.S3YukawaCompatibleQque.Species.L => Physics.S3YukawaCompatibleQque.Species.L
+assert_compatible GUT.S3YukawaCompatibleQque.Species.L.elim => Physics.S3YukawaCompatibleQque.Species.L.elim
+assert_compatible GUT.S3YukawaCompatibleQque.Species.L.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.L.sizeOf_spec
+assert_compatible GUT.S3YukawaCompatibleQque.Species.Q => Physics.S3YukawaCompatibleQque.Species.Q
+assert_compatible GUT.S3YukawaCompatibleQque.Species.Q.elim => Physics.S3YukawaCompatibleQque.Species.Q.elim
+assert_compatible GUT.S3YukawaCompatibleQque.Species.Q.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.Q.sizeOf_spec
+assert_compatible GUT.S3YukawaCompatibleQque.Species.casesOn => Physics.S3YukawaCompatibleQque.Species.casesOn
+assert_compatible GUT.S3YukawaCompatibleQque.Species.ctorElim => Physics.S3YukawaCompatibleQque.Species.ctorElim
+assert_compatible GUT.S3YukawaCompatibleQque.Species.ctorElimType => Physics.S3YukawaCompatibleQque.Species.ctorElimType
+assert_compatible GUT.S3YukawaCompatibleQque.Species.ctorIdx => Physics.S3YukawaCompatibleQque.Species.ctorIdx
+assert_compatible GUT.S3YukawaCompatibleQque.Species.dR => Physics.S3YukawaCompatibleQque.Species.dR
+assert_compatible GUT.S3YukawaCompatibleQque.Species.dR.elim => Physics.S3YukawaCompatibleQque.Species.dR.elim
+assert_compatible GUT.S3YukawaCompatibleQque.Species.dR.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.dR.sizeOf_spec
+assert_compatible GUT.S3YukawaCompatibleQque.Species.eR => Physics.S3YukawaCompatibleQque.Species.eR
+assert_compatible GUT.S3YukawaCompatibleQque.Species.eR.elim => Physics.S3YukawaCompatibleQque.Species.eR.elim
+assert_compatible GUT.S3YukawaCompatibleQque.Species.eR.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.eR.sizeOf_spec
+assert_compatible GUT.S3YukawaCompatibleQque.Species.noConfusion => Physics.S3YukawaCompatibleQque.Species.noConfusion
+assert_compatible GUT.S3YukawaCompatibleQque.Species.noConfusionType => Physics.S3YukawaCompatibleQque.Species.noConfusionType
+assert_compatible GUT.S3YukawaCompatibleQque.Species.rec => Physics.S3YukawaCompatibleQque.Species.rec
+assert_compatible GUT.S3YukawaCompatibleQque.Species.recOn => Physics.S3YukawaCompatibleQque.Species.recOn
+assert_compatible GUT.S3YukawaCompatibleQque.Species.uR => Physics.S3YukawaCompatibleQque.Species.uR
+assert_compatible GUT.S3YukawaCompatibleQque.Species.uR.elim => Physics.S3YukawaCompatibleQque.Species.uR.elim
+assert_compatible GUT.S3YukawaCompatibleQque.Species.uR.sizeOf_spec => Physics.S3YukawaCompatibleQque.Species.uR.sizeOf_spec
+assert_compatible GUT.S3YukawaCompatibleQque.allowed => Physics.S3YukawaCompatibleQque.allowed
+assert_compatible GUT.S3YukawaCompatibleQque.allowed_dictionary => Physics.S3YukawaCompatibleQque.allowed_dictionary
+assert_compatible GUT.S3YukawaCompatibleQque.coefficient => Physics.S3YukawaCompatibleQque.coefficient
+assert_compatible GUT.S3YukawaCompatibleQque.coefficient.eq_1 => Physics.S3YukawaCompatibleQque.coefficient.eq_1
+assert_compatible GUT.S3YukawaCompatibleQque.coefficient_apply => Physics.S3YukawaCompatibleQque.coefficient_apply
+assert_compatible GUT.S3YukawaCompatibleQque.coefficient_invariant => Physics.S3YukawaCompatibleQque.coefficient_invariant
+assert_compatible GUT.S3YukawaCompatibleQque.flavor => Physics.S3YukawaCompatibleQque.flavor
+assert_compatible GUT.S3YukawaCompatibleQque.flavor_map_gates => Physics.S3YukawaCompatibleQque.flavor_map_gates
+assert_compatible GUT.S3YukawaCompatibleQque.higgsFlavor => Physics.S3YukawaCompatibleQque.higgsFlavor
+assert_compatible GUT.S3YukawaCompatibleQque.higgsFlavor_apply => Physics.S3YukawaCompatibleQque.higgsFlavor_apply
+assert_compatible GUT.S3YukawaCompatibleQque.invariantCoefficient => Physics.S3YukawaCompatibleQque.invariantCoefficient
+assert_compatible GUT.S3YukawaCompatibleQque.lastCoordinate => Physics.S3YukawaCompatibleQque.lastCoordinate
+assert_compatible GUT.S3YukawaCompatibleQque.lastCoordinate.eq_1 => Physics.S3YukawaCompatibleQque.lastCoordinate.eq_1
+assert_compatible GUT.S3YukawaCompatibleQque.leptonFlavor => Physics.S3YukawaCompatibleQque.leptonFlavor
+assert_compatible GUT.S3YukawaCompatibleQque.leptonFlavorMap => Physics.S3YukawaCompatibleQque.leptonFlavorMap
+assert_compatible GUT.S3YukawaCompatibleQque.leptonFlavorMap_bijective => Physics.S3YukawaCompatibleQque.leptonFlavorMap_bijective
+assert_compatible GUT.S3YukawaCompatibleQque.pairCoordinate => Physics.S3YukawaCompatibleQque.pairCoordinate
+assert_compatible GUT.S3YukawaCompatibleQque.pairCoordinate.eq_1 => Physics.S3YukawaCompatibleQque.pairCoordinate.eq_1
+assert_compatible GUT.S3YukawaCompatibleQque.preserves_sm => Physics.S3YukawaCompatibleQque.preserves_sm
+assert_compatible GUT.S3YukawaCompatibleQque.quarkFlavor => Physics.S3YukawaCompatibleQque.quarkFlavor
+assert_compatible GUT.S3YukawaCompatibleQque.quarkFlavor.eq_1 => Physics.S3YukawaCompatibleQque.quarkFlavor.eq_1
+assert_compatible GUT.S3YukawaCompatibleQque.quarkFlavorMap => Physics.S3YukawaCompatibleQque.quarkFlavorMap
+assert_compatible GUT.S3YukawaCompatibleQque.quarkFlavorMap_bijective => Physics.S3YukawaCompatibleQque.quarkFlavorMap_bijective
+assert_compatible GUT.S3YukawaCompatibleQque.quark_actions_noncommute => Physics.S3YukawaCompatibleQque.quark_actions_noncommute
+assert_compatible GUT.S3YukawaCompatibleQque.residual_nonzero => Physics.S3YukawaCompatibleQque.residual_nonzero
+assert_compatible GUT.S3YukawaCompatibleQque.symmetricResidual => Physics.S3YukawaCompatibleQque.symmetricResidual
+assert_compatible GUT.S3YukawaCompatibleQque.term => Physics.S3YukawaCompatibleQque.term
+assert_compatible GUT.S3YukawaCompatibleQque.term.eq_1 => Physics.S3YukawaCompatibleQque.term.eq_1
+assert_compatible GUT.S3YukawaCompatibleQque.witness => Physics.S3YukawaCompatibleQque.witness

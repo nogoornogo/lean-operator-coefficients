@@ -1,69 +1,45 @@
+import Physics.StandardModel.Operators.BaryonTwo.HeeckLe.HeeckLeSixQuarkQuotient
 import Physics.StandardModel.Operators.HeeckLeSixQuarkBlocks
+import Math.Lean.Compatibility
 
-/-! The color-pair quotient has dimension 4+6. Twelve source-1 coefficients
-are recovered from these ten coordinates and two named kernel parameters.
-All reconstruction identities are uniform in the coefficients. -/
-namespace GUT.HeeckLeSixQuarkQuotient
-noncomputable section
-variable {K : Type*} [Field K] [CharZero K]
-abbrev Coeff := Fin 12 → K
-abbrev Output := Fin 10 → K
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.HeeckLe.HeeckLeSixQuarkQuotient instead." (since := "source-api-v1")
 
-def forward (b : Coeff (K := K)) : Output (K := K) :=
-  ![-2*b 2-b 3-2*b 4+b 5+b 6-b 7-b 8+b 9+b 10,
-    -b 2-2*b 3-b 4+2*b 5+2*b 6+b 7+b 8+2*b 9-b 10,
-    b 2-b 3-b 4-b 5-b 6+2*b 7+b 9+2*b 10,
-    -b 3-b 5-b 6+b 7+b 8+b 9+b 10,
-    2*b 7+2*b 10,
-    -2*b 0+2*b 1+2*b 2+2*b 4-b 6-b 9+b 11,
-    -b 0+b 1+b 2+b 4-2*b 6-2*b 9-b 11,
-    -b 0-b 1-b 2+b 4+b 6-b 9+2*b 11,
-    b 6-b 9+b 11, 2*b 11]
+compatibility_declarations [
+  GUT.HeeckLeSixQuarkQuotient.Coeff => Physics.HeeckLeSixQuarkQuotient.Coeff,
+  GUT.HeeckLeSixQuarkQuotient.Output => Physics.HeeckLeSixQuarkQuotient.Output,
+  GUT.HeeckLeSixQuarkQuotient.forward => Physics.HeeckLeSixQuarkQuotient.forward,
+  GUT.HeeckLeSixQuarkQuotient.forward.eq_1 => Physics.HeeckLeSixQuarkQuotient.forward.eq_1,
+  GUT.HeeckLeSixQuarkQuotient.forward_solve => Physics.HeeckLeSixQuarkQuotient.forward_solve,
+  GUT.HeeckLeSixQuarkQuotient.kernelFirst => Physics.HeeckLeSixQuarkQuotient.kernelFirst,
+  GUT.HeeckLeSixQuarkQuotient.kernelFirst.eq_1 => Physics.HeeckLeSixQuarkQuotient.kernelFirst.eq_1,
+  GUT.HeeckLeSixQuarkQuotient.kernelSecond => Physics.HeeckLeSixQuarkQuotient.kernelSecond,
+  GUT.HeeckLeSixQuarkQuotient.kernelSecond.eq_1 => Physics.HeeckLeSixQuarkQuotient.kernelSecond.eq_1,
+  GUT.HeeckLeSixQuarkQuotient.sectionLinear => Physics.HeeckLeSixQuarkQuotient.sectionLinear,
+  GUT.HeeckLeSixQuarkQuotient.sectionMap => Physics.HeeckLeSixQuarkQuotient.sectionMap,
+  GUT.HeeckLeSixQuarkQuotient.sectionMap.eq_1 => Physics.HeeckLeSixQuarkQuotient.sectionMap.eq_1,
+  GUT.HeeckLeSixQuarkQuotient.section_linear_add => Physics.HeeckLeSixQuarkQuotient.section_linear_add,
+  GUT.HeeckLeSixQuarkQuotient.section_linear_smul => Physics.HeeckLeSixQuarkQuotient.section_linear_smul,
+  GUT.HeeckLeSixQuarkQuotient.solve => Physics.HeeckLeSixQuarkQuotient.solve,
+  GUT.HeeckLeSixQuarkQuotient.solve.eq_1 => Physics.HeeckLeSixQuarkQuotient.solve.eq_1,
+  GUT.HeeckLeSixQuarkQuotient.solve_forward => Physics.HeeckLeSixQuarkQuotient.solve_forward,
+  GUT.HeeckLeSixQuarkQuotient.solve_free => Physics.HeeckLeSixQuarkQuotient.solve_free
+]
 
-/-- The free coordinates are b₈ and b₁₀; the section sets both to zero. -/
-def sectionMap (y : Output (K := K)) : Coeff (K := K) :=
-  let a := (y 1-2*y 0)/6
-  let b := (y 0-2*y 1)/6
-  let c := (y 6-2*y 5)/6
-  let d := (y 5-2*y 6)/6
-  let e := (y 3-y 2)/2
-  let f := (y 8-y 7)/2
-  let g := y 9/2
-  let h := y 4/2
-  ![a+e+c+f+g, -a+e+h-c+f, a-e-h,
-    b-y 3/2+h+d-y 8/2, a+e, -b-y 3/2-d-y 8/2+g,
-    d+y 8/2-g, h, 0, d-y 8/2, 0, g]
-
-def kernelFirst : Coeff (K := K) := ![-1,0,0,1,-1,0,0,0,1,0,0,0]
-def kernelSecond : Coeff (K := K) := ![1,-1,1,-1,1,1,0,-1,0,0,1,0]
-
-def solve (y : Output (K := K)) (u v : K) : Coeff (K := K) :=
-  sectionMap y+u • kernelFirst+v • kernelSecond
-
-theorem solve_forward (b : Coeff (K := K)) : solve (forward b) (b 8) (b 10) = b := by
-  ext i
-  fin_cases i <;> simp [solve, sectionMap, forward, kernelFirst, kernelSecond] <;> ring
-
-theorem forward_solve (y : Output (K := K)) (u v : K) : forward (solve y u v) = y := by
-  ext i
-  fin_cases i <;> simp [solve, sectionMap, forward, kernelFirst, kernelSecond] <;> ring
-
-omit [CharZero K] in
-theorem solve_free (y : Output (K := K)) (u v : K) : solve y u v 8 = u ∧ solve y u v 10 = v := by
-  simp [solve, sectionMap, kernelFirst, kernelSecond]
-
-theorem section_linear_add (x y : Output (K := K)) : sectionMap (x+y) = sectionMap x+sectionMap y := by
-  ext i
-  fin_cases i <;> simp [sectionMap] <;> ring
-
-theorem section_linear_smul (z : K) (x : Output (K := K)) : sectionMap (z • x) = z • sectionMap x := by
-  ext i
-  fin_cases i <;> simp [sectionMap] <;> ring
-
-def sectionLinear : Output (K := K) →ₗ[K] Coeff (K := K) where
-  toFun := sectionMap
-  map_add' := section_linear_add
-  map_smul' := section_linear_smul
-
-end
-end GUT.HeeckLeSixQuarkQuotient
+assert_compatible GUT.HeeckLeSixQuarkQuotient.Coeff => Physics.HeeckLeSixQuarkQuotient.Coeff
+assert_compatible GUT.HeeckLeSixQuarkQuotient.Output => Physics.HeeckLeSixQuarkQuotient.Output
+assert_compatible GUT.HeeckLeSixQuarkQuotient.forward => Physics.HeeckLeSixQuarkQuotient.forward
+assert_compatible GUT.HeeckLeSixQuarkQuotient.forward.eq_1 => Physics.HeeckLeSixQuarkQuotient.forward.eq_1
+assert_compatible GUT.HeeckLeSixQuarkQuotient.forward_solve => Physics.HeeckLeSixQuarkQuotient.forward_solve
+assert_compatible GUT.HeeckLeSixQuarkQuotient.kernelFirst => Physics.HeeckLeSixQuarkQuotient.kernelFirst
+assert_compatible GUT.HeeckLeSixQuarkQuotient.kernelFirst.eq_1 => Physics.HeeckLeSixQuarkQuotient.kernelFirst.eq_1
+assert_compatible GUT.HeeckLeSixQuarkQuotient.kernelSecond => Physics.HeeckLeSixQuarkQuotient.kernelSecond
+assert_compatible GUT.HeeckLeSixQuarkQuotient.kernelSecond.eq_1 => Physics.HeeckLeSixQuarkQuotient.kernelSecond.eq_1
+assert_compatible GUT.HeeckLeSixQuarkQuotient.sectionLinear => Physics.HeeckLeSixQuarkQuotient.sectionLinear
+assert_compatible GUT.HeeckLeSixQuarkQuotient.sectionMap => Physics.HeeckLeSixQuarkQuotient.sectionMap
+assert_compatible GUT.HeeckLeSixQuarkQuotient.sectionMap.eq_1 => Physics.HeeckLeSixQuarkQuotient.sectionMap.eq_1
+assert_compatible GUT.HeeckLeSixQuarkQuotient.section_linear_add => Physics.HeeckLeSixQuarkQuotient.section_linear_add
+assert_compatible GUT.HeeckLeSixQuarkQuotient.section_linear_smul => Physics.HeeckLeSixQuarkQuotient.section_linear_smul
+assert_compatible GUT.HeeckLeSixQuarkQuotient.solve => Physics.HeeckLeSixQuarkQuotient.solve
+assert_compatible GUT.HeeckLeSixQuarkQuotient.solve.eq_1 => Physics.HeeckLeSixQuarkQuotient.solve.eq_1
+assert_compatible GUT.HeeckLeSixQuarkQuotient.solve_forward => Physics.HeeckLeSixQuarkQuotient.solve_forward
+assert_compatible GUT.HeeckLeSixQuarkQuotient.solve_free => Physics.HeeckLeSixQuarkQuotient.solve_free

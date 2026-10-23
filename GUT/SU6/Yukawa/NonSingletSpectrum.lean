@@ -1,7 +1,9 @@
 import GUT.SU6.Yukawa.NonSingletCoordinates
 import Math.RepresentationTheory.Decomposition.TwoCopyKernel
-import Physics.StandardModel.Gauge.TwistedFundamentalIrreducibility
+import Physics.StandardModel.Gauge.Tensors.TwistedFundamentalIrreducibility
 import GUT.SU6.Yukawa.ResidualConstituents
+
+open Physics
 
 open Math
 

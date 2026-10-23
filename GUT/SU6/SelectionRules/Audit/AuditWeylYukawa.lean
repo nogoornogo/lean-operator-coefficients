@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Benchmarks.WeylYukawaBenchmark
-import Physics.FieldTheory.Mass.WeylMassTwoTorsion
+import Physics.FieldTheory.Mass.Algebra.WeylMassTwoTorsion
+
+open Physics
 
 /-!
 # Audit: scalar-linear symmetric Yukawa source bridge

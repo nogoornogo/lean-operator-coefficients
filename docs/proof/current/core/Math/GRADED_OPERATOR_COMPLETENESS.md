@@ -20,10 +20,10 @@ contents of residual-equivariant functionals on constructed carriers
 
 `Q_c = ((L_c)_G ⊗ M_c) / R_exchange`.
 
-[GradedMixedCompleteness](../../../../../Math/RepresentationTheory/GradedMixedCompleteness.lean)
+[GradedMixedCompleteness](../../../../../Math/RepresentationTheory/Coefficients/GradedMixedCompleteness.lean)
 proves unrestricted/support-selected equivalences, prohibition/nonzero iff,
 and the all-degree direct-sum functional equivalence.
-[TypedMixedSeparatedHom](../../../../../Math/RepresentationTheory/TypedMixedSeparatedHom.lean)
+[TypedMixedSeparatedHom](../../../../../Math/RepresentationTheory/Constructions/TypedMixedSeparatedHom.lean)
 constructs each carrier and its two-sided equivalence. No chosen contraction
 basis or coefficient-completeness premise is supplied.
 
@@ -36,7 +36,7 @@ semisimplicity is required. Local and residual actions act on separate factors;
 their commutation is proved. Support is stable under separate fermion/boson
 permutations. Separately, positive integral weights imply finitely many contents
 under each finite bound, by `MixedContentBounds.bounded_finite` in
-[MixedContentBounds](../../../../../Math/RepresentationTheory/MixedContentBounds.lean).
+[MixedContentBounds](../../../../../Math/RepresentationTheory/Content/MixedContentBounds.lean).
 This is an independently audited finiteness result, not an import or a premise
 of `GradedMixedCompleteness`. The existing `all_bounds_forbidden_iff` assumes no
 positive weights: it compares all bounds with all degrees, not a single finite
@@ -84,12 +84,12 @@ restriction, including selected and all-degree interfaces.
 
 See [the SM comparison](../../applications/Physics/GRADED_BNV_COMPARISON.md) for actual signed
 fields, independent multiplicities and the existing six/seven classifications.
-[MixedCompletenessExamples](../../../../../Math/RepresentationTheory/MixedCompletenessExamples.lean)
+[MixedCompletenessExamples](../../../../../Math/RepresentationTheory/Coefficients/MixedCompletenessExamples.lean)
 checks two-boson exchange, mixed fermion signs, repeated-input vanishing and
 inverse maps through the constructed separated quotient.
 
-The [foundation audit](../../../../../Math/RepresentationTheory/Audit/AuditGradedOperatorFoundations.lean)
-and [SM audit](../../../../../Physics/StandardModel/Operators/Audit/AuditGradedBnvComparison.lean)
+The [foundation audit](../../../../../Math/RepresentationTheory/Constructions/Audit/AuditGradedOperatorFoundations.lean)
+and [SM audit](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/Audit/AuditGradedBnvComparison.lean)
 persist strict transitive checks. Final commands/evidence are in the
 [topic](../../../../topics/graded-operator-completeness/README.md).
 

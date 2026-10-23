@@ -1,6 +1,6 @@
 import Math.Audit.ImportOrigin
 import GUT.Sp.ChiralityObstruction
-import Physics.StandardModel.Spectrum.Audit.AuditSelfDualChirality
+import Physics.StandardModel.Spectrum.Representations.Audit.AuditSelfDualChirality
 
 open Math
 

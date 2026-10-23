@@ -1,6 +1,6 @@
 import Math.LieGroups.E6.Minuscule.CompactIdentityComponent
 import Math.LieGroups.E6.Minuscule.NormalizerCenter
-import TauCeti.Analysis.Normed.Algebra.LogOneAdd.Inverse
+import TauCeti.Analysis.Normed.Algebra.Logarithm.Inverse
 import Lean.Util.CollectAxioms
 
 /-!
@@ -52,12 +52,16 @@ example : centralScalar27 ≠ 1 := by
 
 -- These ambient inverse identities do not assert that the logarithm stays in the real form.
 theorem matrix_log_exp_near_zero :
-    ∀ᶠ X : Matrix27 in 𝓝 0, logOneAdd ℝ Matrix27 (exp X - 1) = X :=
-  eventually_logOneAdd_exp_sub_one ℝ Matrix27
+    ∀ᶠ X : Matrix27 in 𝓝 0, NormedSpace.log (exp X) = X :=
+  by
+    let : NormedAlgebra ℚ Matrix27 := NormedAlgebra.restrictScalars ℚ ℂ _
+    exact eventually_log_exp Matrix27
 
-theorem matrix_exp_log_near_zero :
-    ∀ᶠ X : Matrix27 in 𝓝 0, exp (logOneAdd ℝ Matrix27 X) = 1 + X :=
-  eventually_exp_logOneAdd ℝ Matrix27
+theorem matrix_exp_log_near_one :
+    ∀ᶠ X : Matrix27 in 𝓝 1, exp (NormedSpace.log X) = X :=
+  by
+    let : NormedAlgebra ℚ Matrix27 := NormedAlgebra.restrictScalars ℚ ℂ _
+    exact eventually_exp_log Matrix27
 
 end
 
@@ -95,7 +99,7 @@ run_cmd do
     ``Math.E6.Minuscule.compactNormalizer_not_equiv_of_center_exponent_three,
     ``Math.E6.Audit.centralScalar27_cube_ne_one,
     ``Math.E6.Audit.matrix_log_exp_near_zero,
-    ``Math.E6.Audit.matrix_exp_log_near_zero]
+    ``Math.E6.Audit.matrix_exp_log_near_one]
   for decl in declarations do
     let axioms ← Lean.collectAxioms decl
     for ax in axioms do

@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Benchmarks.ContinuousWeylBenchmark
 
+open Physics
+
 /-!
 # Audit of semisimple embedding classification -> hypercharge character rigidity -> standard charge-orbit bridge -> Abelian proton-operator neutrality for symmetric linearized mass sectors
 

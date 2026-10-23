@@ -1,5 +1,7 @@
 import GUT.PatiSalam.Matching.TypedVertex
-import Math.RepresentationTheory.MixedSingleBosonEvaluation
+import Math.RepresentationTheory.Constructions.MixedSingleBosonEvaluation
+
+open Physics
 
 /-! Selected LEFT components: uR,dR,uL,dL and the anti-neutrino Weyl line.
 The neutrino chart has nuL coordinate one; it is not canonically normalized. -/

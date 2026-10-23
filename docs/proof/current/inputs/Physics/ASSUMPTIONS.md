@@ -6,7 +6,12 @@ source routes are not universal premises of general completeness.
 
 | Subject | Detailed inputs |
 | --- | --- |
+| Selected field and symmetry connections | [Dossier](FIELD_CONNECTIONS.md): actual invariant mass/kernel or boundary selection, concrete inverse maps, separate Weyl/dual conventions, invariant tensors and fixed vacua; full stable relations before derivative selection |
+| Interacting all-order literature inputs | [Scoped comparisons](../../../../topics/interacting-lagrangian-classification/literature-validation.md) |
 | Heeck–Le Existing-Sector Comparison | [Ledger](assumptions/literature-comparison.md) |
+| Bounded Derivative Literature Controls | [Ledger](assumptions/derivative-literature.md) |
+| Combined Free Weyl/Higgs Current Input | [Dossier](WEYL_HIGGS_CURRENT_INPUT.md) |
+| Derivative Input Necessary Parameter Condition | [Ledger](assumptions/derivative-prohibition.md) |
 | Li Printed Coordinate Matrices | [Ledger](assumptions/li-coordinate-matrices.md) |
 | Reading By Interface | [Ledger](assumptions/reading-guide.md) |
 | UV-Generated Yukawa Protection And Exact Radicals | [Ledger](assumptions/mass-protection.md) |
@@ -31,7 +36,7 @@ No theorem assumptions or proof baseline change with this split.
 
 ## Grassmann Weyl Mass Convention
 
-[WeylGrassmannAction](../../../../../Physics/FieldTheory/Mass/WeylGrassmannAction.lean)
+[WeylGrassmannAction](../../../../../Physics/FieldTheory/Mass/Algebra/WeylGrassmannAction.lean)
 proves species symmetry of the two-spin Grassmann bracket, its fixed Euclidean
 C P_R correspondence, and the symmetric three-species mass-action half.
 The kinetic form and the physical/source chirality dictionary are not derived.
@@ -41,7 +46,7 @@ does not make this a universal four-component source adapter.
 
 ## Chiral Action And Canonical Kinetic Translation
 
-[ChiralActionConvention](../../../../../Physics/FieldTheory/Mass/ChiralActionConvention.lean)
+[ChiralActionConvention](../../../../../Physics/FieldTheory/Mass/Spectrum/ChiralActionConvention.lean)
 uses a noncommutative star algebra with explicit odd anticommutation, including
 formal differentiated components. It proves gamma0 barred reduction, reversed
 Hermitian-conjugate order, chiral kinetic matrix translation modulo a formal
@@ -53,7 +58,7 @@ not a theorem about unspecified source metrics. See the bounded
 
 ## Neutral Dirac Graph
 
-[NeutralDiracGraph](../../../../../Physics/FieldTheory/Mass/NeutralDiracGraph.lean)
+[NeutralDiracGraph](../../../../../Physics/FieldTheory/Mass/Algebra/NeutralDiracGraph.lean)
 uses the shared symmetric Weyl Dirac bilinear, arbitrary complex copy modules
 and invertible heavy mixing. Its complete radical and actual coefficient
 restriction theorem supply no kinetic normalization, extra Majorana blocks,
@@ -76,7 +81,7 @@ with the SM mixed-field input or physical mass-basis construction is supplied.
 
 ## Koren SM Finite-Subgroup Selection
 
-[KorenSMSelection](../../../../../Physics/StandardModel/Operators/KorenSMSelection.lean)
+[KorenSMSelection](../../../../../Physics/StandardModel/Operators/Selection/KorenSMSelection.lean)
 constructs scalar Z9 times Z3 representations on arbitrary complex SM/Higgs
 copy modules. Its embedding and restricted-character identity are proved.
 With b=3B_usual and l=L, neutrality implies 9 divides b-3l and 3 divides l;
@@ -94,7 +99,7 @@ masses and rates are not certified. See the
 
 ## Flavor Restriction and Quarticity Controls
 
-[DgtFlavorRestriction](../../../../../Physics/StandardModel/Operators/DgtFlavorRestriction.lean)
+[DgtFlavorRestriction](../../../../../Physics/StandardModel/Operators/Selection/DgtFlavorRestriction.lean)
 constructs the DGT m=1,n=3 Circle flavor dictionary and its actual Z9 SM/Higgs
 restriction, including opposite signs and neutral Higgs. Three explicit complex
 fermion copies and one Higgs copy are fixed. All-degree B1/B2 prohibition on
@@ -104,7 +109,7 @@ vanishing and residual nonzero witnesses are proved through the existing
 actual dipole equivalence. The flavor Hom restriction is not surjective.
 No matching, mass-basis or full leptoquark-model admission is supplied.
 
-[QuarticityAdapters](../../../../../Physics/StandardModel/Operators/QuarticityAdapters.lean)
+[QuarticityAdapters](../../../../../Physics/StandardModel/Operators/Selection/QuarticityAdapters.lean)
 constructs a gauge-neutral right-Weyl neutrino (Z4/Z2 charges 1/1) and eta
 (charges 2/0). Eta's complexified carrier has proved real residual phases.
 Bare exterior-square coefficients vanish; the eta-dressed exterior coefficient
@@ -142,7 +147,7 @@ model-wide necessity or classification is asserted.
 ## Representative Target Connections
 
 The [twelve-row catalogue](../../../../topics/prohibition-patterns/catalogue.md)
-uses `GUT.ProhibitionPatterns` to select any subset of absolute B1/B2/L2 on
+uses `Physics.ProhibitionPatterns` to select any subset of absolute B1/B2/L2 on
 one existing SM/Higgs input. Joint prohibition is a conjunction with prescribed
 dipole selectors on their separate admitted coefficient domain; it neither
 asserts a universal LFV sector nor identifies LFV with total L. The DGT joint
@@ -153,7 +158,7 @@ classifications or nonzero-admission premises.
 
 ## Mixed BGW and Selected-LFV Consumers
 
-`GUT.MixedSelectionPatterns.bgw_satisfies` combines B1/B2 all-degree selected
+`Physics.MixedSelectionPatterns.bgw_satisfies` combines B1/B2 all-degree selected
 coefficient prohibition with fixed-(2,2) charged-Higgs LLHH allowance on the
 existing BGW one-copy SM/Higgs actions. Allowance uses the certified actual
 coefficient equivalence and witness. DGT allowance is the nonzero output of
@@ -187,7 +192,7 @@ selected Dev connection below supplies its separate action/contraction results.
 ## Species-Surplus Necessary Constraints
 
 [Constraint register](../../../../topics/theorem-driven-protection-constraints/constraints.md):
-`GUT.SpeciesSurplusNecessity.bottleneck` requires the original invariant mass,
+`Physics.SpeciesSurplusNecessity.bottleneck` requires the original invariant mass,
 an actual species Realization, semisimple source representations and a finite
 common irreducible. Vanishing of the participating physical exterior space
 forces at least one species' source Hom multiplicity not to exceed its target.
@@ -199,7 +204,7 @@ not automatically valid count/radical dictionaries.
 ## Abelian Residual Qque Prefilter
 
 [Residual filter](../../../../topics/theorem-driven-protection-constraints/residual-prefilter-results.md):
-`GUT.ResidualQquePrefilter` requires a genuine SM x Abelian-H action and
+`Physics.ResidualQquePrefilter` requires a genuine SM x Abelian-H action and
 actual invariant Q/uc/ec subspaces with full character-twisted equivariant
 identifications. It transports dual uc/ec to right-handed carriers and
 excludes prohibition covering every admitted triplet when one qque character
@@ -211,7 +216,7 @@ predicates; a missing subspace dictionary is unknown coverage.
 ## Constructed Inverse Cyclic SM Input
 
 [Proof dossier](../../applications/Physics/INVERSE_CYCLIC_SM_CONSTRUCTION.md):
-`GUT.InverseCyclicSMYukawa.construction_certificate` constructs three-generation
+`Physics.InverseCyclicSMYukawa.construction_certificate` constructs three-generation
 SM x Z2 lepton-parity fields, a charged singlet/dual spectator evaluation mass
 with exactly the declared SM radical, nonzero physical Yukawa exterior
 coefficients in three channels and all-degree B1 prohibition on the declared
@@ -399,7 +404,7 @@ actions, quantum validity, UV realization and rates are not established.
 ## Mixed Cyclic Qque Pair Filter
 
 [Bounded extraction](../../../../topics/sm-support-and-lfv-decomposition/su6-necessary-condition-results.md):
-`GUT.MixedQqueCyclicNecessity` uses finite diagonal cyclic flavor actions at
+`Physics.MixedQqueCyclicNecessity` uses finite diagonal cyclic flavor actions at
 positive cyclic order and the existing physical exterior completeness
 dictionary. Prohibition forces every mixed pair charge q(i)+q(j)+u(a)+e(b)
 to be nonzero. The three-generation control passes diagonal tests but has a
@@ -1144,9 +1149,9 @@ See the
 
 ## Executable SM data support connection
 
-`GUT.SMCoreSourceData.corePresentation` puts the executable ten-species core
+`Physics.SMCoreSourceData.corePresentation` puts the executable ten-species core
 syntax in its outer field, with actual equivalences supplied by the existing
-mathematical decompositions. `GUT.SMJointSupportData.dataSupport_iff` proves
+mathematical decompositions. `Physics.SMJointSupportData.dataSupport_iff` proves
 full joint content support equivalence, and `higgsDataSupport_iff` and
 `original_ql_iff` retain all Higgs degrees and the original scalar cyclic q/l
 residual/hypercharge equations. No external Weyl, numerical table or supplied
@@ -1162,7 +1167,7 @@ witness search. Other dictionaries, derivatives and UV realization are unchanged
 
 ## Charge and engineering-dimension lower bounds
 
-`GUT.SMChargeDegreeBounds.charge_degree` proves `|B3|+|L|≤n` for every signed
+`Physics.SMChargeDegreeBounds.charge_degree` proves `|B3|+|L|≤n` for every signed
 pattern, without a nonzero-support premise. `original_degree_lower` connects
 an explicit arithmetic minimum-|L| gate to all actual allowed original
 coefficients at arbitrary Higgs bidegree. Closed gates are kernel-proved by
@@ -1175,7 +1180,7 @@ declarations have a persistent strict transitive audit. See the
 
 ## Exact finite B1/B2 lepton-charge support
 
-`GUT.SMFiniteLeptonSupport.exact_original_iff` classifies the exact (B3,L)
+`Physics.SMFiniteLeptonSupport.exact_original_iff` classifies the exact (B3,L)
 selector at B3=3 or 6 for the unchanged three-generation derivative-free
 signed SM/Higgs scalar cyclic q/l input. Its attainable L sets are all odd
 |L|≤17 and all even |L|≤18 respectively; all 37 values have committed
@@ -1195,7 +1200,7 @@ generation, rates or derivative support. See the
 
 ## Minimum absolute lepton charge and default-build degree bounds
 
-`GUT.SMFiniteLeptonDegreeBounds.minLepton` is a computable Option Nat over
+`Physics.SMFiniteLeptonDegreeBounds.minLepton` is a computable Option Nat over
 the neutral members of the proved finite range. For b=3 or 6 and arbitrary
 nonzero k,q,l, None iff original prohibition and Some m is attained in an
 actual exact-(B3,L) coefficient space. The lower-bound proof normalizes the
@@ -1211,7 +1216,7 @@ and [review-response plan](../../../../topics/sm-finite-charge-support/minimum-l
 
 ## Four exact minimum operator dimensions
 
-`GUT.SMMinimumOperatorDimension.IsMinimum` requires actual original coefficient
+`Physics.SMMinimumOperatorDimension.IsMinimum` requires actual original coefficient
 allowance at doubled dimension M and a universal lower bound over all selected
 contents, both signs of B3 and all Higgs bidegrees. In the unchanged fixed
 ten-species, three-generation, derivative-free SM with independent Lorentz
@@ -1231,7 +1236,7 @@ and [topic results](../../../../topics/sm-minimum-operator-dimension/results.md)
 
 ## Complete B1 support below dimension ten
 
-`GUT.SMB1BelowTen.allowed_iff` proves actual B1 allowance strictly below
+`Physics.SMB1BelowTen.allowed_iff` proves actual B1 allowance strictly below
 engineering dimension ten iff `3*q+l=0 ∨ 3*q-l=0 ∨ 3*q+3*l=0` for arbitrary
 nonzero cyclic k, on the unchanged fixed signed three-generation SM,
 derivative-free, neutral-residual Higgs/dual and scalar q/l dictionary.
@@ -1251,7 +1256,7 @@ and [topic](../../../../topics/sm-b1-below-ten/results.md).
 
 ## Retained B1 dimension intervals and resource boundary
 
-`GUT.SMB1MinimumClassification.row_certificate` supplies attained actual
+`Physics.SMB1MinimumClassification.row_certificate` supplies attained actual
 upper grades and universal lower grades for every one of the 326 allowed
 rows of the existing 572-row domain. Both baryon signs and every original
 content/Higgs degree are included. The kernel proves 160 matching bounds,
@@ -1273,7 +1278,7 @@ dependency or physical extension is introduced. See the
 
 ## Complete B1 minimum grades on the existing finite domain
 
-`GUT.SMB1WeakDimensionBounds.original_weak_envelope` proves
+`Physics.SMB1WeakDimensionBounds.original_weak_envelope` proves
 `abs(7*L-B3)≤12+twiceDimension` for actual original allowance on the same
 fixed SM/Higgs dictionary. Abstract ten-count arithmetic, separately proved
 dictionary sums and existing complementary weak-capacity extraction keep
@@ -1422,3 +1427,314 @@ tables and their closed certificates are removed. Independent source-import
 and transitive consumer-dependency audits preserve that separation, including
 private helpers. This changes the proof route, not the model hypotheses.
 See the [source derivation](../../../../topics/proof-readability-review/source-derivation.md).
+
+## Constructed mass-transport certificates
+
+[Equality transport](../../../../../Physics/FieldTheory/Mass/Algebra/SymmetricMassTransport.lean)
+now packages its existing mass equality, nonvanishing and radical
+representation results in a constructed certificate. The existing
+[pullback certificate](../../../../../Physics/FieldTheory/Mass/Algebra/EquivariantWeylMassTransport.lean)
+also proves radical membership from its form equality. Neither construction
+adds a supplied certificate or a new theorem hypothesis: both are derived
+from the original equality or representation equivalence and mass.
+The [compatibility record](../../../../topics/derivative-ibp/dependency-integration.md)
+records the concrete consumers and strict transitive checks.
+
+## Generation Coefficient Compatibility
+
+`SMGenerationSupport.generation_triple` composes injective intertwiners before
+specializing a field action. The existing Q18/L6 injections keep their statements
+and hypotheses. The [independent audit](../../../../../Physics/StandardModel/Operators/Support/Decomposition/Audit/AuditSMGenerationSupport.lean)
+checks nine declarations transitively against the standard axiom policy.
+The presented-generation coefficient helper retains both the generation
+representation and the actual source as explicit parameters, with proved
+equivalences to a common presentation. Q18 supplies its dimension 36,
+determinant one and middle exterior self-duality on a distinct carrier.
+The producer and local consumers compose before specializing the exterior
+degree. The [connection audit](../../../../../Physics/StandardModel/Operators/Support/Coordinates/Audit/AuditSMCarrierConnection.lean)
+checks 20 declarations, including the actual species-zero equivalence,
+Q18 coefficient, lower-generation local coefficient and Q18 local kernel.
+Public conclusions and their parity, degree-range and hypercharge hypotheses
+are unchanged. No external theorem premise, new physical assumption or
+derivative/IBP statement is introduced. See the
+[carrier pilot](../../../../topics/derivative-ibp/carrier-pilot.md).
+
+[ProjectedWeylMass](../../../../../Physics/FieldTheory/Mass/Algebra/ProjectedWeylMass.lean)
+defines the bilinear form from heavy field/dual projections and proves equality
+with the split mass pullback. Its radical-membership lemma requires an actual
+mass, a proved equality with that form and a vanishing heavy projection.
+The ScalarBlock consumer proves these conditions for the existing mass;
+the helper does not construct a replacement physical mass or supply a new
+mass-form premise to that public theorem.
+
+## Algebraic Lorentz Jets And Free Massless Scalar EOM
+
+The [Lorentz/EOM consumer](../../core/Physics/LORENTZ_SCALAR_EOM_IBP.md)
+uses the existing actual SL(2,ℂ), left Weyl and entrywise-conjugate right Weyl
+actions. A proved Pauli-coordinate equivalence transports `A ↦ M A M†` to
+four coordinates, preserving the real Minkowski subspace and signature
+`(+,-,-,-)`. Derivative source vectors carry the explicit dual action
+`c_ji(g)=L(g⁻¹)_ij`. Their covariance and scalar contractions are proved in
+the actual jet algebra. No compactness, averaging or classification of the
+topological cover is assumed or concluded.
+
+The massless scalar symbol is explicitly `p₀²-p₁²-p₂²-p₃²`; its invariance is
+proved for this action. The equation defines a free algebraic scalar model,
+with all derivative descendants. The EOM-ideal and generator/free-algebra
+presentations, induced derivatives, equivariant IBP coefficient descent and
+combined source/representation equivalence are checked. The kinetic term is
+an actual divergence modulo EOM. Every pure time jet remains nonzero in the
+on-shell generator module and algebra before IBP, so higher jets are not
+truncated. These controls do not classify all four-dimensional invariants.
+
+The [physical audit](../../../../../Physics/FieldTheory/Jets/Lorentz/Audit/AuditLorentzScalarEOM.lean)
+checks 67 declarations transitively using only the standard axioms and rejects
+GUT imports. The narrow local Pauli adapter does not certify the larger
+Physlib Lorentz/SM closure or equality with its coordinate map. Massive,
+interacting or Weyl EOM, gauge curvature/Bianchi, disconnected Lorentz actions,
+variational derivation, analytic actions, amplitudes and EFT counting remain
+outside the result. No external physical or literature completeness premise
+is introduced.
+
+## Constant Finite-Group Spurions On Scalar Lorentz Jets
+
+The [jet/spurion connection](../../../../topics/jet-spurion-evaluation/results.md)
+specializes actual scalar EOM/IBP evaluation to the same four-dimensional
+Pauli SL(2,ℂ) dual direction action. Its wave-symbol invariance is proved;
+the residual internal group and finite component representation remain
+parameters. Local and residual actions are constructed on the source before
+relations. Local coinvariants avoid averaging the noncompact local group.
+
+For each specified constant, locally neutral spurion value, polynomial
+evaluation is onto all local-invariant and actual-residual-stabilizer-invariant
+coefficients, with sufficient degree at most orbit size minus one or group
+order minus one. The [physical strict audit](../../../../../Physics/FieldTheory/Jets/Lorentz/Audit/AuditLorentzSpurionEvaluation.lean)
+checks this specialization and its source pullback with the standard axiom
+policy. The separate sharp degree-one sign example uses a one-direction mixed
+source and trivial local group; it is not a complete 4D invariant basis.
+These conclusions concern algebraic coefficient spaces, without matching,
+amplitudes, rates, interacting/Weyl EOM or generic algebraic-group saturation.
+
+## Free Left-Chiral Weyl Equations And Actual EOM/IBP
+
+The [Weyl extension](../../../../topics/linear-eom-weyl/results.md) uses the
+existing SL(2,ℂ) fundamental component action and dual four-direction action.
+A dual Pauli contraction and first-jet frame prove seed covariance with the
+dual right-spin equation representation. The explicit first-order seeds and
+their off-shell nonzero values are proved. Their quotient relations include
+every ordinary derivative descendant; wave relations on both components are
+consequences, not substitutes for the first-order system. No covariance or
+completeness assertion from literature is assumed.
+
+A null-symbol polarization probe detects pure time jets of every order after
+EOM, before IBP. The generator, exterior and actual mixed algebra controls
+are nonzero. Free scalar spectators use a zero seed. The same actual algebra
+projection, finite image grades, even derivatives and inverse equivariant
+EOM/IBP source comparison feed coefficient descent. These are source-vector
+and algebraic-dual statements, without an imported classical-field/index
+dictionary or a claimed nonzero one-field Lorentz-invariant integrated term.
+The [physical strict audit](../../../../../Physics/FieldTheory/Jets/Weyl/Equations/Audit/AuditWeylLinearEquation.lean)
+rejects GUT imports and permits only the standard axioms. The endpoint is one
+free massless chiral field; right/conjugate or massive/interacting equations,
+gauge curvature/Bianchi, amplitudes, full EFT counts and matching/rates remain
+separate work. The literature register preserves inspection/comparison limits.
+
+## Conjugate Weyl Jets, Adjoint And Complete Null IBP Consumer
+
+The [conjugate Weyl dossier](../../core/Physics/WEYL_CONJUGATE_IBP.md) keeps the
+same free massless equation, signature and actual SL(2,ℂ) source/dual convention.
+The right seed and dual left equation action are constructed; covariance and
+reality of the direction coefficients are proved. Conjugation identifies the
+entire left/right descendant modules, with inverse semilinear quotient maps
+commuting with shifts and the actual group actions. No physical covariance,
+rank, completeness or classical field-index dictionary is assumed.
+
+On the paired odd exterior algebra, the chirality swap defines the Hermitian
+adjoint. Its involution, product reversal, semilinearity, derivative and Lorentz
+compatibility, projection compatibility and preservation of the linear IBP
+range are proved. Its IBP descent concerns an ungraded vector-space quotient,
+without a product of IBP classes. Arbitrary even-system adjoints, analytic
+operator adjoints and interacting/massive or gauge-covariant equations remain
+outside the result.
+
+The separate actual four-dimensional single-left-Weyl consumer proves the
+complete positive-order EOM/IBP source zero, with dimension zero, empty basis
+and zero invariant coefficients. Its first jet survives EOM and dies under
+IBP. This does not enumerate multi-field interactions or supply amplitudes,
+UV matching or rates. The
+[physical strict audit](../../../../../Physics/FieldTheory/Jets/Weyl/Equations/Audit/AuditWeylJetAdjoint.lean)
+checks all 72 new physical declarations and their dependencies.
+
+## Free Abelian Field-Strength Jets
+
+The [Abelian field-strength dossier](../../core/Physics/ABELIAN_FIELD_STRENGTH_IBP.md)
+uses one complexified free source-free bosonic field strength, four ordinary
+commuting derivative labels, signature (+---) and the existing actual Pauli
+SL(2,ℂ) vector/dual-direction actions. The ordered-pair tensor source has
+explicit algebraic antisymmetry and diagonal relations. The Maxwell and cyclic
+Bianchi seeds, their equation parameter representations and actual covariance
+are constructed. Metric intertwining follows from the proved quadratic
+invariance; no physical equation covariance or rank premise is assumed.
+
+The full polynomial-descendant closure gives commuting quotient shifts and
+the actual group action. The component wave equation and all its descendants
+follow from antisymmetry, Maxwell and Bianchi. Two transverse null-symbol probes
+annihilate the entire relation module and detect independent arbitrarily high
+jets. Nonzero controls persist in the symmetric and common even algebras before
+IBP, without a physical helicity-count or integrated-invariant conclusion.
+
+The actual onto projection has the proved descendant-ideal kernel presentation.
+Finite image grades, derivative compatibility and inverse equivariant EOM/IBP
+source and coefficient descent are instantiated from the common linear package.
+An empty odd species set introduces no odd field or equation premise. IBP stays
+a linear divergence range. The
+[persistent strict audit](../../../../../Physics/FieldTheory/Jets/Gauge/Audit/AuditMaxwellLinearEquation.lean)
+checks the physical interface and transitive dependencies with the standard
+axioms only. Potentials/gauge exactness, analytic Physlib equivalence, matter
+sources, non-Abelian interactions, Hodge/helicity classification, amplitudes,
+matching and rates remain outside this source model.
+
+## Polynomial Scalar EOM And Formal Matrix Yang–Mills
+
+The [formal interaction dossier](../../core/Physics/FORMAL_YANG_MILLS_IBP.md)
+specifies a neutral complexified scalar equation `box phi + lambda * phi^3`
+on the existing four-dimensional jets with signature (+---). The actual Pauli
+SL(2,ℂ) action fixes the seed and preserves its entire differential ideal;
+Lorentz transport on the EOM algebra and linear EOM/IBP source is constructed.
+The retained current proves `kinetic = lambda * phi^4` modulo EOM and IBP.
+Neither integrated class is asserted nonzero. Zero-field evaluation detects
+the surviving unit in the EOM algebra. No variational derivation is assumed.
+
+The formal matrix consumer uses arbitrary finite decidable matrix indices,
+with every connection entry and its ordinary derivatives as actual bosonic
+polynomial variables. Associative curvature and covariant derivatives give
+`E_nu = sum_mu s_mu * nabla_mu F_mu,nu`, with signature (+---). The equation
+entries generate the full differential ideal; ordinary and covariant EOM
+descendants vanish. Curvature commutators and Bianchi are proved off shell.
+The actual onto/kernel, finite image and inverse EOM/IBP interfaces apply.
+Zero-field evaluation proves that the EOM algebra is nonzero; a two-by-two
+constant-jet evaluation detects a nonzero nonlinear off-shell EOM component
+that is killed by the projection.
+
+This is an associative complex matrix model, without SU(N) real/traceless
+conditions, arbitrary local gauge covariance, an analytic Yang–Mills or
+matrix-model Lorentz dictionary, mixed nonlinear fermion equations, general
+operator counts, amplitudes, matching, RGE or numerical dynamics. The
+[strict physical audit](../../../../../Physics/FieldTheory/Jets/Scalar/Inputs/Audit/AuditNonlinearGaugeJets.lean)
+checks all 74 new public physical declarations transitively, rejects GUT
+imports and permits only the standard axioms. Tong's formulas guide conventions
+and supply no external theorem premise.
+
+## Internal-Unit Yang–Mills Covariance And Complete Scalar Degree Two
+
+The [gauge/trace and scalar degree dossier](../../core/Physics/GAUGE_TRACE_SCALAR_DEGREE.md)
+specializes internal-unit transformations to the actual formal matrix jet
+connection. Curvature and signed EOM conjugation are proved. Transformed
+equation entries lie in the original full EOM ideal and vanish on shell.
+Traces of squared curvature components are invariant; trace covariant IBP
+descends through the actual ordinary divergence range.
+
+The actual connection/curvature/Yang–Mills equation have engineering degrees
+one/two/three. The interacting scalar seed has degree three for arbitrary
+complex coupling. These statements use the constructed weighted sources,
+without assuming a global on-shell grading.
+
+For one neutral scalar in four directions, the degree-two image in the full
+unbounded EOM/IBP source has basis the field square and dimension one for
+every complex coupling. Complete monomial reconstruction covers the square
+and four first jets; the latter are divergences. A polynomial evaluation maps
+the entire EOM ideal into `(t^3)`, while all derivatives evaluate to zero.
+Its `t^2` coefficient functional annihilates all EOM and IBP relations and
+detects the square with value one. No degree truncation of relations or
+external completeness/rank matrix is used.
+
+The [physical audit](../../../../../Physics/FieldTheory/Jets/Scalar/Inputs/Audit/AuditGaugeEngineering.lean)
+checks all 40 named public declarations transitively under the existing
+standard-axiom/import policy. The result does not construct a local gauge
+orbit quotient, SU(N) real/traceless conditions, a matrix-model Lorentz
+dictionary or general invariant counts. Lagrangian and formal first-variation
+derivations remain deferred, with analytic dynamics and phenomenology outside
+scope.
+
+## Local Polynomial Lagrangian Helper
+
+The [helper consumer](../../../../topics/local-lagrangian-helper/results.md)
+reuses the existing actual Lorentz scalar field and four ordinary directions,
+signature (+---) and arbitrary complex coupling g. Its generated equation for
+the kinetic density plus `-g*phi^6/6` is `-(box phi + g*phi^5)`. The source
+action, generated differential ideal stability and actual divergence
+covariance are proved; the packaged caller supplies only g. Coefficient
+operations use the existing common derivative input. This bounded consumer
+does not infer invariance of arbitrary new interactions or provide a real
+action/analytic variational principle. The general mixed example is algebraic
+and does not supply a physical spinor/gauge contraction dictionary.
+
+## Formal First Variation
+
+The [formal first-variation result](../../../../topics/formal-first-variation/results.md)
+uses complex polynomial jets in four commuting ordinary directions. Arbitrary
+polynomial variations are prolonged to every jet. Finite matrix indices,
+commutative complex coefficient algebras and explicit commuting derivations
+support the trace identity. The scalar coupling is arbitrary complex; the
+physical consumers use signature (+---). Normalized Euler coefficients and
+all descendant ideals are proved to agree with the existing EOM inputs,
+including the matrix transpose and signature signs. No analytic action,
+boundary condition, literature identity or quantum equivalence is assumed.
+
+## Additive Derivative Input Adapters
+
+The [adapter result](../../../../topics/derivative-interface-adapters/results.md)
+preserves the published nonderivative source/API. A proved coefficient
+presentation and its explicit input evaluation law transport additional stable
+source relations to their actual coordinate images. Finite local coordinates
+retain normalization, invariant completeness and exchange hypotheses; no
+flavor-dimension, averaging or invariant-complement assumption is added.
+The new source-map adapters use additive-group complex modules.
+Actual direction-covariant mixed divergence and equivariant zero-jet bridges
+are reused. Full polynomial EOM inputs require annihilation of the complete
+differential ideal and divergence range and combined residual stability;
+they assume no homogeneous shell decomposition. The scalar consumer proves
+that stability for the existing actual Lorentz action and retains the
+cross-grade interaction equation. No new literature, analytic action,
+Lagrangian input or quantum premise is introduced.
+
+The uniform `Math.MixedOperatorInput` entry accepts natural-number derivative
+degrees including zero. Its actual source/action includes arbitrary supplied
+field and direction representations, with finite direction index type. The
+IBP relation is bottom at zero and the actual divergence range at positive
+degree. The original zero-order exterior/symmetric source is equivariantly
+recovered even with direction mixing; existing nonderivative callers gain no
+new hypotheses. This grading is an off-shell/IBP interface, not an assumed
+grading of the nonlinear EOM quotient.
+
+The optional `Math.DerivativeInterface.Input` record packages source action,
+actual relation module and stability, with separate graded and commutative
+EOM factories and common coefficient operations. Configuration hypotheses are
+unchanged. For a supplied invariant subspace, selection uses the preimage of
+the complete relation module and has a proved linear equivalence to its image
+in the full quotient. Global coefficient restriction is compatible; extension
+of all selected invariant coefficients is not asserted. The actual Lorentz
+scalar factory packages its existing covariance, and its invariant wave/cubic
+selection retains the cross-degree EOM law. No global decomposition, finite
+dimension or invariant-complement premise is introduced.
+
+
+## Registered Lagrangian Models And Scalar/Weyl Yukawa
+
+The [registered entries](../../../../topics/lagrangian-model-connections/input-guide.md)
+reuse checked scalar/Higgs densities and actions with unchanged input types.
+The [Yukawa input](SCALAR_WEYL_YUKAWA.md) adds the complete scalar/paired-Weyl
+kinetic, mass and interaction density on four ordinary directions, with actual
+SL(2,C) and independent complexified conjugate labels. One even component is
+the scalar; three unused even components have zero EOM. Couplings can vanish.
+Full relation stability follows from proved Euler covariance; density symmetry
+is checked independently. The specified DHM component dictionary relates the
+printed contractions and kinetic to this algebraic source. No reality quotient,
+local gauge field, quantization, rate or finite universal solver is assumed.
+
+
+The [automatic Yukawa connection](../../../../../Physics/FieldTheory/Jets/Lagrangian/EulerDensityConnection.lean)
+uses the independent total-density invariance theorem and the general linear
+Euler-naturality constructor. Its model equals the previous independently
+certified model. The existing complexified-component, local-algebra and
+reality/gauge boundaries remain unchanged.

@@ -1,7 +1,9 @@
 import GUT.SU6.SelectionRules.Models.ContinuousWeylYukawaModel
-import Physics.FieldTheory.Yukawa.WeylMassFamilyCompatibility
-import Physics.FieldTheory.Yukawa.MultilinearWeylMassContinuity
-import Physics.FieldTheory.Yukawa.WeylMassPolynomial
+import Physics.FieldTheory.Yukawa.Mass.WeylMassFamilyCompatibility
+import Physics.FieldTheory.Yukawa.Mass.MultilinearWeylMassContinuity
+import Physics.FieldTheory.Yukawa.Mass.WeylMassPolynomial
+
+open Physics
 
 /-!
 # Continuous-geometry models with scalar-dependent symmetric mass sources

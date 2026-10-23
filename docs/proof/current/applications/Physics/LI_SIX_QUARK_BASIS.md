@@ -9,11 +9,11 @@ contractions give coordinates on the independent local invariant space.
 This is an extension of the printed list, not a claim to have verified the
 entire paper or every dimension-nine SMEFT sector.
 
-Sources: [literal conventions](../../../../../Physics/StandardModel/Operators/LiSixQuarkConvention.lean),
-[local basis](../../../../../Physics/StandardModel/Operators/LiSixQuarkLocalBasis.lean),
-[residual interface](../../../../../Physics/StandardModel/Operators/LiSixQuarkResidual.lean),
-[four-flavor witness](../../../../../Physics/StandardModel/Operators/LiSixQuarkFourFlavor.lean),
-[audit](../../../../../Physics/StandardModel/Operators/Audit/AuditLiSixQuarkBasis.lean).
+Sources: [literal conventions](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkConvention.lean),
+[local basis](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkLocalBasis.lean),
+[residual interface](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkResidual.lean),
+[four-flavor witness](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkFourFlavor.lean),
+[audit](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/Audit/AuditLiSixQuarkBasis.lean).
 
 ## Reading the structural derivation
 
@@ -33,7 +33,7 @@ matrix is a proof premise.
 
 The normalized probe $P$ and extra vector $e$ satisfy $P(e)=1$. Every local
 array has the unique split $c=(c-P(c)e)+P(c)e$. The
-[independent probe decomposition](../../../../../Physics/StandardModel/Operators/LiSixQuarkProbeDecomposition.lean)
+[independent probe decomposition](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkProbeDecomposition.lean)
 proves this and $\dim\ker P=24$. The printed Young images have zero trace in
 the first product block, which is precisely the vanishing probe condition.
 The selected-orbit basis and the unchanged printed-span argument then identify

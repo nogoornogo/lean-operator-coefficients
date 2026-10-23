@@ -1,23 +1,15 @@
+import Physics.StandardModel.Operators.BaryonOne.Qque.PhysicalQqueEndpoint
 import Physics.StandardModel.Operators.QqueSpinorExterior
+import Math.Lean.Compatibility
 
-/-! A named physical endpoint keeps model-dependent field carriers opaque
-while expressing exactly the existing nonzero exterior coefficient claim. -/
-namespace GUT.PhysicalQqueEndpoint
-set_option autoImplicit false
-noncomputable section
-open Representation
-variable {K Q U E : Type*} [Group K]
-  [AddCommGroup Q] [Module ℂ Q] [AddCommGroup U] [Module ℂ U]
-  [AddCommGroup E] [Module ℂ E]
-  (q : Representation ℂ K Q) (u : Representation ℂ K U) (e : Representation ℂ K E)
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.Qque.PhysicalQqueEndpoint instead." (since := "source-api-v1")
 
-def HasExterior : Prop := ∃ f : QqueSpinorExterior.ExteriorCoefficient q u e, f ≠ 0
+compatibility_declarations [
+  GUT.PhysicalQqueEndpoint.HasExterior => Physics.PhysicalQqueEndpoint.HasExterior,
+  GUT.PhysicalQqueEndpoint.of_alternation => Physics.PhysicalQqueEndpoint.of_alternation,
+  GUT.PhysicalQqueEndpoint.of_exists => Physics.PhysicalQqueEndpoint.of_exists
+]
 
-theorem of_alternation (h : QqueSpinorExterior.HasNonzeroAlternation q u e) :
-    HasExterior q u e := h.exists_exterior
-
-theorem of_exists (h : ∃ f : QqueSpinorExterior.ExteriorCoefficient q u e, f ≠ 0) :
-    HasExterior q u e := h
-
-end
-end GUT.PhysicalQqueEndpoint
+assert_compatible GUT.PhysicalQqueEndpoint.HasExterior => Physics.PhysicalQqueEndpoint.HasExterior
+assert_compatible GUT.PhysicalQqueEndpoint.of_alternation => Physics.PhysicalQqueEndpoint.of_alternation
+assert_compatible GUT.PhysicalQqueEndpoint.of_exists => Physics.PhysicalQqueEndpoint.of_exists

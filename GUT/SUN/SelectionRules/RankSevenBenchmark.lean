@@ -2,6 +2,8 @@ import GUT.SUN.SelectionRules.StandardChain
 import GUT.SUN.Branching.RankSeven
 import GUT.SU5.SelectionRules.StandardChainBenchmark
 
+open Physics
+
 open Math Math.SUN
 
 /-! A continuous actual SU(7) inhabitant: Lambda^2(7) + 3 bar7 has

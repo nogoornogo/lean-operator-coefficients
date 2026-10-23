@@ -53,6 +53,27 @@ knowledge of an earlier directory layout is needed. Preserve mathematical
 assertions, assumptions, failed-route boundaries and verification evidence;
 new work must not be appended to an earlier checkpoint as though checked there.
 
+### README Figures And Tables
+
+For every authorized README edit, review the input flow, result maps,
+classification figure and tables against the changed text. Changes to input
+routes, APIs, namespaces, counts, scope or link targets must update the affected
+visuals and their ordinary-link indexes in the same change. Preserve README's
+user-selected emphasis; this rule does not authorize adding new main claims.
+
+Regenerate an affected asset from its maintained source rather than editing
+the SVG data by hand. For the classification figure run
+`node tools/docs/render-structural-classification.mjs --check`; a stale asset
+must be regenerated and checked again. Render changed Mermaid diagrams and
+inspect their layout. Check every diagram destination and its ordinary
+Markdown link counterpart: GitHub diagram interaction is not a required
+navigation mechanism. See the [figure tools](../../tools/docs/README.md).
+
+Record which visuals were updated or reviewed unchanged in the owning
+verification record. An unrelated prose correction needs no regenerated asset
+or repeated rendering. Documentation-only acceptance still applies; figure
+maintenance does not establish a new Lean proof baseline.
+
 ### Topic Outcome Guide
 
 Append a short entry to [topics/_history](../topics/_history/README.md) after a
@@ -140,6 +161,16 @@ changes to the root README or a merge into `master`; those require user directio
 ## Topic Record
 
 ### Literature Coverage Maintenance
+
+Maintain literature used by a topic in its source register, with stable links,
+versions/locations, intended use, assumptions and inspection status. Before
+merging the topic into its integration target, reconcile these sources into
+[the literature list](../proof/RELATED_LITERATURE.md): add relevant entries or
+update existing ones with the final result links and limitations. Record this
+check in the topic's integration checklist. Background references must remain
+distinguishable from proved comparisons and explicit external theorem inputs.
+This bibliography maintenance also applies when no coverage row is warranted;
+it does not authorize a merge or a new literature comparison.
 
 For topics comparing literature candidates or claims, maintain the relevant
 row under [docs/verification](../verification/README.md) at verified milestones,
@@ -296,6 +327,19 @@ Proof acceptance requires focused builds, strict axiom audits and full `lake bui
 Documentation acceptance requires link and diff checks and an explicit skipped-build
 statement. Documentation changes do not create a new Lean verification baseline.
 Record failures honestly. Never weaken the audit to obtain a successful merge.
+
+## Proof Design
+
+Follow the [structural proof policy](PROOF_ENGINEERING.md) for new proofs and
+substantive rewrites. Numerical checking or exhaustive generated cases must
+not supply the main proof, including kernel-checked tables. Large families
+of near-identical calculation lemmas/files are prohibited as a way to fit
+resource limits. Derive the result from shared structure; identify any small
+finite supporting checks and their role in that argument.
+
+Keep this separate from external cross-checks below. A useful diagnostic
+script is neither a theorem premise nor permission to generate a repetitive
+Lean proof. Existing checked results remain retained on their own scope.
 
 ## Computational Cross-Checks
 

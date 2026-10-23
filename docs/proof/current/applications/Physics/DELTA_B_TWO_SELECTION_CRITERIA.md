@@ -8,9 +8,9 @@ character `(up(g)1)^2 (down(g)1)^4` is identically one. It is forbidden iff this
 condition fails. In the neutral case the sector is linearly equivalent to
 `Fin 2 → ℂ`, and explicitly to `ℂ × ℂ`, with finrank two.
 
-Sources: [scalar classification](../../../../../Physics/StandardModel/Operators/DeltaBTwoScalarSelection.lean),
-[cyclic specialization](../../../../../Physics/StandardModel/Operators/DeltaBTwoCyclicSelection.lean),
-[strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditDeltaBTwoSelection.lean).
+Sources: [scalar classification](../../../../../Physics/StandardModel/Operators/BaryonTwo/Coefficients/DeltaBTwoScalarSelection.lean),
+[cyclic specialization](../../../../../Physics/StandardModel/Operators/BaryonTwo/Coefficients/DeltaBTwoCyclicSelection.lean),
+[strict audit](../../../../../Physics/StandardModel/Operators/BaryonTwo/Coefficients/Audit/AuditDeltaBTwoSelection.lean).
 
 ## Inputs And Assumptions
 

@@ -1,6 +1,8 @@
 import GUT.SU5.Embeddings.StandardModelKernel
 import Mathlib.Topology.Maps.Strict.Group
 
+open Physics
+
 /-!
 # The Standard Model quotient as a closed subgroup of SU(5)
 

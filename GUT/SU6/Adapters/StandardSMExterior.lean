@@ -1,6 +1,8 @@
 import GUT.SU6.Adapters.StandardSMContragredient
-import Physics.StandardModel.Gauge.ExteriorPairing
+import Physics.StandardModel.Gauge.Tensors.ExteriorPairing
 import Mathlib.LinearAlgebra.ExteriorPower.Basis
+
+open Physics
 
 open Math
 
@@ -15,6 +17,7 @@ with the fixed sixth coordinate. Hypercharges are in units of 6Y.
 set_option autoImplicit false
 
 namespace GUT.StandardSMExterior
+open Physics.StandardSMExterior
 
 noncomputable section
 

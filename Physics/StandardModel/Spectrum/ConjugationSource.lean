@@ -1,160 +1,122 @@
+import Physics.StandardModel.Spectrum.Representations.ConjugationSource
 import Physics.StandardModel.Spectrum.TorusCharacter
 import Physics.StandardModel.Spectrum.ProfileChiralIndex
-import Math.RepresentationTheory.Characters.CharacterRestriction
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Spectrum.Representations.ConjugationSource instead." (since := "source-api-v1")
 
-/-! Three actual ambient conjugations suffice for the SM charge-profile
-equalities. No SU(5) representation, full Weyl invariance, or profile equality
-is an input. The determinant-one torus is a fixed weight-coordinate model. -/
+compatibility_declarations [
+  GUT.StructuralConjugation.Realizes => Physics.StructuralConjugation.Realizes,
+  GUT.StructuralConjugation.Realizes.casesOn => Physics.StructuralConjugation.Realizes.casesOn,
+  GUT.StructuralConjugation.Realizes.conjugate => Physics.StructuralConjugation.Realizes.conjugate,
+  GUT.StructuralConjugation.Realizes.ctorIdx => Physics.StructuralConjugation.Realizes.ctorIdx,
+  GUT.StructuralConjugation.Realizes.element => Physics.StructuralConjugation.Realizes.element,
+  GUT.StructuralConjugation.Realizes.mk => Physics.StructuralConjugation.Realizes.mk,
+  GUT.StructuralConjugation.Realizes.mk.inj => Physics.StructuralConjugation.Realizes.mk.inj,
+  GUT.StructuralConjugation.Realizes.mk.injEq => Physics.StructuralConjugation.Realizes.mk.injEq,
+  GUT.StructuralConjugation.Realizes.mk.noConfusion => Physics.StructuralConjugation.Realizes.mk.noConfusion,
+  GUT.StructuralConjugation.Realizes.mk.sizeOf_spec => Physics.StructuralConjugation.Realizes.mk.sizeOf_spec,
+  GUT.StructuralConjugation.Realizes.noConfusion => Physics.StructuralConjugation.Realizes.noConfusion,
+  GUT.StructuralConjugation.Realizes.noConfusionType => Physics.StructuralConjugation.Realizes.noConfusionType,
+  GUT.StructuralConjugation.Realizes.rec => Physics.StructuralConjugation.Realizes.rec,
+  GUT.StructuralConjugation.Realizes.recOn => Physics.StructuralConjugation.Realizes.recOn,
+  GUT.StructuralConjugation.ThreeConjugations => Physics.StructuralConjugation.ThreeConjugations,
+  GUT.StructuralConjugation.ThreeConjugations.casesOn => Physics.StructuralConjugation.ThreeConjugations.casesOn,
+  GUT.StructuralConjugation.ThreeConjugations.ctorIdx => Physics.StructuralConjugation.ThreeConjugations.ctorIdx,
+  GUT.StructuralConjugation.ThreeConjugations.downLepton => Physics.StructuralConjugation.ThreeConjugations.downLepton,
+  GUT.StructuralConjugation.ThreeConjugations.mk => Physics.StructuralConjugation.ThreeConjugations.mk,
+  GUT.StructuralConjugation.ThreeConjugations.mk.inj => Physics.StructuralConjugation.ThreeConjugations.mk.inj,
+  GUT.StructuralConjugation.ThreeConjugations.mk.injEq => Physics.StructuralConjugation.ThreeConjugations.mk.injEq,
+  GUT.StructuralConjugation.ThreeConjugations.mk.noConfusion => Physics.StructuralConjugation.ThreeConjugations.mk.noConfusion,
+  GUT.StructuralConjugation.ThreeConjugations.mk.sizeOf_spec => Physics.StructuralConjugation.ThreeConjugations.mk.sizeOf_spec,
+  GUT.StructuralConjugation.ThreeConjugations.noConfusion => Physics.StructuralConjugation.ThreeConjugations.noConfusion,
+  GUT.StructuralConjugation.ThreeConjugations.noConfusionType => Physics.StructuralConjugation.ThreeConjugations.noConfusionType,
+  GUT.StructuralConjugation.ThreeConjugations.quarkElectron => Physics.StructuralConjugation.ThreeConjugations.quarkElectron,
+  GUT.StructuralConjugation.ThreeConjugations.quarkUp => Physics.StructuralConjugation.ThreeConjugations.quarkUp,
+  GUT.StructuralConjugation.ThreeConjugations.rec => Physics.StructuralConjugation.ThreeConjugations.rec,
+  GUT.StructuralConjugation.ThreeConjugations.recOn => Physics.StructuralConjugation.ThreeConjugations.recOn,
+  GUT.StructuralConjugation.ThreeConjugations.toTwo => Physics.StructuralConjugation.ThreeConjugations.toTwo,
+  GUT.StructuralConjugation.TwoConjugations => Physics.StructuralConjugation.TwoConjugations,
+  GUT.StructuralConjugation.TwoConjugations.casesOn => Physics.StructuralConjugation.TwoConjugations.casesOn,
+  GUT.StructuralConjugation.TwoConjugations.ctorIdx => Physics.StructuralConjugation.TwoConjugations.ctorIdx,
+  GUT.StructuralConjugation.TwoConjugations.mk => Physics.StructuralConjugation.TwoConjugations.mk,
+  GUT.StructuralConjugation.TwoConjugations.mk.inj => Physics.StructuralConjugation.TwoConjugations.mk.inj,
+  GUT.StructuralConjugation.TwoConjugations.mk.injEq => Physics.StructuralConjugation.TwoConjugations.mk.injEq,
+  GUT.StructuralConjugation.TwoConjugations.mk.noConfusion => Physics.StructuralConjugation.TwoConjugations.mk.noConfusion,
+  GUT.StructuralConjugation.TwoConjugations.mk.sizeOf_spec => Physics.StructuralConjugation.TwoConjugations.mk.sizeOf_spec,
+  GUT.StructuralConjugation.TwoConjugations.noConfusion => Physics.StructuralConjugation.TwoConjugations.noConfusion,
+  GUT.StructuralConjugation.TwoConjugations.noConfusionType => Physics.StructuralConjugation.TwoConjugations.noConfusionType,
+  GUT.StructuralConjugation.TwoConjugations.quarkElectron => Physics.StructuralConjugation.TwoConjugations.quarkElectron,
+  GUT.StructuralConjugation.TwoConjugations.quarkUp => Physics.StructuralConjugation.TwoConjugations.quarkUp,
+  GUT.StructuralConjugation.TwoConjugations.rec => Physics.StructuralConjugation.TwoConjugations.rec,
+  GUT.StructuralConjugation.TwoConjugations.recOn => Physics.StructuralConjugation.TwoConjugations.recOn,
+  GUT.StructuralConjugation.character_invariant => Physics.StructuralConjugation.character_invariant,
+  GUT.StructuralConjugation.coefficient_eq_of_invariant => Physics.StructuralConjugation.coefficient_eq_of_invariant,
+  GUT.StructuralConjugation.dual_character_invariant => Physics.StructuralConjugation.dual_character_invariant,
+  GUT.StructuralConjugation.inclusion => Physics.StructuralConjugation.inclusion,
+  GUT.StructuralConjugation.inclusion.eq_1 => Physics.StructuralConjugation.inclusion.eq_1,
+  GUT.StructuralConjugation.inclusion_conjugate => Physics.StructuralConjugation.inclusion_conjugate,
+  GUT.StructuralConjugation.orbitCompatible_of_three_invariances => Physics.StructuralConjugation.orbitCompatible_of_three_invariances,
+  GUT.StructuralConjugation.profiles_compatible => Physics.StructuralConjugation.profiles_compatible,
+  GUT.StructuralConjugation.profiles_equal_of_three_invariances => Physics.StructuralConjugation.profiles_equal_of_three_invariances,
+  GUT.StructuralConjugation.restrict => Physics.StructuralConjugation.restrict,
+  GUT.StructuralConjugation.swap31_down_lepton => Physics.StructuralConjugation.swap31_down_lepton,
+  GUT.StructuralConjugation.target_invariant => Physics.StructuralConjugation.target_invariant
+]
 
-set_option autoImplicit false
-
-namespace GUT.StructuralConjugation
-
-noncomputable section
-
-open SU5 SU5.MaximalTorus SU5.TorusCharacter
-open StandardAbelianCharge FiniteAbelianChargeSectors StandardWeylDualTarget
-open StandardSMCharacterTarget FiniteChargeProfiles
-
-variable {G : Type*} [Group G]
-
-/-- One ambient element works on the entire torus, not a pointwise choice. -/
-structure Realizes (j : Torus →* G) (p : Equiv.Perm (Fin 5)) where
-  element : G
-  conjugate : ∀ t, j (permute p t) = element * j t * element⁻¹
-
-/-- The two actual coordinate moves needed for the qque argument. -/
-structure TwoConjugations (j : Torus →* G) where
-  quarkUp : Realizes j (Equiv.swap (3 : Fin 5) 1)
-  quarkElectron : Realizes j (Equiv.swap (0 : Fin 5) 4)
-
-/-- Only the three coordinate moves used by the SM coefficient argument.
-No multiplication relations between their representatives are required. -/
-structure ThreeConjugations (j : Torus →* G) where
-  quarkUp : Realizes j (Equiv.swap (3 : Fin 5) 1)
-  quarkElectron : Realizes j (Equiv.swap (0 : Fin 5) 4)
-  downLepton : Realizes j (Equiv.swap (0 : Fin 5) 3)
-
-def ThreeConjugations.toTwo {j : Torus →* G} (c : ThreeConjugations j) :
-    TwoConjugations j := ⟨c.quarkUp, c.quarkElectron⟩
-
-/-- The Q/up swap also moves a different down weight to a lepton weight. -/
-theorem swap31_down_lepton :
-    permuteReducedWeight (Equiv.swap (3 : Fin 5) 1) (smReducedWeight 10) =
-      smReducedWeight 13 := by
-  decide
-
-variable {H E : Type*} [CommGroup H] [AddCommGroup E] [Module ℂ E]
-
-def inclusion (j : Torus →* G) : CombinedGroup H →* (G × H) :=
-  j.prodMap (MonoidHom.id H)
-
-def restrict (j : Torus →* G) (rho : Representation ℂ (G × H) E) :
-    Representation ℂ (CombinedGroup H) E := rho.comp (inclusion j)
-
-theorem inclusion_conjugate {j : Torus →* G} {p : Equiv.Perm (Fin 5)}
-    (c : Realizes j p) (g : CombinedGroup H) :
-    inclusion j (permute p g.1, g.2) =
-      (c.element, 1) * inclusion j g * (c.element, 1)⁻¹ := by
-  apply Prod.ext
-  · exact c.conjugate g.1
-  · simp [inclusion]
-
-theorem character_invariant {j : Torus →* G} {p : Equiv.Perm (Fin 5)}
-    (c : Realizes j p) (rho : Representation ℂ (G × H) E) (g : CombinedGroup H) :
-    (restrict j rho).character (permute p g.1, g.2) = (restrict j rho).character g :=
-  CharacterRestriction.character_restriction_invariant rho (inclusion j)
-    (fun g => (permute p g.1, g.2)) (c.element, 1) (inclusion_conjugate c) g
-
-variable [FiniteDimensional ℂ E]
-
-theorem dual_character_invariant {j : Torus →* G} {p : Equiv.Perm (Fin 5)}
-    (c : Realizes j p) (rho : Representation ℂ (G × H) E) (g : CombinedGroup H) :
-    (restrict j rho).dual.character (permute p g.1, g.2) =
-      (restrict j rho).dual.character g := by
-  simp only [Representation.char_dual]
-  exact character_invariant c rho g⁻¹
-
-theorem target_invariant {j : Torus →* G} {p : Equiv.Perm (Fin 5)}
-    (c : Realizes j p) (rho : Representation ℂ (G × H) E)
-    (q : ResolvedCharacter (ChargeLabel H))
-    (ht : ∀ g, (restrict j rho).character g - (restrict j rho).dual.character g =
-      TorusCharacter.eval q g) :
-    permuteResolved p q = q := by
-  apply TorusCharacter.eval_injective
-  intro g
-  rw [TorusCharacter.eval_permute, ← ht, character_invariant c,
-    dual_character_invariant c, ht]
-
-/-- Coefficient equality needs only the one permutation being evaluated. -/
-theorem coefficient_eq_of_invariant {A : Type*} (q : ResolvedCharacter A)
-    (p : Equiv.Perm (Fin 5)) (hi : permuteResolved p q = q) (key : ResolvedKey A) :
-    q (permuteKey p key) = q key := by
-  have he := congrArg (fun f : ResolvedCharacter A => f (permuteKey p key)) hi
-  simpa only [permuteResolved, Finsupp.mapDomain_apply_of_injective (permuteKey_injective p)] using he.symm
-
-theorem profiles_equal_of_three_invariances {A : Type*} (q : ResolvedCharacter A)
-    (hQU : permuteResolved (Equiv.swap (3 : Fin 5) 1) q = q)
-    (hQE : permuteResolved (Equiv.swap (0 : Fin 5) 4) q = q)
-    (hDL : permuteResolved (Equiv.swap (0 : Fin 5) 3) q = q) :
-    quarkProfile q = upProfile q ∧ quarkProfile q = electronProfile q ∧
-      downProfile q = leptonProfile q := by
-  refine ⟨?_, ?_, ?_⟩
-  · ext a
-    exact (show q (reducedTenUp, a) = q (reducedTenQ, a) by
-      simpa only [permuteKey, permuteReducedWeight_swap31_tenQ] using
-        coefficient_eq_of_invariant q _ hQU (reducedTenQ, a)).symm
-  · ext a
-    exact (show q (reducedTenElectron, a) = q (reducedTenQ, a) by
-      simpa only [permuteKey, permuteReducedWeight_swap04_tenQ] using
-        coefficient_eq_of_invariant q _ hQE (reducedTenQ, a)).symm
-  · ext a
-    exact (show q (reducedBarFiveLepton, a) = q (reducedBarFiveDown, a) by
-      simpa only [permuteKey, permuteReducedWeight_swap03_barFiveDown] using
-        coefficient_eq_of_invariant q _ hDL (reducedBarFiveDown, a)).symm
-
-theorem orbitCompatible_of_three_invariances {A : Type*} [AddCommGroup A]
-    (P : Profiles A) (s : A →₀ ℤ)
-    (hQU : permuteResolved (Equiv.swap (3 : Fin 5) 1)
-      (chiralDifference (targetWithSinglets P s)) = chiralDifference (targetWithSinglets P s))
-    (hQE : permuteResolved (Equiv.swap (0 : Fin 5) 4)
-      (chiralDifference (targetWithSinglets P s)) = chiralDifference (targetWithSinglets P s))
-    (hDL : permuteResolved (Equiv.swap (0 : Fin 5) 3)
-      (chiralDifference (targetWithSinglets P s)) = chiralDifference (targetWithSinglets P s)) :
-    OrbitCompatible P := by
-  obtain ⟨hQ, he, hd⟩ := profiles_equal_of_three_invariances _ hQU hQE hDL
-  have h0 := chiralDifference_target_profile P s 0
-  have h8 := chiralDifference_target_profile P s 8
-  have h9 := chiralDifference_target_profile P s 9
-  have h13 := chiralDifference_target_profile P s 13
-  have h14 := chiralDifference_target_profile P s 14
-  rw [(smReducedWeight_eq_reducedTenQ_iff 0).mpr rfl] at h0
-  rw [(smReducedWeight_eq_reducedTenUp_iff 8).mpr rfl] at h8
-  rw [(smReducedWeight_eq_reducedBarFiveDown_iff 9).mpr rfl] at h9
-  rw [(smReducedWeight_eq_reducedBarFiveLepton_iff 13).mpr rfl] at h13
-  rw [(smReducedWeight_eq_reducedTenElectron_iff 14).mpr rfl] at h14
-  change chargeProfile _ reducedTenQ = chargeProfile _ reducedTenUp at hQ
-  change chargeProfile _ reducedTenQ = chargeProfile _ reducedTenElectron at he
-  change chargeProfile _ reducedBarFiveDown = chargeProfile _ reducedBarFiveLepton at hd
-  rw [h0, h8] at hQ
-  rw [h0, h14] at he
-  rw [h9, h13] at hd
-  exact ⟨integral_injective hQ, integral_injective he, integral_injective hd⟩
-
-/-- Derive compatibility from an actual source dual trace; SC-2 supplies this
-trace identity from an invariant mass and its light dual target. -/
-theorem profiles_compatible {j : Torus →* G} (c : ThreeConjugations j)
-    (rho : Representation ℂ (G × H) E) (P : Profiles (ChargeLabel H))
-    (s : ChargeLabel H →₀ ℤ)
-    (ht : ∀ g, (restrict j rho).character g - (restrict j rho).dual.character g =
-      TorusCharacter.eval (chiralDifference (targetWithSinglets P s)) g) :
-    OrbitCompatible P :=
-  orbitCompatible_of_three_invariances P s
-    (target_invariant c.quarkUp rho _ ht)
-    (target_invariant c.quarkElectron rho _ ht)
-    (target_invariant c.downLepton rho _ ht)
-
-end
-end GUT.StructuralConjugation
+assert_compatible GUT.StructuralConjugation.Realizes => Physics.StructuralConjugation.Realizes
+assert_compatible GUT.StructuralConjugation.Realizes.casesOn => Physics.StructuralConjugation.Realizes.casesOn
+assert_compatible GUT.StructuralConjugation.Realizes.conjugate => Physics.StructuralConjugation.Realizes.conjugate
+assert_compatible GUT.StructuralConjugation.Realizes.ctorIdx => Physics.StructuralConjugation.Realizes.ctorIdx
+assert_compatible GUT.StructuralConjugation.Realizes.element => Physics.StructuralConjugation.Realizes.element
+assert_compatible GUT.StructuralConjugation.Realizes.mk => Physics.StructuralConjugation.Realizes.mk
+assert_compatible GUT.StructuralConjugation.Realizes.mk.inj => Physics.StructuralConjugation.Realizes.mk.inj
+assert_compatible GUT.StructuralConjugation.Realizes.mk.injEq => Physics.StructuralConjugation.Realizes.mk.injEq
+assert_compatible GUT.StructuralConjugation.Realizes.mk.noConfusion => Physics.StructuralConjugation.Realizes.mk.noConfusion
+assert_compatible GUT.StructuralConjugation.Realizes.mk.sizeOf_spec => Physics.StructuralConjugation.Realizes.mk.sizeOf_spec
+assert_compatible GUT.StructuralConjugation.Realizes.noConfusion => Physics.StructuralConjugation.Realizes.noConfusion
+assert_compatible GUT.StructuralConjugation.Realizes.noConfusionType => Physics.StructuralConjugation.Realizes.noConfusionType
+assert_compatible GUT.StructuralConjugation.Realizes.rec => Physics.StructuralConjugation.Realizes.rec
+assert_compatible GUT.StructuralConjugation.Realizes.recOn => Physics.StructuralConjugation.Realizes.recOn
+assert_compatible GUT.StructuralConjugation.ThreeConjugations => Physics.StructuralConjugation.ThreeConjugations
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.casesOn => Physics.StructuralConjugation.ThreeConjugations.casesOn
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.ctorIdx => Physics.StructuralConjugation.ThreeConjugations.ctorIdx
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.downLepton => Physics.StructuralConjugation.ThreeConjugations.downLepton
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.mk => Physics.StructuralConjugation.ThreeConjugations.mk
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.mk.inj => Physics.StructuralConjugation.ThreeConjugations.mk.inj
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.mk.injEq => Physics.StructuralConjugation.ThreeConjugations.mk.injEq
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.mk.noConfusion => Physics.StructuralConjugation.ThreeConjugations.mk.noConfusion
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.mk.sizeOf_spec => Physics.StructuralConjugation.ThreeConjugations.mk.sizeOf_spec
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.noConfusion => Physics.StructuralConjugation.ThreeConjugations.noConfusion
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.noConfusionType => Physics.StructuralConjugation.ThreeConjugations.noConfusionType
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.quarkElectron => Physics.StructuralConjugation.ThreeConjugations.quarkElectron
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.quarkUp => Physics.StructuralConjugation.ThreeConjugations.quarkUp
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.rec => Physics.StructuralConjugation.ThreeConjugations.rec
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.recOn => Physics.StructuralConjugation.ThreeConjugations.recOn
+assert_compatible GUT.StructuralConjugation.ThreeConjugations.toTwo => Physics.StructuralConjugation.ThreeConjugations.toTwo
+assert_compatible GUT.StructuralConjugation.TwoConjugations => Physics.StructuralConjugation.TwoConjugations
+assert_compatible GUT.StructuralConjugation.TwoConjugations.casesOn => Physics.StructuralConjugation.TwoConjugations.casesOn
+assert_compatible GUT.StructuralConjugation.TwoConjugations.ctorIdx => Physics.StructuralConjugation.TwoConjugations.ctorIdx
+assert_compatible GUT.StructuralConjugation.TwoConjugations.mk => Physics.StructuralConjugation.TwoConjugations.mk
+assert_compatible GUT.StructuralConjugation.TwoConjugations.mk.inj => Physics.StructuralConjugation.TwoConjugations.mk.inj
+assert_compatible GUT.StructuralConjugation.TwoConjugations.mk.injEq => Physics.StructuralConjugation.TwoConjugations.mk.injEq
+assert_compatible GUT.StructuralConjugation.TwoConjugations.mk.noConfusion => Physics.StructuralConjugation.TwoConjugations.mk.noConfusion
+assert_compatible GUT.StructuralConjugation.TwoConjugations.mk.sizeOf_spec => Physics.StructuralConjugation.TwoConjugations.mk.sizeOf_spec
+assert_compatible GUT.StructuralConjugation.TwoConjugations.noConfusion => Physics.StructuralConjugation.TwoConjugations.noConfusion
+assert_compatible GUT.StructuralConjugation.TwoConjugations.noConfusionType => Physics.StructuralConjugation.TwoConjugations.noConfusionType
+assert_compatible GUT.StructuralConjugation.TwoConjugations.quarkElectron => Physics.StructuralConjugation.TwoConjugations.quarkElectron
+assert_compatible GUT.StructuralConjugation.TwoConjugations.quarkUp => Physics.StructuralConjugation.TwoConjugations.quarkUp
+assert_compatible GUT.StructuralConjugation.TwoConjugations.rec => Physics.StructuralConjugation.TwoConjugations.rec
+assert_compatible GUT.StructuralConjugation.TwoConjugations.recOn => Physics.StructuralConjugation.TwoConjugations.recOn
+assert_compatible GUT.StructuralConjugation.character_invariant => Physics.StructuralConjugation.character_invariant
+assert_compatible GUT.StructuralConjugation.coefficient_eq_of_invariant => Physics.StructuralConjugation.coefficient_eq_of_invariant
+assert_compatible GUT.StructuralConjugation.dual_character_invariant => Physics.StructuralConjugation.dual_character_invariant
+assert_compatible GUT.StructuralConjugation.inclusion => Physics.StructuralConjugation.inclusion
+assert_compatible GUT.StructuralConjugation.inclusion.eq_1 => Physics.StructuralConjugation.inclusion.eq_1
+assert_compatible GUT.StructuralConjugation.inclusion_conjugate => Physics.StructuralConjugation.inclusion_conjugate
+assert_compatible GUT.StructuralConjugation.orbitCompatible_of_three_invariances => Physics.StructuralConjugation.orbitCompatible_of_three_invariances
+assert_compatible GUT.StructuralConjugation.profiles_compatible => Physics.StructuralConjugation.profiles_compatible
+assert_compatible GUT.StructuralConjugation.profiles_equal_of_three_invariances => Physics.StructuralConjugation.profiles_equal_of_three_invariances
+assert_compatible GUT.StructuralConjugation.restrict => Physics.StructuralConjugation.restrict
+assert_compatible GUT.StructuralConjugation.swap31_down_lepton => Physics.StructuralConjugation.swap31_down_lepton
+assert_compatible GUT.StructuralConjugation.target_invariant => Physics.StructuralConjugation.target_invariant

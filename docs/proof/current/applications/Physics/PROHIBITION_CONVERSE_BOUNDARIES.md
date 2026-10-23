@@ -41,15 +41,15 @@ See [all-degree result and stop boundary](../../../../topics/prohibition-convers
 
 ## Sources and proof verification
 
-- [CyclicSelectorDipoleSelection](../../../../../Physics/StandardModel/Operators/CyclicSelectorDipoleSelection.lean).
-- [BalancedSpeciesSurplusControl](../../../../../Physics/FieldTheory/Mass/BalancedSpeciesSurplusControl.lean).
+- [CyclicSelectorDipoleSelection](../../../../../Physics/StandardModel/Operators/Dipole/CyclicSelectorDipoleSelection.lean).
+- [BalancedSpeciesSurplusControl](../../../../../Physics/FieldTheory/Mass/Surplus/BalancedSpeciesSurplusControl.lean).
 - [CopySumEquivalence](../../../../../Math/RepresentationTheory/Multiplicity/CopySumEquivalence.lean).
 - [ActualFullFamilyMassExistence](../../../../../GUT/SU5/SelectionRules/ActualFullFamilyMassExistence.lean).
-- [AdmittedCyclicProhibition](../../../../../Math/RepresentationTheory/AdmittedCyclicProhibition.lean).
-- [AdmittedCyclicSMProhibition](../../../../../Physics/StandardModel/Operators/AdmittedCyclicSMProhibition.lean).
+- [AdmittedCyclicProhibition](../../../../../Math/RepresentationTheory/Protection/AdmittedCyclicProhibition.lean).
+- [AdmittedCyclicSMProhibition](../../../../../Physics/StandardModel/Operators/Selection/AdmittedCyclicSMProhibition.lean).
 
-The [Math audit](../../../../../Math/RepresentationTheory/Audit/AuditProhibitionConverseBoundaries.lean),
-[Physics audit](../../../../../Physics/StandardModel/Operators/Audit/AuditProhibitionConverseBoundaries.lean)
+The [Math audit](../../../../../Math/RepresentationTheory/Protection/Audit/AuditProhibitionConverseBoundaries.lean),
+[Physics audit](../../../../../Physics/StandardModel/Operators/Selection/Audit/AuditProhibitionConverseBoundaries.lean)
 and [GUT audit](../../../../../GUT/SU5/Audit/AuditFullFamilyMassExistence.lean)
 check all 37 new declarations transitively, allowing only propext,
 Classical.choice and Quot.sound. Builds, checks and intermediate corrections

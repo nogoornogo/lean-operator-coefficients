@@ -1,200 +1,100 @@
+import Physics.StandardModel.Operators.Weinberg.WeinbergSMInterface
 import Physics.StandardModel.Operators.WeinbergModelSector
 import Physics.StandardModel.Operators.WeinbergScalarFlavor
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Weinberg.WeinbergSMInterface instead." (since := "source-api-v1")
 
-/-! The actual SM covering-product group, including hypercharge cancellation,
-and independently supplied field identifications for the LLHH sector. -/
-namespace GUT.WeinbergSMInterface
-set_option autoImplicit false
-noncomputable section
-open Representation ExternalInvariantTensor SMEpsilonTensor WeinbergModelSector
-open scoped TensorProduct
-variable {R F : Type*} [Group R] [AddCommGroup F] [Module ℂ F]
-  (a : Representation ℂ R F)
+compatibility_declarations [
+  GUT.WeinbergSMInterface.Inputs => Physics.WeinbergSMInterface.Inputs,
+  GUT.WeinbergSMInterface.Inputs.casesOn => Physics.WeinbergSMInterface.Inputs.casesOn,
+  GUT.WeinbergSMInterface.Inputs.ctorIdx => Physics.WeinbergSMInterface.Inputs.ctorIdx,
+  GUT.WeinbergSMInterface.Inputs.higgsEquiv => Physics.WeinbergSMInterface.Inputs.higgsEquiv,
+  GUT.WeinbergSMInterface.Inputs.leptonEquiv => Physics.WeinbergSMInterface.Inputs.leptonEquiv,
+  GUT.WeinbergSMInterface.Inputs.mk => Physics.WeinbergSMInterface.Inputs.mk,
+  GUT.WeinbergSMInterface.Inputs.mk.inj => Physics.WeinbergSMInterface.Inputs.mk.inj,
+  GUT.WeinbergSMInterface.Inputs.mk.injEq => Physics.WeinbergSMInterface.Inputs.mk.injEq,
+  GUT.WeinbergSMInterface.Inputs.mk.noConfusion => Physics.WeinbergSMInterface.Inputs.mk.noConfusion,
+  GUT.WeinbergSMInterface.Inputs.mk.sizeOf_spec => Physics.WeinbergSMInterface.Inputs.mk.sizeOf_spec,
+  GUT.WeinbergSMInterface.Inputs.noConfusion => Physics.WeinbergSMInterface.Inputs.noConfusion,
+  GUT.WeinbergSMInterface.Inputs.noConfusionType => Physics.WeinbergSMInterface.Inputs.noConfusionType,
+  GUT.WeinbergSMInterface.Inputs.rec => Physics.WeinbergSMInterface.Inputs.rec,
+  GUT.WeinbergSMInterface.Inputs.recOn => Physics.WeinbergSMInterface.Inputs.recOn,
+  GUT.WeinbergSMInterface.ModelSector => Physics.WeinbergSMInterface.ModelSector,
+  GUT.WeinbergSMInterface.PhysicalGroup => Physics.WeinbergSMInterface.PhysicalGroup,
+  GUT.WeinbergSMInterface.Sector => Physics.WeinbergSMInterface.Sector,
+  GUT.WeinbergSMInterface.coefficientEquiv => Physics.WeinbergSMInterface.coefficientEquiv,
+  GUT.WeinbergSMInterface.coefficientEquiv_apply => Physics.WeinbergSMInterface.coefficientEquiv_apply,
+  GUT.WeinbergSMInterface.domain => Physics.WeinbergSMInterface.domain,
+  GUT.WeinbergSMInterface.exists_nonzero_iff => Physics.WeinbergSMInterface.exists_nonzero_iff,
+  GUT.WeinbergSMInterface.exists_on_fields_iff => Physics.WeinbergSMInterface.exists_on_fields_iff,
+  GUT.WeinbergSMInterface.higgs => Physics.WeinbergSMInterface.higgs,
+  GUT.WeinbergSMInterface.higgs_apply => Physics.WeinbergSMInterface.higgs_apply,
+  GUT.WeinbergSMInterface.homEquiv => Physics.WeinbergSMInterface.homEquiv,
+  GUT.WeinbergSMInterface.instAddCommGroupLepton => Physics.WeinbergSMInterface.instAddCommGroupLepton,
+  GUT.WeinbergSMInterface.instAddCommGroupTensorProductComplexSubtypeExteriorAlgebraLeptonMemSubmoduleExteriorPowerOfNatNatSymmetricPowerFinWeak => Physics.WeinbergSMInterface.instAddCommGroupTensorProductComplexSubtypeExteriorAlgebraLeptonMemSubmoduleExteriorPowerOfNatNatSymmetricPowerFinWeak,
+  GUT.WeinbergSMInterface.instAddCommGroupTensorProductComplexWeakSpace => Physics.WeinbergSMInterface.instAddCommGroupTensorProductComplexWeakSpace,
+  GUT.WeinbergSMInterface.lepton => Physics.WeinbergSMInterface.lepton,
+  GUT.WeinbergSMInterface.lepton_apply => Physics.WeinbergSMInterface.lepton_apply,
+  GUT.WeinbergSMInterface.majoranaEquiv => Physics.WeinbergSMInterface.majoranaEquiv,
+  GUT.WeinbergSMInterface.mass => Physics.WeinbergSMInterface.mass,
+  GUT.WeinbergSMInterface.mass_evaluation => Physics.WeinbergSMInterface.mass_evaluation,
+  GUT.WeinbergSMInterface.mass_nonzero_iff => Physics.WeinbergSMInterface.mass_nonzero_iff,
+  GUT.WeinbergSMInterface.mass_zero_vev => Physics.WeinbergSMInterface.mass_zero_vev,
+  GUT.WeinbergSMInterface.neutralEquiv => Physics.WeinbergSMInterface.neutralEquiv,
+  GUT.WeinbergSMInterface.onFieldsEquiv => Physics.WeinbergSMInterface.onFieldsEquiv,
+  GUT.WeinbergSMInterface.onFieldsMajoranaEquiv => Physics.WeinbergSMInterface.onFieldsMajoranaEquiv,
+  GUT.WeinbergSMInterface.onFieldsModelEquiv => Physics.WeinbergSMInterface.onFieldsModelEquiv,
+  GUT.WeinbergSMInterface.oneGenerationEquiv => Physics.WeinbergSMInterface.oneGenerationEquiv,
+  GUT.WeinbergSMInterface.oneGeneration_finrank => Physics.WeinbergSMInterface.oneGeneration_finrank,
+  GUT.WeinbergSMInterface.phases => Physics.WeinbergSMInterface.phases,
+  GUT.WeinbergSMInterface.projection => Physics.WeinbergSMInterface.projection,
+  GUT.WeinbergSMInterface.projection_surjective => Physics.WeinbergSMInterface.projection_surjective,
+  GUT.WeinbergSMInterface.reducedEquiv => Physics.WeinbergSMInterface.reducedEquiv
+]
 
-@[reducible] local instance : AddCommGroup (Weak ⊗[ℂ] WeylSpinor.Space) := inferInstance
-@[reducible] local instance : AddCommGroup (Lepton F) := inferInstance
-@[reducible] local instance : AddCommGroup ((⋀[ℂ]^2 (Lepton F)) ⊗[ℂ] Sym[ℂ]^2 Weak) := inferInstance
-
-abbrev PhysicalGroup (R : Type*) := (StandardSMGaugeTensor.GaugeGroup × WeylSpinor.Group) × R
-
-def projection : PhysicalGroup R →* ReducedGroup R where
-  toFun g := ((g.1.1.2.1, g.1.2), g.2)
-  map_one' := rfl
-  map_mul' _ _ := rfl
-
-theorem projection_surjective : Function.Surjective (projection (R := R)) := by
-  rintro ⟨⟨w,s⟩,r⟩
-  exact ⟨((⟨1,w,1⟩,s),r), rfl⟩
-
-def lepton : Representation ℂ (PhysicalGroup R) (Lepton F) :=
-  external (external StandardSMGaugeTensor.lepton WeylSpinor.left) a
-
-def higgs : Representation ℂ (PhysicalGroup R) Weak :=
-  (StandardSMGaugeTensor.twist StandardSMGaugeTensor.weak 3).comp
-    ((MonoidHom.fst _ _).comp (MonoidHom.fst _ R))
-
-theorem lepton_apply (g : PhysicalGroup R) (x : Lepton F) :
-    lepton a g x = StandardSMGaugeTensor.phase (-3) g.1.1 •
-      WeinbergModelSector.lepton a (projection g) x := by
-  have he : lepton a g = StandardSMGaugeTensor.phase (-3) g.1.1 •
-      WeinbergModelSector.lepton a (projection g) := by
-    apply TensorProduct.ext
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro w
-    apply LinearMap.ext; intro s
-    apply LinearMap.ext; intro u
-    change ((StandardSMGaugeTensor.phase (-3) g.1.1 •
-      StandardSMGaugeTensor.weak g.1.1 w) ⊗ₜ[ℂ] WeylSpinor.left g.1.2 s) ⊗ₜ[ℂ] a g.2 u = _
-    rw [← TensorProduct.smul_tmul', ← TensorProduct.smul_tmul']
-    rfl
-  exact LinearMap.congr_fun he x
-
-theorem higgs_apply (g : PhysicalGroup R) (x : Weak) :
-    higgs g x = StandardSMGaugeTensor.phase 3 g.1.1 •
-      WeinbergModelSector.higgs (projection g) x := rfl
-
-theorem phases (g : StandardSMGaugeTensor.GaugeGroup) :
-    (StandardSMGaugeTensor.phase (-3) g * StandardSMGaugeTensor.phase (-3) g) *
-      (StandardSMGaugeTensor.phase 3 g * StandardSMGaugeTensor.phase 3 g) = 1 := by
-  have h : (g.2.2 ^ (-3 : ℤ) * g.2.2 ^ (-3 : ℤ)) *
-      (g.2.2 ^ (3 : ℤ) * g.2.2 ^ (3 : ℤ)) = 1 := by group
-  exact congrArg ((↑) : Circle → ℂ) h
-
-def domain := ((lepton a).exteriorPower 2).tprod ((higgs (R := R)).symmetricPower 2)
-abbrev ModelSector := IntertwiningMap (domain a) (Representation.trivial ℂ (PhysicalGroup R) ℂ)
-
-def neutralEquiv : Representation.Equiv (domain a)
-    ((((WeinbergModelSector.lepton a).exteriorPower 2).tprod
-      ((WeinbergModelSector.higgs (R := R)).symmetricPower 2)).comp projection) where
-  toLinearEquiv := LinearEquiv.refl ℂ _
-  isIntertwining' g := by
-    apply TensorProduct.ext
-    apply exteriorPower.linearMap_ext
-    apply AlternatingMap.ext
-    intro x
-    apply LinearMap.ext_on (SymmetricPower.span_tprod_eq_top ℂ (Fin 2) Weak)
-    rintro _ ⟨h, rfl⟩
-    change ((lepton a).exteriorPower 2) g (exteriorPower.ιMulti ℂ 2 x) ⊗ₜ[ℂ]
-      ((higgs (R := R)).symmetricPower 2) g (SymmetricPower.tprod ℂ h) =
-      ((WeinbergModelSector.lepton a).exteriorPower 2) (projection g)
-        (exteriorPower.ιMulti ℂ 2 x) ⊗ₜ[ℂ]
-      ((WeinbergModelSector.higgs (R := R)).symmetricPower 2) (projection g)
-        (SymmetricPower.tprod ℂ h)
-    rw [Representation.exteriorPower_apply_ιMulti, Representation.exteriorPower_apply_ιMulti,
-      Representation.symmetricPower_apply_tprod, Representation.symmetricPower_apply_tprod]
-    simp only [Function.comp_def, lepton_apply, higgs_apply]
-    rw [(exteriorPower.ιMulti ℂ 2).map_smul_univ, (SymmetricPower.tprod ℂ).map_smul_univ]
-    simp only [Fin.prod_univ_two]
-    rw [TensorProduct.smul_tmul_smul, phases, one_smul]
-
-def reducedEquiv : ModelSector a ≃ₗ[ℂ] WeinbergModelSector.ModelSector a :=
-  (InvariantCoefficientTransport.alongEquiv (neutralEquiv a)).trans
-    (InvariantCoefficientTransport.alongSurjection
-      (((WeinbergModelSector.lepton a).exteriorPower 2).tprod
-        ((WeinbergModelSector.higgs (R := R)).symmetricPower 2))
-      (projection (R := R)) projection_surjective)
-
-def homEquiv : ModelSector a ≃ₗ[ℂ]
-    IntertwiningMap (a.symmetricPower 2) (Representation.trivial ℂ R ℂ) :=
-  (reducedEquiv a).trans (WeinbergModelSector.homEquiv a)
-
-def coefficientEquiv : ModelSector a ≃ₗ[ℂ] WeinbergResidualHom.sector a :=
-  (reducedEquiv a).trans (WeinbergModelSector.sectorEquiv a)
-
-theorem coefficientEquiv_apply (f : ModelSector a) (x y : Weak) (s t : WeylSpinor.Space)
-    (u v : F) (h : Fin 2 → Weak) :
-    (coefficientEquiv a f).val (WeinbergResidualHom.input x y h s t u v) =
-      f (exteriorPower.ιMulti ℂ 2 ![(x ⊗ₜ[ℂ] s) ⊗ₜ[ℂ] u, (y ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] v] ⊗ₜ[ℂ]
-        SymmetricPower.tprod ℂ h) :=
-  WeinbergModelSector.sectorEquiv_apply a (reducedEquiv a f) x y s t u v h
-
-theorem exists_nonzero_iff : (∃ f : ModelSector a, f ≠ 0) ↔
-    ∃ k : IntertwiningMap (a.symmetricPower 2) (Representation.trivial ℂ R ℂ), k ≠ 0 := by
-  constructor
-  · rintro ⟨f, hf⟩
-    exact ⟨homEquiv a f, fun h => hf ((homEquiv a).injective (h.trans (map_zero _).symm))⟩
-  · rintro ⟨k, hk⟩
-    exact ⟨(homEquiv a).symm k, fun h =>
-      hk ((homEquiv a).symm.injective (h.trans (map_zero _).symm))⟩
-
-def oneGenerationEquiv : ModelSector (Representation.trivial ℂ R ℂ) ≃ₗ[ℂ] ℂ :=
-  (coefficientEquiv _).trans WeinbergScalarFlavor.oneGenerationEquiv
-
-theorem oneGeneration_finrank : Module.finrank ℂ
-    (ModelSector (Representation.trivial ℂ R ℂ)) = 1 := by
-  rw [oneGenerationEquiv.finrank_eq]
-  exact Module.finrank_self ℂ
-
-def majoranaEquiv (v : ℂ) (hv : v ≠ 0) : ModelSector a ≃ₗ[ℂ]
-    WeinbergMajorana.MassCoefficients a :=
-  (coefficientEquiv a).trans (WeinbergMajorana.evaluationEquiv a v hv)
-
-def mass (v : ℂ) (f : ModelSector a) : InvariantWeylMass.SymmetricMass a :=
-  WeinbergMajorana.mass a v (coefficientEquiv a f)
-
-/-- Actual exterior evaluation at two neutrino directions and a specified neutral VEV. -/
-theorem mass_evaluation (v : ℂ) (f : ModelSector a) (u w : F) :
-    f (exteriorPower.ιMulti ℂ 2
-      ![(weakBasis 0 ⊗ₜ[ℂ] weakBasis 0) ⊗ₜ[ℂ] u,
-        (weakBasis 0 ⊗ₜ[ℂ] weakBasis 1) ⊗ₜ[ℂ] w] ⊗ₜ[ℂ]
-      SymmetricPower.tprod ℂ ![WeinbergMajorana.vacuum v,WeinbergMajorana.vacuum v]) =
-      (mass a v f).form u w := by
-  rw [← coefficientEquiv_apply]
-  exact WeinbergMajorana.evaluation_formula a v (coefficientEquiv a f) u w
-
-theorem mass_nonzero_iff (v : ℂ) (hv : v ≠ 0) (f : ModelSector a) :
-    (mass a v f).form ≠ 0 ↔ f ≠ 0 := by
-  have hz : (mass a v f).form = 0 ↔ majoranaEquiv a v hv f = 0 := by
-    constructor
-    · intro h
-      apply Subtype.ext
-      apply IntertwiningMap.ext
-      apply TensorProduct.ext'
-      intro u w
-      exact LinearMap.congr_fun (LinearMap.congr_fun h u) w
-    · intro h
-      have he := congrArg (fun k : WeinbergMajorana.MassCoefficients a =>
-        TensorProduct.curry k.val.toLinearMap) h
-      exact he
-  exact not_congr (hz.trans (majoranaEquiv a v hv).map_eq_zero_iff)
-
-@[simp] theorem mass_zero_vev (f : ModelSector a) : (mass a 0 f).form = 0 := by
-  ext u w
-  change (0 : ℂ) ^ 2 * _ = 0
-  simp
-
-section ActualFields
-variable {L H : Type*} [AddCommGroup L] [Module ℂ L] [AddCommGroup H] [Module ℂ H]
-  (l : Representation ℂ (PhysicalGroup R) L) (h : Representation ℂ (PhysicalGroup R) H)
-
-abbrev Sector := IntertwiningMap ((l.exteriorPower 2).tprod (h.symmetricPower 2))
-  (Representation.trivial ℂ (PhysicalGroup R) ℂ)
-
-/-- These are field identifications, not a nonzero coefficient or a spanning hypothesis. -/
-structure Inputs where
-  leptonEquiv : Representation.Equiv l (lepton a)
-  higgsEquiv : Representation.Equiv h (higgs (R := R))
-
-def onFieldsModelEquiv (i : Inputs a l h) : Sector l h ≃ₗ[ℂ] ModelSector a :=
-  InvariantCoefficientTransport.alongEquiv
-    (ExternalInvariantTensor.tensorEquiv (i.leptonEquiv.exteriorPower 2)
-      (i.higgsEquiv.symmetricPower 2))
-
-def onFieldsEquiv (i : Inputs a l h) : Sector l h ≃ₗ[ℂ]
-    IntertwiningMap (a.symmetricPower 2) (Representation.trivial ℂ R ℂ) :=
-  (onFieldsModelEquiv a l h i).trans (homEquiv a)
-
-def onFieldsMajoranaEquiv (i : Inputs a l h) (v : ℂ) (hv : v ≠ 0) :
-    Sector l h ≃ₗ[ℂ] WeinbergMajorana.MassCoefficients a :=
-  (onFieldsModelEquiv a l h i).trans (majoranaEquiv a v hv)
-
-theorem exists_on_fields_iff (i : Inputs a l h) : (∃ f : Sector l h, f ≠ 0) ↔
-    ∃ k : IntertwiningMap (a.symmetricPower 2) (Representation.trivial ℂ R ℂ), k ≠ 0 :=
-  ConstrainedCompleteness.exists_nonzero_iff (onFieldsEquiv a l h i)
-
-end ActualFields
-
-end
-end GUT.WeinbergSMInterface
+assert_compatible GUT.WeinbergSMInterface.Inputs => Physics.WeinbergSMInterface.Inputs
+assert_compatible GUT.WeinbergSMInterface.Inputs.casesOn => Physics.WeinbergSMInterface.Inputs.casesOn
+assert_compatible GUT.WeinbergSMInterface.Inputs.ctorIdx => Physics.WeinbergSMInterface.Inputs.ctorIdx
+assert_compatible GUT.WeinbergSMInterface.Inputs.higgsEquiv => Physics.WeinbergSMInterface.Inputs.higgsEquiv
+assert_compatible GUT.WeinbergSMInterface.Inputs.leptonEquiv => Physics.WeinbergSMInterface.Inputs.leptonEquiv
+assert_compatible GUT.WeinbergSMInterface.Inputs.mk => Physics.WeinbergSMInterface.Inputs.mk
+assert_compatible GUT.WeinbergSMInterface.Inputs.mk.inj => Physics.WeinbergSMInterface.Inputs.mk.inj
+assert_compatible GUT.WeinbergSMInterface.Inputs.mk.injEq => Physics.WeinbergSMInterface.Inputs.mk.injEq
+assert_compatible GUT.WeinbergSMInterface.Inputs.mk.noConfusion => Physics.WeinbergSMInterface.Inputs.mk.noConfusion
+assert_compatible GUT.WeinbergSMInterface.Inputs.mk.sizeOf_spec => Physics.WeinbergSMInterface.Inputs.mk.sizeOf_spec
+assert_compatible GUT.WeinbergSMInterface.Inputs.noConfusion => Physics.WeinbergSMInterface.Inputs.noConfusion
+assert_compatible GUT.WeinbergSMInterface.Inputs.noConfusionType => Physics.WeinbergSMInterface.Inputs.noConfusionType
+assert_compatible GUT.WeinbergSMInterface.Inputs.rec => Physics.WeinbergSMInterface.Inputs.rec
+assert_compatible GUT.WeinbergSMInterface.Inputs.recOn => Physics.WeinbergSMInterface.Inputs.recOn
+assert_compatible GUT.WeinbergSMInterface.ModelSector => Physics.WeinbergSMInterface.ModelSector
+assert_compatible GUT.WeinbergSMInterface.PhysicalGroup => Physics.WeinbergSMInterface.PhysicalGroup
+assert_compatible GUT.WeinbergSMInterface.Sector => Physics.WeinbergSMInterface.Sector
+assert_compatible GUT.WeinbergSMInterface.coefficientEquiv => Physics.WeinbergSMInterface.coefficientEquiv
+assert_compatible GUT.WeinbergSMInterface.coefficientEquiv_apply => Physics.WeinbergSMInterface.coefficientEquiv_apply
+assert_compatible GUT.WeinbergSMInterface.domain => Physics.WeinbergSMInterface.domain
+assert_compatible GUT.WeinbergSMInterface.exists_nonzero_iff => Physics.WeinbergSMInterface.exists_nonzero_iff
+assert_compatible GUT.WeinbergSMInterface.exists_on_fields_iff => Physics.WeinbergSMInterface.exists_on_fields_iff
+assert_compatible GUT.WeinbergSMInterface.higgs => Physics.WeinbergSMInterface.higgs
+assert_compatible GUT.WeinbergSMInterface.higgs_apply => Physics.WeinbergSMInterface.higgs_apply
+assert_compatible GUT.WeinbergSMInterface.homEquiv => Physics.WeinbergSMInterface.homEquiv
+assert_compatible GUT.WeinbergSMInterface.instAddCommGroupLepton => Physics.WeinbergSMInterface.instAddCommGroupLepton
+assert_compatible GUT.WeinbergSMInterface.instAddCommGroupTensorProductComplexSubtypeExteriorAlgebraLeptonMemSubmoduleExteriorPowerOfNatNatSymmetricPowerFinWeak => Physics.WeinbergSMInterface.instAddCommGroupTensorProductComplexSubtypeExteriorAlgebraLeptonMemSubmoduleExteriorPowerOfNatNatSymmetricPowerFinWeak
+assert_compatible GUT.WeinbergSMInterface.instAddCommGroupTensorProductComplexWeakSpace => Physics.WeinbergSMInterface.instAddCommGroupTensorProductComplexWeakSpace
+assert_compatible GUT.WeinbergSMInterface.lepton => Physics.WeinbergSMInterface.lepton
+assert_compatible GUT.WeinbergSMInterface.lepton_apply => Physics.WeinbergSMInterface.lepton_apply
+assert_compatible GUT.WeinbergSMInterface.majoranaEquiv => Physics.WeinbergSMInterface.majoranaEquiv
+assert_compatible GUT.WeinbergSMInterface.mass => Physics.WeinbergSMInterface.mass
+assert_compatible GUT.WeinbergSMInterface.mass_evaluation => Physics.WeinbergSMInterface.mass_evaluation
+assert_compatible GUT.WeinbergSMInterface.mass_nonzero_iff => Physics.WeinbergSMInterface.mass_nonzero_iff
+assert_compatible GUT.WeinbergSMInterface.mass_zero_vev => Physics.WeinbergSMInterface.mass_zero_vev
+assert_compatible GUT.WeinbergSMInterface.neutralEquiv => Physics.WeinbergSMInterface.neutralEquiv
+assert_compatible GUT.WeinbergSMInterface.onFieldsEquiv => Physics.WeinbergSMInterface.onFieldsEquiv
+assert_compatible GUT.WeinbergSMInterface.onFieldsMajoranaEquiv => Physics.WeinbergSMInterface.onFieldsMajoranaEquiv
+assert_compatible GUT.WeinbergSMInterface.onFieldsModelEquiv => Physics.WeinbergSMInterface.onFieldsModelEquiv
+assert_compatible GUT.WeinbergSMInterface.oneGenerationEquiv => Physics.WeinbergSMInterface.oneGenerationEquiv
+assert_compatible GUT.WeinbergSMInterface.oneGeneration_finrank => Physics.WeinbergSMInterface.oneGeneration_finrank
+assert_compatible GUT.WeinbergSMInterface.phases => Physics.WeinbergSMInterface.phases
+assert_compatible GUT.WeinbergSMInterface.projection => Physics.WeinbergSMInterface.projection
+assert_compatible GUT.WeinbergSMInterface.projection_surjective => Physics.WeinbergSMInterface.projection_surjective
+assert_compatible GUT.WeinbergSMInterface.reducedEquiv => Physics.WeinbergSMInterface.reducedEquiv

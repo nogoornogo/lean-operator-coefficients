@@ -1,5 +1,7 @@
 import GUT.SU5.Branching.ExoticHyperchargeBasis
 
+open Physics
+
 namespace GUT.SU5.FortyHyperchargeExclusion
 set_option autoImplicit false
 noncomputable section
@@ -120,7 +122,7 @@ theorem original_hom_zero {V : Type*} [AddCommGroup V] [Module ℂ V]
 
 theorem no_pairings_forty {V : Type*} [AddCommGroup V] [Module ℂ V]
     (r : Representation ℂ GaugeGroup V) (y : ℤ) (hr : HasHypercharge r y)
-    (hy : y ∈ ([1,-4,6] : List ℤ)) : GUT.BipartiteNormalForm.NoPairings r forty := by
+    (hy : y ∈ ([1,-4,6] : List ℤ)) : Physics.BipartiteNormalForm.NoPairings r forty := by
   intro f
   let e := SplitRepresentationProjection.bidualEquiv original
   have he := original_hom_zero r y hr hy (e.symm.toIntertwiningMap.comp f)
@@ -135,9 +137,9 @@ theorem forty_eq_actual_restriction : forty = ExoticWedgeKernel.representation.c
   (SplitRepresentationProjection.dual_comp ExoticWedgeKernel.kernel.toRepresentation hom).symm
 
 theorem selected_no_pairings :
-    GUT.BipartiteNormalForm.NoPairings quark forty ∧
-    GUT.BipartiteNormalForm.NoPairings upRight.dual forty ∧
-    GUT.BipartiteNormalForm.NoPairings electronRight.dual forty :=
+    Physics.BipartiteNormalForm.NoPairings quark forty ∧
+    Physics.BipartiteNormalForm.NoPairings upRight.dual forty ∧
+    Physics.BipartiteNormalForm.NoPairings electronRight.dual forty :=
   ⟨no_pairings_forty quark 1 quark_hypercharge (by decide),
     no_pairings_forty upRight.dual (-4) upLeft_hypercharge (by decide),
     no_pairings_forty electronRight.dual 6 electronLeft_hypercharge (by decide)⟩

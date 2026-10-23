@@ -1,5 +1,7 @@
 import GUT.SU5.SelectionRules.SupportedQuotient
 
+open Physics
+
 open Math
 
 /-!

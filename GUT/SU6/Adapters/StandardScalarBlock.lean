@@ -1,6 +1,9 @@
 import Math.RepresentationTheory.Decomposition.FirstSummandEmbedding
 import GUT.SU6.SelectionRules.Models.StandardSMUVFields
 import GUT.SU6.SelectionRules.Models.StandardSMUVCoordinates
+import Physics.FieldTheory.Mass.Algebra.ProjectedWeylMass
+
+open Physics
 
 /-! Action of a supplied diagonal scalar-block SU(6) element on the
 actual standard branching. No homomorphic lift is assumed. -/
@@ -110,9 +113,16 @@ set_option backward.isDefEq.respectTransparency false in
 theorem embedding_mem_radical (x : Blocks)
     (hc : x.2.2.2.1 = 0) (hw : x.2.2.2.2 = 0) :
     embedding x ∈ (StandardSMUVMass.mass Unit).radical.toSubmodule := by
-  rw [StandardSMUVMass.mem_radical_iff, StandardSMUVFields.withResidualEquiv_apply]
-  rw [embedding_decomposed]
-  rw [StandardSMFullGaugeMass.mem_radical_iff]
+  apply ProjectedWeylMass.mem_radical_of_projection
+    (StandardSMUVMass.mass Unit) StandardSMUVFields.gaugeEquiv.toLinearEquiv
+    ((StandardSMUVCoordinates.mass_form_gauge Unit).trans
+      (ProjectedWeylMass.form_eq_split StandardSMUVFields.gaugeEquiv.toLinearEquiv
+        (StandardSMFullGaugeMass.lightRho (StandardSMUVFields.neutralCharges Unit))
+        (StandardSMFullGaugeMass.heavyRho Unit)).symm)
+  rw [ProjectedWeylMass.projection_apply]
+  have he := embedding_decomposed x
+  rw [StandardSMUVCoordinates.equiv_apply] at he
+  rw [he]
   simp [StandardSMUVFields.reorder, hc, hw, StandardSMUVFields.singletEquiv]
 
 end

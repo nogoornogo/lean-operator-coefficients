@@ -1,29 +1,16 @@
+import Physics.StandardModel.Operators.Dipole.DipolePermutationCompleteness
 import Physics.StandardModel.Operators.DipoleSMCoefficient
 import Math.LinearAlgebra.StatisticalCompleteness
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Dipole.DipolePermutationCompleteness instead." (since := "source-api-v1")
 
-/-! The prescribed ordered dipole channels have no repeated-field exchange
-generators. They are the empty-generator specialization, not an exterior sector.
-Finite dimension remains confined to the existing electron-dual/Hom adapter. -/
-namespace GUT.DipolePermutationCompleteness
-set_option autoImplicit false
-noncomputable section
-open Representation
-variable {H A B : Type*} [Group H]
-  [AddCommGroup A] [Module ℂ A] [AddCommGroup B] [Module ℂ B]
-  [FiniteDimensional ℂ B]
-  (a : Representation ℂ H A) (b : Representation ℂ H B)
+compatibility_declarations [
+  GUT.DipolePermutationCompleteness.equiv => Physics.DipolePermutationCompleteness.equiv,
+  GUT.DipolePermutationCompleteness.equiv_agrees => Physics.DipolePermutationCompleteness.equiv_agrees,
+  GUT.DipolePermutationCompleteness.inverse_agrees => Physics.DipolePermutationCompleteness.inverse_agrees
+]
 
-def equiv : (DipoleSMCoefficient.SectorB a b × DipoleSMCoefficient.SectorW a b) ≃ₗ[ℂ]
-    (IntertwiningMap a b × IntertwiningMap a b) :=
-  StatisticalCompleteness.noExchanges (DipoleSMCoefficient.equiv a b)
-
-theorem equiv_agrees : equiv a b = DipoleSMCoefficient.equiv a b :=
-  StatisticalCompleteness.noExchanges_agrees _
-
-theorem inverse_agrees : (equiv a b).symm = (DipoleSMCoefficient.equiv a b).symm := by
-  rw [equiv_agrees]
-
-end
-end GUT.DipolePermutationCompleteness
+assert_compatible GUT.DipolePermutationCompleteness.equiv => Physics.DipolePermutationCompleteness.equiv
+assert_compatible GUT.DipolePermutationCompleteness.equiv_agrees => Physics.DipolePermutationCompleteness.equiv_agrees
+assert_compatible GUT.DipolePermutationCompleteness.inverse_agrees => Physics.DipolePermutationCompleteness.inverse_agrees

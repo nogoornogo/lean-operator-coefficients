@@ -2,7 +2,7 @@
 
 ## Actual-Mass Statement
 
-[PhysicalSpeciesCopySurplus](../../../../../Physics/FieldTheory/Mass/PhysicalSpeciesCopySurplus.lean)
+[PhysicalSpeciesCopySurplus](../../../../../Physics/FieldTheory/Mass/Surplus/PhysicalSpeciesCopySurplus.lean)
 reuses the existing Species construction separately for Q,uc,ec. Each has its
 own finite source A_i, target C_i, copy representations and mass map M_i. The
 actual field F, action rho of the SM covering group × H, and original invariant
@@ -24,7 +24,7 @@ symmetric B when a fixed model derives a Realization for every B.
 
 ## Derived All-Mass Constructor
 
-[SpeciesSectorPresentation](../../../../../Physics/FieldTheory/Mass/SpeciesSectorPresentation.lean)
+[SpeciesSectorPresentation](../../../../../Physics/FieldTheory/Mass/Surplus/SpeciesSectorPresentation.lean)
 provides a mass-independent sector presentation, separately for each species:
 
 ```
@@ -35,7 +35,7 @@ It requires NoPairings from the source sector to itself and to rest_i, plus
 factorization of allowed gauge pairings. `ofIrreducible` derives factorization
 from finite gauge irreducibility by the shared Schur theorem; it does not ask
 for a mass-dependent factorization certificate. For the fixed Q/uc/ec gauge
-representations, [StandardSMIrreducibility](../../../../../Physics/StandardModel/Gauge/StandardSMIrreducibility.lean)
+representations, [StandardSMIrreducibility](../../../../../Physics/StandardModel/Gauge/Tensors/StandardSMIrreducibility.lean)
 already proves the needed irreducibility facts. A field decomposition and the
 NoPairings conditions still must be justified for a chosen dictionary.
 
@@ -67,7 +67,7 @@ post-EW mixing and all-loop stability remain model obligations.
 A nonzero allowed coefficient does not establish generation, matching or decay.
 
 See the [math dossier](../../inputs/Math/SPECIES_COPY_SURPLUS.md),
-[strict audit](../../../../../Physics/FieldTheory/Mass/Audit/AuditPhysicalSpeciesCopySurplus.lean),
+[strict audit](../../../../../Physics/FieldTheory/Mass/Surplus/Audit/AuditPhysicalSpeciesCopySurplus.lean),
 [exact controls](../../../../../tools/species-copy-surplus/README.md),
 and [verification](../../../../topics/species-copy-surplus/verification.md).
 

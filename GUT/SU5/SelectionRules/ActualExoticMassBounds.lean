@@ -1,5 +1,7 @@
 import GUT.SU5.Branching.FortyElectronExclusion
-import Physics.FieldTheory.Mass.HomSurplusMass
+import Physics.FieldTheory.Mass.Surplus.HomSurplusMass
+
+open Physics
 
 namespace GUT.SU5.ActualExoticMassBounds
 set_option autoImplicit false

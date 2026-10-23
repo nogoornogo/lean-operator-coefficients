@@ -1,6 +1,8 @@
 import Math.Audit.ImportOrigin
 import GUT.SU5.SelectionRules.SupportedTensors
 
+open Physics
+
 open Math
 
 /-! Persistent source checks: finite generation mixing, repeated characters,

@@ -1,116 +1,119 @@
+import Physics.StandardModel.Operators.BaryonOne.Inputs.DeltaLOneSpeciesSupport
 import Physics.StandardModel.Operators.StandardModelLocalOperator
+import Math.Lean.Compatibility
 
-/-! Arithmetic support of signed four-fermion species.
-The hypotheses below are numerical necessary conditions; this file does not
-assume or claim that their derivation from group invariance is already proved. -/
-namespace GUT.DeltaLOneSpeciesSupport
-set_option autoImplicit false
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.Inputs.DeltaLOneSpeciesSupport instead." (since := "source-api-v1")
 
-/-- Counts of physical fields followed by counts of their conjugates. -/
-structure Counts where
-  q : ℕ
-  u : ℕ
-  d : ℕ
-  l : ℕ
-  e : ℕ
-  cq : ℕ
-  cu : ℕ
-  cd : ℕ
-  cl : ℕ
-  ce : ℕ
-  deriving DecidableEq
+compatibility_declarations [
+  GUT.DeltaLOneSpeciesSupport.Admissible => Physics.DeltaLOneSpeciesSupport.Admissible,
+  GUT.DeltaLOneSpeciesSupport.Admissible.eq_1 => Physics.DeltaLOneSpeciesSupport.Admissible.eq_1,
+  GUT.DeltaLOneSpeciesSupport.Counts => Physics.DeltaLOneSpeciesSupport.Counts,
+  GUT.DeltaLOneSpeciesSupport.Counts.casesOn => Physics.DeltaLOneSpeciesSupport.Counts.casesOn,
+  GUT.DeltaLOneSpeciesSupport.Counts.cd => Physics.DeltaLOneSpeciesSupport.Counts.cd,
+  GUT.DeltaLOneSpeciesSupport.Counts.ce => Physics.DeltaLOneSpeciesSupport.Counts.ce,
+  GUT.DeltaLOneSpeciesSupport.Counts.cl => Physics.DeltaLOneSpeciesSupport.Counts.cl,
+  GUT.DeltaLOneSpeciesSupport.Counts.cq => Physics.DeltaLOneSpeciesSupport.Counts.cq,
+  GUT.DeltaLOneSpeciesSupport.Counts.ctorIdx => Physics.DeltaLOneSpeciesSupport.Counts.ctorIdx,
+  GUT.DeltaLOneSpeciesSupport.Counts.cu => Physics.DeltaLOneSpeciesSupport.Counts.cu,
+  GUT.DeltaLOneSpeciesSupport.Counts.d => Physics.DeltaLOneSpeciesSupport.Counts.d,
+  GUT.DeltaLOneSpeciesSupport.Counts.e => Physics.DeltaLOneSpeciesSupport.Counts.e,
+  GUT.DeltaLOneSpeciesSupport.Counts.l => Physics.DeltaLOneSpeciesSupport.Counts.l,
+  GUT.DeltaLOneSpeciesSupport.Counts.mk => Physics.DeltaLOneSpeciesSupport.Counts.mk,
+  GUT.DeltaLOneSpeciesSupport.Counts.mk.inj => Physics.DeltaLOneSpeciesSupport.Counts.mk.inj,
+  GUT.DeltaLOneSpeciesSupport.Counts.mk.injEq => Physics.DeltaLOneSpeciesSupport.Counts.mk.injEq,
+  GUT.DeltaLOneSpeciesSupport.Counts.mk.noConfusion => Physics.DeltaLOneSpeciesSupport.Counts.mk.noConfusion,
+  GUT.DeltaLOneSpeciesSupport.Counts.mk.sizeOf_spec => Physics.DeltaLOneSpeciesSupport.Counts.mk.sizeOf_spec,
+  GUT.DeltaLOneSpeciesSupport.Counts.noConfusion => Physics.DeltaLOneSpeciesSupport.Counts.noConfusion,
+  GUT.DeltaLOneSpeciesSupport.Counts.noConfusionType => Physics.DeltaLOneSpeciesSupport.Counts.noConfusionType,
+  GUT.DeltaLOneSpeciesSupport.Counts.q => Physics.DeltaLOneSpeciesSupport.Counts.q,
+  GUT.DeltaLOneSpeciesSupport.Counts.rec => Physics.DeltaLOneSpeciesSupport.Counts.rec,
+  GUT.DeltaLOneSpeciesSupport.Counts.recOn => Physics.DeltaLOneSpeciesSupport.Counts.recOn,
+  GUT.DeltaLOneSpeciesSupport.Counts.u => Physics.DeltaLOneSpeciesSupport.Counts.u,
+  GUT.DeltaLOneSpeciesSupport.GaugeAdmissible => Physics.DeltaLOneSpeciesSupport.GaugeAdmissible,
+  GUT.DeltaLOneSpeciesSupport.GaugeAdmissible.eq_1 => Physics.DeltaLOneSpeciesSupport.GaugeAdmissible.eq_1,
+  GUT.DeltaLOneSpeciesSupport.admissible_iff => Physics.DeltaLOneSpeciesSupport.admissible_iff,
+  GUT.DeltaLOneSpeciesSupport.antiDddE => Physics.DeltaLOneSpeciesSupport.antiDddE,
+  GUT.DeltaLOneSpeciesSupport.antiDddE.eq_1 => Physics.DeltaLOneSpeciesSupport.antiDddE.eq_1,
+  GUT.DeltaLOneSpeciesSupport.antiQddL => Physics.DeltaLOneSpeciesSupport.antiQddL,
+  GUT.DeltaLOneSpeciesSupport.antiQddL.eq_1 => Physics.DeltaLOneSpeciesSupport.antiQddL.eq_1,
+  GUT.DeltaLOneSpeciesSupport.baryonDegree_of_admissible => Physics.DeltaLOneSpeciesSupport.baryonDegree_of_admissible,
+  GUT.DeltaLOneSpeciesSupport.duql => Physics.DeltaLOneSpeciesSupport.duql,
+  GUT.DeltaLOneSpeciesSupport.duql.eq_1 => Physics.DeltaLOneSpeciesSupport.duql.eq_1,
+  GUT.DeltaLOneSpeciesSupport.duue => Physics.DeltaLOneSpeciesSupport.duue,
+  GUT.DeltaLOneSpeciesSupport.duue.eq_1 => Physics.DeltaLOneSpeciesSupport.duue.eq_1,
+  GUT.DeltaLOneSpeciesSupport.excluded_candidates_leftSlots => Physics.DeltaLOneSpeciesSupport.excluded_candidates_leftSlots,
+  GUT.DeltaLOneSpeciesSupport.gauge_admissible_iff => Physics.DeltaLOneSpeciesSupport.gauge_admissible_iff,
+  GUT.DeltaLOneSpeciesSupport.instDecidableEqCounts => Physics.DeltaLOneSpeciesSupport.instDecidableEqCounts,
+  GUT.DeltaLOneSpeciesSupport.instDecidableEqCounts.decEq => Physics.DeltaLOneSpeciesSupport.instDecidableEqCounts.decEq,
+  GUT.DeltaLOneSpeciesSupport.leftSlots => Physics.DeltaLOneSpeciesSupport.leftSlots,
+  GUT.DeltaLOneSpeciesSupport.leftSlots.eq_1 => Physics.DeltaLOneSpeciesSupport.leftSlots.eq_1,
+  GUT.DeltaLOneSpeciesSupport.leptonDegree => Physics.DeltaLOneSpeciesSupport.leptonDegree,
+  GUT.DeltaLOneSpeciesSupport.leptonDegree.eq_1 => Physics.DeltaLOneSpeciesSupport.leptonDegree.eq_1,
+  GUT.DeltaLOneSpeciesSupport.no_conjugates => Physics.DeltaLOneSpeciesSupport.no_conjugates,
+  GUT.DeltaLOneSpeciesSupport.qqql => Physics.DeltaLOneSpeciesSupport.qqql,
+  GUT.DeltaLOneSpeciesSupport.qqql.eq_1 => Physics.DeltaLOneSpeciesSupport.qqql.eq_1,
+  GUT.DeltaLOneSpeciesSupport.qque => Physics.DeltaLOneSpeciesSupport.qque,
+  GUT.DeltaLOneSpeciesSupport.qque.eq_1 => Physics.DeltaLOneSpeciesSupport.qque.eq_1,
+  GUT.DeltaLOneSpeciesSupport.sixHypercharge => Physics.DeltaLOneSpeciesSupport.sixHypercharge,
+  GUT.DeltaLOneSpeciesSupport.sixHypercharge.eq_1 => Physics.DeltaLOneSpeciesSupport.sixHypercharge.eq_1,
+  GUT.DeltaLOneSpeciesSupport.slotCount => Physics.DeltaLOneSpeciesSupport.slotCount,
+  GUT.DeltaLOneSpeciesSupport.slotCount.eq_1 => Physics.DeltaLOneSpeciesSupport.slotCount.eq_1,
+  GUT.DeltaLOneSpeciesSupport.threeBaryonDegree => Physics.DeltaLOneSpeciesSupport.threeBaryonDegree,
+  GUT.DeltaLOneSpeciesSupport.threeBaryonDegree.eq_1 => Physics.DeltaLOneSpeciesSupport.threeBaryonDegree.eq_1
+]
 
-def slotCount (n : Counts) : ℕ :=
-  n.q + n.u + n.d + n.l + n.e + n.cq + n.cu + n.cd + n.cl + n.ce
-
-def leptonDegree (n : Counts) : ℤ := n.l + n.e - n.cl - n.ce
-def threeBaryonDegree (n : Counts) : ℤ := n.q + n.u + n.d - n.cq - n.cu - n.cd
-def sixHypercharge (n : Counts) : ℤ :=
-  n.q + 4 * n.u - 2 * n.d - 3 * n.l - 6 * n.e -
-    n.cq - 4 * n.cu + 2 * n.cd + 3 * n.cl + 6 * n.ce
-def leftSlots (n : Counts) : ℕ := n.q + n.l + n.cu + n.cd + n.ce
-
-def duql : Counts := ⟨1,1,1,1,0,0,0,0,0,0⟩
-def qque : Counts := ⟨2,1,0,0,1,0,0,0,0,0⟩
-def qqql : Counts := ⟨3,0,0,1,0,0,0,0,0,0⟩
-def duue : Counts := ⟨0,2,1,0,1,0,0,0,0,0⟩
-
-/-- The two gauge-compatible candidates excluded by the Weyl action. -/
-def antiQddL : Counts := ⟨0,0,0,1,0,1,0,2,0,0⟩
-def antiDddE : Counts := ⟨0,0,0,0,1,0,0,3,0,0⟩
-
-def GaugeAdmissible (n : Counts) : Prop :=
-  slotCount n = 4 ∧ leptonDegree n = 1 ∧ sixHypercharge n = 0 ∧
-    threeBaryonDegree n % 3 = 0
-
-/-- Separate the gauge arithmetic from the genuinely Lorentz-theoretic exclusion. -/
-theorem gauge_admissible_iff (n : Counts) : GaugeAdmissible n ↔
-    n = duql ∨ n = qque ∨ n = qqql ∨ n = duue ∨ n = antiQddL ∨ n = antiDddE := by
-  rcases n with ⟨q,u,d,l,e,cq,cu,cd,cl,ce⟩
-  simp only [GaugeAdmissible, slotCount, leptonDegree, sixHypercharge,
-    threeBaryonDegree, duql, qque, qqql, duue, antiQddL, antiDddE, Counts.mk.injEq]
-  constructor
-  · rintro ⟨hn, hl, hy, hb⟩
-    have hB : (q : ℤ) + u + d - cq - cu - cd = -3 ∨
-        (q : ℤ) + u + d - cq - cu - cd = 0 ∨
-        (q : ℤ) + u + d - cq - cu - cd = 3 := by omega
-    rcases hB with hB | hB | hB
-    · have hz : q = 0 ∧ u = 0 ∧ d = 0 ∧ cl = 0 ∧ ce = 0 := by omega
-      rcases hz with ⟨rfl,rfl,rfl,rfl,rfl⟩
-      have he : e = 0 ∨ e = 1 := by omega
-      rcases he with rfl | rfl
-      · right; right; right; right; left; omega
-      · right; right; right; right; right; omega
-    · omega
-    · have hz : cq = 0 ∧ cu = 0 ∧ cd = 0 ∧ cl = 0 ∧ ce = 0 := by omega
-      rcases hz with ⟨rfl,rfl,rfl,rfl,rfl⟩
-      have hq : q = 0 ∨ q = 1 ∨ q = 2 ∨ q = 3 := by omega
-      rcases hq with rfl | rfl | rfl | rfl
-      · right; right; right; left; omega
-      · left; omega
-      · right; left; omega
-      · right; right; left; omega
-  · intro h
-    rcases h with h | h | h | h | h | h <;> omega
-
-theorem excluded_candidates_leftSlots :
-    leftSlots antiQddL = 3 ∧ leftSlots antiDddE = 3 := by constructor <;> rfl
-
-/-- This is an arithmetic predicate, not the definition of an invariant sector. -/
-def Admissible (n : Counts) : Prop :=
-  slotCount n = 4 ∧ leptonDegree n = 1 ∧ sixHypercharge n = 0 ∧
-    threeBaryonDegree n % 3 = 0 ∧ leftSlots n % 2 = 0
-
-theorem admissible_iff (n : Counts) : Admissible n ↔
-    n = duql ∨ n = qque ∨ n = qqql ∨ n = duue := by
-  rcases n with ⟨q,u,d,l,e,cq,cu,cd,cl,ce⟩
-  simp only [Admissible, slotCount, leptonDegree, sixHypercharge,
-    threeBaryonDegree, leftSlots, duql, qque, qqql, duue, Counts.mk.injEq]
-  constructor
-  · rintro ⟨hn, hl, hy, hb, hs⟩
-    have hp : q + l + cu + cd + ce = 0 ∨ q + l + cu + cd + ce = 2 ∨
-        q + l + cu + cd + ce = 4 := by omega
-    have hB : (q : ℤ) + u + d - cq - cu - cd = -3 ∨
-        (q : ℤ) + u + d - cq - cu - cd = 0 ∨
-        (q : ℤ) + u + d - cq - cu - cd = 3 := by omega
-    have hpos : (q : ℤ) + u + d - cq - cu - cd = 3 := by
-      rcases hB with hB | hB | hB
-      · rcases hp with hp | hp | hp <;> omega
-      · omega
-      · exact hB
-    have hzero : cq = 0 ∧ cu = 0 ∧ cd = 0 ∧ cl = 0 ∧ ce = 0 := by omega
-    rcases hzero with ⟨rfl,rfl,rfl,rfl,rfl⟩
-    have hq : q = 0 ∨ q = 1 ∨ q = 2 ∨ q = 3 := by omega
-    rcases hq with rfl | rfl | rfl | rfl <;> omega
-  · intro h
-    rcases h with h | h | h | h <;> omega
-
-theorem baryonDegree_of_admissible (n : Counts) (h : Admissible n) :
-    threeBaryonDegree n = 3 := by
-  rcases (admissible_iff n).mp h with rfl | rfl | rfl | rfl <;> rfl
-
-theorem no_conjugates (n : Counts) (h : Admissible n) :
-    n.cq + n.cu + n.cd + n.cl + n.ce = 0 := by
-  rcases (admissible_iff n).mp h with rfl | rfl | rfl | rfl <;> rfl
-
-end GUT.DeltaLOneSpeciesSupport
+assert_compatible GUT.DeltaLOneSpeciesSupport.Admissible => Physics.DeltaLOneSpeciesSupport.Admissible
+assert_compatible GUT.DeltaLOneSpeciesSupport.Admissible.eq_1 => Physics.DeltaLOneSpeciesSupport.Admissible.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts => Physics.DeltaLOneSpeciesSupport.Counts
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.casesOn => Physics.DeltaLOneSpeciesSupport.Counts.casesOn
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.cd => Physics.DeltaLOneSpeciesSupport.Counts.cd
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.ce => Physics.DeltaLOneSpeciesSupport.Counts.ce
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.cl => Physics.DeltaLOneSpeciesSupport.Counts.cl
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.cq => Physics.DeltaLOneSpeciesSupport.Counts.cq
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.ctorIdx => Physics.DeltaLOneSpeciesSupport.Counts.ctorIdx
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.cu => Physics.DeltaLOneSpeciesSupport.Counts.cu
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.d => Physics.DeltaLOneSpeciesSupport.Counts.d
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.e => Physics.DeltaLOneSpeciesSupport.Counts.e
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.l => Physics.DeltaLOneSpeciesSupport.Counts.l
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.mk => Physics.DeltaLOneSpeciesSupport.Counts.mk
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.mk.inj => Physics.DeltaLOneSpeciesSupport.Counts.mk.inj
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.mk.injEq => Physics.DeltaLOneSpeciesSupport.Counts.mk.injEq
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.mk.noConfusion => Physics.DeltaLOneSpeciesSupport.Counts.mk.noConfusion
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.mk.sizeOf_spec => Physics.DeltaLOneSpeciesSupport.Counts.mk.sizeOf_spec
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.noConfusion => Physics.DeltaLOneSpeciesSupport.Counts.noConfusion
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.noConfusionType => Physics.DeltaLOneSpeciesSupport.Counts.noConfusionType
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.q => Physics.DeltaLOneSpeciesSupport.Counts.q
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.rec => Physics.DeltaLOneSpeciesSupport.Counts.rec
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.recOn => Physics.DeltaLOneSpeciesSupport.Counts.recOn
+assert_compatible GUT.DeltaLOneSpeciesSupport.Counts.u => Physics.DeltaLOneSpeciesSupport.Counts.u
+assert_compatible GUT.DeltaLOneSpeciesSupport.GaugeAdmissible => Physics.DeltaLOneSpeciesSupport.GaugeAdmissible
+assert_compatible GUT.DeltaLOneSpeciesSupport.GaugeAdmissible.eq_1 => Physics.DeltaLOneSpeciesSupport.GaugeAdmissible.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.admissible_iff => Physics.DeltaLOneSpeciesSupport.admissible_iff
+assert_compatible GUT.DeltaLOneSpeciesSupport.antiDddE => Physics.DeltaLOneSpeciesSupport.antiDddE
+assert_compatible GUT.DeltaLOneSpeciesSupport.antiDddE.eq_1 => Physics.DeltaLOneSpeciesSupport.antiDddE.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.antiQddL => Physics.DeltaLOneSpeciesSupport.antiQddL
+assert_compatible GUT.DeltaLOneSpeciesSupport.antiQddL.eq_1 => Physics.DeltaLOneSpeciesSupport.antiQddL.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.baryonDegree_of_admissible => Physics.DeltaLOneSpeciesSupport.baryonDegree_of_admissible
+assert_compatible GUT.DeltaLOneSpeciesSupport.duql => Physics.DeltaLOneSpeciesSupport.duql
+assert_compatible GUT.DeltaLOneSpeciesSupport.duql.eq_1 => Physics.DeltaLOneSpeciesSupport.duql.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.duue => Physics.DeltaLOneSpeciesSupport.duue
+assert_compatible GUT.DeltaLOneSpeciesSupport.duue.eq_1 => Physics.DeltaLOneSpeciesSupport.duue.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.excluded_candidates_leftSlots => Physics.DeltaLOneSpeciesSupport.excluded_candidates_leftSlots
+assert_compatible GUT.DeltaLOneSpeciesSupport.gauge_admissible_iff => Physics.DeltaLOneSpeciesSupport.gauge_admissible_iff
+assert_compatible GUT.DeltaLOneSpeciesSupport.instDecidableEqCounts => Physics.DeltaLOneSpeciesSupport.instDecidableEqCounts
+assert_compatible GUT.DeltaLOneSpeciesSupport.instDecidableEqCounts.decEq => Physics.DeltaLOneSpeciesSupport.instDecidableEqCounts.decEq
+assert_compatible GUT.DeltaLOneSpeciesSupport.leftSlots => Physics.DeltaLOneSpeciesSupport.leftSlots
+assert_compatible GUT.DeltaLOneSpeciesSupport.leftSlots.eq_1 => Physics.DeltaLOneSpeciesSupport.leftSlots.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.leptonDegree => Physics.DeltaLOneSpeciesSupport.leptonDegree
+assert_compatible GUT.DeltaLOneSpeciesSupport.leptonDegree.eq_1 => Physics.DeltaLOneSpeciesSupport.leptonDegree.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.no_conjugates => Physics.DeltaLOneSpeciesSupport.no_conjugates
+assert_compatible GUT.DeltaLOneSpeciesSupport.qqql => Physics.DeltaLOneSpeciesSupport.qqql
+assert_compatible GUT.DeltaLOneSpeciesSupport.qqql.eq_1 => Physics.DeltaLOneSpeciesSupport.qqql.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.qque => Physics.DeltaLOneSpeciesSupport.qque
+assert_compatible GUT.DeltaLOneSpeciesSupport.qque.eq_1 => Physics.DeltaLOneSpeciesSupport.qque.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.sixHypercharge => Physics.DeltaLOneSpeciesSupport.sixHypercharge
+assert_compatible GUT.DeltaLOneSpeciesSupport.sixHypercharge.eq_1 => Physics.DeltaLOneSpeciesSupport.sixHypercharge.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.slotCount => Physics.DeltaLOneSpeciesSupport.slotCount
+assert_compatible GUT.DeltaLOneSpeciesSupport.slotCount.eq_1 => Physics.DeltaLOneSpeciesSupport.slotCount.eq_1
+assert_compatible GUT.DeltaLOneSpeciesSupport.threeBaryonDegree => Physics.DeltaLOneSpeciesSupport.threeBaryonDegree
+assert_compatible GUT.DeltaLOneSpeciesSupport.threeBaryonDegree.eq_1 => Physics.DeltaLOneSpeciesSupport.threeBaryonDegree.eq_1

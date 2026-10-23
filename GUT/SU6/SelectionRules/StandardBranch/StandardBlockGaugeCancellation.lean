@@ -4,6 +4,8 @@ import GUT.SU6.SelectionRules.StandardBranch.FiniteResidualActionFactorization
 import GUT.SU6.SelectionRules.Models.StandardPhysicalSpectrumBridge
 import Mathlib.Tactic
 
+open Physics
+
 open Math
 
 /-!

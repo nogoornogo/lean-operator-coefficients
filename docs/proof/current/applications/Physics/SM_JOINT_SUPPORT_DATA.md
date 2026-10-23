@@ -9,16 +9,16 @@ statements, with no Weyl, numerical-rank or supplied occurrence premise.
 
 ## Data and actual presentation
 
-[SMCoreSourceData](../../../../../Physics/StandardModel/Operators/SMCoreSourceData.lean)
+[SMCoreSourceData](../../../../../Physics/StandardModel/Operators/Support/Coordinates/SMCoreSourceData.lean)
 constructs `coreData` directly from the species number and exterior degree.
 It uses the proved mathematical syntax functions for all signed core families,
 including complementary and overflow degrees. `corePresentation` retains the
 actual representation equivalence while placing this executable data in the
 outer `expression` field. Its dependent dispatch chooses equivalences only.
-The generic [reexpression helper](../../../../../Math/RepresentationTheory/JointSourceReexpression.lean)
+The generic [reexpression helper](../../../../../Math/RepresentationTheory/Constructions/JointSourceReexpression.lean)
 uses ordinary equality transport; it adds no decomposition assumption.
 
-[SMJointSupportData](../../../../../Physics/StandardModel/Operators/SMJointSupportData.lean)
+[SMJointSupportData](../../../../../Physics/StandardModel/Operators/Support/Joint/SMJointSupportData.lean)
 uses numeric compact occupation indices and the existing mathematical data
 composition. `expressionData_eq` identifies that expression with the new
 actual presentation. `dataSupport_presented_iff` reindexes all occupations in
@@ -37,7 +37,7 @@ the Cartesian product of branches.
 
 ## Ordinary consumers and trust
 
-[SMJointSupportDataExamples](../../../../../Physics/StandardModel/Operators/SMJointSupportDataExamples.lean)
+[SMJointSupportDataExamples](../../../../../Physics/StandardModel/Operators/Support/Joint/SMJointSupportDataExamples.lean)
 checks generic supplied-component transport and original-space reconstruction,
 plus explicit mixed d,u,Q,L/h=d=0 and Q18/h=0,d=6 source choices. Their allowances
 use existing algebraic family results, then the new interface. The independent
@@ -45,7 +45,7 @@ chirality exclusion gives the Q/conjugate-Q negative. No decision tactic,
 Boolean-reflection proof or external numerical certificate is added. Existing
 mathematical/family proofs are reused as already checked lemmas.
 
-The [persistent audit](../../../../../Physics/StandardModel/Operators/Audit/AuditSMJointSupportData.lean)
+The [persistent audit](../../../../../Physics/StandardModel/Operators/Support/Joint/Audit/AuditSMJointSupportData.lean)
 checks all new named Physics interfaces/consumers and imports the two-declaration
 Math helper audit. Only `propext`, `Classical.choice` and `Quot.sound` are allowed
 transitively; there are no exceptions. Source review separately enforces the

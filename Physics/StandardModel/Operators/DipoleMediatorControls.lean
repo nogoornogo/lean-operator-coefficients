@@ -1,63 +1,44 @@
+import Physics.StandardModel.Operators.Dipole.DipoleMediatorControls
 import Physics.StandardModel.Operators.DipoleMediatorPaths
 import Physics.StandardModel.Operators.DipoleControls
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Dipole.DipoleMediatorControls instead." (since := "source-api-v1")
 
-/-! Two opposing mediator paths with nonlinear square weights. An algebraic
-sample only: no UV matching, mass-basis identification or photon amplitude. -/
-namespace GUT.DipoleMediatorControls
-set_option autoImplicit false
-noncomputable section
-open Representation DipoleControls
+compatibility_declarations [
+  GUT.DipoleMediatorControls.cancellation => Physics.DipoleMediatorControls.cancellation,
+  GUT.DipoleMediatorControls.each_path_nonzero => Physics.DipoleMediatorControls.each_path_nonzero,
+  GUT.DipoleMediatorControls.generation => Physics.DipoleMediatorControls.generation,
+  GUT.DipoleMediatorControls.generation.eq_1 => Physics.DipoleMediatorControls.generation.eq_1,
+  GUT.DipoleMediatorControls.incoming => Physics.DipoleMediatorControls.incoming,
+  GUT.DipoleMediatorControls.incoming.eq_1 => Physics.DipoleMediatorControls.incoming.eq_1,
+  GUT.DipoleMediatorControls.nonzero_iff => Physics.DipoleMediatorControls.nonzero_iff,
+  GUT.DipoleMediatorControls.outgoing => Physics.DipoleMediatorControls.outgoing,
+  GUT.DipoleMediatorControls.outgoing.eq_1 => Physics.DipoleMediatorControls.outgoing.eq_1,
+  GUT.DipoleMediatorControls.realized => Physics.DipoleMediatorControls.realized,
+  GUT.DipoleMediatorControls.restricted_family_vanishes => Physics.DipoleMediatorControls.restricted_family_vanishes,
+  GUT.DipoleMediatorControls.selected => Physics.DipoleMediatorControls.selected,
+  GUT.DipoleMediatorControls.weakOutgoing => Physics.DipoleMediatorControls.weakOutgoing,
+  GUT.DipoleMediatorControls.weakOutgoing.eq_1 => Physics.DipoleMediatorControls.weakOutgoing.eq_1,
+  GUT.DipoleMediatorControls.weights => Physics.DipoleMediatorControls.weights,
+  GUT.DipoleMediatorControls.weights.eq_1 => Physics.DipoleMediatorControls.weights.eq_1,
+  GUT.DipoleMediatorControls.weights_isolate => Physics.DipoleMediatorControls.weights_isolate
+]
 
-def incoming (_ : Fin 2) : IntertwiningMap flavor flavor := IntertwiningMap.id flavor
-def outgoing (i : Fin 2) : IntertwiningMap flavor flavor :=
-  if i = 0 then bridge else -bridge
-def weakOutgoing (_ : Fin 2) : IntertwiningMap flavor flavor := 0
-def weights (x : Fin 2 → ℂ) (i : Fin 2) : ℂ := (x i)^2
-
-def generation (x : Fin 2 → ℂ) : DipoleFlavorSelection.Coefficients flavor flavor :=
-  DipoleMediatorPaths.generation flavor flavor flavor incoming outgoing weakOutgoing weights x
-
-theorem weights_isolate : WeightedSelectedPaths.Isolates weights :=
-  WeightedSelectedPaths.squares_isolate
-
-theorem selected (x : Fin 2 → ℂ) :
-    DipoleFlavorSelection.selector flavor flavor mu electron (generation x) =
-    ((x 0)^2 - (x 1)^2, 0) := by
-  rw [generation, DipoleMediatorPaths.selected]
-  simp [weights, incoming, outgoing, weakOutgoing, Fin.sum_univ_two, sub_eq_add_neg]
-
-theorem nonzero_iff (x : Fin 2 → ℂ) :
-    DipoleFlavorSelection.selector flavor flavor mu electron (generation x) ≠ 0 ↔
-    (x 0)^2 ≠ (x 1)^2 := by
-  rw [selected]
-  simp [sub_eq_zero]
-
-theorem each_path_nonzero (i : Fin 2) :
-    electron (outgoing i (incoming i mu)) ≠ 0 := by
-  simp only [incoming, IntertwiningMap.id_apply, outgoing]
-  split_ifs <;> simp
-
-theorem cancellation :
-    DipoleFlavorSelection.selector flavor flavor mu electron
-      (generation (fun _ => 1)) = 0 := by
-  rw [selected]
-  simp
-
-/-- Restricting the domain to equal coordinates removes every nonzero input,
-despite both mediator paths having nonzero selected composites. -/
-theorem restricted_family_vanishes (z : ℂ) :
-    DipoleFlavorSelection.selector flavor flavor mu electron
-      (generation (fun _ => z)) = 0 := by
-  rw [selected]
-  simp
-
-theorem realized : ∃ x, DipoleFlavorSelection.selector flavor flavor mu electron
-    (generation x) ≠ 0 := by
-  apply (DipoleMediatorPaths.exists_nonzero_iff_path flavor flavor flavor
-    incoming outgoing weakOutgoing weights mu electron weights_isolate).mpr
-  exact ⟨0, Or.inl (each_path_nonzero 0)⟩
-
-end
-end GUT.DipoleMediatorControls
+assert_compatible GUT.DipoleMediatorControls.cancellation => Physics.DipoleMediatorControls.cancellation
+assert_compatible GUT.DipoleMediatorControls.each_path_nonzero => Physics.DipoleMediatorControls.each_path_nonzero
+assert_compatible GUT.DipoleMediatorControls.generation => Physics.DipoleMediatorControls.generation
+assert_compatible GUT.DipoleMediatorControls.generation.eq_1 => Physics.DipoleMediatorControls.generation.eq_1
+assert_compatible GUT.DipoleMediatorControls.incoming => Physics.DipoleMediatorControls.incoming
+assert_compatible GUT.DipoleMediatorControls.incoming.eq_1 => Physics.DipoleMediatorControls.incoming.eq_1
+assert_compatible GUT.DipoleMediatorControls.nonzero_iff => Physics.DipoleMediatorControls.nonzero_iff
+assert_compatible GUT.DipoleMediatorControls.outgoing => Physics.DipoleMediatorControls.outgoing
+assert_compatible GUT.DipoleMediatorControls.outgoing.eq_1 => Physics.DipoleMediatorControls.outgoing.eq_1
+assert_compatible GUT.DipoleMediatorControls.realized => Physics.DipoleMediatorControls.realized
+assert_compatible GUT.DipoleMediatorControls.restricted_family_vanishes => Physics.DipoleMediatorControls.restricted_family_vanishes
+assert_compatible GUT.DipoleMediatorControls.selected => Physics.DipoleMediatorControls.selected
+assert_compatible GUT.DipoleMediatorControls.weakOutgoing => Physics.DipoleMediatorControls.weakOutgoing
+assert_compatible GUT.DipoleMediatorControls.weakOutgoing.eq_1 => Physics.DipoleMediatorControls.weakOutgoing.eq_1
+assert_compatible GUT.DipoleMediatorControls.weights => Physics.DipoleMediatorControls.weights
+assert_compatible GUT.DipoleMediatorControls.weights.eq_1 => Physics.DipoleMediatorControls.weights.eq_1
+assert_compatible GUT.DipoleMediatorControls.weights_isolate => Physics.DipoleMediatorControls.weights_isolate

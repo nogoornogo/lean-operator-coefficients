@@ -2,6 +2,8 @@ import GUT.SU6.Branching.ConcreteSU6Branching
 import GUT.SU6.SelectionRules.StandardBranch.PhysicalChargeResolvedBridge
 import GUT.SU6.Branching.PhysicalSMTorusTarget
 
+open Physics
+
 open Math
 
 /-!

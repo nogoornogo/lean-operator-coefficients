@@ -92,11 +92,11 @@ theorem antifundamental_continuous : Continuous antifundamental :=
 theorem ten_continuous : Continuous ten :=
   FiniteBasisUnitaryModel.model_continuous _ _ _
 
-theorem fundamental_unitary : TauCeti.ContRepresentation.IsUnitary fundamental :=
+theorem fundamental_unitary : ContRepresentation.IsUnitary fundamental :=
   FiniteBasisUnitaryModel.model_unitary _ _ _
-theorem antifundamental_unitary : TauCeti.ContRepresentation.IsUnitary antifundamental :=
+theorem antifundamental_unitary : ContRepresentation.IsUnitary antifundamental :=
   FiniteBasisUnitaryModel.model_unitary _ _ _
-theorem ten_unitary : TauCeti.ContRepresentation.IsUnitary ten :=
+theorem ten_unitary : ContRepresentation.IsUnitary ten :=
   FiniteBasisUnitaryModel.model_unitary _ _ _
 
 @[simp] theorem fiveHilbert_finrank : Module.finrank ℂ FiveHilbert = 5 := by

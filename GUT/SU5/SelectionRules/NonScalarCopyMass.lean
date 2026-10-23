@@ -1,8 +1,10 @@
 import GUT.SU5.SelectionRules.MixedTenMass
-import Physics.FieldTheory.Mass.CommonCopyKernel
-import Physics.FieldTheory.Mass.AlgebraicCommonCopyKernel
+import Physics.FieldTheory.Mass.Surplus.CommonCopyKernel
+import Physics.FieldTheory.Mass.Surplus.AlgebraicCommonCopyKernel
 import Mathlib.RingTheory.Flat.Basic
-import Physics.StandardModel.Operators.PhysicalQqueEndpoint
+import Physics.StandardModel.Operators.BaryonOne.Qque.PhysicalQqueEndpoint
+
+open Physics
 
 /-! Non-scalar common residual copy representations on actual SU(5) tens.
 Species kernels inject equivariantly into the actual Dirac mass radical. -/

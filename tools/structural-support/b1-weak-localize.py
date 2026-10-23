@@ -28,10 +28,10 @@ def main():
         print(marker('before-counts')+old[a:b].replace('private theorem','theorem')+marker('counts-passed'))
         print('end GUT.SMB1WeakLocalization')
     else:
-        source=(ROOT/'Physics/StandardModel/Operators/SMB1WeakDimensionBounds.lean').read_text()
+        source=(ROOT/'Physics/StandardModel/Operators/Support/Dimension/SMB1WeakDimensionBounds.lean').read_text()
         source=re.sub(r'/--[\s\S]*?-/\n','',source)
         source=re.sub(r'^theorem (\w+)',lambda m:marker('before-'+m.group(1))+m.group(0),source,flags=re.M)
-        source=source.replace('end GUT.SMB1WeakDimensionBounds',marker('connection-end-reached')+'end GUT.SMB1WeakDimensionBounds')
+        source=source.replace('end Physics.SMB1WeakDimensionBounds',marker('connection-end-reached')+'end Physics.SMB1WeakDimensionBounds')
         print(source,end='')
 
 if __name__=='__main__':

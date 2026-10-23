@@ -2,6 +2,8 @@ import GUT.SU6.SelectionRules.Models.StandardSMUVYukawa
 import GUT.SU6.SelectionRules.Models.StandardSMUVCoordinates
 import GUT.SU6.Characters.SignedWeylTransposition
 
+open Physics
+
 open Math
 
 /-!

@@ -13,6 +13,9 @@ or proved here.
 
 set_option autoImplicit false
 
+-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.
+set_option Elab.async false
+
 namespace Math.E6.Minuscule
 
 open TauCeti.DynkinType TauCeti.E6Minuscule

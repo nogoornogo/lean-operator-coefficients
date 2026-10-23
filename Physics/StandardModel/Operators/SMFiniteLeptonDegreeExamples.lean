@@ -1,33 +1,19 @@
+import Physics.StandardModel.Operators.Support.Decomposition.SMFiniteLeptonDegreeExamples
 import Physics.StandardModel.Operators.SMFiniteLeptonDegreeBounds
+import Math.Lean.Compatibility
 
-/-! Importing consumers of default-build minima and original-space bounds. -/
-namespace GUT.SMFiniteLeptonDegreeExamples
-open Math SMChargeDegreeBounds SMFiniteLeptonDegreeBounds
+deprecated_module "Use Physics.StandardModel.Operators.Support.Decomposition.SMFiniteLeptonDegreeExamples instead." (since := "source-api-v1")
 
-theorem k101_none : minLepton 3 (10 : ZMod 101) 1=none := by decide +kernel
-theorem k101_minimum : minLepton 3 (28 : ZMod 101) 1=some 17 := by decide +kernel
+compatibility_declarations [
+  GUT.SMFiniteLeptonDegreeExamples.k101_minimum => Physics.SMFiniteLeptonDegreeExamples.k101_minimum,
+  GUT.SMFiniteLeptonDegreeExamples.k101_none => Physics.SMFiniteLeptonDegreeExamples.k101_none,
+  GUT.SMFiniteLeptonDegreeExamples.k3_b1_bounds => Physics.SMFiniteLeptonDegreeExamples.k3_b1_bounds,
+  GUT.SMFiniteLeptonDegreeExamples.k4_b2_bounds => Physics.SMFiniteLeptonDegreeExamples.k4_b2_bounds,
+  GUT.SMFiniteLeptonDegreeExamples.negative_baryon_bound => Physics.SMFiniteLeptonDegreeExamples.negative_baryon_bound
+]
 
-theorem k3_b1_bounds {n : ℕ} (p : Fin n → DeltaLOneSignedInput.Species) (h d : ℕ)
-    (hb : (SMQLPatternRequests.blCharge p).1.natAbs=3)
-    (ha : SelectionCriteria.Allowed
-      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor (0 : ZMod 3) 1) p h d)) :
-    6 ≤ n ∧ 18 ≤ twiceDimension n h d :=
-  high_row_bounds 3 3 ⟨3,0,1,false,false⟩ (by decide +kernel) p h d hb ha
-
-theorem k4_b2_bounds {n : ℕ} (p : Fin n → DeltaLOneSignedInput.Species) (h d : ℕ)
-    (hb : (SMQLPatternRequests.blCharge p).1.natAbs=6)
-    (ha : SelectionCriteria.Allowed
-      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor (1 : ZMod 4) 3) p h d)) :
-    8 ≤ n ∧ 24 ≤ twiceDimension n h d :=
-  high_row_bounds 6 2 ⟨4,1,3,false,false⟩ (by decide +kernel) p h d hb ha
-
-theorem negative_baryon_bound {n : ℕ} (p : Fin n → DeltaLOneSignedInput.Species) (h d : ℕ)
-    (hb : (SMQLPatternRequests.blCharge p).1 = -3)
-    (ha : SelectionCriteria.Allowed
-      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor (28 : ZMod 101) 1) p h d)) :
-    20 ≤ n ∧ 60 ≤ twiceDimension n h d := by
-  apply original_degree_lower 3 (28 : ZMod 101) 1 17 k101_minimum p h d _ ha
-  rw [hb]
-  decide +kernel
-
-end GUT.SMFiniteLeptonDegreeExamples
+assert_compatible GUT.SMFiniteLeptonDegreeExamples.k101_minimum => Physics.SMFiniteLeptonDegreeExamples.k101_minimum
+assert_compatible GUT.SMFiniteLeptonDegreeExamples.k101_none => Physics.SMFiniteLeptonDegreeExamples.k101_none
+assert_compatible GUT.SMFiniteLeptonDegreeExamples.k3_b1_bounds => Physics.SMFiniteLeptonDegreeExamples.k3_b1_bounds
+assert_compatible GUT.SMFiniteLeptonDegreeExamples.k4_b2_bounds => Physics.SMFiniteLeptonDegreeExamples.k4_b2_bounds
+assert_compatible GUT.SMFiniteLeptonDegreeExamples.negative_baryon_bound => Physics.SMFiniteLeptonDegreeExamples.negative_baryon_bound

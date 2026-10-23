@@ -1,61 +1,27 @@
+import Physics.StandardModel.Operators.BaryonOne.Qque.HeeckLeQqueCertificate
 import Physics.StandardModel.Operators.QquePhysicalExteriorCompleteness
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.Qque.HeeckLeQqueCertificate instead." (since := "source-api-v1")
 
-/-! Heeck–Le 2604.25134v2 Section 6, in physical Q,Q,U,E order.
-The bracket normalization is the existing algebraic Weyl epsilon convention. -/
-namespace GUT.HeeckLeQqueCertificate
-set_option autoImplicit false
-noncomputable section
-open Representation ExternalInvariantTensor QquePhysicalOrderedCompleteness SMEpsilonTensor
-open scoped TensorProduct
-variable {H Q U E : Type*} [Group H]
-  [AddCommGroup Q] [Module ℂ Q] [AddCommGroup U] [Module ℂ U]
-  [AddCommGroup E] [Module ℂ E]
-  (q : Representation ℂ H Q) (u : Representation ℂ H U) (e : Representation ℂ H E)
+compatibility_declarations [
+  GUT.HeeckLeQqueCertificate.candidate => Physics.HeeckLeQqueCertificate.candidate,
+  GUT.HeeckLeQqueCertificate.candidate_extract => Physics.HeeckLeQqueCertificate.candidate_extract,
+  GUT.HeeckLeQqueCertificate.extract_candidate => Physics.HeeckLeQqueCertificate.extract_candidate,
+  GUT.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexColorSpace => Physics.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexColorSpace,
+  GUT.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexColorWeakSpace => Physics.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexColorWeakSpace,
+  GUT.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexSpace => Physics.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexSpace,
+  GUT.HeeckLeQqueCertificate.literal => Physics.HeeckLeQqueCertificate.literal,
+  GUT.HeeckLeQqueCertificate.ordered => Physics.HeeckLeQqueCertificate.ordered,
+  GUT.HeeckLeQqueCertificate.restriction_candidate => Physics.HeeckLeQqueCertificate.restriction_candidate
+]
 
-local instance : AddCommGroup (((Color ⊗[ℂ] Weak) ⊗[ℂ] WeylSpinor.Space) ⊗[ℂ] Q) :=
-  Module.addCommMonoidToAddCommGroup ℂ
-local instance : AddCommGroup ((Color ⊗[ℂ] WeylSpinor.Space) ⊗[ℂ] U) :=
-  Module.addCommMonoidToAddCommGroup ℂ
-local instance : AddCommGroup ((ℂ ⊗[ℂ] WeylSpinor.Space) ⊗[ℂ] E) :=
-  Module.addCommMonoidToAddCommGroup ℂ
-
-def ordered (k : Residual q u e) : Coefficient q u e :=
-  (coefficient localContraction k).comp (regroup q u e).toIntertwiningMap
-
-theorem literal (k : Residual q u e) (a b c : Color) (v w : Weak)
-    (s t h j : WeylSpinor.Space) (x y : Q) (z : U) (r : E) (m : ℂ) :
-    ordered q u e k
-      (((((a ⊗ₜ[ℂ] v) ⊗ₜ[ℂ] s) ⊗ₜ[ℂ] x) ⊗ₜ[ℂ]
-        (((b ⊗ₜ[ℂ] w) ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] y)) ⊗ₜ[ℂ]
-        (((c ⊗ₜ[ℂ] h) ⊗ₜ[ℂ] z) ⊗ₜ[ℂ] ((m ⊗ₜ[ℂ] j) ⊗ₜ[ℂ] r))) =
-      eps3 a b c * eps2 v w * m * (eps2 s t * eps2 h j) *
-        k ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (z ⊗ₜ[ℂ] r)) :=
-  assemble_apply q u e k a b c v w s t h j x y z r m
-
-/-- Exterior lift of the literal ordered contraction, with the factor 1/2
-already fixed in the independent repeated-species lift. -/
-def candidate (k : QquePhysicalExteriorCompleteness.residualSpace q u e) :
-    QquePhysicalExteriorCompleteness.Sector q u e :=
-  (QquePhysicalExteriorCompleteness.exteriorEquiv q u e).symm k
-
-theorem restriction_candidate (k : QquePhysicalExteriorCompleteness.residualSpace q u e) :
-    FourSlotRestrictionLift.restriction (external quarkSpin q) (external upSpin u)
-      (external electronSpin e) (candidate q u e k).val = ordered q u e k.val := by
-  have h := (QquePhysicalExteriorCompleteness.exteriorEquiv q u e).apply_symm_apply k
-  apply (homEquiv q u e).injective
-  change (homEquiv q u e) _ = (homEquiv q u e) ((homEquiv q u e).symm k.val)
-  rw [LinearEquiv.apply_symm_apply]
-  exact congrArg Subtype.val h
-
-theorem extract_candidate (k : QquePhysicalExteriorCompleteness.residualSpace q u e) :
-    QquePhysicalExteriorCompleteness.exteriorEquiv q u e (candidate q u e k) = k :=
-  LinearEquiv.apply_symm_apply _ _
-
-theorem candidate_extract (f : QquePhysicalExteriorCompleteness.Sector q u e) :
-    candidate q u e (QquePhysicalExteriorCompleteness.exteriorEquiv q u e f) = f :=
-  LinearEquiv.symm_apply_apply _ _
-
-end
-end GUT.HeeckLeQqueCertificate
+assert_compatible GUT.HeeckLeQqueCertificate.candidate => Physics.HeeckLeQqueCertificate.candidate
+assert_compatible GUT.HeeckLeQqueCertificate.candidate_extract => Physics.HeeckLeQqueCertificate.candidate_extract
+assert_compatible GUT.HeeckLeQqueCertificate.extract_candidate => Physics.HeeckLeQqueCertificate.extract_candidate
+assert_compatible GUT.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexColorSpace => Physics.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexColorSpace
+assert_compatible GUT.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexColorWeakSpace => Physics.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexColorWeakSpace
+assert_compatible GUT.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexSpace => Physics.HeeckLeQqueCertificate.instAddCommGroupTensorProductComplexSpace
+assert_compatible GUT.HeeckLeQqueCertificate.literal => Physics.HeeckLeQqueCertificate.literal
+assert_compatible GUT.HeeckLeQqueCertificate.ordered => Physics.HeeckLeQqueCertificate.ordered
+assert_compatible GUT.HeeckLeQqueCertificate.restriction_candidate => Physics.HeeckLeQqueCertificate.restriction_candidate

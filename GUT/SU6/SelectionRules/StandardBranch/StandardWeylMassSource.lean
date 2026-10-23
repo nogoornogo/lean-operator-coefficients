@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylDualTarget
 import GUT.SU6.SelectionRules.StandardBranch.PhysicalChargeResolvedBridge
-import Physics.FieldTheory.Mass.UnitaryVirtualRealization
+import Physics.FieldTheory.Mass.Spectrum.UnitaryVirtualRealization
+
+open Physics
 
 open Math
 

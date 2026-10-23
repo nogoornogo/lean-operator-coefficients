@@ -1,38 +1,20 @@
+import Physics.StandardModel.Operators.BaryonTwo.DevMohapatra.DevMohapatraCoefficientReevaluation
 import Physics.StandardModel.Operators.DevMohapatraHeavyHermitian
 import Physics.StandardModel.Operators.DevMohapatraLiteratureConvention
+import Math.Lean.Compatibility
 
-/-! All-degree Hermitian elimination composed with the literature dictionary.
-Source adoption and canonical normalization remain explicit application inputs. -/
-namespace GUT.DevMohapatraCoefficientReevaluation
-set_option autoImplicit false
-noncomputable section
-open DevMohapatraHeavyElimination DevMohapatraHeavyAction
-open DevMohapatraHeavyProjection DevMohapatraLiteratureConvention
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.DevMohapatra.DevMohapatraCoefficientReevaluation instead." (since := "source-api-v1")
 
-/-- Both inverse-C vertices are transported, before full heavy elimination. -/
-def projectedAction (m M lam b : ℂ) : ExteriorAlgebra ℂ Light :=
-  project (evaluate (solution m M (-lam) (-b)) (solution_odd m M (-lam) (-b))
-    (DevMohapatraHeavyHermitian.literalEffective m M (-lam) (-b)))
+compatibility_declarations [
+  GUT.DevMohapatraCoefficientReevaluation.independent_comparison => Physics.DevMohapatraCoefficientReevaluation.independent_comparison,
+  GUT.DevMohapatraCoefficientReevaluation.ordered_comparison => Physics.DevMohapatraCoefficientReevaluation.ordered_comparison,
+  GUT.DevMohapatraCoefficientReevaluation.projectedAction => Physics.DevMohapatraCoefficientReevaluation.projectedAction,
+  GUT.DevMohapatraCoefficientReevaluation.projectedAction.eq_1 => Physics.DevMohapatraCoefficientReevaluation.projectedAction.eq_1,
+  GUT.DevMohapatraCoefficientReevaluation.projectedAction_coefficient => Physics.DevMohapatraCoefficientReevaluation.projectedAction_coefficient
+]
 
-theorem projectedAction_coefficient (m M lam b : ℂ) (hM : M ≠ 0) :
-    projectedAction m M lam b = coefficient m M lam b • operator ul dl sl := by
-  rw [projectedAction, DevMohapatraHeavyHermitian.action_dictionary,
-    DevMohapatraHeavyAction.evaluated_action,
-    project_eliminated_action m M (-lam) (-b) hM,
-    generated_literature]
-
-theorem independent_comparison (m M lam z : ℂ) (hm : m ≠ 0) (hM : M ≠ 0) :
-    projectedAction m M lam z =
-      (-(8 * (Real.pi : ℂ)^2) * DevMohapatraTreeLevel.paperPrefactor m M lam z) •
-        operator ul dl sl := by
-  rw [projectedAction_coefficient m M lam z hM, paper_comparison m M lam z hm hM]
-
-theorem ordered_comparison (m M lam z : ℂ) (hm : m ≠ 0) (hM : M ≠ 0) :
-    projectedAction m M lam (2*z) =
-      (-(32 * (Real.pi : ℂ)^2) * DevMohapatraTreeLevel.paperPrefactor m M lam z) •
-        operator ul dl sl := by
-  rw [projectedAction_coefficient m M lam (2*z) hM,
-    ordered_paper_comparison m M lam z hm hM]
-
-end
-end GUT.DevMohapatraCoefficientReevaluation
+assert_compatible GUT.DevMohapatraCoefficientReevaluation.independent_comparison => Physics.DevMohapatraCoefficientReevaluation.independent_comparison
+assert_compatible GUT.DevMohapatraCoefficientReevaluation.ordered_comparison => Physics.DevMohapatraCoefficientReevaluation.ordered_comparison
+assert_compatible GUT.DevMohapatraCoefficientReevaluation.projectedAction => Physics.DevMohapatraCoefficientReevaluation.projectedAction
+assert_compatible GUT.DevMohapatraCoefficientReevaluation.projectedAction.eq_1 => Physics.DevMohapatraCoefficientReevaluation.projectedAction.eq_1
+assert_compatible GUT.DevMohapatraCoefficientReevaluation.projectedAction_coefficient => Physics.DevMohapatraCoefficientReevaluation.projectedAction_coefficient

@@ -60,7 +60,7 @@ def unitaryModel (n : ℕ) : ContRepresentation ℂ (Group (n + n)) (HilbertSpac
     (fun i j => coefficient_continuous n ((basis n).coord i) (basis n j))
 
 theorem unitaryModel_unitary (n : ℕ) :
-    TauCeti.ContRepresentation.IsUnitary (unitaryModel n) :=
+    ContRepresentation.IsUnitary (unitaryModel n) :=
   FiniteBasisUnitaryModel.model_unitary _ _ _
 
 theorem unitaryModel_continuous (n : ℕ) :

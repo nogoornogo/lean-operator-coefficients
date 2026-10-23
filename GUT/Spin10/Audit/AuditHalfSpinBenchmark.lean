@@ -1,6 +1,8 @@
 import Math.Audit.ImportOrigin
 import GUT.Spin10.SelectionRules.HalfSpinBenchmark
 
+open Physics
+
 open Math
 
 /-! Actual finite and continuous residual-group inhabitants, positive
@@ -21,7 +23,7 @@ namespace GUT.CompactSpin.AuditHalfSpinBenchmark
 open Math.CompactSpin
 noncomputable section
 
-open HalfSpinBenchmark GUT.SU5 FiniteAbelianChargeSectors
+open HalfSpinBenchmark GUT.SU5 Physics.SU5 FiniteAbelianChargeSectors
 open StandardAbelianCharge StandardSMCharacterTarget StandardWeylDualTarget
 
 abbrev FiniteResidual := Multiplicative (ZMod 3)

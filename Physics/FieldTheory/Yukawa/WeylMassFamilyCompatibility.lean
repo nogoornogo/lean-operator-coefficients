@@ -1,59 +1,28 @@
+import Physics.FieldTheory.Yukawa.Mass.WeylMassFamilyCompatibility
 import Physics.FieldTheory.Yukawa.MultilinearWeylMass
 import Physics.FieldTheory.Yukawa.WeylYukawaMass
+import Math.Lean.Compatibility
 
-/-! The scalar-linear interface is a mass-preserving special case.
-Legacy imports are intentionally confined to this adapter. -/
+deprecated_module "Use Physics.FieldTheory.Yukawa.Mass.WeylMassFamilyCompatibility instead." (since := "source-api-v1")
 
-set_option autoImplicit false
+compatibility_declarations [
+  GUT.WeylYukawaMass.EquivariantYukawa.toFamily => Physics.WeylYukawaMass.EquivariantYukawa.toFamily,
+  GUT.WeylYukawaMass.EquivariantYukawa.toMultilinearCoupling => Physics.WeylYukawaMass.EquivariantYukawa.toMultilinearCoupling,
+  GUT.WeylYukawaMass.EquivariantYukawa.toMultilinearCoupling_toFamily => Physics.WeylYukawaMass.EquivariantYukawa.toMultilinearCoupling_toFamily,
+  GUT.WeylYukawaMass.Sector.ofBareMass_toFamilySector => Physics.WeylYukawaMass.Sector.ofBareMass_toFamilySector,
+  GUT.WeylYukawaMass.Sector.toFamilySector => Physics.WeylYukawaMass.Sector.toFamilySector,
+  GUT.WeylYukawaMass.Sector.toFamilySector_mass => Physics.WeylYukawaMass.Sector.toFamilySector_mass,
+  GUT.WeylYukawaMass.toFamily_atVacuumOn => Physics.WeylYukawaMass.toFamily_atVacuumOn,
+  GUT.WeylYukawaMass.toFamily_atVacuumStabilizer => Physics.WeylYukawaMass.toFamily_atVacuumStabilizer,
+  GUT.WeylYukawaMass.toMultilinearCoupling_atVacuumOn => Physics.WeylYukawaMass.toMultilinearCoupling_atVacuumOn
+]
 
-namespace GUT.WeylYukawaMass
-
-open InvariantWeylMass
-
-variable {G S V : Type*} [Group G] [AddCommGroup S] [Module ℂ S]
-variable [AddCommGroup V] [Module ℂ V]
-variable {rhoS : Representation ℂ G S} {rhoV : Representation ℂ G V}
-
-def EquivariantYukawa.toFamily (Y : EquivariantYukawa rhoS rhoV) :
-    WeylMassFamily.EquivariantFamily rhoS rhoV where
-  toFun := Y.toLinearMap
-  symmetric := Y.symmetric
-  invariant := Y.invariant
-
-def EquivariantYukawa.toMultilinearCoupling (Y : EquivariantYukawa rhoS rhoV) :
-    WeylMassFamily.MultilinearCoupling (fun _ : Fin 1 => rhoS) rhoV :=
-  WeylMassFamily.MultilinearCoupling.ofLinear Y.toLinearMap Y.symmetric Y.invariant
-
-@[simp] theorem EquivariantYukawa.toMultilinearCoupling_toFamily [Module ℝ S]
-    (Y : EquivariantYukawa rhoS rhoV) :
-    Y.toMultilinearCoupling.toFamily (fun _ => LinearMap.id) (fun _ _ _ => rfl) =
-      Y.toFamily := rfl
-
-def Sector.toFamilySector (D : Sector rhoS rhoV) : WeylMassFamily.Sector rhoS rhoV where
-  bareMass := D.bareMass
-  family := D.yukawa.toFamily
-  vacuum := D.vacuum
-
-@[simp] theorem Sector.toFamilySector_mass (D : Sector rhoS rhoV) :
-    D.toFamilySector.mass = D.mass := rfl
-
-@[simp] theorem Sector.ofBareMass_toFamilySector (B : SymmetricMass rhoV) :
-    (ofBareMass (rhoS := rhoS) B).toFamilySector = WeylMassFamily.Sector.ofBareMass B := rfl
-
-@[simp] theorem toFamily_atVacuumOn {K : Type*} [Group K]
-    (B : SymmetricMass rhoV) (Y : EquivariantYukawa rhoS rhoV)
-    (f : K →* G) (v : S) (hv : ∀ k, rhoS (f k) v = v) :
-    WeylMassFamily.atVacuumOn B Y.toFamily f v hv = atVacuumOn B Y f v hv := rfl
-
-@[simp] theorem toFamily_atVacuumStabilizer
-    (B : SymmetricMass rhoV) (Y : EquivariantYukawa rhoS rhoV) (v : S) :
-    WeylMassFamily.atVacuumStabilizer B Y.toFamily v = atVacuumStabilizer B Y v := rfl
-
-@[simp] theorem toMultilinearCoupling_atVacuumOn [Module ℝ S] {K : Type*} [Group K]
-    (B : SymmetricMass rhoV) (Y : EquivariantYukawa rhoS rhoV)
-    (f : K →* G) (v : S) (hv : ∀ k, rhoS (f k) v = v) :
-    WeylMassFamily.atVacuumOn B
-      (Y.toMultilinearCoupling.toFamily (fun _ => LinearMap.id) (fun _ _ _ => rfl)) f v hv =
-      atVacuumOn B Y f v hv := rfl
-
-end GUT.WeylYukawaMass
+assert_compatible GUT.WeylYukawaMass.EquivariantYukawa.toFamily => Physics.WeylYukawaMass.EquivariantYukawa.toFamily
+assert_compatible GUT.WeylYukawaMass.EquivariantYukawa.toMultilinearCoupling => Physics.WeylYukawaMass.EquivariantYukawa.toMultilinearCoupling
+assert_compatible GUT.WeylYukawaMass.EquivariantYukawa.toMultilinearCoupling_toFamily => Physics.WeylYukawaMass.EquivariantYukawa.toMultilinearCoupling_toFamily
+assert_compatible GUT.WeylYukawaMass.Sector.ofBareMass_toFamilySector => Physics.WeylYukawaMass.Sector.ofBareMass_toFamilySector
+assert_compatible GUT.WeylYukawaMass.Sector.toFamilySector => Physics.WeylYukawaMass.Sector.toFamilySector
+assert_compatible GUT.WeylYukawaMass.Sector.toFamilySector_mass => Physics.WeylYukawaMass.Sector.toFamilySector_mass
+assert_compatible GUT.WeylYukawaMass.toFamily_atVacuumOn => Physics.WeylYukawaMass.toFamily_atVacuumOn
+assert_compatible GUT.WeylYukawaMass.toFamily_atVacuumStabilizer => Physics.WeylYukawaMass.toFamily_atVacuumStabilizer
+assert_compatible GUT.WeylYukawaMass.toMultilinearCoupling_atVacuumOn => Physics.WeylYukawaMass.toMultilinearCoupling_atVacuumOn

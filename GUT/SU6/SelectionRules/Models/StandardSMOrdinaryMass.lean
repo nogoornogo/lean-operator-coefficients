@@ -2,6 +2,8 @@ import GUT.SU6.SelectionRules.Models.StandardSMOrdinaryFields
 import GUT.SU6.SelectionRules.Models.StandardSMUVMass
 import GUT.SU6.SelectionRules.Models.ContinuousWeylMassTransport
 
+open Physics
+
 open Math
 
 /-!

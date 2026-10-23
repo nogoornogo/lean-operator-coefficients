@@ -1,5 +1,5 @@
 import GUT.SU6.SelectionRules.Models.AutomorphismCovariantModel
-import Math.RepresentationTheory.Audit.AuditAutomorphismCovariantHom
+import Math.RepresentationTheory.Invariants.Audit.AuditAutomorphismCovariantHom
 
 /-! Strict transitive audit of the noncommuting SU(6) model interface. -/
 open Lean in

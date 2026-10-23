@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylSupportedOperator
 
+open Physics
+
 /-!
 # Audit of the supported-operator witness
 

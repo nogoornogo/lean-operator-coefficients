@@ -38,7 +38,7 @@ and [the distinct input package](../../../ASSUMPTIONS.md).
 
 ### Pointwise-Neutral Unit-Flavor Route
 
-[NeutralQqueExterior](../../../../../Physics/StandardModel/Operators/NeutralQqueExterior.lean)
+[NeutralQqueExterior](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/NeutralQqueExterior.lean)
 provides a separate algebraic route for genuine Circle-valued species characters
 of an Abelian H. The pointwise formulas `Q=a c w`, `u^c=a c²`, `e^c=a w²`
 imply neutral qque without group laws for the auxiliary functions a,c,w.
@@ -122,13 +122,13 @@ Verification and integration: [topic record](../../../../topics/qque-lorentz-ext
 
 ### Sources And Audits
 
-- [Four-slot alternation and transport](../../../../../Math/RepresentationTheory/FourSlotAlternation.lean).
-- [Symmetric residual coefficient](../../../../../Math/RepresentationTheory/SymmetricInvariantPairing.lean).
-- [Explicit spinors](../../../../../Physics/FieldTheory/Spinor/WeylSpinor.lean).
-- [Combined coefficient and evaluation](../../../../../Physics/StandardModel/Operators/QqueSpinorExterior.lean).
-- [Actual compact-source endpoint](../../../../../Physics/StandardModel/Operators/CompactLightExteriorQque.lean).
-- [Strict mathematical audit](../../../../../Math/RepresentationTheory/Audit/AuditFourSlotAlternation.lean).
-- [Endpoint and one-generation/S3/A4 audit](../../../../../Physics/StandardModel/Operators/Audit/AuditCompactLightExteriorQque.lean).
+- [Four-slot alternation and transport](../../../../../Math/RepresentationTheory/Exterior/FourSlotAlternation.lean).
+- [Symmetric residual coefficient](../../../../../Math/RepresentationTheory/Symmetric/SymmetricInvariantPairing.lean).
+- [Explicit spinors](../../../../../Physics/FieldTheory/Spinor/Weyl/WeylSpinor.lean).
+- [Combined coefficient and evaluation](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/QqueSpinorExterior.lean).
+- [Actual compact-source endpoint](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/CompactLightExteriorQque.lean).
+- [Strict mathematical audit](../../../../../Math/RepresentationTheory/Exterior/Audit/AuditFourSlotAlternation.lean).
+- [Endpoint and one-generation/S3/A4 audit](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/Audit/AuditCompactLightExteriorQque.lean).
 
 These controls instantiate the matched-field construction. They do not construct
 new UV models or new inhabitants of the full radical-decomposition adapter.

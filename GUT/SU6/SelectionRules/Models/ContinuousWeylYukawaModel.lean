@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.ContinuousWeylModel
-import Physics.FieldTheory.Yukawa.WeylYukawaMass
+import Physics.FieldTheory.Yukawa.Mass.WeylYukawaMass
+
+open Physics
 
 /-!
 # Continuous-geometry Weyl models with primitive Yukawa and vacuum data

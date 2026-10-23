@@ -1,12 +1,3 @@
-import Math.RepresentationTheory.ExteriorSquareCompression
-import Lean.Util.CollectAxioms
+import Math.RepresentationTheory.Exterior.Audit.AuditExteriorSquareCompression
 
-run_cmd do
-  let declarations := [
-    ``Math.ExteriorSquareCoordinates.compress_infinitesimal,
-    ``Math.ExteriorSquareCoordinates.infinitesimal_zero]
-  for decl in declarations do
-    for ax in (← Lean.collectAxioms decl) do
-      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
-        throwError "Exterior compression: {decl} uses unexpected axiom {ax}"
-  Lean.logInfo m!"Exterior compression: {declarations.length} strict axiom checks passed"
+deprecated_module "Use Math.RepresentationTheory.Exterior.Audit.AuditExteriorSquareCompression instead." (since := "source-api-v1")

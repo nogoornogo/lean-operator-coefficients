@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Benchmarks.WeylMassFamilyBenchmark
 import GUT.SU6.SelectionRules.Benchmarks.WeylYukawaBenchmark
 
+open Physics
+
 /-! MASS-3 checks the actual endpoint, legacy compatibility, and nonlinear
 non-vacuity. The benchmark is on the existing unbroken group, not a new
 full-SU(6) scalar geometry. -/

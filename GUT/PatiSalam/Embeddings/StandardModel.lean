@@ -1,6 +1,8 @@
-import Physics.StandardModel.Gauge.StandardSMGaugeTensor
+import Physics.StandardModel.Gauge.Tensors.StandardSMGaugeTensor
 import Mathlib.LinearAlgebra.Matrix.Reindex
 import Mathlib.LinearAlgebra.TensorProduct.Pi
+
+open Physics
 
 /-! SM covering homomorphism into the PS covering product. No center quotient. -/
 namespace GUT.PatiSalam.StandardModelEmbedding

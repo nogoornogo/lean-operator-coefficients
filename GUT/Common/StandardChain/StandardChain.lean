@@ -1,6 +1,8 @@
 import GUT.SU5.SelectionRules.TorusMassSource
 import Math.RepresentationTheory.Unitary.CommutingUnitaryActions
-import Physics.FieldTheory.Yukawa.WeylMassFamily
+import Physics.FieldTheory.Yukawa.Mass.WeylMassFamily
+
+open Physics
 
 open Math
 

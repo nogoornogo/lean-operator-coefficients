@@ -1,146 +1,55 @@
+import Physics.StandardModel.Operators.BaryonTwo.Coefficients.DeltaBTwoLocalOperator
 import Physics.StandardModel.Operators.StandardModelLocalOperator
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.Coefficients.DeltaBTwoLocalOperator instead." (since := "source-api-v1")
 
-/-!
-# Local six-quark Delta-B = 2 grading
+compatibility_declarations [
+  GUT.DeltaBTwoLocalOperator.IsAllRightHandedGaugeNeutralSixQuark => Physics.DeltaBTwoLocalOperator.IsAllRightHandedGaugeNeutralSixQuark,
+  GUT.DeltaBTwoLocalOperator.IsAllRightHandedGaugeNeutralSixQuark.eq_1 => Physics.DeltaBTwoLocalOperator.IsAllRightHandedGaugeNeutralSixQuark.eq_1,
+  GUT.DeltaBTwoLocalOperator.IsDimensionNineDeltaBTwo => Physics.DeltaBTwoLocalOperator.IsDimensionNineDeltaBTwo,
+  GUT.DeltaBTwoLocalOperator.IsDimensionNineDeltaBTwo.eq_1 => Physics.DeltaBTwoLocalOperator.IsDimensionNineDeltaBTwo.eq_1,
+  GUT.DeltaBTwoLocalOperator.ResidualProhibits => Physics.DeltaBTwoLocalOperator.ResidualProhibits,
+  GUT.DeltaBTwoLocalOperator.SixFermionOperator => Physics.DeltaBTwoLocalOperator.SixFermionOperator,
+  GUT.DeltaBTwoLocalOperator.baryonGrade => Physics.DeltaBTwoLocalOperator.baryonGrade,
+  GUT.DeltaBTwoLocalOperator.baryonGrade_eq => Physics.DeltaBTwoLocalOperator.baryonGrade_eq,
+  GUT.DeltaBTwoLocalOperator.operatorCharacter => Physics.DeltaBTwoLocalOperator.operatorCharacter,
+  GUT.DeltaBTwoLocalOperator.operatorCharge => Physics.DeltaBTwoLocalOperator.operatorCharge,
+  GUT.DeltaBTwoLocalOperator.operatorCharge.eq_1 => Physics.DeltaBTwoLocalOperator.operatorCharge.eq_1,
+  GUT.DeltaBTwoLocalOperator.quantumNumbers => Physics.DeltaBTwoLocalOperator.quantumNumbers,
+  GUT.DeltaBTwoLocalOperator.residualProhibits_iff_charge_ne_zero => Physics.DeltaBTwoLocalOperator.residualProhibits_iff_charge_ne_zero,
+  GUT.DeltaBTwoLocalOperator.udduddCharge => Physics.DeltaBTwoLocalOperator.udduddCharge,
+  GUT.DeltaBTwoLocalOperator.udduddCharge.eq_1 => Physics.DeltaBTwoLocalOperator.udduddCharge.eq_1,
+  GUT.DeltaBTwoLocalOperator.udduddOperator => Physics.DeltaBTwoLocalOperator.udduddOperator,
+  GUT.DeltaBTwoLocalOperator.udduddOperator.eq_1 => Physics.DeltaBTwoLocalOperator.udduddOperator.eq_1,
+  GUT.DeltaBTwoLocalOperator.uddudd_baryonGrade => Physics.DeltaBTwoLocalOperator.uddudd_baryonGrade,
+  GUT.DeltaBTwoLocalOperator.uddudd_isAllRightHandedGaugeNeutralSixQuark => Physics.DeltaBTwoLocalOperator.uddudd_isAllRightHandedGaugeNeutralSixQuark,
+  GUT.DeltaBTwoLocalOperator.uddudd_isDimensionNineDeltaBTwo => Physics.DeltaBTwoLocalOperator.uddudd_isDimensionNineDeltaBTwo,
+  GUT.DeltaBTwoLocalOperator.uddudd_operatorCharge => Physics.DeltaBTwoLocalOperator.uddudd_operatorCharge,
+  GUT.DeltaBTwoLocalOperator.uddudd_quantumNumbers => Physics.DeltaBTwoLocalOperator.uddudd_quantumNumbers,
+  GUT.DeltaBTwoLocalOperator.uddudd_residualProhibits_iff => Physics.DeltaBTwoLocalOperator.uddudd_residualProhibits_iff
+]
 
-This module records quantum numbers and ordinary-Abelian residual characters
-for one physical, all-right-handed `uudd dd` monomial. It is a local-operator
-grading statement. It does not construct a six-field coefficient, prove basis
-completeness, or attach matching, QCD matrix elements, rates or amplitudes.
--/
-
-open scoped BigOperators
-
-namespace GUT.DeltaBTwoLocalOperator
-
-set_option autoImplicit false
-noncomputable section
-
-open StandardBranchProtonObstruction
-open FiniteAbelianChargeSectors
-open StandardModelLocalOperator
-
-universe u
-
-/-- An ordered six-fermion monomial in the existing physical-field convention. -/
-abbrev SixFermionOperator := Fin 6 → PhysicalFermion
-
-/-- The one-generation all-right-handed `uudd dd` field pattern. The ordering
-groups the fields as two `udd` color triples. -/
-def udduddOperator : SixFermionOperator :=
-  ![PhysicalFermion.upRight, PhysicalFermion.downRight,
-    PhysicalFermion.downRight, PhysicalFermion.upRight,
-    PhysicalFermion.downRight, PhysicalFermion.downRight]
-
-/-- Six-slot quantum numbers, using the integral normalizations `6Y`, `3B`
-and twice the canonical dimension from `StandardModelLocalOperator`. -/
-def quantumNumbers (O : SixFermionOperator) : QuantumNumbers where
-  colorFundamentals := ∑ i, colorFundamentalMultiplicity (O i)
-  weakFundamentals := ∑ i, weakFundamentalMultiplicity (O i)
-  leftWeyl := ∑ i, leftWeylMultiplicity (O i)
-  rightWeyl := ∑ i, rightWeylMultiplicity (O i)
-  sixY := ∑ i, sixHypercharge (O i)
-  threeB := ∑ i, threeBaryonNumber (O i)
-  lepton := ∑ i, leptonNumber (O i)
-  twiceDimension := ∑ i, twiceCanonicalDimension (O i)
-
-/-- Integral quantum-number formulation of a dimension-nine, `Delta B = 2`,
-`Delta L = 0` six-fermion monomial. -/
-def IsDimensionNineDeltaBTwo (O : SixFermionOperator) : Prop :=
-  (quantumNumbers O).twiceDimension = 18 ∧
-    (quantumNumbers O).threeB = 6 ∧
-    (quantumNumbers O).lepton = 0
-
-/-- The declared pattern has six color fundamentals, no weak indices, six
-right-handed Weyl fields and zero hypercharge. Explicit contractions are a
-separate construction. -/
-def IsAllRightHandedGaugeNeutralSixQuark (O : SixFermionOperator) : Prop :=
-  (quantumNumbers O).colorFundamentals = 6 ∧
-    (quantumNumbers O).weakFundamentals = 0 ∧
-    (quantumNumbers O).leftWeyl = 0 ∧
-    (quantumNumbers O).rightWeyl = 6 ∧
-    (quantumNumbers O).sixY = 0
-
-theorem uddudd_quantumNumbers :
-    quantumNumbers udduddOperator =
-      { colorFundamentals := 6
-        weakFundamentals := 0
-        leftWeyl := 0
-        rightWeyl := 6
-        sixY := 0
-        threeB := 6
-        lepton := 0
-        twiceDimension := 18 } := by
-  decide
-
-theorem uddudd_isDimensionNineDeltaBTwo :
-    IsDimensionNineDeltaBTwo udduddOperator := by
-  rw [IsDimensionNineDeltaBTwo, uddudd_quantumNumbers]
-  decide
-
-theorem uddudd_isAllRightHandedGaugeNeutralSixQuark :
-    IsAllRightHandedGaugeNeutralSixQuark udduddOperator := by
-  rw [IsAllRightHandedGaugeNeutralSixQuark, uddudd_quantumNumbers]
-  decide
-
-/-- Three times baryon number is an additive grading on ordered monomials. -/
-def baryonGrade (O : SixFermionOperator) : ℤ :=
-  ∑ i, threeBaryonNumber (O i)
-
-@[simp] theorem baryonGrade_eq (O : SixFermionOperator) :
-    baryonGrade O = (quantumNumbers O).threeB := rfl
-
-@[simp] theorem uddudd_baryonGrade : baryonGrade udduddOperator = 6 := by
-  simpa using congrArg QuantumNumbers.threeB uddudd_quantumNumbers
-
-/-- Residual ordinary-Abelian charge of a six-field physical monomial. -/
-def operatorCharge {A : Type*} [AddCommGroup A]
-    (k : Charges A) (O : SixFermionOperator) : A :=
-  ∑ i, physicalCharge k (O i)
-
-/-- Residual charge of the all-right-handed `(udd)^2` pattern. Physical
-right-handed fields carry the negatives of the stored left-handed-conjugate
-charges. -/
-def udduddCharge {A : Type*} [AddCommGroup A] (k : Charges A) : A :=
-  -(2 • k.up + 4 • k.down)
-
-theorem uddudd_operatorCharge {A : Type*} [AddCommGroup A] (k : Charges A) :
-    operatorCharge k udduddOperator = udduddCharge k := by
-  simp [operatorCharge, udduddOperator, physicalCharge, udduddCharge,
-    Fin.sum_univ_succ]
-  abel
-
-/-- Residual character multiplying the ordered six-quark monomial. -/
-def operatorCharacter {H : Type u} [CommGroup H]
-    (k : Charges (ChargeLabel H)) (O : SixFermionOperator) : H →* Circle :=
-  (operatorCharge k O).toMul
-
-/-- A residual character prohibits the monomial at the grading level when it
-is nontrivial. This does not assert that a neutral coefficient is generated. -/
-def ResidualProhibits {H : Type u} [CommGroup H]
-    (k : Charges (ChargeLabel H)) (O : SixFermionOperator) : Prop :=
-  operatorCharacter k O ≠ 1
-
-theorem residualProhibits_iff_charge_ne_zero {H : Type u} [CommGroup H]
-    (k : Charges (ChargeLabel H)) (O : SixFermionOperator) :
-    ResidualProhibits k O ↔ operatorCharge k O ≠ 0 := by
-  change (operatorCharge k O).toMul ≠ 1 ↔ operatorCharge k O ≠ 0
-  constructor
-  · intro h hc
-    apply h
-    rw [hc]
-    rfl
-  · intro h hc
-    apply h
-    apply Additive.toMul.injective
-    simpa using hc
-
-theorem uddudd_residualProhibits_iff {H : Type u} [CommGroup H]
-    (k : Charges (ChargeLabel H)) :
-    ResidualProhibits k udduddOperator ↔ udduddCharge k ≠ 0 := by
-  rw [residualProhibits_iff_charge_ne_zero, uddudd_operatorCharge]
-
-end
-end GUT.DeltaBTwoLocalOperator
+assert_compatible GUT.DeltaBTwoLocalOperator.IsAllRightHandedGaugeNeutralSixQuark => Physics.DeltaBTwoLocalOperator.IsAllRightHandedGaugeNeutralSixQuark
+assert_compatible GUT.DeltaBTwoLocalOperator.IsAllRightHandedGaugeNeutralSixQuark.eq_1 => Physics.DeltaBTwoLocalOperator.IsAllRightHandedGaugeNeutralSixQuark.eq_1
+assert_compatible GUT.DeltaBTwoLocalOperator.IsDimensionNineDeltaBTwo => Physics.DeltaBTwoLocalOperator.IsDimensionNineDeltaBTwo
+assert_compatible GUT.DeltaBTwoLocalOperator.IsDimensionNineDeltaBTwo.eq_1 => Physics.DeltaBTwoLocalOperator.IsDimensionNineDeltaBTwo.eq_1
+assert_compatible GUT.DeltaBTwoLocalOperator.ResidualProhibits => Physics.DeltaBTwoLocalOperator.ResidualProhibits
+assert_compatible GUT.DeltaBTwoLocalOperator.SixFermionOperator => Physics.DeltaBTwoLocalOperator.SixFermionOperator
+assert_compatible GUT.DeltaBTwoLocalOperator.baryonGrade => Physics.DeltaBTwoLocalOperator.baryonGrade
+assert_compatible GUT.DeltaBTwoLocalOperator.baryonGrade_eq => Physics.DeltaBTwoLocalOperator.baryonGrade_eq
+assert_compatible GUT.DeltaBTwoLocalOperator.operatorCharacter => Physics.DeltaBTwoLocalOperator.operatorCharacter
+assert_compatible GUT.DeltaBTwoLocalOperator.operatorCharge => Physics.DeltaBTwoLocalOperator.operatorCharge
+assert_compatible GUT.DeltaBTwoLocalOperator.operatorCharge.eq_1 => Physics.DeltaBTwoLocalOperator.operatorCharge.eq_1
+assert_compatible GUT.DeltaBTwoLocalOperator.quantumNumbers => Physics.DeltaBTwoLocalOperator.quantumNumbers
+assert_compatible GUT.DeltaBTwoLocalOperator.residualProhibits_iff_charge_ne_zero => Physics.DeltaBTwoLocalOperator.residualProhibits_iff_charge_ne_zero
+assert_compatible GUT.DeltaBTwoLocalOperator.udduddCharge => Physics.DeltaBTwoLocalOperator.udduddCharge
+assert_compatible GUT.DeltaBTwoLocalOperator.udduddCharge.eq_1 => Physics.DeltaBTwoLocalOperator.udduddCharge.eq_1
+assert_compatible GUT.DeltaBTwoLocalOperator.udduddOperator => Physics.DeltaBTwoLocalOperator.udduddOperator
+assert_compatible GUT.DeltaBTwoLocalOperator.udduddOperator.eq_1 => Physics.DeltaBTwoLocalOperator.udduddOperator.eq_1
+assert_compatible GUT.DeltaBTwoLocalOperator.uddudd_baryonGrade => Physics.DeltaBTwoLocalOperator.uddudd_baryonGrade
+assert_compatible GUT.DeltaBTwoLocalOperator.uddudd_isAllRightHandedGaugeNeutralSixQuark => Physics.DeltaBTwoLocalOperator.uddudd_isAllRightHandedGaugeNeutralSixQuark
+assert_compatible GUT.DeltaBTwoLocalOperator.uddudd_isDimensionNineDeltaBTwo => Physics.DeltaBTwoLocalOperator.uddudd_isDimensionNineDeltaBTwo
+assert_compatible GUT.DeltaBTwoLocalOperator.uddudd_operatorCharge => Physics.DeltaBTwoLocalOperator.uddudd_operatorCharge
+assert_compatible GUT.DeltaBTwoLocalOperator.uddudd_quantumNumbers => Physics.DeltaBTwoLocalOperator.uddudd_quantumNumbers
+assert_compatible GUT.DeltaBTwoLocalOperator.uddudd_residualProhibits_iff => Physics.DeltaBTwoLocalOperator.uddudd_residualProhibits_iff

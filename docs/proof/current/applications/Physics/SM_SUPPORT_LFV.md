@@ -2,7 +2,7 @@
 
 ## Exact LFV results
 
-[S3DipoleSelection](../../../../../Physics/StandardModel/Operators/S3DipoleSelection.lean)
+[S3DipoleSelection](../../../../../Physics/StandardModel/Operators/Dipole/S3DipoleSelection.lean)
 uses the actual permutation action of S3 on C^3. Adjacent-swap relations and
 six normal forms are kernel certified; noncommutativity is explicit.
 Permutation covariance proves every intertwiner equals a linear combination
@@ -11,7 +11,7 @@ For arbitrary mu,ell the actual selected B/W coefficient is allowed iff
 ell(mu) or (sum mu)*ell(ones) is nonzero. Vanishing and off-diagonal allowance
 are proved without a numerical centralizer or UV model input.
 
-[SemisimpleDipoleSelection](../../../../../Physics/StandardModel/Operators/SemisimpleDipoleSelection.lean)
+[SemisimpleDipoleSelection](../../../../../Physics/StandardModel/Operators/Dipole/SemisimpleDipoleSelection.lean)
 accepts certified source/target equivalences to finite products of irreducible
 complex blocks. FiniteBlockHom supplies the rectangular Hom equivalence;
 IrreducibleHomScalar uses Schur and actual block bridges; the resulting
@@ -20,7 +20,7 @@ and matrix-unit expansion. Selector allowance iff some transported matrix unit
 has nonzero evaluation. No Hom basis/spanning premise, common-label equivalence
 assumption or generated-coefficient surjectivity is introduced.
 
-[CyclicSemisimpleDipoleControl](../../../../../Physics/StandardModel/Operators/CyclicSemisimpleDipoleControl.lean)
+[CyclicSemisimpleDipoleControl](../../../../../Physics/StandardModel/Operators/Dipole/CyclicSemisimpleDipoleControl.lean)
 certifies scalar irreducibility and the actual decomposition of cyclic diagonal
 modules and recovers the prior arbitrary-selector support iff. An explicit S3
 trivial/standard decomposition is not assumed or newly certified. A bare
@@ -28,7 +28,7 @@ semisimplicity theorem does not automatically compute the required data.
 
 ## Actual infinite mixed coefficients
 
-[DressedDuqlFamily](../../../../../Physics/StandardModel/Operators/DressedDuqlFamily.lean)
+[DressedDuqlFamily](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/DressedDuqlFamily.lean)
 reconstructs the actual DUQL seed from the flavored dictionary with all other
 coordinate factors zero. NeutralHiggsPowers identifies the actual Higgs/dual
 field sum and its neutral multiplicities, pulls back an invariant symmetric
@@ -46,7 +46,7 @@ certificate, generated interaction or amplitude.
 
 ## Finite fermion input and the remaining support boundary
 
-[ThreeGenerationFermionBound](../../../../../Physics/StandardModel/Operators/ThreeGenerationFermionBound.lean)
+[ThreeGenerationFermionBound](../../../../../Physics/StandardModel/Operators/Selection/ThreeGenerationFermionBound.lean)
 proves the actual ten signed species dimensions sum to 180. Every exterior
 source above degree 180 is zero, hence all actual mixed coefficients there
 vanish for arbitrary scalar degree. Nonzero coefficients determine a finite
@@ -63,8 +63,8 @@ full general invariant-theory library is unavoidable.
 
 ## Verification
 
-Layer-owned [Math audit](../../../../../Math/RepresentationTheory/Audit/AuditSMSupportLFV.lean)
-and [Physics audit](../../../../../Physics/StandardModel/Operators/Audit/AuditSMSupportLFV.lean)
+Layer-owned [Math audit](../../../../../Math/RepresentationTheory/Constructions/Audit/AuditSMSupportLFV.lean)
+and [Physics audit](../../../../../Physics/StandardModel/Operators/Support/Coordinates/Audit/AuditSMSupportLFV.lean)
 check all 412 registered declarations transitively under the unchanged standard-three-
 axiom policy. Sources and exact reuse roles appear in the
 [register](../../../../topics/sm-support-and-lfv-decomposition/references.md).
@@ -72,7 +72,7 @@ Builds and checks belong to [verification](../../../../topics/sm-support-and-lfv
 
 ## Whole fixed DUQL content
 
-[DuqlHiggsContent](../../../../../Physics/StandardModel/Operators/DuqlHiggsContent.lean)
+[DuqlHiggsContent](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/DuqlHiggsContent.lean)
 defines the whole fixed species-support space with one each of DUQL, h Higgs
 and a dual-Higgs fields. Actual invariance forces h=a and 3q+l=0 for a
 nonzero coefficient. A dictionary DUQL witness times the normalized pairing
@@ -81,7 +81,7 @@ and 3q+l=0, and all-Higgs prohibition for this content iff 3q+l!=0.
 This classifies existence in the full content, beyond a dressing range;
 it supplies no full spanning list or all-content B1 theorem.
 
-[FiniteSeedEvaluation](../../../../../Math/LinearAlgebra/FiniteSeedEvaluation.lean)
+[FiniteSeedEvaluation](../../../../../Math/LinearAlgebra/Constructions/FiniteSeedEvaluation.lean)
 proves evaluated image/span and zero-test reductions from explicit spanning
 and scalar-evaluation compatibility certificates. The actual invariant-ring
 and seed-generation premises remain unproved. See the
@@ -89,7 +89,7 @@ and seed-generation premises remain unproved. See the
 
 ## All four fixed contents
 
-[FourFamilyHiggsContent](../../../../../Physics/StandardModel/Operators/FourFamilyHiggsContent.lean)
+[FourFamilyHiggsContent](../../../../../Physics/StandardModel/Operators/Higgs/FourFamilyHiggsContent.lean)
 parameterizes the actual fixed-content spaces by DUQL/QQUE/QQQL/DUUE.
 Hypercharge and residual necessity are shared, while baseEquiv retains
 each actual statistical dictionary. Symmetric QQUE and sorted/Young QQQL
@@ -102,7 +102,7 @@ are not inferred. See the [result](../../../../topics/sm-support-and-lfv-decompo
 
 ## Generic content support adapter
 
-[ContentHiggsSupport](../../../../../Physics/StandardModel/Operators/ContentHiggsSupport.lean)
+[ContentHiggsSupport](../../../../../Physics/StandardModel/Operators/Higgs/ContentHiggsSupport.lean)
 allows arbitrary fermion degree and species-content predicates on the fixed
 three-generation universal cyclic input. Constant actual hypercharge Y and
 residual charge c give necessary Y+3h-3a=0 and c=0. For Y=0, a supplied
@@ -116,7 +116,7 @@ seeds require a further adapter. See the
 
 ## Outside-family adapter trials
 
-[OutsideFamilyHiggsTrials](../../../../../Physics/StandardModel/Operators/OutsideFamilyHiggsTrials.lean)
+[OutsideFamilyHiggsTrials](../../../../../Physics/StandardModel/Operators/Higgs/OutsideFamilyHiggsTrials.lean)
 constructs an actual exterior-degree-zero invariant seed and derives a
 pure-scalar support iff h=a. A triple-Q input obeying the necessary arithmetic
 filters is nevertheless zero by odd-degree Lorentz parity. Actual physical
@@ -127,7 +127,7 @@ transport is not proved here. See the
 
 ## Six-quark premise discharged
 
-[SixQuarkFullSeed](../../../../../Physics/StandardModel/Operators/SixQuarkFullSeed.lean)
+[SixQuarkFullSeed](../../../../../Physics/StandardModel/Operators/BaryonTwo/Coefficients/SixQuarkFullSeed.lean)
 constructs an actual local seed through the existing statistical two-coordinate
 equivalence. A projection from the full signed field sum onto one flavor of
 physical up/down fields has a proved right inverse and physical action
@@ -141,7 +141,7 @@ See the [result](../../../../topics/sm-support-and-lfv-decomposition/six-seed-re
 
 ## LLHH shifted all-Higgs support
 
-[WeinbergFullSeed](../../../../../Physics/StandardModel/Operators/WeinbergFullSeed.lean)
+[WeinbergFullSeed](../../../../../Physics/StandardModel/Operators/Weinberg/WeinbergFullSeed.lean)
 constructs an actual supported LLHH coefficient through the physical Weinberg
 dictionary and full-field projection/right inverses. Its lepton cyclic
 phase cancels when 2l=0. SymmetricCoefficientDressing constructs actual

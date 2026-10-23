@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVYukawa
 import GUT.SU6.SelectionRules.Models.StandardSMContinuousTensor
 
+open Physics
+
 open Math
 
 /-! Persistent audit of the universal scalar/VEV completion. The scalar

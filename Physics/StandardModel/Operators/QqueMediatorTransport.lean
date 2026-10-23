@@ -1,40 +1,18 @@
+import Physics.StandardModel.Operators.BaryonOne.Qque.QqueMediatorTransport
 import Math.LinearAlgebra.MediatorTransport
 import Physics.StandardModel.Operators.QqueMediatorInheritance
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.Qque.QqueMediatorTransport instead." (since := "source-api-v1")
 
-/-! Mediator-coordinate transport preserves the actual generated qque sector. -/
-set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
-namespace GUT.QqueMediatorTransport
-noncomputable section
-open Representation MediatorTransport
-open scoped TensorProduct
-variable {H Q U E V W : Type*} [Group H]
-  [AddCommGroup Q] [Module ℂ Q] [AddCommGroup U] [Module ℂ U]
-  [AddCommGroup E] [Module ℂ E] [AddCommGroup V] [Module ℂ V]
-  [AddCommGroup W] [Module ℂ W]
-  (q : Representation ℂ H Q) (u : Representation ℂ H U) (e : Representation ℂ H E)
-  (T : V ≃ₗ[ℂ] W) (M : V ≃ₗ[ℂ] V) (g : ℂ)
-  (J : Q ⊗[ℂ] U →ₗ[ℂ] V) (K : Q ⊗[ℂ] E →ₗ[ℂ] Module.Dual ℂ V)
+compatibility_declarations [
+  GUT.QqueMediatorTransport.generated => Physics.QqueMediatorTransport.generated,
+  GUT.QqueMediatorTransport.generated_eq => Physics.QqueMediatorTransport.generated_eq,
+  GUT.QqueMediatorTransport.generated_ne_zero_iff => Physics.QqueMediatorTransport.generated_ne_zero_iff,
+  GUT.QqueMediatorTransport.invariant => Physics.QqueMediatorTransport.invariant
+]
 
-theorem invariant (h : MediatorQque.IsInvariant q u e M g J K) :
-    MediatorQque.IsInvariant q u e (mass T M) g (source T J) (observer T K) :=
-  QqueMediatorInheritance.invariant q u e M (mass T M) g J K (source T J) (observer T K)
-    (coefficient_eq T M g J K) h
-
-def generated (h : MediatorQque.IsInvariant q u e M g J K) :=
-  MediatorQque.sector q u e (mass T M) g (source T J) (observer T K)
-    (invariant q u e T M g J K h)
-
-theorem generated_eq (h : MediatorQque.IsInvariant q u e M g J K) :
-    generated q u e T M g J K h = MediatorQque.sector q u e M g J K h :=
-  QqueMediatorInheritance.sector_eq q u e M (mass T M) g J K (source T J) (observer T K)
-    (coefficient_eq T M g J K) h (invariant q u e T M g J K h)
-
-theorem generated_ne_zero_iff (h : MediatorQque.IsInvariant q u e M g J K) :
-    generated q u e T M g J K h ≠ 0 ↔ MediatorQque.sector q u e M g J K h ≠ 0 := by
-  rw [generated_eq]
-
-end
-end GUT.QqueMediatorTransport
+assert_compatible GUT.QqueMediatorTransport.generated => Physics.QqueMediatorTransport.generated
+assert_compatible GUT.QqueMediatorTransport.generated_eq => Physics.QqueMediatorTransport.generated_eq
+assert_compatible GUT.QqueMediatorTransport.generated_ne_zero_iff => Physics.QqueMediatorTransport.generated_ne_zero_iff
+assert_compatible GUT.QqueMediatorTransport.invariant => Physics.QqueMediatorTransport.invariant

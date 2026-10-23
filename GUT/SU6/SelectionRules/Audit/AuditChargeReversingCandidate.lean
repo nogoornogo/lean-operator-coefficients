@@ -1,6 +1,6 @@
 import GUT.SU6.SelectionRules.Models.ChargeReversingCandidate
-import Math.RepresentationTheory.Audit.AuditCovariantCharacterObstruction
-import Physics.StandardModel.Spectrum.Audit.AuditHyperchargeReversalProbe
+import Math.RepresentationTheory.Invariants.Audit.AuditCovariantCharacterObstruction
+import Physics.StandardModel.Spectrum.Representations.Audit.AuditHyperchargeReversalProbe
 open Lean in
 run_cmd do
   let ds := [``GUT.ChargeReversingCandidate.light_dual_index_zero,

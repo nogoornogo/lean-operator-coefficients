@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.ContinuousProfileModel
 import GUT.SU6.SelectionRules.Benchmarks.WeylMassFamilyBenchmark
-import Physics.StandardModel.Spectrum.Audit.AuditFiniteChargeProfiles
+import Physics.StandardModel.Spectrum.Charges.Audit.AuditFiniteChargeProfiles
+
+open Physics
 
 /-! Source-derived profiles, exact legacy recovery, nonlinear mass sources,
 and exclusion of the incompatible coefficient-level negative control. -/

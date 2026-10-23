@@ -1,56 +1,30 @@
+import Physics.StandardModel.Operators.Dipole.DipolePolynomialControls
 import Physics.StandardModel.Operators.DipolePolynomialInputs
 import Physics.StandardModel.Operators.DipoleMediatorControls
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Dipole.DipolePolynomialControls instead." (since := "source-api-v1")
 
-/-! Polynomial samples with correlated weights. These are not UV models. -/
-namespace GUT.DipolePolynomialControls
-set_option autoImplicit false
-noncomputable section
-open MvPolynomial DipoleControls
+compatibility_declarations [
+  GUT.DipolePolynomialControls.generation => Physics.DipolePolynomialControls.generation,
+  GUT.DipolePolynomialControls.generation.eq_1 => Physics.DipolePolynomialControls.generation.eq_1,
+  GUT.DipolePolynomialControls.not_isolates => Physics.DipolePolynomialControls.not_isolates,
+  GUT.DipolePolynomialControls.polynomials => Physics.DipolePolynomialControls.polynomials,
+  GUT.DipolePolynomialControls.polynomials.eq_1 => Physics.DipolePolynomialControls.polynomials.eq_1,
+  GUT.DipolePolynomialControls.realized => Physics.DipolePolynomialControls.realized,
+  GUT.DipolePolynomialControls.same_monomial_cancels => Physics.DipolePolynomialControls.same_monomial_cancels,
+  GUT.DipolePolynomialControls.selected => Physics.DipolePolynomialControls.selected,
+  GUT.DipolePolynomialControls.weights => Physics.DipolePolynomialControls.weights,
+  GUT.DipolePolynomialControls.weights.eq_1 => Physics.DipolePolynomialControls.weights.eq_1
+]
 
-def polynomials (i : Fin 2) : MvPolynomial Unit ℂ :=
-  if i = 0 then X () else (X ())^2
-
-def weights (x : Unit → ℂ) (i : Fin 2) : ℂ := eval x (polynomials i)
-
-def generation (x : Unit → ℂ) : DipoleFlavorSelection.Coefficients flavor flavor :=
-  DipolePolynomialInputs.generation flavor flavor flavor
-    DipoleMediatorControls.incoming DipoleMediatorControls.outgoing
-    DipoleMediatorControls.weakOutgoing polynomials x
-
-theorem selected (x : Unit → ℂ) :
-    DipoleFlavorSelection.selector flavor flavor mu electron (generation x) =
-    (x () - (x ())^2, 0) := by
-  rw [generation, DipoleMediatorPaths.selected]
-  simp [polynomials, DipoleMediatorControls.incoming, DipoleMediatorControls.outgoing,
-    DipoleMediatorControls.weakOutgoing, Fin.sum_univ_two, sub_eq_add_neg]
-
-/-- Neither of these two paths can be isolated with a unit weight. -/
-theorem not_isolates : ¬ WeightedSelectedPaths.Isolates weights := by
-  intro h
-  obtain ⟨x, hx, hrest⟩ := h 0
-  have hother := hrest 1 (by decide)
-  have hz : x () = 1 := by simpa [weights, polynomials] using hx
-  have hs : (x ())^2 = 0 := by simpa [weights, polynomials] using hother
-  rw [hz] at hs
-  norm_num at hs
-
-theorem realized : ∃ x, DipoleFlavorSelection.selector flavor flavor mu electron
-    (generation x) ≠ 0 := by
-  refine ⟨fun _ => 2, ?_⟩
-  rw [selected]
-  norm_num
-
-/-- Identical polynomial dependence groups opposing paths into a zero total. -/
-theorem same_monomial_cancels (x : Unit → ℂ) :
-    DipoleFlavorSelection.selector flavor flavor mu electron
-      (DipolePolynomialInputs.generation flavor flavor flavor
-        DipoleMediatorControls.incoming DipoleMediatorControls.outgoing
-        DipoleMediatorControls.weakOutgoing (fun _ : Fin 2 => X ()) x) = 0 := by
-  rw [DipoleMediatorPaths.selected]
-  simp [DipoleMediatorControls.incoming, DipoleMediatorControls.outgoing,
-    DipoleMediatorControls.weakOutgoing, Fin.sum_univ_two]
-
-end
-end GUT.DipolePolynomialControls
+assert_compatible GUT.DipolePolynomialControls.generation => Physics.DipolePolynomialControls.generation
+assert_compatible GUT.DipolePolynomialControls.generation.eq_1 => Physics.DipolePolynomialControls.generation.eq_1
+assert_compatible GUT.DipolePolynomialControls.not_isolates => Physics.DipolePolynomialControls.not_isolates
+assert_compatible GUT.DipolePolynomialControls.polynomials => Physics.DipolePolynomialControls.polynomials
+assert_compatible GUT.DipolePolynomialControls.polynomials.eq_1 => Physics.DipolePolynomialControls.polynomials.eq_1
+assert_compatible GUT.DipolePolynomialControls.realized => Physics.DipolePolynomialControls.realized
+assert_compatible GUT.DipolePolynomialControls.same_monomial_cancels => Physics.DipolePolynomialControls.same_monomial_cancels
+assert_compatible GUT.DipolePolynomialControls.selected => Physics.DipolePolynomialControls.selected
+assert_compatible GUT.DipolePolynomialControls.weights => Physics.DipolePolynomialControls.weights
+assert_compatible GUT.DipolePolynomialControls.weights.eq_1 => Physics.DipolePolynomialControls.weights.eq_1

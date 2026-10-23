@@ -1,91 +1,46 @@
+import Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkLocalBasis
 import Physics.StandardModel.Operators.LiSixQuarkCertificate
 import Physics.StandardModel.Operators.LiSixQuarkConvention
+import Math.Lean.Compatibility
 
-/-! Literal selected Young-orbit contractions form a basis of the independently
-defined invariant six-quark local space. The added seed is explicitly separate. -/
-namespace GUT.LiSixQuarkLocalBasis
-set_option autoImplicit false
-noncomputable section
-open SixQuarkInvariant SixQuarkSpeciesQuotient LiSixQuarkConvention
-open LiSixQuarkCertificate SixQuarkPermutationCompleteness
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkLocalBasis instead." (since := "source-api-v1")
 
-def wordCoefficient (w : List (Fin 4)) (f : Coefficient) : Coefficient :=
-  w.foldl (fun f g => f.domDomCongr (slotSwap g)) f
+compatibility_declarations [
+  GUT.LiSixQuarkCertificate.coordinateEquiv.eq_1 => Physics.LiSixQuarkCertificate.coordinateEquiv.eq_1,
+  GUT.LiSixQuarkLocalBasis.basis => Physics.LiSixQuarkLocalBasis.basis,
+  GUT.LiSixQuarkLocalBasis.basis.eq_1 => Physics.LiSixQuarkLocalBasis.basis.eq_1,
+  GUT.LiSixQuarkLocalBasis.basis_apply => Physics.LiSixQuarkLocalBasis.basis_apply,
+  GUT.LiSixQuarkLocalBasis.coordinate_assembly => Physics.LiSixQuarkLocalBasis.coordinate_assembly,
+  GUT.LiSixQuarkLocalBasis.literal_reconstruction => Physics.LiSixQuarkLocalBasis.literal_reconstruction,
+  GUT.LiSixQuarkLocalBasis.localEquiv => Physics.LiSixQuarkLocalBasis.localEquiv,
+  GUT.LiSixQuarkLocalBasis.localEquiv.eq_1 => Physics.LiSixQuarkLocalBasis.localEquiv.eq_1,
+  GUT.LiSixQuarkLocalBasis.localEquiv_assembly => Physics.LiSixQuarkLocalBasis.localEquiv_assembly,
+  GUT.LiSixQuarkLocalBasis.local_finrank => Physics.LiSixQuarkLocalBasis.local_finrank,
+  GUT.LiSixQuarkLocalBasis.orbitCoefficient => Physics.LiSixQuarkLocalBasis.orbitCoefficient,
+  GUT.LiSixQuarkLocalBasis.orbitCoefficient.eq_1 => Physics.LiSixQuarkLocalBasis.orbitCoefficient.eq_1,
+  GUT.LiSixQuarkLocalBasis.orbitCoefficient_eq => Physics.LiSixQuarkLocalBasis.orbitCoefficient_eq,
+  GUT.LiSixQuarkLocalBasis.orbitInvariant => Physics.LiSixQuarkLocalBasis.orbitInvariant,
+  GUT.LiSixQuarkLocalBasis.orbit_coordinates => Physics.LiSixQuarkLocalBasis.orbit_coordinates,
+  GUT.LiSixQuarkLocalBasis.orbit_independent => Physics.LiSixQuarkLocalBasis.orbit_independent,
+  GUT.LiSixQuarkLocalBasis.wordCoefficient => Physics.LiSixQuarkLocalBasis.wordCoefficient,
+  GUT.LiSixQuarkLocalBasis.word_reconstruct => Physics.LiSixQuarkLocalBasis.word_reconstruct
+]
 
-theorem word_reconstruct (w : List (Fin 4)) (c : Fin 5 → Fin 5 → ℂ) :
-    wordCoefficient w (reconstruct c) =
-      reconstruct (w.foldl (fun c g => transform c g) c) := by
-  induction w generalizing c with
-  | nil => rfl
-  | cons g w ih =>
-    change wordCoefficient w ((reconstruct c).domDomCongr (slotSwap g)) = _
-    rw [← reconstruct_transform]
-    exact ih _
-
-def orbitCoefficient (j : Fin 25) : Coefficient :=
-  wordCoefficient (selectedWord j) (candidate (selectedSeed j))
-
-theorem orbitCoefficient_eq (j : Fin 25) :
-    orbitCoefficient j = reconstruct (orbitArray j) := by
-  have hc : candidate (selectedSeed j) = reconstruct (seedCoordinates (selectedSeed j)) := by
-    rw [← candidate_coordinates]
-    exact (reconstruct_coordinates _ (candidate_invariant _)).symm
-  rw [orbitCoefficient, hc, word_reconstruct]
-  rfl
-
-def orbitInvariant (j : Fin 25) : invariantSubmodule :=
-  ⟨orbitCoefficient j, by rw [orbitCoefficient_eq]; exact reconstruct_invariant _⟩
-
-theorem orbit_coordinates (j : Fin 25) :
-    coordinatesEquiv (orbitInvariant j) = orbitArray j := by
-  change coordinates (orbitCoefficient j) = _
-  rw [orbitCoefficient_eq, coordinates_reconstruct]
-
-theorem coordinate_assembly (v : Fin 25 → ℂ) (p q : Fin 5) :
-    coordinateEquiv v p q = ∑ j, v j * orbitArray j p q := by
-  have he : coordinateEquiv v = fun p q => ∑ j, v j * orbitArray j p q := by
-    apply flatten.injective
-    ext i
-    rw [coordinateEquiv, LinearEquiv.trans_apply, LinearEquiv.apply_symm_apply]
-    change (basisMatrix.mulVec v) i =
-      ∑ j, v j * flatten (orbitArray j) i
-    simp only [Matrix.mulVec, dotProduct, orbitArray_agrees]
-    apply Finset.sum_congr rfl
-    intro j hj
-    ring
-  exact congrFun (congrFun he p) q
-
-def localEquiv : (Fin 25 → ℂ) ≃ₗ[ℂ] invariantSubmodule :=
-  coordinateEquiv.trans coordinatesEquiv.symm
-
-/-- The inverse really assembles the selected literal contractions. -/
-theorem localEquiv_assembly (v : Fin 25 → ℂ) :
-    localEquiv v = ∑ j, v j • orbitInvariant j := by
-  apply coordinatesEquiv.injective
-  rw [localEquiv, LinearEquiv.trans_apply, LinearEquiv.apply_symm_apply]
-  rw [map_sum]
-  simp only [map_smul, orbit_coordinates]
-  ext p q
-  simpa [smul_eq_mul] using coordinate_assembly v p q
-
-def basis : Module.Basis (Fin 25) ℂ invariantSubmodule :=
-  (Pi.basisFun ℂ (Fin 25)).map localEquiv
-
-theorem basis_apply (j : Fin 25) : basis j = orbitInvariant j := by
-  simp [basis, localEquiv_assembly, Pi.basisFun_apply, Pi.single_apply]
-
-theorem orbit_independent : LinearIndependent ℂ orbitInvariant := by
-  have hb : ⇑basis = orbitInvariant := funext basis_apply
-  rw [← hb]
-  exact basis.linearIndependent
-
-theorem literal_reconstruction (f : invariantSubmodule) :
-    f = ∑ j, localEquiv.symm f j • orbitInvariant j := by
-  rw [← localEquiv_assembly, LinearEquiv.apply_symm_apply]
-
-theorem local_finrank : Module.finrank ℂ invariantSubmodule = 25 := by
-  rw [← localEquiv.finrank_eq]
-  simp
-
-end
-end GUT.LiSixQuarkLocalBasis
+assert_compatible GUT.LiSixQuarkCertificate.coordinateEquiv.eq_1 => Physics.LiSixQuarkCertificate.coordinateEquiv.eq_1
+assert_compatible GUT.LiSixQuarkLocalBasis.basis => Physics.LiSixQuarkLocalBasis.basis
+assert_compatible GUT.LiSixQuarkLocalBasis.basis.eq_1 => Physics.LiSixQuarkLocalBasis.basis.eq_1
+assert_compatible GUT.LiSixQuarkLocalBasis.basis_apply => Physics.LiSixQuarkLocalBasis.basis_apply
+assert_compatible GUT.LiSixQuarkLocalBasis.coordinate_assembly => Physics.LiSixQuarkLocalBasis.coordinate_assembly
+assert_compatible GUT.LiSixQuarkLocalBasis.literal_reconstruction => Physics.LiSixQuarkLocalBasis.literal_reconstruction
+assert_compatible GUT.LiSixQuarkLocalBasis.localEquiv => Physics.LiSixQuarkLocalBasis.localEquiv
+assert_compatible GUT.LiSixQuarkLocalBasis.localEquiv.eq_1 => Physics.LiSixQuarkLocalBasis.localEquiv.eq_1
+assert_compatible GUT.LiSixQuarkLocalBasis.localEquiv_assembly => Physics.LiSixQuarkLocalBasis.localEquiv_assembly
+assert_compatible GUT.LiSixQuarkLocalBasis.local_finrank => Physics.LiSixQuarkLocalBasis.local_finrank
+assert_compatible GUT.LiSixQuarkLocalBasis.orbitCoefficient => Physics.LiSixQuarkLocalBasis.orbitCoefficient
+assert_compatible GUT.LiSixQuarkLocalBasis.orbitCoefficient.eq_1 => Physics.LiSixQuarkLocalBasis.orbitCoefficient.eq_1
+assert_compatible GUT.LiSixQuarkLocalBasis.orbitCoefficient_eq => Physics.LiSixQuarkLocalBasis.orbitCoefficient_eq
+assert_compatible GUT.LiSixQuarkLocalBasis.orbitInvariant => Physics.LiSixQuarkLocalBasis.orbitInvariant
+assert_compatible GUT.LiSixQuarkLocalBasis.orbit_coordinates => Physics.LiSixQuarkLocalBasis.orbit_coordinates
+assert_compatible GUT.LiSixQuarkLocalBasis.orbit_independent => Physics.LiSixQuarkLocalBasis.orbit_independent
+assert_compatible GUT.LiSixQuarkLocalBasis.wordCoefficient => Physics.LiSixQuarkLocalBasis.wordCoefficient
+assert_compatible GUT.LiSixQuarkLocalBasis.word_reconstruct => Physics.LiSixQuarkLocalBasis.word_reconstruct

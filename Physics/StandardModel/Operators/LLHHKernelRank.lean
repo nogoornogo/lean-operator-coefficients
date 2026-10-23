@@ -1,151 +1,59 @@
+import Physics.StandardModel.Operators.Weinberg.LLHHKernelRank
 import Math.RepresentationTheory.ConstantPatternExterior
 import Physics.StandardModel.Operators.SMFullLocalKernel
 import Physics.StandardModel.Operators.LiWeinbergCertificate
+import Math.Lean.Compatibility
 
-/-! Concrete LLHH coordinates transported to the actual statistical kernel. -/
-namespace GUT.LLHHKernelRank
-set_option autoImplicit false
-noncomputable section
-open Math Representation
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Weinberg.LLHHKernelRank instead." (since := "source-api-v1")
 
-@[reducible] local instance : AddCommGroup
-    (SMEpsilonTensor.Weak ⊗[ℂ] WeylSpinor.Space) := inferInstance
-@[reducible] local instance : AddCommGroup
-    (WeinbergModelSector.Lepton (Fin 3 → ℂ)) := inferInstance
+compatibility_declarations [
+  GUT.LLHHKernelRank.a => Physics.LLHHKernelRank.a,
+  GUT.LLHHKernelRank.bosonEquiv => Physics.LLHHKernelRank.bosonEquiv,
+  GUT.LLHHKernelRank.carrierBasis => Physics.LLHHKernelRank.carrierBasis,
+  GUT.LLHHKernelRank.carrier_dimension => Physics.LLHHKernelRank.carrier_dimension,
+  GUT.LLHHKernelRank.coefficientBasis => Physics.LLHHKernelRank.coefficientBasis,
+  GUT.LLHHKernelRank.coefficientEquiv => Physics.LLHHKernelRank.coefficientEquiv,
+  GUT.LLHHKernelRank.coordinates => Physics.LLHHKernelRank.coordinates,
+  GUT.LLHHKernelRank.explicit_rank => Physics.LLHHKernelRank.explicit_rank,
+  GUT.LLHHKernelRank.extract_reconstruct => Physics.LLHHKernelRank.extract_reconstruct,
+  GUT.LLHHKernelRank.flavor => Physics.LLHHKernelRank.flavor,
+  GUT.LLHHKernelRank.fullEquiv => Physics.LLHHKernelRank.fullEquiv,
+  GUT.LLHHKernelRank.inclusion_surjective => Physics.LLHHKernelRank.inclusion_surjective,
+  GUT.LLHHKernelRank.instAddCommGroupLeptonForallFinOfNatNatComplex => Physics.LLHHKernelRank.instAddCommGroupLeptonForallFinOfNatNatComplex,
+  GUT.LLHHKernelRank.instAddCommGroupTensorProductComplexWeakSpace => Physics.LLHHKernelRank.instAddCommGroupTensorProductComplexWeakSpace,
+  GUT.LLHHKernelRank.kernelCoordinates => Physics.LLHHKernelRank.kernelCoordinates,
+  GUT.LLHHKernelRank.kernel_dimension => Physics.LLHHKernelRank.kernel_dimension,
+  GUT.LLHHKernelRank.leptonBasis => Physics.LLHHKernelRank.leptonBasis,
+  GUT.LLHHKernelRank.localEquiv => Physics.LLHHKernelRank.localEquiv,
+  GUT.LLHHKernelRank.pattern => Physics.LLHHKernelRank.pattern,
+  GUT.LLHHKernelRank.rank => Physics.LLHHKernelRank.rank,
+  GUT.LLHHKernelRank.rank_preserved => Physics.LLHHKernelRank.rank_preserved,
+  GUT.LLHHKernelRank.reconstruct_extract => Physics.LLHHKernelRank.reconstruct_extract,
+  GUT.LLHHKernelRank.residualEquiv => Physics.LLHHKernelRank.residualEquiv,
+  GUT.LLHHKernelRank.sourceEquiv => Physics.LLHHKernelRank.sourceEquiv
+]
 
-def flavor (s : DeltaLOneSignedInput.Species) :
-    Representation ℂ Unit (ThreeGenerationFermionBound.Flavor s) := trivial ℂ Unit _
-def pattern (_ : Fin 2) : DeltaLOneSignedInput.Species := 3
-abbrev a := trivial ℂ Unit (Fin 3 → ℂ)
-
-def sourceEquiv : Representation.Equiv ((WeinbergSMInterface.lepton a).exteriorPower 2)
-    (SMFiniteHiggsSupport.source flavor pattern) :=
-  ConstantPatternExterior.equiv (DeltaLOneSignedFields.field flavor) 3 2
-
-def bosonEquiv : Representation.Equiv
-    ((WeinbergSMInterface.higgs (R := Unit)).symmetricPower 2)
-    (BoundedHiggsSupport.constituent (SMHiggsConstituents.weakProjection (H := Unit))
-      SMHiggsConstituents.character 2 2) := by
-  change Representation.Equiv ((NeutralHiggsPowers.higgs (H := Unit)).symmetricPower 2) _
-  rw [SMHiggsConstituents.higgs_eq]
-  exact TwistedSU2ClebschGordan.leftPower _ _ 2
-
-def fullEquiv : Representation.Equiv (WeinbergSMInterface.domain a)
-    (SMWeylFiniteKernel.fullAction flavor pattern 2 2) :=
-  ExternalInvariantTensor.tensorEquiv sourceEquiv bosonEquiv
-
-def localEquiv : Representation.Equiv
-    ((WeinbergSMInterface.domain a).comp (MonoidHom.inl SMIntegralLocalWeights.Group Unit))
-    (SMIntegralLocalWeights.action flavor pattern 2 2) where
-  toLinearEquiv := fullEquiv.toLinearEquiv
-  isIntertwining' g := fullEquiv.isIntertwining' (g,1)
-
-theorem inclusion_surjective : Function.Surjective
-    (MonoidHom.inl SMIntegralLocalWeights.Group Unit) := by
-  rintro ⟨g,u⟩
-  exact ⟨g, by cases u; rfl⟩
-
-def coefficientEquiv : InvariantCoefficientTransport.Invariants
-    (SMIntegralLocalWeights.action flavor pattern 2 2) ≃ₗ[ℂ]
-    WeinbergSMInterface.ModelSector a :=
-  (InvariantCoefficientTransport.alongEquiv localEquiv.symm).trans
-    (InvariantCoefficientTransport.alongSurjection (WeinbergSMInterface.domain a)
-      (MonoidHom.inl _ Unit) inclusion_surjective)
-
-def coordinates : InvariantCoefficientTransport.Invariants
-    (SMIntegralLocalWeights.action flavor pattern 2 2) ≃ₗ[ℂ] (Sym (Fin 3) 2 → ℂ) :=
-  coefficientEquiv.trans (LiWeinbergCertificate.flavorEquiv a (Pi.basisFun ℂ (Fin 3))
-    LiWeinbergCertificate.trivial_symmetric_action)
-
-def kernelCoordinates : SMFullLocalKernel.Kernel flavor pattern 2 2 ≃ₗ[ℂ]
-    (Sym (Fin 3) 2 → ℂ) :=
-  (SMFullLocalKernel.coefficientEquiv flavor pattern 2 2).symm.trans coordinates
-
-/-- Explicit finite indices, with no choice of a basis by `Module.finBasis`. -/
-def leptonBasis := (((Pi.basisFun ℂ (Fin 2)).tensorProduct (Pi.basisFun ℂ (Fin 2))).tensorProduct
-  (Pi.basisFun ℂ (Fin 3))).reindex
-    (((finProdFinEquiv : Fin 2 × Fin 2 ≃ Fin 4).prodCongr (Equiv.refl (Fin 3))).trans
-      finProdFinEquiv)
-
-def carrierBasis := (((leptonBasis.exteriorPower 2).tensorProduct
-  ((Pi.basisFun ℂ (Fin 2)).symmetricPower 2))).map fullEquiv.toLinearEquiv
-
-def coefficientBasis := Module.Basis.ofEquivFun coordinates
-
-theorem reconstruct_extract (f : InvariantCoefficientTransport.Invariants
-    (SMIntegralLocalWeights.action flavor pattern 2 2)) :
-    coordinates.symm (coordinates f) = f := coordinates.symm_apply_apply f
-
-theorem extract_reconstruct (c : Sym (Fin 3) 2 → ℂ) :
-    coordinates (coordinates.symm c) = c := coordinates.apply_symm_apply c
-
-theorem kernel_dimension : Module.finrank ℂ (SMFullLocalKernel.Kernel flavor pattern 2 2) = 6 := by
-  rw [kernelCoordinates.finrank_eq, Module.finrank_pi, Sym.card_sym_eq_choose]
-  norm_num [Nat.choose_two_right]
-
-theorem carrier_dimension : Module.finrank ℂ (SMFullLocalKernel.Carrier flavor pattern 2) = 198 := by
-  rw [← fullEquiv.toLinearEquiv.finrank_eq]
-  rw [Module.finrank_tensorProduct, exteriorPower.finrank_eq, SymmetricPower.finrank_eq]
-  norm_num [WeinbergModelSector.Lepton, SMEpsilonTensor.Weak, WeylSpinor.Space,
-    Module.finrank_tensorProduct, Nat.choose_two_right, Nat.multichoose]
-
-theorem rank : Module.finrank ℂ
-    (LinearMap.range (SMFullLocalKernel.constraints flavor pattern 2 2)) = 192 := by
-  have h := LinearMap.finrank_range_add_finrank_ker
-    (SMFullLocalKernel.constraints flavor pattern 2 2)
-  have hk := kernel_dimension
-  have hd := carrier_dimension
-  change Module.finrank ℂ (LinearMap.range (SMFullLocalKernel.constraints flavor pattern 2 2)) +
-    Module.finrank ℂ (SMFullLocalKernel.Kernel flavor pattern 2 2) =
-    Module.finrank ℂ (Fin (Module.finrank ℂ (SMFullLocalKernel.Carrier flavor pattern 2)) → ℂ) at h
-  simp only [Module.finrank_pi, Fintype.card_fin, hk, hd] at h
-  omega
-
-/-- Rank is unchanged by replacing the classical basis with explicit wedge indices. -/
-theorem explicit_rank : Module.finrank ℂ (LinearMap.range
-    (FiniteInvariantKernel.constraints (SMIntegralLocalWeights.action flavor pattern 2 2)
-      carrierBasis (SMFullLocalKernel.tests 2))) = 192 := by
-  let e := (FiniteInvariantKernel.equiv (SMIntegralLocalWeights.action flavor pattern 2 2)
-    carrierBasis (SMFullLocalKernel.tests 2) (SMFullLocalKernel.exhaustive flavor pattern 2 2)).symm.trans
-    coordinates
-  have hk : Module.finrank ℂ (FiniteInvariantKernel.Kernel
-      (SMIntegralLocalWeights.action flavor pattern 2 2) carrierBasis (SMFullLocalKernel.tests 2)) = 6 := by
-    rw [e.finrank_eq, Module.finrank_pi, Sym.card_sym_eq_choose]
-    norm_num [Nat.choose_two_right]
-  have hd := Module.finrank_eq_card_basis carrierBasis
-  rw [carrier_dimension] at hd
-  have h := LinearMap.finrank_range_add_finrank_ker
-    (FiniteInvariantKernel.constraints (SMIntegralLocalWeights.action flavor pattern 2 2)
-      carrierBasis (SMFullLocalKernel.tests 2))
-  rw [show Module.finrank ℂ (LinearMap.ker (FiniteInvariantKernel.constraints
-    (SMIntegralLocalWeights.action flavor pattern 2 2) carrierBasis (SMFullLocalKernel.tests 2))) = 6
-    from hk] at h
-  simp only [Module.finrank_pi] at h
-  omega
-
-theorem rank_preserved : Module.finrank ℂ (LinearMap.range
-    (FiniteInvariantKernel.constraints (SMIntegralLocalWeights.action flavor pattern 2 2)
-      carrierBasis (SMFullLocalKernel.tests 2))) =
-    Module.finrank ℂ (LinearMap.range (SMFullLocalKernel.constraints flavor pattern 2 2)) :=
-  explicit_rank.trans rank.symm
-
-/-- The same statistical bridge retains any supplied residual flavor action. -/
-def residualEquiv {H : Type*} [Group H]
-    (f : ∀ s, Representation ℂ H (ThreeGenerationFermionBound.Flavor s)) :
-    InvariantCoefficientTransport.Invariants (SMWeylFiniteKernel.fullAction f pattern 2 2) ≃ₗ[ℂ]
-      IntertwiningMap ((f 3).symmetricPower 2) (trivial ℂ H ℂ) := by
-  let eF : Representation.Equiv ((WeinbergSMInterface.lepton (f 3)).exteriorPower 2)
-      (SMFiniteHiggsSupport.source f pattern) :=
-    ConstantPatternExterior.equiv (DeltaLOneSignedFields.field f) 3 2
-  let eB : Representation.Equiv ((WeinbergSMInterface.higgs (R := H)).symmetricPower 2)
-      (BoundedHiggsSupport.constituent (SMHiggsConstituents.weakProjection (H := H))
-        SMHiggsConstituents.character 2 2) := by
-    change Representation.Equiv ((NeutralHiggsPowers.higgs (H := H)).symmetricPower 2) _
-    rw [SMHiggsConstituents.higgs_eq]
-    exact TwistedSU2ClebschGordan.leftPower _ _ 2
-  exact (InvariantCoefficientTransport.alongEquiv
-    (ExternalInvariantTensor.tensorEquiv eF eB).symm).trans (WeinbergSMInterface.homEquiv (f 3))
-
-end
-end GUT.LLHHKernelRank
+assert_compatible GUT.LLHHKernelRank.a => Physics.LLHHKernelRank.a
+assert_compatible GUT.LLHHKernelRank.bosonEquiv => Physics.LLHHKernelRank.bosonEquiv
+assert_compatible GUT.LLHHKernelRank.carrierBasis => Physics.LLHHKernelRank.carrierBasis
+assert_compatible GUT.LLHHKernelRank.carrier_dimension => Physics.LLHHKernelRank.carrier_dimension
+assert_compatible GUT.LLHHKernelRank.coefficientBasis => Physics.LLHHKernelRank.coefficientBasis
+assert_compatible GUT.LLHHKernelRank.coefficientEquiv => Physics.LLHHKernelRank.coefficientEquiv
+assert_compatible GUT.LLHHKernelRank.coordinates => Physics.LLHHKernelRank.coordinates
+assert_compatible GUT.LLHHKernelRank.explicit_rank => Physics.LLHHKernelRank.explicit_rank
+assert_compatible GUT.LLHHKernelRank.extract_reconstruct => Physics.LLHHKernelRank.extract_reconstruct
+assert_compatible GUT.LLHHKernelRank.flavor => Physics.LLHHKernelRank.flavor
+assert_compatible GUT.LLHHKernelRank.fullEquiv => Physics.LLHHKernelRank.fullEquiv
+assert_compatible GUT.LLHHKernelRank.inclusion_surjective => Physics.LLHHKernelRank.inclusion_surjective
+assert_compatible GUT.LLHHKernelRank.instAddCommGroupLeptonForallFinOfNatNatComplex => Physics.LLHHKernelRank.instAddCommGroupLeptonForallFinOfNatNatComplex
+assert_compatible GUT.LLHHKernelRank.instAddCommGroupTensorProductComplexWeakSpace => Physics.LLHHKernelRank.instAddCommGroupTensorProductComplexWeakSpace
+assert_compatible GUT.LLHHKernelRank.kernelCoordinates => Physics.LLHHKernelRank.kernelCoordinates
+assert_compatible GUT.LLHHKernelRank.kernel_dimension => Physics.LLHHKernelRank.kernel_dimension
+assert_compatible GUT.LLHHKernelRank.leptonBasis => Physics.LLHHKernelRank.leptonBasis
+assert_compatible GUT.LLHHKernelRank.localEquiv => Physics.LLHHKernelRank.localEquiv
+assert_compatible GUT.LLHHKernelRank.pattern => Physics.LLHHKernelRank.pattern
+assert_compatible GUT.LLHHKernelRank.rank => Physics.LLHHKernelRank.rank
+assert_compatible GUT.LLHHKernelRank.rank_preserved => Physics.LLHHKernelRank.rank_preserved
+assert_compatible GUT.LLHHKernelRank.reconstruct_extract => Physics.LLHHKernelRank.reconstruct_extract
+assert_compatible GUT.LLHHKernelRank.residualEquiv => Physics.LLHHKernelRank.residualEquiv
+assert_compatible GUT.LLHHKernelRank.sourceEquiv => Physics.LLHHKernelRank.sourceEquiv

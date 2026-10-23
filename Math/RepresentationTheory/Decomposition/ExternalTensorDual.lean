@@ -1,4 +1,4 @@
-import Math.RepresentationTheory.ExternalInvariantTensor
+import Math.RepresentationTheory.Tensors.ExternalInvariantTensor
 import Math.RepresentationTheory.Decomposition.ExternalTensorProduct
 
 /-! Equivariant finite-dimensional tensor duality for independent actions. -/

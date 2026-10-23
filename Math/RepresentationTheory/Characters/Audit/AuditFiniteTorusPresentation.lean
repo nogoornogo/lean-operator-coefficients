@@ -1,6 +1,6 @@
 import Math.RepresentationTheory.Characters.FiniteTorusPresentation
-import Math.RepresentationTheory.BasisActionContinuity
-import Math.RepresentationTheory.ProductInvariantCoefficients
+import Math.RepresentationTheory.Constructions.BasisActionContinuity
+import Math.RepresentationTheory.Coefficients.ProductInvariantCoefficients
 import Math.Audit.ImportOrigin
 import Lean.Util.CollectAxioms
 

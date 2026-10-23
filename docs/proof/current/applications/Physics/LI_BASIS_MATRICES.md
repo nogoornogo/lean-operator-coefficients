@@ -8,8 +8,8 @@ and (4.44) are bases of `Fin 4 → ℂ`; their full matrices have rank four.
 These are exact coordinate-data certificates, not new differential EFT
 completeness theorems.
 
-Sources: [certificate](../../../../../Physics/StandardModel/Operators/LiBasisMatrixCertificate.lean),
-[strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditLiBasisMatrices.lean).
+Sources: [certificate](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/LiBasisMatrixCertificate.lean),
+[strict audit](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/Audit/AuditLiBasisMatrices.lean).
 
 ## Inputs And Citation Role
 

@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.ContinuousWeylMassTransport
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylFullMass
 
+open Physics
+
 /-! The nonzero fifteen-mode benchmark in the continuous-geometry model. -/
 
 set_option autoImplicit false

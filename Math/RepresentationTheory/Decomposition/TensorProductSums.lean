@@ -1,4 +1,4 @@
-import Math.RepresentationTheory.ExternalInvariantTensor
+import Math.RepresentationTheory.Tensors.ExternalInvariantTensor
 import Math.RepresentationTheory.Decomposition.SplitRepresentationProjection
 import Mathlib.LinearAlgebra.TensorProduct.Prod
 

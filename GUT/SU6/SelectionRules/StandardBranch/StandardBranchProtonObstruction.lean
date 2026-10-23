@@ -1,4 +1,6 @@
-import Physics.StandardModel.Operators.AbelianProtonCharge
+import Physics.StandardModel.Operators.Selection.AbelianProtonCharge
+
+open Physics
 
 /-!
 # Continuous anomaly cross-check for one Standard Model charge assignment
@@ -9,6 +11,7 @@ The rational identities below do not imply a discrete-symmetry obstruction.
 
 namespace GUT
 namespace StandardBranchProtonObstruction
+open Physics.StandardBranchProtonObstruction
 
 /-!
 ## Mixed-anomaly identities for one charge assignment

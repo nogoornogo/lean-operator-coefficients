@@ -1,6 +1,8 @@
 import GUT.SU5.SelectionRules.SupportedFields
 import Math.RepresentationTheory.Decomposition.RepresentationConjugation
 
+open Physics
+
 open Math
 
 /-!

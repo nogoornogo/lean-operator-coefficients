@@ -1,50 +1,17 @@
+import Physics.StandardModel.Operators.Support.Joint.SMSignedCoreJointPresentation
 import Physics.StandardModel.Operators.SMQJointPresentation
 import Physics.StandardModel.Operators.SMColoredJointPresentation
 import Physics.StandardModel.Operators.SMLeptonJointPresentation
+import Math.Lean.Compatibility
 
-/-! Actual presentations of all ten signed single-generation cores.
-The finite species dispatch chooses proved decompositions, not computed
-multiplicities. All exterior degrees, including overflow, are covered. -/
-namespace GUT.SMSignedCoreJointPresentation
-set_option autoImplicit false
-noncomputable section
-open Math Representation JointSourcePresentation
+deprecated_module "Use Physics.StandardModel.Operators.Support.Joint.SMSignedCoreJointPresentation instead." (since := "source-api-v1")
 
-def presentation (s : DeltaLOneSignedInput.Species) (n : ℕ) :
-    Presentation ((SMColoredCoreBranching.core s).exteriorPower n) := by
-  refine Fin.cases ?_ (fun i1 => ?_) s
-  · exact SMQJointPresentation.positive n
-  · refine Fin.cases ?_ (fun i2 => ?_) i1
-    · exact SMColoredJointPresentation.positive 1 (Or.inl rfl) n
-    · refine Fin.cases ?_ (fun i3 => ?_) i2
-      · exact SMColoredJointPresentation.positive 2 (Or.inr rfl) n
-      · refine Fin.cases ?_ (fun i4 => ?_) i3
-        · exact SMLeptonJointPresentation.lepton n
-        · refine Fin.cases ?_ (fun i5 => ?_) i4
-          · exact SMLeptonJointPresentation.electron n
-          · refine Fin.cases ?_ (fun i6 => ?_) i5
-            · exact SMQJointPresentation.negative n
-            · refine Fin.cases ?_ (fun i7 => ?_) i6
-              · exact SMColoredJointPresentation.negative 6 (Or.inl rfl) n
-              · refine Fin.cases ?_ (fun i8 => ?_) i7
-                · exact SMColoredJointPresentation.negative 7 (Or.inr rfl) n
-                · refine Fin.cases ?_ (fun i9 => ?_) i8
-                  · exact SMLeptonJointPresentation.conjugateLepton n
-                  · refine Fin.cases ?_ (fun i10 => ?_) i9
-                    · exact SMLeptonJointPresentation.conjugateElectron n
-                    · exact Fin.elim0 i10
+compatibility_declarations [
+  GUT.SMSignedCoreJointPresentation.allowed_iff => Physics.SMSignedCoreJointPresentation.allowed_iff,
+  GUT.SMSignedCoreJointPresentation.forbidden_iff => Physics.SMSignedCoreJointPresentation.forbidden_iff,
+  GUT.SMSignedCoreJointPresentation.presentation => Physics.SMSignedCoreJointPresentation.presentation
+]
 
-theorem allowed_iff (s : DeltaLOneSignedInput.Species) (n : ℕ) :
-    SelectionCriteria.Allowed (InvariantCoefficientTransport.Invariants
-      ((SMColoredCoreBranching.core s).exteriorPower n)) ↔
-      JointSourceExpression.Supports (presentation s n).expression :=
-  JointSourcePresentation.allowed_iff (presentation s n)
-
-theorem forbidden_iff (s : DeltaLOneSignedInput.Species) (n : ℕ) :
-    SelectionCriteria.Forbidden (InvariantCoefficientTransport.Invariants
-      ((SMColoredCoreBranching.core s).exteriorPower n)) ↔
-      ¬ JointSourceExpression.Supports (presentation s n).expression :=
-  JointSourcePresentation.forbidden_iff (presentation s n)
-
-end
-end GUT.SMSignedCoreJointPresentation
+assert_compatible GUT.SMSignedCoreJointPresentation.allowed_iff => Physics.SMSignedCoreJointPresentation.allowed_iff
+assert_compatible GUT.SMSignedCoreJointPresentation.forbidden_iff => Physics.SMSignedCoreJointPresentation.forbidden_iff
+assert_compatible GUT.SMSignedCoreJointPresentation.presentation => Physics.SMSignedCoreJointPresentation.presentation

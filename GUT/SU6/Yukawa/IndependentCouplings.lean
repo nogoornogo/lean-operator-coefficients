@@ -1,6 +1,8 @@
 import GUT.SU6.Yukawa.TwoBlockSpectrum
 import GUT.SU6.SelectionRules.Models.StandardSMUVYukawa
-import Physics.FieldTheory.Yukawa.ProjectedYukawa
+import Physics.FieldTheory.Yukawa.Mass.ProjectedYukawa
+
+open Physics
 
 open Math
 
@@ -145,7 +147,7 @@ theorem transformed_bilinear {V : Type*} [AddCommMonoid V] [Module ℂ V]
 theorem original_pullback : (StandardSMUVMass.mass H).form =
     (StandardSMFullGaugeMass.mass (neutralCharges H)).form.compl₁₂
       (withResidualEquiv H).toLinearEquiv.toLinearMap
-      (withResidualEquiv H).toLinearEquiv.toLinearMap := rfl
+      (withResidualEquiv H).toLinearEquiv.toLinearMap := StandardSMUVMass.mass_form_eq H
 
 /-- Derive the complementary branching identity before specializing to the
 analytic UV carrier, avoiding an expensive concrete coercion check. -/

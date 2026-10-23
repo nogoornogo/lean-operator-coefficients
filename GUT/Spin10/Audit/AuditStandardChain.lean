@@ -1,6 +1,8 @@
 import Math.Audit.ImportOrigin
 import GUT.Spin10.SelectionRules.StandardChain
 
+open Physics
+
 open Math
 
 /-! The actual Spin inclusion specializes the shared SU(5) theorem.

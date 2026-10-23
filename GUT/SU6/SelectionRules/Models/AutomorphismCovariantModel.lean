@@ -1,6 +1,8 @@
-import Math.RepresentationTheory.AutomorphismCovariantHom
+import Math.RepresentationTheory.Invariants.AutomorphismCovariantHom
 import GUT.SU6.Characters.ContinuousUnitaryWeightDecomposition
-import Physics.FieldTheory.Mass.SymmetricMassIndex
+import Physics.FieldTheory.Mass.Spectrum.SymmetricMassIndex
+
+open Physics
 
 /-! Necessary data for ordinary SU(6) protection without strict UV commutation.
 No protecting inhabitant or quantum-stability certificate is asserted. -/
@@ -10,7 +12,7 @@ set_option autoImplicit false
 noncomputable section
 open Representation ContinuousUnitaryWeightDecomposition
 open Math.AutomorphismCovariantHom
-open GUT.InvariantWeylMass
+open Physics.InvariantWeylMass
 
 abbrev SU6 := CompactEmbeddingClassification.SU6
 

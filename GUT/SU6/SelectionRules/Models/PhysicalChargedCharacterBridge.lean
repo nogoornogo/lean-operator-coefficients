@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.StandardBranch.PhysicalChargeResolvedEvaluation
-import Physics.FieldTheory.Mass.UnitaryVirtualRealization
+import Physics.FieldTheory.Mass.Spectrum.UnitaryVirtualRealization
+
+open Physics
 
 open Math
 

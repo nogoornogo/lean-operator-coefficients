@@ -1,5 +1,7 @@
-import Physics.FieldTheory.Yukawa.DiracYukawaMass
+import Physics.FieldTheory.Yukawa.Mass.DiracYukawaMass
 import GUT.SU6.SelectionRules.FinalNoGoAssembly
+
+open Physics
 
 open Math
 

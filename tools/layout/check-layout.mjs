@@ -69,9 +69,35 @@ export function collectSources(root) {
   return sources;
 }
 
-export function originSource(mapping) {
-  return 'import Lean\n\n/-! Historical import-boundary audits use original module identities so a\nfile relocation cannot silently bypass an existing exclusion. Declaration\nnames and axiom allowlists are not changed. Generated from source-map.json. -/\n\nnamespace SourceLayout\n\ndef originalModule : Lean.Name → Lean.Name\n' +
-    Object.entries(mapping).map(([a, b]) => `  | \`${moduleName(b)} => \`${moduleName(a)}`).join('\n') +
+export function compatibilityPaths(root) {
+  const file = path.join(root, 'docs/topics/source-api-compatibility/layout-plan.json');
+  if (!fs.existsSync(file)) return {};
+  const paths = new Map(JSON.parse(fs.readFileSync(file, 'utf8')).paths.map(p => [p.old, p.new]));
+  const extra = path.join(root, 'docs/topics/source-api-compatibility/registry-addendum.json');
+  if (fs.existsSync(extra))
+    for (const p of JSON.parse(fs.readFileSync(extra, 'utf8')).paths) paths.set(p.old, p.new);
+  return Object.fromEntries([...paths].filter(([old, current]) => old !== current));
+}
+
+export function declarationSplits(root) {
+  const file = path.join(root, 'docs/topics/source-api-compatibility/proof-repairs.json');
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : [];
+}
+
+export function originSource(mapping, compatibility = {}, splits = []) {
+  const origins = new Map(Object.entries(mapping).map(([a, b]) => [moduleName(b), moduleName(a)]));
+  for (const [old, current] of Object.entries(compatibility)) {
+    const legacy = moduleName(old), canonical = moduleName(current);
+    const original = origins.get(canonical) ?? legacy;
+    origins.set(canonical, original);
+    if (legacy !== original) origins.set(legacy, original);
+  }
+  for (const split of splits) {
+    const source = moduleName(split.canonical), target = moduleName(split.definitions);
+    origins.set(target, origins.get(source) ?? source);
+  }
+  return 'import Lean\n\n/-! Historical import-boundary audits use original module identities so a\nfile relocation cannot silently bypass an existing exclusion. Declaration\nnames and axiom allowlists are not changed. Generated from the original and compatible path maps. -/\n\nnamespace SourceLayout\n\ndef originalModule : Lean.Name → Lean.Name\n' +
+    [...origins].map(([current, original]) => `  | \`${current} => \`${original}`).join('\n') +
     '\n  | name => name\n\nend SourceLayout\n';
 }
 
@@ -83,7 +109,8 @@ function main() {
     if (fs.existsSync(path.join(root, old))) errors.push(`obsolete source still present: ${old}`);
     if (!(moduleName(target) in sources)) errors.push(`relocation target missing: ${target}`);
   }
-  if (sources['Math.Audit.ImportOrigin'] !== originSource(map)) errors.push('ImportOrigin is out of sync with source-map.json');
+  if (sources['Math.Audit.ImportOrigin'] !== originSource(map, compatibilityPaths(root), declarationSplits(root)))
+    errors.push('ImportOrigin is out of sync with the original and compatible path maps');
   for (const [name, text] of Object.entries(sources)) {
     if (text.includes('header.moduleNames') && !text.includes('SourceLayout.originalModule mod')) {
       errors.push(`${name}: historical import audit does not normalize relocated modules`);

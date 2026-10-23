@@ -1,101 +1,50 @@
+import Physics.FieldTheory.Spinor.Weyl.FourSameWeylCompleteness
 import Physics.FieldTheory.Spinor.WeylSpinor
-import Math.RepresentationTheory.Unitary.FourDoubletInvariant
 import Math.RepresentationTheory.FiniteInvariantFactor
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.FieldTheory.Spinor.Weyl.FourSameWeylCompleteness instead." (since := "source-api-v1")
 
-/-! Four same-chirality Weyl spinors have exactly two invariant coefficients. -/
-namespace GUT.FourSameWeylCompleteness
-set_option autoImplicit false
-noncomputable section
-open Representation FourDoubletInvariant
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.FourSameWeylCompleteness.Coefficient => Physics.FourSameWeylCompleteness.Coefficient,
+  GUT.FourSameWeylCompleteness.action => Physics.FourSameWeylCompleteness.action,
+  GUT.FourSameWeylCompleteness.action.eq_1 => Physics.FourSameWeylCompleteness.action.eq_1,
+  GUT.FourSameWeylCompleteness.basisPairing => Physics.FourSameWeylCompleteness.basisPairing,
+  GUT.FourSameWeylCompleteness.basisPairing.eq_1 => Physics.FourSameWeylCompleteness.basisPairing.eq_1,
+  GUT.FourSameWeylCompleteness.basisPairing_formula => Physics.FourSameWeylCompleteness.basisPairing_formula,
+  GUT.FourSameWeylCompleteness.basisPairing_probe => Physics.FourSameWeylCompleteness.basisPairing_probe,
+  GUT.FourSameWeylCompleteness.coordinates => Physics.FourSameWeylCompleteness.coordinates,
+  GUT.FourSameWeylCompleteness.eps_action => Physics.FourSameWeylCompleteness.eps_action,
+  GUT.FourSameWeylCompleteness.flavorEquiv => Physics.FourSameWeylCompleteness.flavorEquiv,
+  GUT.FourSameWeylCompleteness.formula => Physics.FourSameWeylCompleteness.formula,
+  GUT.FourSameWeylCompleteness.pairing => Physics.FourSameWeylCompleteness.pairing,
+  GUT.FourSameWeylCompleteness.pairing.eq_1 => Physics.FourSameWeylCompleteness.pairing.eq_1,
+  GUT.FourSameWeylCompleteness.probe => Physics.FourSameWeylCompleteness.probe,
+  GUT.FourSameWeylCompleteness.probe.eq_1 => Physics.FourSameWeylCompleteness.probe.eq_1,
+  GUT.FourSameWeylCompleteness.representation => Physics.FourSameWeylCompleteness.representation,
+  GUT.FourSameWeylCompleteness.representation.eq_1 => Physics.FourSameWeylCompleteness.representation.eq_1,
+  GUT.FourSameWeylCompleteness.restrict_invariant => Physics.FourSameWeylCompleteness.restrict_invariant,
+  GUT.FourSameWeylCompleteness.right_conjugate => Physics.FourSameWeylCompleteness.right_conjugate,
+  GUT.FourSameWeylCompleteness.specialLinear => Physics.FourSameWeylCompleteness.specialLinear
+]
 
-def action (rightHanded : Bool) := if rightHanded then WeylSpinor.right else WeylSpinor.left
-def representation (rightHanded : Bool) :=
-  ((action rightHanded).tprod (action rightHanded)).tprod
-    ((action rightHanded).tprod (action rightHanded))
-abbrev Coefficient (rightHanded : Bool) := IntertwiningMap (representation rightHanded)
-  (Representation.trivial ℂ WeylSpinor.Group ℂ)
-
-def specialLinear (g : FourDoubletInvariant.Group) : WeylSpinor.Group :=
-  ⟨g.val, (Matrix.mem_specialUnitaryGroup_iff.mp g.property).2⟩
-
-theorem right_conjugate (g : WeylSpinor.Group) (v : WeylSpinor.Space) :
-    WeylSpinor.right (WeylSpinor.conjugate g) v = WeylSpinor.left g v := by
-  ext i
-  change (∑ j, star (star ((g : Matrix (Fin 2) (Fin 2) ℂ) i j)) * v j) =
-    ∑ j, (g : Matrix (Fin 2) (Fin 2) ℂ) i j * v j
-  simp only [star_star]
-
-theorem restrict_invariant (rightHanded : Bool) (f : Coefficient rightHanded) :
-    FourDoubletInvariant.IsInvariant f.toLinearMap := by
-  intro g a b c d
-  cases rightHanded
-  · exact IntertwiningMap.isIntertwining _ _ f (specialLinear g)
-      ((a ⊗ₜ[ℂ] b) ⊗ₜ[ℂ] (c ⊗ₜ[ℂ] d))
-  · have h := IntertwiningMap.isIntertwining _ _ f (WeylSpinor.conjugate (specialLinear g))
-      ((a ⊗ₜ[ℂ] b) ⊗ₜ[ℂ] (c ⊗ₜ[ℂ] d))
-    simp only [representation, action, ite_true, Representation.tprod_apply,
-      TensorProduct.map_tmul, right_conjugate, Representation.trivial_apply] at h
-    exact h
-
-theorem eps_action (rightHanded : Bool) (g : WeylSpinor.Group) (a b : WeylSpinor.Space) :
-    eps (action rightHanded g a) (action rightHanded g b) = eps a b := by
-  cases rightHanded
-  · exact SMEpsilonTensor.eps2_invariant _ g.property a b
-  · exact SMEpsilonTensor.eps2_invariant _ (WeylSpinor.conjugate g).property a b
-
-def pairing (rightHanded cross : Bool) : Coefficient rightHanded where
-  toLinearMap := tensorPairing cross
-  isIntertwining' g := by
-    cases rightHanded <;> ext a b c d
-    all_goals simp [representation, action, tensorPairing_apply,
-      show ∀ x y, eps (WeylSpinor.left g x) (WeylSpinor.left g y) = eps x y from eps_action false g,
-      show ∀ x y, eps (WeylSpinor.right g x) (WeylSpinor.right g y) = eps x y from eps_action true g]
-
-theorem formula (rightHanded : Bool) (f : Coefficient rightHanded) :
-    f = value f.toLinearMap 0 1 0 1 • pairing rightHanded false +
-      value f.toLinearMap 0 0 1 1 • pairing rightHanded true := by
-  apply IntertwiningMap.ext
-  exact FourDoubletInvariant.formula f.toLinearMap (restrict_invariant rightHanded f)
-
-def coordinates (rightHanded : Bool) : Coefficient rightHanded ≃ₗ[ℂ] (ℂ × ℂ) where
-  toFun f := (value f.toLinearMap 0 1 0 1, value f.toLinearMap 0 0 1 1)
-  invFun c := c.1 • pairing rightHanded false + c.2 • pairing rightHanded true
-  left_inv f := (formula rightHanded f).symm
-  right_inv c := by
-    rcases c with ⟨a,b⟩
-    change (value (a • tensorPairing false + b • tensorPairing true) 0 1 0 1,
-      value (a • tensorPairing false + b • tensorPairing true) 0 0 1 1) = (a,b)
-    simp [value, tensorPairing_apply, eps, basis]
-  map_add' f h := rfl
-  map_smul' z f := rfl
-
-def basisPairing (rightHanded : Bool) : Fin 2 → Coefficient rightHanded :=
-  ![pairing rightHanded false, pairing rightHanded true]
-def probe : Fin 2 → FourDoubletInvariant.Tensor := ![
-  (basis 0 ⊗ₜ[ℂ] basis 1) ⊗ₜ[ℂ] (basis 0 ⊗ₜ[ℂ] basis 1),
-  (basis 0 ⊗ₜ[ℂ] basis 0) ⊗ₜ[ℂ] (basis 1 ⊗ₜ[ℂ] basis 1)]
-
-theorem basisPairing_probe (rightHanded : Bool) (i j : Fin 2) :
-    basisPairing rightHanded i (probe j) = if i = j then 1 else 0 := by
-  fin_cases i <;> fin_cases j <;>
-    simp [basisPairing, probe, pairing, tensorPairing_apply, eps, basis]
-
-theorem basisPairing_formula (rightHanded : Bool) (f : Coefficient rightHanded) :
-    f = ∑ i, f (probe i) • basisPairing rightHanded i := by
-  simpa [Fin.sum_univ_two, probe, basisPairing, value] using formula rightHanded f
-
-variable {R X : Type*} [Group R] [AddCommMonoid X] [Module ℂ X]
-
-/-- With an independent residual action, both local coordinates become residual Hom. -/
-def flavorEquiv (rightHanded : Bool) (x : Representation ℂ R X) :
-    ExternalInvariantFactorization.Coefficient (representation rightHanded) x ≃ₗ[ℂ]
-      (Fin 2 → IntertwiningMap x (Representation.trivial ℂ R ℂ)) :=
-  FiniteInvariantFactor.equiv (representation rightHanded) x
-    (basisPairing rightHanded) probe (basisPairing_probe rightHanded)
-    (basisPairing_formula rightHanded)
-
-end
-end GUT.FourSameWeylCompleteness
+assert_compatible GUT.FourSameWeylCompleteness.Coefficient => Physics.FourSameWeylCompleteness.Coefficient
+assert_compatible GUT.FourSameWeylCompleteness.action => Physics.FourSameWeylCompleteness.action
+assert_compatible GUT.FourSameWeylCompleteness.action.eq_1 => Physics.FourSameWeylCompleteness.action.eq_1
+assert_compatible GUT.FourSameWeylCompleteness.basisPairing => Physics.FourSameWeylCompleteness.basisPairing
+assert_compatible GUT.FourSameWeylCompleteness.basisPairing.eq_1 => Physics.FourSameWeylCompleteness.basisPairing.eq_1
+assert_compatible GUT.FourSameWeylCompleteness.basisPairing_formula => Physics.FourSameWeylCompleteness.basisPairing_formula
+assert_compatible GUT.FourSameWeylCompleteness.basisPairing_probe => Physics.FourSameWeylCompleteness.basisPairing_probe
+assert_compatible GUT.FourSameWeylCompleteness.coordinates => Physics.FourSameWeylCompleteness.coordinates
+assert_compatible GUT.FourSameWeylCompleteness.eps_action => Physics.FourSameWeylCompleteness.eps_action
+assert_compatible GUT.FourSameWeylCompleteness.flavorEquiv => Physics.FourSameWeylCompleteness.flavorEquiv
+assert_compatible GUT.FourSameWeylCompleteness.formula => Physics.FourSameWeylCompleteness.formula
+assert_compatible GUT.FourSameWeylCompleteness.pairing => Physics.FourSameWeylCompleteness.pairing
+assert_compatible GUT.FourSameWeylCompleteness.pairing.eq_1 => Physics.FourSameWeylCompleteness.pairing.eq_1
+assert_compatible GUT.FourSameWeylCompleteness.probe => Physics.FourSameWeylCompleteness.probe
+assert_compatible GUT.FourSameWeylCompleteness.probe.eq_1 => Physics.FourSameWeylCompleteness.probe.eq_1
+assert_compatible GUT.FourSameWeylCompleteness.representation => Physics.FourSameWeylCompleteness.representation
+assert_compatible GUT.FourSameWeylCompleteness.representation.eq_1 => Physics.FourSameWeylCompleteness.representation.eq_1
+assert_compatible GUT.FourSameWeylCompleteness.restrict_invariant => Physics.FourSameWeylCompleteness.restrict_invariant
+assert_compatible GUT.FourSameWeylCompleteness.right_conjugate => Physics.FourSameWeylCompleteness.right_conjugate
+assert_compatible GUT.FourSameWeylCompleteness.specialLinear => Physics.FourSameWeylCompleteness.specialLinear

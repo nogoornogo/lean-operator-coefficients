@@ -2,7 +2,7 @@
 
 ## Exact all-degree result
 
-[WeakSingletHiggsReduction](../../../../../Math/RepresentationTheory/WeakSingletHiggsReduction.lean)
+[WeakSingletHiggsReduction](../../../../../Math/RepresentationTheory/Higgs/WeakSingletHiggsReduction.lean)
 fixes a group G, an arbitrary complex source representation a on X, a
 single complex Higgs doublet b, and a homomorphism j:SU2->G. Its hypotheses
 are actual action identities:
@@ -28,14 +28,14 @@ spanning list, finite-generation or source-character decomposition is supplied.
 
 ## Actual symmetric dual pairing
 
-[SymmetricDualPairing](../../../../../Math/RepresentationTheory/SymmetricDualPairing.lean)
+[SymmetricDualPairing](../../../../../Math/RepresentationTheory/Symmetric/SymmetricDualPairing.lean)
 uses the product of evaluations, independently symmetrizes the vector and
 dual slots, and descends through both symmetric quotients. Its coefficient
 has diagonal value (phi(v))^r. The general perfectness consumer requires a
 finite-dimensional vector space, irreducibility of its r-th symmetric power,
 and a certified nonzero phi(v). These inputs are discharged for the doublet.
 
-[WeakDoubletScalars](../../../../../Math/RepresentationTheory/WeakDoubletScalars.lean)
+[WeakDoubletScalars](../../../../../Math/RepresentationTheory/SU2/WeakDoubletScalars.lean)
 directly reuses the pinned TauCeti.SU2.isIrreducible_symPower proof and its
 dimension formula r+1. The constructed nonzero pairing is injective by
 irreducibility; equal finite dimensions make it bijective. Currying then
@@ -61,7 +61,7 @@ in the source Hom, as do any already constructed source statistics.
 
 ## Actual SM application
 
-[WeakSingletHiggsSupport](../../../../../Physics/StandardModel/Operators/WeakSingletHiggsSupport.lean)
+[WeakSingletHiggsSupport](../../../../../Physics/StandardModel/Operators/Higgs/WeakSingletHiggsSupport.lean)
 embeds the actual SU2 weak factor into the existing SM covering gauge/Weyl/
 residual group and proves that NeutralHiggsPowers.higgs restricts to the
 defining doublet. The scalarEquiv consumer gives a one-dimensional scalar

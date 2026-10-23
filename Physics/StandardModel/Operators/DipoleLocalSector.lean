@@ -1,105 +1,66 @@
+import Physics.StandardModel.Operators.Dipole.DipoleLocalSector
 import Physics.StandardModel.Gauge.DipoleGaugeTensor
 import Physics.FieldTheory.Spinor.DipoleSpinorTensor
 import Math.RepresentationTheory.NormalizedInvariantFactor
 import Math.RepresentationTheory.InvariantCoefficientTransport
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Dipole.DipoleLocalSector instead." (since := "source-api-v1")
 
-/-! Independent ordered local dipole sectors, before residual multiplicities.
-L and Ec are distinct fermion slots; Higgs and field strength are bosonic. -/
-namespace GUT.DipoleLocalSector
-set_option autoImplicit false
-noncomputable section
-open Representation ExternalInvariantTensor
-open TwoComponentSymmetricTensor TwoComponentContractions
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.DipoleLocalSector.Group => Physics.DipoleLocalSector.Group,
+  GUT.DipoleLocalSector.contractionB => Physics.DipoleLocalSector.contractionB,
+  GUT.DipoleLocalSector.contractionB.eq_1 => Physics.DipoleLocalSector.contractionB.eq_1,
+  GUT.DipoleLocalSector.contractionW => Physics.DipoleLocalSector.contractionW,
+  GUT.DipoleLocalSector.contractionW.eq_1 => Physics.DipoleLocalSector.contractionW.eq_1,
+  GUT.DipoleLocalSector.electron => Physics.DipoleLocalSector.electron,
+  GUT.DipoleLocalSector.factoredB => Physics.DipoleLocalSector.factoredB,
+  GUT.DipoleLocalSector.factoredW => Physics.DipoleLocalSector.factoredW,
+  GUT.DipoleLocalSector.higgs => Physics.DipoleLocalSector.higgs,
+  GUT.DipoleLocalSector.instAddCommGroupTensorProductComplexDoubletDualTriplet_physics => Physics.DipoleLocalSector.instAddCommGroupTensorProductComplexDoubletDualTriplet_physics,
+  GUT.DipoleLocalSector.instAddCommGroupTensorProductComplexDoublet_physics => Physics.DipoleLocalSector.instAddCommGroupTensorProductComplexDoublet_physics,
+  GUT.DipoleLocalSector.instAddCommGroupTensorProductComplexSpaceStrength => Physics.DipoleLocalSector.instAddCommGroupTensorProductComplexSpaceStrength,
+  GUT.DipoleLocalSector.lepton => Physics.DipoleLocalSector.lepton,
+  GUT.DipoleLocalSector.normalizedB => Physics.DipoleLocalSector.normalizedB,
+  GUT.DipoleLocalSector.normalizedW => Physics.DipoleLocalSector.normalizedW,
+  GUT.DipoleLocalSector.orderedB => Physics.DipoleLocalSector.orderedB,
+  GUT.DipoleLocalSector.orderedW => Physics.DipoleLocalSector.orderedW,
+  GUT.DipoleLocalSector.regroupB => Physics.DipoleLocalSector.regroupB,
+  GUT.DipoleLocalSector.regroupW => Physics.DipoleLocalSector.regroupW,
+  GUT.DipoleLocalSector.strengthB => Physics.DipoleLocalSector.strengthB,
+  GUT.DipoleLocalSector.strengthW => Physics.DipoleLocalSector.strengthW,
+  GUT.DipoleLocalSector.uniqueB => Physics.DipoleLocalSector.uniqueB,
+  GUT.DipoleLocalSector.uniqueW => Physics.DipoleLocalSector.uniqueW,
+  GUT.DipoleLocalSector.witnessB => Physics.DipoleLocalSector.witnessB,
+  GUT.DipoleLocalSector.witnessB.eq_1 => Physics.DipoleLocalSector.witnessB.eq_1,
+  GUT.DipoleLocalSector.witnessW => Physics.DipoleLocalSector.witnessW,
+  GUT.DipoleLocalSector.witnessW.eq_1 => Physics.DipoleLocalSector.witnessW.eq_1
+]
 
-local instance : AddCommGroup (Doublet ⊗[ℂ] Doublet) := inferInstance
-local instance : AddCommGroup (Doublet ⊗[ℂ] Doublet ⊗[ℂ] Module.Dual ℂ Triplet) := inferInstance
-local instance : AddCommGroup (WeylSpinor.Space ⊗[ℂ] WeylSpinor.Space ⊗[ℂ]
-  DipoleSpinorTensor.Strength) := inferInstance
-
-abbrev Group := WeakGroup × WeylSpinor.Group
-def lepton := external DipoleGaugeTensor.weak WeylSpinor.left
-def electron : Representation ℂ Group WeylSpinor.Space :=
-  WeylSpinor.left.comp (MonoidHom.snd _ _)
-def higgs : Representation ℂ Group Doublet :=
-  DipoleGaugeTensor.weak.comp (MonoidHom.fst _ _)
-def strengthB : Representation ℂ Group DipoleSpinorTensor.Strength :=
-  DipoleSpinorTensor.strength.comp (MonoidHom.snd _ _)
-def strengthW := external DipoleGaugeTensor.adjoint.dual DipoleSpinorTensor.strength
-
-def orderedB := (lepton.tprod electron).tprod (higgs.tprod strengthB)
-def orderedW := (lepton.tprod electron).tprod (higgs.tprod strengthW)
-def factoredB := external DipoleGaugeTensor.singletRepresentation DipoleSpinorTensor.localRepresentation
-def factoredW := external DipoleGaugeTensor.tripletRepresentation DipoleSpinorTensor.localRepresentation
-
-def regroupB : Representation.Equiv orderedB factoredB where
-  toLinearEquiv :=
-    (TensorProduct.congr (TensorProduct.assoc ℂ Doublet WeylSpinor.Space WeylSpinor.Space)
-      (LinearEquiv.refl ℂ _)).trans
-      (TensorProduct.tensorTensorTensorComm ℂ Doublet
-        (WeylSpinor.Space ⊗[ℂ] WeylSpinor.Space) Doublet DipoleSpinorTensor.Strength)
-  isIntertwining' g := by
-    apply TensorProduct.ext
-    apply TensorProduct.ext
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro w
-    apply LinearMap.ext; intro s
-    apply LinearMap.ext; intro t
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro h
-    apply LinearMap.ext; intro F
-    rfl
-
-def regroupW : Representation.Equiv orderedW factoredW where
-  toLinearEquiv :=
-    (((TensorProduct.congr (TensorProduct.assoc ℂ Doublet WeylSpinor.Space WeylSpinor.Space)
-      (LinearEquiv.refl ℂ _)).trans
-      (TensorProduct.tensorTensorTensorComm ℂ Doublet
-        (WeylSpinor.Space ⊗[ℂ] WeylSpinor.Space) Doublet
-          (Module.Dual ℂ Triplet ⊗[ℂ] DipoleSpinorTensor.Strength))).trans
-        (TensorProduct.assoc ℂ (Doublet ⊗[ℂ] Doublet)
-          (WeylSpinor.Space ⊗[ℂ] WeylSpinor.Space)
-          (Module.Dual ℂ Triplet ⊗[ℂ] DipoleSpinorTensor.Strength)).symm).trans
-      (TensorProduct.tensorTensorTensorComm ℂ (Doublet ⊗[ℂ] Doublet)
-        (WeylSpinor.Space ⊗[ℂ] WeylSpinor.Space)
-        (Module.Dual ℂ Triplet) DipoleSpinorTensor.Strength)
-  isIntertwining' g := by
-    apply TensorProduct.ext
-    apply TensorProduct.ext
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro w
-    apply LinearMap.ext; intro s
-    apply LinearMap.ext; intro t
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro h
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro W
-    apply LinearMap.ext; intro F
-    rfl
-
-def contractionB := coefficient DipoleGaugeTensor.singlet DipoleSpinorTensor.contraction
-def contractionW := coefficient DipoleGaugeTensor.tripletContraction DipoleSpinorTensor.contraction
-def witnessB := DipoleGaugeTensor.singletWitness ⊗ₜ[ℂ] DipoleSpinorTensor.witness
-def witnessW := DipoleGaugeTensor.tripletWitness ⊗ₜ[ℂ] DipoleSpinorTensor.witness
-
-@[simp] theorem normalizedB : contractionB witnessB = 1 := by simp [contractionB, witnessB]
-@[simp] theorem normalizedW : contractionW witnessW = 1 := by simp [contractionW, witnessW]
-
-theorem uniqueB (f : InvariantCoefficientTransport.Invariants factoredB) :
-    f = f witnessB • contractionB :=
-  NormalizedInvariantFactor.product_unique DipoleGaugeTensor.singletRepresentation
-    DipoleSpinorTensor.localRepresentation DipoleGaugeTensor.singlet DipoleSpinorTensor.contraction
-    DipoleGaugeTensor.singletWitness DipoleSpinorTensor.witness
-    DipoleGaugeTensor.singlet_unique DipoleSpinorTensor.unique f
-
-theorem uniqueW (f : InvariantCoefficientTransport.Invariants factoredW) :
-    f = f witnessW • contractionW :=
-  NormalizedInvariantFactor.product_unique DipoleGaugeTensor.tripletRepresentation
-    DipoleSpinorTensor.localRepresentation DipoleGaugeTensor.tripletContraction DipoleSpinorTensor.contraction
-    DipoleGaugeTensor.tripletWitness DipoleSpinorTensor.witness
-    DipoleGaugeTensor.triplet_unique DipoleSpinorTensor.unique f
-
-end
-end GUT.DipoleLocalSector
+assert_compatible GUT.DipoleLocalSector.Group => Physics.DipoleLocalSector.Group
+assert_compatible GUT.DipoleLocalSector.contractionB => Physics.DipoleLocalSector.contractionB
+assert_compatible GUT.DipoleLocalSector.contractionB.eq_1 => Physics.DipoleLocalSector.contractionB.eq_1
+assert_compatible GUT.DipoleLocalSector.contractionW => Physics.DipoleLocalSector.contractionW
+assert_compatible GUT.DipoleLocalSector.contractionW.eq_1 => Physics.DipoleLocalSector.contractionW.eq_1
+assert_compatible GUT.DipoleLocalSector.electron => Physics.DipoleLocalSector.electron
+assert_compatible GUT.DipoleLocalSector.factoredB => Physics.DipoleLocalSector.factoredB
+assert_compatible GUT.DipoleLocalSector.factoredW => Physics.DipoleLocalSector.factoredW
+assert_compatible GUT.DipoleLocalSector.higgs => Physics.DipoleLocalSector.higgs
+assert_compatible GUT.DipoleLocalSector.instAddCommGroupTensorProductComplexDoubletDualTriplet_physics => Physics.DipoleLocalSector.instAddCommGroupTensorProductComplexDoubletDualTriplet_physics
+assert_compatible GUT.DipoleLocalSector.instAddCommGroupTensorProductComplexDoublet_physics => Physics.DipoleLocalSector.instAddCommGroupTensorProductComplexDoublet_physics
+assert_compatible GUT.DipoleLocalSector.instAddCommGroupTensorProductComplexSpaceStrength => Physics.DipoleLocalSector.instAddCommGroupTensorProductComplexSpaceStrength
+assert_compatible GUT.DipoleLocalSector.lepton => Physics.DipoleLocalSector.lepton
+assert_compatible GUT.DipoleLocalSector.normalizedB => Physics.DipoleLocalSector.normalizedB
+assert_compatible GUT.DipoleLocalSector.normalizedW => Physics.DipoleLocalSector.normalizedW
+assert_compatible GUT.DipoleLocalSector.orderedB => Physics.DipoleLocalSector.orderedB
+assert_compatible GUT.DipoleLocalSector.orderedW => Physics.DipoleLocalSector.orderedW
+assert_compatible GUT.DipoleLocalSector.regroupB => Physics.DipoleLocalSector.regroupB
+assert_compatible GUT.DipoleLocalSector.regroupW => Physics.DipoleLocalSector.regroupW
+assert_compatible GUT.DipoleLocalSector.strengthB => Physics.DipoleLocalSector.strengthB
+assert_compatible GUT.DipoleLocalSector.strengthW => Physics.DipoleLocalSector.strengthW
+assert_compatible GUT.DipoleLocalSector.uniqueB => Physics.DipoleLocalSector.uniqueB
+assert_compatible GUT.DipoleLocalSector.uniqueW => Physics.DipoleLocalSector.uniqueW
+assert_compatible GUT.DipoleLocalSector.witnessB => Physics.DipoleLocalSector.witnessB
+assert_compatible GUT.DipoleLocalSector.witnessB.eq_1 => Physics.DipoleLocalSector.witnessB.eq_1
+assert_compatible GUT.DipoleLocalSector.witnessW => Physics.DipoleLocalSector.witnessW
+assert_compatible GUT.DipoleLocalSector.witnessW.eq_1 => Physics.DipoleLocalSector.witnessW.eq_1

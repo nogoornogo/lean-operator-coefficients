@@ -1,5 +1,5 @@
 import GUT.SU6.SelectionRules.Models.CovariantFourFermion
-import Math.RepresentationTheory.Audit.AuditCovariantExterior
+import Math.RepresentationTheory.Exterior.Audit.AuditCovariantExterior
 
 open Lean in
 run_cmd do

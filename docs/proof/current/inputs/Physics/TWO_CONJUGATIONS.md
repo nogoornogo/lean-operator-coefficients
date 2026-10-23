@@ -23,7 +23,7 @@ the retained target at all fifteen SM weights, the checked result is stronger:
 
 ### Abelian Endpoints
 
-[TwoConjugationQque](../../../../../Physics/StandardModel/Spectrum/TwoConjugationQque.lean)
+[TwoConjugationQque](../../../../../Physics/StandardModel/Spectrum/Representations/TwoConjugationQque.lean)
 retains an actual finite-dimensional G x H representation, arbitrary Abelian
 H, restricted unitarity, an invariant symmetric mass, the local dual SM target
 and the actual radical spectrum. H need not be finite or torsion-free.
@@ -43,7 +43,7 @@ positivity for the pair are derived, not new assumptions.
 
 ### Finite Non-Abelian Endpoint
 
-[TwoConjugationLightQque](../../../../../Physics/StandardModel/Operators/TwoConjugationLightQque.lean)
+[TwoConjugationLightQque](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/TwoConjugationLightQque.lean)
 accepts finite H without commutativity, positive actual representation-valued
 local targets, and the same actual torus/mass/conjugation interface as the
 [previous source bridge](../../../../topics/nonabelian-light-source/results.md).
@@ -77,7 +77,7 @@ between the two representatives are required.
 ### Support Is Not Discarded
 
 The legacy `ChargesSupported` requires all five species, even for qque which
-contains no down or lepton slot. [SlotSupport](../../../../../Physics/StandardModel/Operators/SlotSupport.lean)
+contains no down or lepton slot. [SlotSupport](../../../../../Physics/StandardModel/Operators/Selection/SlotSupport.lean)
 adds a separate operator-local predicate; it does not modify the old one.
 Full support implies slot support. The qque predicate checks Q/up/e supports,
 while the source theorem additionally produces the actual four zero modes.
@@ -94,7 +94,7 @@ main pair theorem.
 
 ### Controls And Boundaries
 
-The [persistent audit](../../../../../Physics/StandardModel/Spectrum/Audit/AuditTwoConjugationQque.lean)
+The [persistent audit](../../../../../Physics/StandardModel/Spectrum/Representations/Audit/AuditTwoConjugationQque.lean)
 also proves `triality_no_two`: an actual unitary mass source matching the
 retained triality light target cannot possess these two conjugations. The
 previous counterexample is therefore not accidentally admitted.

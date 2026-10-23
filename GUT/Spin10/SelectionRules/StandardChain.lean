@@ -1,6 +1,8 @@
 import Math.LieGroups.Spin.SU5Inclusion
 import GUT.Common.StandardChain.StandardChain
 
+open Physics
+
 open Math
 
 /-! The standard-chain supported Abelian selection-rule obstruction in actual

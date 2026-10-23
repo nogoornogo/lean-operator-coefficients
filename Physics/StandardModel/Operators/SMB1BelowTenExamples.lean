@@ -1,47 +1,25 @@
+import Physics.StandardModel.Operators.Support.Dimension.SMB1BelowTenExamples
 import Physics.StandardModel.Operators.SMB1BelowTenAssignments
+import Math.Lean.Compatibility
 
-/-! Importing controls of bounded support, row semantics and the strict cutoff. -/
-namespace GUT.SMB1BelowTenExamples
-open Math SMB1BelowTen
+deprecated_module "Use Physics.StandardModel.Operators.Support.Dimension.SMB1BelowTenExamples instead." (since := "source-api-v1")
 
-theorem dimension_six_control : Allowed (0 : ZMod 2) 0 :=
-  plus_one_sufficient 0 0 (by decide +kernel)
+compatibility_declarations [
+  GUT.SMB1BelowTenExamples.counted_row_consumer => Physics.SMB1BelowTenExamples.counted_row_consumer,
+  GUT.SMB1BelowTenExamples.dimension_nine_control => Physics.SMB1BelowTenExamples.dimension_nine_control,
+  GUT.SMB1BelowTenExamples.dimension_seven_control => Physics.SMB1BelowTenExamples.dimension_seven_control,
+  GUT.SMB1BelowTenExamples.dimension_six_control => Physics.SMB1BelowTenExamples.dimension_six_control,
+  GUT.SMB1BelowTenExamples.negative_baryon_control => Physics.SMB1BelowTenExamples.negative_baryon_control,
+  GUT.SMB1BelowTenExamples.strict_boundary_forbidden => Physics.SMB1BelowTenExamples.strict_boundary_forbidden,
+  GUT.SMB1BelowTenExamples.strict_boundary_later_allowed => Physics.SMB1BelowTenExamples.strict_boundary_later_allowed,
+  GUT.SMB1BelowTenExamples.strict_boundary_minimum => Physics.SMB1BelowTenExamples.strict_boundary_minimum
+]
 
-theorem dimension_seven_control : Allowed (1 : ZMod 5) 3 :=
-  minus_one_sufficient 1 3 (by decide +kernel)
-
-theorem dimension_nine_control : Allowed (1 : ZMod 3) 1 :=
-  plus_three_sufficient 1 1 (by decide +kernel)
-
-theorem strict_boundary_forbidden : Forbidden (1 : ZMod 5) 1 :=
-  (forbidden_iff 1 1).mpr (by decide +kernel)
-
-theorem strict_boundary_minimum :
-    SMMinimumOperatorDimension.IsMinimum (1 : ZMod 5) 1 3 20 :=
-  SMMinimumOperatorDimension.h2_minimum
-
-/-- The strict bounded prohibition is compatible with actual all-degree allowance. -/
-theorem strict_boundary_later_allowed :
-    Forbidden (1 : ZMod 5) 1 ∧
-    SMQLPatternRequests.OriginalAllowed (1 : ZMod 5) 1 (fun c => c.1.natAbs=3) := by
-  refine ⟨strict_boundary_forbidden,?_⟩
-  obtain ⟨n,p,h,d,hb,ha,_⟩ := strict_boundary_minimum.attained
-  exact ⟨n,p,h,d,hb,ha⟩
-
-theorem negative_baryon_control {n : ℕ} (p : Fin n → DeltaLOneSignedInput.Species)
-    (h d : ℕ) (hb : (SMQLPatternRequests.blCharge p).1= -3)
-    (hd : SMChargeDegreeBounds.twiceDimension n h d < 20) :
-    SelectionCriteria.Forbidden
-      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor (1 : ZMod 5) 1) p h d) := by
-  apply strict_boundary_forbidden n p h d _ hd
-  rw [hb]
-  decide +kernel
-
-theorem counted_row_consumer (i : Fin 11) (r : SMFiniteLeptonAssignments.Row)
-    [NeZero r.k] (hr : r ∈ SMFiniteLeptonAssignments.batches i)
-    (hc : SMB1BelowTenAssignments.check r=false) (ha : r.b1Forbidden=false) :
-    Forbidden (r.q : ZMod r.k) r.l ∧
-    SMQLPatternRequests.OriginalAllowed (r.q : ZMod r.k) r.l (fun c => c.1.natAbs=3) :=
-  (SMB1BelowTenAssignments.later_allowed_semantics i r hr).mpr ⟨hc,ha⟩
-
-end GUT.SMB1BelowTenExamples
+assert_compatible GUT.SMB1BelowTenExamples.counted_row_consumer => Physics.SMB1BelowTenExamples.counted_row_consumer
+assert_compatible GUT.SMB1BelowTenExamples.dimension_nine_control => Physics.SMB1BelowTenExamples.dimension_nine_control
+assert_compatible GUT.SMB1BelowTenExamples.dimension_seven_control => Physics.SMB1BelowTenExamples.dimension_seven_control
+assert_compatible GUT.SMB1BelowTenExamples.dimension_six_control => Physics.SMB1BelowTenExamples.dimension_six_control
+assert_compatible GUT.SMB1BelowTenExamples.negative_baryon_control => Physics.SMB1BelowTenExamples.negative_baryon_control
+assert_compatible GUT.SMB1BelowTenExamples.strict_boundary_forbidden => Physics.SMB1BelowTenExamples.strict_boundary_forbidden
+assert_compatible GUT.SMB1BelowTenExamples.strict_boundary_later_allowed => Physics.SMB1BelowTenExamples.strict_boundary_later_allowed
+assert_compatible GUT.SMB1BelowTenExamples.strict_boundary_minimum => Physics.SMB1BelowTenExamples.strict_boundary_minimum

@@ -1,19 +1,17 @@
+import Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkOrbitData
 import Physics.StandardModel.Operators.LiSixQuarkFiniteData
+import Math.Lean.Compatibility
 
-/-! The forward matrix is defined by these actual-source orbit words.
-An independent stepping cache and its entry checker are no longer needed. -/
-namespace GUT.LiSixQuarkCertificate
-noncomputable section
-def columnR (j : Fin 25) (p q : Fin 5) : ℚ :=
-  basisRational ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25) (p,q)) j
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkOrbitData instead." (since := "source-api-v1")
 
-theorem orbit_column (j : Fin 25) : orbitR j = columnR j := by
-  ext p q
-  simp only [columnR, basisRational, Equiv.symm_apply_apply]
+compatibility_declarations [
+  GUT.LiSixQuarkCertificate.columnR => Physics.LiSixQuarkCertificate.columnR,
+  GUT.LiSixQuarkCertificate.columnR.eq_1 => Physics.LiSixQuarkCertificate.columnR.eq_1,
+  GUT.LiSixQuarkCertificate.orbitR_agrees => Physics.LiSixQuarkCertificate.orbitR_agrees,
+  GUT.LiSixQuarkCertificate.orbit_column => Physics.LiSixQuarkCertificate.orbit_column
+]
 
-theorem orbitR_agrees (i j : Fin 25) :
-    orbitR j ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25).symm i).1
-      ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25).symm i).2 = basisRational i j := rfl
-
-end
-end GUT.LiSixQuarkCertificate
+assert_compatible GUT.LiSixQuarkCertificate.columnR => Physics.LiSixQuarkCertificate.columnR
+assert_compatible GUT.LiSixQuarkCertificate.columnR.eq_1 => Physics.LiSixQuarkCertificate.columnR.eq_1
+assert_compatible GUT.LiSixQuarkCertificate.orbitR_agrees => Physics.LiSixQuarkCertificate.orbitR_agrees
+assert_compatible GUT.LiSixQuarkCertificate.orbit_column => Physics.LiSixQuarkCertificate.orbit_column

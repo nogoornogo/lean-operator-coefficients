@@ -1,0 +1,41 @@
+{
+  "kind": "model-input-connections",
+  "sources": {
+    "GUT/SU6/Audit/AuditFieldConnection.lean": "8e8a9e3a5b74c8a58aa19f2c89a723b47d8a58e152e23a69c9aa4b5416a20b59",
+    "GUT/SU6/Boundary/FieldConnection.lean": "bbc75bd73d46689b025589faf0489a55cd59d9168bfff292251d2f45851d5c9e",
+    "Math/RepresentationTheory/Fields/Audit/AuditFieldConnections.lean": "2087fb4f2c6da703dec715a4d3b74fab1e38134d0d1749868e899b6953c459a6",
+    "Math/RepresentationTheory/Fields/Controls.lean": "6c35924d5c2be0304c3e9254bed3ccddcedc29e0ab7de1f0b42d2a89d08680a8",
+    "Math/RepresentationTheory/Fields/DerivativeConnection.lean": "5d635eda7bfa1937a1bb76610201d96049f2d5ed197316ce866f26057c53f16e",
+    "Math/RepresentationTheory/Fields/Interactions.lean": "3ee93ce85d39dea06590d7e1e35e354eedf46d61f8acae9f46d1f98fe82fd1d0",
+    "Math/RepresentationTheory/Fields/JetConnection.lean": "61df97f60e5132ec51ba94c67d847d543a46a70536eae46d33acaf1a434424dd",
+    "Math/RepresentationTheory/Fields/Selection.lean": "bc4c2d03d5d4e2b2ad880a001d9895422bdca1df2da9cb917ca07b3bd77acbfd",
+    "Physics/FieldTheory/Fields/Audit/AuditFieldConnections.lean": "031ed56b222a41ab47c0b59ab03d4ed40ae5d0ec5315a8ea6c0cd92a7dc6e1ec",
+    "Physics/FieldTheory/Fields/SelectedFields.lean": "db44a05e307efbd24036d0ddd923ad1cca2c629d756d25b386cd9b20a73a2963",
+    "Physics/FieldTheory/Fields/SelectionControls.lean": "265679b1c5bb76e2811e008aefd3222b1687539535fb46257751f511af89bbf6",
+    "Physics/FieldTheory/Jets/Lagrangian/FieldInputConnection.lean": "6a7338635d6b41cdc0e1efa293a999a059bdc28103ca8a56a3e4a4e812918bba",
+    "Physics/StandardModel/Operators/BaryonOne/Qque/S3FieldConnection.lean": "7857c8d52340397eeda78879345324985647ae9f5e1c73cbef82e78f8b5691cc",
+    "Physics/StandardModel/Spectrum/Representations/LeptonParityFieldConnection.lean": "2fda499e20e61a17344ba942f048ac0080de2e5101cc8ec960f83c4103a06352"
+  },
+  "imports": {
+    "Math.lean": [
+      "import Math.RepresentationTheory.Fields.Audit.AuditFieldConnections",
+      "import Math.RepresentationTheory.Fields.Controls",
+      "import Math.RepresentationTheory.Fields.DerivativeConnection",
+      "import Math.RepresentationTheory.Fields.Interactions",
+      "import Math.RepresentationTheory.Fields.JetConnection",
+      "import Math.RepresentationTheory.Fields.Selection"
+    ],
+    "Physics.lean": [
+      "import Physics.FieldTheory.Fields.Audit.AuditFieldConnections",
+      "import Physics.FieldTheory.Fields.SelectedFields",
+      "import Physics.FieldTheory.Fields.SelectionControls",
+      "import Physics.FieldTheory.Jets.Lagrangian.FieldInputConnection",
+      "import Physics.StandardModel.Operators.BaryonOne.Qque.S3FieldConnection",
+      "import Physics.StandardModel.Spectrum.Representations.LeptonParityFieldConnection"
+    ],
+    "GUT.lean": [
+      "import GUT.SU6.Audit.AuditFieldConnection",
+      "import GUT.SU6.Boundary.FieldConnection"
+    ]
+  }
+}

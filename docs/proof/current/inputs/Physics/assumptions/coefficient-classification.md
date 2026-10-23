@@ -5,7 +5,7 @@ universal hypothesis package. Recorded checks retain their topic checkpoints.
 
 ## Coefficient Classification
 
-[QqueCoefficientCompleteness](../../../../../../Physics/StandardModel/Operators/QqueCoefficientCompleteness.lean)
+[QqueCoefficientCompleteness](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/QqueCoefficientCompleteness.lean)
 is a classification of coefficients for fixed fields, not another source
 extraction theorem. Its inputs are arbitrary complex H representations
 `a : H -> GL(A)`, `b : H -> GL(B)`, `d : H -> GL(D)`, with B and D
@@ -114,7 +114,7 @@ The strict component audit permits only `propext`, `Classical.choice` and
 
 ### Full Light-Species Connection
 
-[FullLightSpeciesQque](../../../../../../Physics/StandardModel/Operators/FullLightSpeciesQque.lean)
+[FullLightSpeciesQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/FullLightSpeciesQque.lean)
 takes a finite-dimensional complex SM-cover x H representation tau on K and
 semisimplicity of its SM restriction. H is an arbitrary abstract group; no
 topology, compactness or semisimplicity of its action is required. Define
@@ -132,7 +132,7 @@ standard species. Existing `LightSMFieldExtraction.Fields` certificates use
 the same full multiplicities; `supplied_alternation_iff` connects their qque
 existence statements to this full sector, without a positive-support premise.
 
-[FullLightRadicalQque](../../../../../../Physics/StandardModel/Operators/FullLightRadicalQque.lean)
+[FullLightRadicalQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/FullLightRadicalQque.lean)
 specializes this to the unchanged radical of the existing symmetric mass B.
 The ambient/mass carrier interface and compatible SM-cover x H action D remain
 inputs. Only joint continuity of the SM restriction of D.action is required;
@@ -152,7 +152,7 @@ See [scope and verification](../../../../../topics/qque-full-species-boundary/RE
 
 ### Equivalent Common-Irreducible Criterion
 
-[QqueCommonIrreducible](../../../../../../Physics/StandardModel/Operators/QqueCommonIrreducible.lean)
+[QqueCommonIrreducible](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/QqueCommonIrreducible.lean)
 adds a necessary-and-sufficient constituent test for the same complete qque
 sector. With actual left-chiral multiplicities A, B and D, the condition is
 that `Sym^2 A` and `B tensor D` contain isomorphic nonzero simple submodules

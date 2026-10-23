@@ -78,7 +78,7 @@ form is v^2 times the residual coefficient; invertibility requires v != 0.
 A zero VEV yields zero mass. This is not a classification of all Delta L = 2
 operators, general Higgs sectors, or a UV seesaw matching theorem.
 
-The [relation-quotient adapter](../../../../../../Physics/StandardModel/Operators/WeinbergRelationCompleteness.lean)
+The [relation-quotient adapter](../../../../../../Physics/StandardModel/Operators/Weinberg/WeinbergRelationCompleteness.lean)
 also classifies the actual `WeinbergModelSector` by residual Hom from the
 explicit exchange-generated input quotient. Its comparison with the existing
 symmetric-square Hom equivalence commutes. This is a Hom-space equivalence;

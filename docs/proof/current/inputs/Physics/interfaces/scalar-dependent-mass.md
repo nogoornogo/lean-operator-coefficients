@@ -42,7 +42,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
 
 ### Public API
 
-In `GUT.WeylMassFamily`:
+In `Physics.WeylMassFamily`:
 
 - `EquivariantFamily`: symmetric bilinear coefficients with arbitrary
   equivariant scalar dependence.
@@ -67,7 +67,7 @@ Finite sources in the same namespace:
   `EquivariantFamily.continuous_sum`: scalar-valued coefficient continuity
   and joint continuity in the original scalar and both fermion variables.
 
-In the compatibility namespace `GUT.WeylYukawaMass`:
+In the compatibility namespace `Physics.WeylYukawaMass`:
 
 - `EquivariantYukawa.toFamily` and `Sector.toFamilySector`.
 - `Sector.toFamilySector_mass`, `Sector.ofBareMass_toFamilySector`.
@@ -102,7 +102,7 @@ for this pass's checks.
 ### Verification
 
 ```sh
-lake build Physics.FieldTheory.Yukawa.Audit.AuditWeylMassFamily Physics.FieldTheory.Yukawa.Audit.AuditMultilinearWeylMass Physics.FieldTheory.Yukawa.Audit.AuditWeylMassFamilyCompatibility
+lake build Physics.FieldTheory.Yukawa.Mass.Audit.AuditWeylMassFamily Physics.FieldTheory.Yukawa.Mass.Audit.AuditMultilinearWeylMass Physics.FieldTheory.Yukawa.Mass.Audit.AuditWeylMassFamilyCompatibility
 lake build
 ```
 

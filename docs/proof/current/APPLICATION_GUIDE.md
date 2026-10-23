@@ -24,8 +24,14 @@ A detecting subgroup can certify full-group prohibition on a matching domain;
 subgroup permission does not supply a full-group witness. Each result has its
 own sector and assumptions. See [model studies](../../model-studies/README.md)
 for model-centered explanations and [coverage](../../verification/README.md)
-for source-location comparisons. The SU6 search is stopped at its documented
-boundary, with no protecting model or SU6-wide impossibility theorem claimed.
+for source-location comparisons. The bounded
+[SU(6) feasibility test](../../model-studies/su6-protection/feasibility.md)
+refutes the constructed lepton-parity input's commuting standard-chain lift
+and states the required new candidate data. The separate
+[boundary construction](../../model-studies/su6-protection/boundary-model.md)
+verifies algebraic chiral amplitudes, baryon action and SM/Higgs B1 prohibition,
+with analytic mixed-mode admission and quantum protection left explicit.
+No complete protecting SU(6) model or SU(6)-wide impossibility is claimed.
 
 ## Application procedure
 
@@ -61,6 +67,8 @@ boundary, with no protecting model or SU6-wide impossibility theorem claimed.
 | Example | What it teaches |
 | --- | --- |
 | [Constructed lepton-parity SM](../../model-studies/inverse-cyclic-sm/README.md) | Simultaneous named field, mass-radical and coefficient certificates on one algebraic input |
+| [SU(6) lift feasibility](../../model-studies/su6-protection/feasibility.md) | Actual IR protection and Yukawa witnesses do not imply a UV lift; the standard commuting cyclic target has a proved index obstruction |
+| [SU(6) boundary amplitudes](../../model-studies/su6-protection/boundary-model.md) | Actual projectors, baryon action and SM/Higgs B1 prohibition; analytic mixed-mode identification remains separate |
 | [S3 sample](../../model-studies/s3-flavor-qque/README.md) | Bijective flavor-map gates and an actual qque witness; physical Yukawa matching remains separate |
 | [Gauged B/L](../../model-studies/gauged-baryon-lepton/README.md) | A certified detecting subgroup suffices for prohibition on the declared SM restriction |
 | [Split SU5](../../model-studies/su5-split-multiplets/README.md) | Light parity is not automatically a symmetry of the original mixing mass |

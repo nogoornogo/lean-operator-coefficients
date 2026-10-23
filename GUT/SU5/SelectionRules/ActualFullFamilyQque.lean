@@ -1,6 +1,8 @@
 import GUT.SU5.SelectionRules.ActualFullFamilyIndex
-import Physics.StandardModel.Operators.StandardGaugeQqueExterior
+import Physics.StandardModel.Operators.BaryonOne.Qque.StandardGaugeQqueExterior
 import Math.RepresentationTheory.Unitary.UnitarySubrepresentationOrthogonality
+
+open Physics
 
 namespace GUT.SU5.ActualFullFamilyQque
 set_option autoImplicit false

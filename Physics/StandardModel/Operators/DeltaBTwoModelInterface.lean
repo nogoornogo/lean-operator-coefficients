@@ -1,78 +1,58 @@
+import Physics.StandardModel.Operators.BaryonTwo.Coefficients.DeltaBTwoModelInterface
 import Physics.StandardModel.Operators.DeltaBTwoSixQuark
 import Physics.StandardModel.Operators.DeltaBTwoLocalOperator
 import Math.RepresentationTheory.SixSlotSpeciesTransport
 import Math.RepresentationTheory.SixSlotRestrictionLift
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.Coefficients.DeltaBTwoModelInterface instead." (since := "source-api-v1")
 
-/-! Explicit residual multiplicities and actual-field inputs for the all-right
-six-quark sector. This interface does not assert residual Hom completeness. -/
-namespace GUT.DeltaBTwoModelInterface
-set_option autoImplicit false
-noncomputable section
-open Representation ExternalInvariantTensor
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.DeltaBTwoModelInterface.Inputs => Physics.DeltaBTwoModelInterface.Inputs,
+  GUT.DeltaBTwoModelInterface.Inputs.casesOn => Physics.DeltaBTwoModelInterface.Inputs.casesOn,
+  GUT.DeltaBTwoModelInterface.Inputs.ctorIdx => Physics.DeltaBTwoModelInterface.Inputs.ctorIdx,
+  GUT.DeltaBTwoModelInterface.Inputs.downEquiv => Physics.DeltaBTwoModelInterface.Inputs.downEquiv,
+  GUT.DeltaBTwoModelInterface.Inputs.mk => Physics.DeltaBTwoModelInterface.Inputs.mk,
+  GUT.DeltaBTwoModelInterface.Inputs.mk.inj => Physics.DeltaBTwoModelInterface.Inputs.mk.inj,
+  GUT.DeltaBTwoModelInterface.Inputs.mk.injEq => Physics.DeltaBTwoModelInterface.Inputs.mk.injEq,
+  GUT.DeltaBTwoModelInterface.Inputs.mk.noConfusion => Physics.DeltaBTwoModelInterface.Inputs.mk.noConfusion,
+  GUT.DeltaBTwoModelInterface.Inputs.mk.sizeOf_spec => Physics.DeltaBTwoModelInterface.Inputs.mk.sizeOf_spec,
+  GUT.DeltaBTwoModelInterface.Inputs.noConfusion => Physics.DeltaBTwoModelInterface.Inputs.noConfusion,
+  GUT.DeltaBTwoModelInterface.Inputs.noConfusionType => Physics.DeltaBTwoModelInterface.Inputs.noConfusionType,
+  GUT.DeltaBTwoModelInterface.Inputs.rec => Physics.DeltaBTwoModelInterface.Inputs.rec,
+  GUT.DeltaBTwoModelInterface.Inputs.recOn => Physics.DeltaBTwoModelInterface.Inputs.recOn,
+  GUT.DeltaBTwoModelInterface.Inputs.upEquiv => Physics.DeltaBTwoModelInterface.Inputs.upEquiv,
+  GUT.DeltaBTwoModelInterface.ModelSector => Physics.DeltaBTwoModelInterface.ModelSector,
+  GUT.DeltaBTwoModelInterface.OrderedCoefficient => Physics.DeltaBTwoModelInterface.OrderedCoefficient,
+  GUT.DeltaBTwoModelInterface.SymmetryGroup => Physics.DeltaBTwoModelInterface.SymmetryGroup,
+  GUT.DeltaBTwoModelInterface.downModel => Physics.DeltaBTwoModelInterface.downModel,
+  GUT.DeltaBTwoModelInterface.exists_on_fields_iff => Physics.DeltaBTwoModelInterface.exists_on_fields_iff,
+  GUT.DeltaBTwoModelInterface.exists_ordered => Physics.DeltaBTwoModelInterface.exists_ordered,
+  GUT.DeltaBTwoModelInterface.onFieldsEquiv => Physics.DeltaBTwoModelInterface.onFieldsEquiv,
+  GUT.DeltaBTwoModelInterface.species_baryon_grade => Physics.DeltaBTwoModelInterface.species_baryon_grade,
+  GUT.DeltaBTwoModelInterface.upModel => Physics.DeltaBTwoModelInterface.upModel
+]
 
-variable {H U D : Type*} [Group H]
-  [AddCommGroup U] [Module ℂ U] [AddCommGroup D] [Module ℂ D]
-  (u : Representation ℂ H U) (d : Representation ℂ H D)
-
-abbrev SymmetryGroup (H : Type*) :=
-  (StandardSMGaugeTensor.GaugeGroup × H) × WeylSpinor.Group
-
-def upModel : Representation ℂ (SymmetryGroup H)
-    ((SMEpsilonTensor.Color ⊗[ℂ] U) ⊗[ℂ] WeylSpinor.Space) :=
-  external (external StandardSMGaugeTensor.upRight u) WeylSpinor.right
-def downModel : Representation ℂ (SymmetryGroup H)
-    ((SMEpsilonTensor.Color ⊗[ℂ] D) ⊗[ℂ] WeylSpinor.Space) :=
-  external (external StandardSMGaugeTensor.downRight d) WeylSpinor.right
-
-/-- Independent invariant Hom sector, not the image of a contraction assembly. -/
-abbrev ModelSector := ↥(SixSlotSpeciesDegree.sector
-  (H := SymmetryGroup H)
-  (A := (SMEpsilonTensor.Color ⊗[ℂ] U) ⊗[ℂ] WeylSpinor.Space)
-  (B := (SMEpsilonTensor.Color ⊗[ℂ] D) ⊗[ℂ] WeylSpinor.Space)
-  (upModel u) (downModel d))
-
-abbrev OrderedCoefficient := IntertwiningMap
-  (SixSlotAlternation.orderedRepresentation
-    (H := SymmetryGroup H)
-    (A := (SMEpsilonTensor.Color ⊗[ℂ] U) ⊗[ℂ] WeylSpinor.Space)
-    (B := (SMEpsilonTensor.Color ⊗[ℂ] D) ⊗[ℂ] WeylSpinor.Space)
-    (upModel u) (downModel d))
-  (Representation.trivial ℂ (SymmetryGroup H) ℂ)
-
-variable {A B : Type*} [AddCommGroup A] [Module ℂ A]
-  [AddCommGroup B] [Module ℂ B]
-  (a : Representation ℂ (SymmetryGroup H) A)
-  (b : Representation ℂ (SymmetryGroup H) B)
-
-/-- Exhaustiveness of alternating descent on actual fields, before factorization. -/
-theorem exists_ordered (f : SixSlotSpeciesDegree.sector a b) :
-    ∃ g : IntertwiningMap (SixSlotAlternation.orderedRepresentation a b)
-      (Representation.trivial ℂ (SymmetryGroup H) ℂ),
-      SixSlotAlternation.coefficient a b g = f.val :=
-  SixSlotRestrictionLift.exists_ordered a b f.val f.property
-
-/-- Supplied model correspondence; no coefficient or nonzero premise is included. -/
-structure Inputs where
-  upEquiv : Representation.Equiv a (upModel u)
-  downEquiv : Representation.Equiv b (downModel d)
-
-def onFieldsEquiv (i : Inputs u d a b) :
-    ModelSector u d ≃ₗ[ℂ] SixSlotSpeciesDegree.sector a b :=
-  SixSlotSpeciesTransport.equiv i.upEquiv i.downEquiv
-
-theorem exists_on_fields_iff (i : Inputs u d a b) :
-    (∃ f : SixSlotSpeciesDegree.sector a b, f ≠ 0) ↔
-      ∃ f : ModelSector u d, f ≠ 0 :=
-  (SixSlotSpeciesTransport.exists_nonzero_iff i.upEquiv i.downEquiv).symm
-
-/-- The fixed species pattern has baryon number two independently of multiplicities.
-This is a grading statement, not invariance under baryon-number symmetry. -/
-theorem species_baryon_grade :
-    DeltaBTwoLocalOperator.baryonGrade DeltaBTwoLocalOperator.udduddOperator = 6 :=
-  DeltaBTwoLocalOperator.uddudd_baryonGrade
-
-end
-end GUT.DeltaBTwoModelInterface
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs => Physics.DeltaBTwoModelInterface.Inputs
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.casesOn => Physics.DeltaBTwoModelInterface.Inputs.casesOn
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.ctorIdx => Physics.DeltaBTwoModelInterface.Inputs.ctorIdx
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.downEquiv => Physics.DeltaBTwoModelInterface.Inputs.downEquiv
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.mk => Physics.DeltaBTwoModelInterface.Inputs.mk
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.mk.inj => Physics.DeltaBTwoModelInterface.Inputs.mk.inj
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.mk.injEq => Physics.DeltaBTwoModelInterface.Inputs.mk.injEq
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.mk.noConfusion => Physics.DeltaBTwoModelInterface.Inputs.mk.noConfusion
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.mk.sizeOf_spec => Physics.DeltaBTwoModelInterface.Inputs.mk.sizeOf_spec
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.noConfusion => Physics.DeltaBTwoModelInterface.Inputs.noConfusion
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.noConfusionType => Physics.DeltaBTwoModelInterface.Inputs.noConfusionType
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.rec => Physics.DeltaBTwoModelInterface.Inputs.rec
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.recOn => Physics.DeltaBTwoModelInterface.Inputs.recOn
+assert_compatible GUT.DeltaBTwoModelInterface.Inputs.upEquiv => Physics.DeltaBTwoModelInterface.Inputs.upEquiv
+assert_compatible GUT.DeltaBTwoModelInterface.ModelSector => Physics.DeltaBTwoModelInterface.ModelSector
+assert_compatible GUT.DeltaBTwoModelInterface.OrderedCoefficient => Physics.DeltaBTwoModelInterface.OrderedCoefficient
+assert_compatible GUT.DeltaBTwoModelInterface.SymmetryGroup => Physics.DeltaBTwoModelInterface.SymmetryGroup
+assert_compatible GUT.DeltaBTwoModelInterface.downModel => Physics.DeltaBTwoModelInterface.downModel
+assert_compatible GUT.DeltaBTwoModelInterface.exists_on_fields_iff => Physics.DeltaBTwoModelInterface.exists_on_fields_iff
+assert_compatible GUT.DeltaBTwoModelInterface.exists_ordered => Physics.DeltaBTwoModelInterface.exists_ordered
+assert_compatible GUT.DeltaBTwoModelInterface.onFieldsEquiv => Physics.DeltaBTwoModelInterface.onFieldsEquiv
+assert_compatible GUT.DeltaBTwoModelInterface.species_baryon_grade => Physics.DeltaBTwoModelInterface.species_baryon_grade
+assert_compatible GUT.DeltaBTwoModelInterface.upModel => Physics.DeltaBTwoModelInterface.upModel

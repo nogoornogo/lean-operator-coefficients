@@ -1,4 +1,7 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVMass
+import Lean.Util.CollectAxioms
+
+open Physics
 
 /-!
 Persistent audit of exterior branching and the actual SU(6) mass example.
@@ -76,3 +79,19 @@ theorem zero_mass_not_fifteen :
 end
 
 end GUT.AuditStandardSMUVMass
+
+open Lean in
+run_cmd do
+  let ds := [
+    ``Physics.EquivariantWeylMassTransport.PullbackCertificate.mem_radical_iff,
+    ``GUT.StandardSMUVMass.transport,
+    ``GUT.StandardSMUVMass.mass_form_eq,
+    ``GUT.StandardSMUVMass.mem_radical_iff,
+    ``GUT.StandardSMUVMass.radicalEquiv,
+    ``GUT.StandardSMUVMass.lightEquiv,
+    ``GUT.StandardSMUVMass.mass_nonzero]
+  for d in ds do
+    for ax in (← Lean.collectAxioms d) do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "Mass transport {d} uses unexpected axiom {ax}"
+  Lean.logInfo m!"Certified UV mass transport: {ds.length} strict transitive checks passed"

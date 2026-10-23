@@ -12,6 +12,9 @@ and continuity of the inverse follows from its finite-dimensional linear
 embedding, without a connectedness assumption.
 -/
 
+-- Bounded instance-search budget for concrete transport/equivalence types.
+set_option synthInstance.maxHeartbeats 200000
+
 namespace Math.MultiplicityUnitaryCentralizer
 
 noncomputable section

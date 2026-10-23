@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylDualTarget
 
+open Physics
+
 /-!
 # Audit of the dual SM target and the standard charge-orbit bridge connection
 
@@ -10,8 +12,8 @@ endpoint retains its explicit UV field/source identification and IR target.
 
 set_option autoImplicit false
 
-open GUT.StandardAbelianCharge GUT.StandardSMCharacterTarget
-open GUT.StandardBranchProtonObstruction GUT.StandardWeylDualTarget
+open GUT.StandardAbelianCharge Physics.StandardAbelianCharge GUT.StandardSMCharacterTarget Physics.StandardSMCharacterTarget
+open GUT.StandardBranchProtonObstruction Physics.StandardBranchProtonObstruction GUT.StandardWeylDualTarget Physics.StandardWeylDualTarget
 
 example (n : ℤ) (k : Charges (ZMod 2)) (s : ZMod 2 →₀ ℤ) :
     IsPureSMChargeSpectrum

@@ -1,6 +1,8 @@
 import GUT.PatiSalam.Matching.InvariantAction
 import GUT.PatiSalam.Matching.UVComponent
 
+open Physics
+
 /-! Ordered internal gauge kernel of Eq.(19); no fermionic statistics quotient. -/
 namespace GUT.PatiSalam.UVGaugeCore
 set_option autoImplicit false

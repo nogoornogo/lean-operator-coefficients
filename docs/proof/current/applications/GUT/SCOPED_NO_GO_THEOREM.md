@@ -211,7 +211,7 @@ normal-form version of the same complete conditional route: its only infrared
 field is the unitary light-plus-heavy decomposition, from which the mass map
 and both mode-space equivalences are theorem-level constructions.
 
-`Physics/FieldTheory/Yukawa/DiracYukawaMass.lean` and `GUT/SU6/SelectionRules/Models/DiracPhysicalModel.lean` now
+`Physics/FieldTheory/Yukawa/Mass/DiracYukawaMass.lean` and `GUT/SU6/SelectionRules/Models/DiracPhysicalModel.lean` now
 complete the Lean composition step for the finite-dimensional Dirac-type
 model class described in `MODEL_INTERFACE.md`.  Such a model supplies a
 candidate strict commuting Abelian action and `HasExactSMChiralIndex`; Lean

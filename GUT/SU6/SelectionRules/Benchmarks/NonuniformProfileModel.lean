@@ -2,6 +2,8 @@ import GUT.SU6.SelectionRules.StandardBranch.ScalarResidualSource
 import GUT.SU6.SelectionRules.Models.ContinuousProfileModel
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylBenchmark
 
+open Physics
+
 open Math
 
 /-!

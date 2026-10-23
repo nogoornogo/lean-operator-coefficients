@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.AbelianActualSpectrum
 import Mathlib.LinearAlgebra.DirectSum.Basis
 
+open Physics
+
 open Math
 
 /-!

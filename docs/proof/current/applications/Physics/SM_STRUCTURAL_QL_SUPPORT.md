@@ -6,8 +6,8 @@ classified by neutral charges and a finite positive component/coupling
 condition. This discharges the retained local `Allowed(T)` tests in the
 original endpoint 2, for this residual-action class.
 
-The actual theorem is `GUT.SMJointHiggsSupport.original_ql_iff` in
-[SMJointHiggsSupport](../../../../../Physics/StandardModel/Operators/SMJointHiggsSupport.lean).
+The actual theorem is `Physics.SMJointHiggsSupport.original_ql_iff` in
+[SMJointHiggsSupport](../../../../../Physics/StandardModel/Operators/Support/Joint/SMJointHiggsSupport.lean).
 Its hypotheses are the fixed field dictionary and a cyclic modulus k with
 `[NeZero k]`, with arbitrary q,l in `ZMod k`. It has no Weyl torus reduction,
 branching, source-equivalence, multiplicity/rank or other external theorem

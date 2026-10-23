@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.ColorWeakNormalizerSample
-import Math.RepresentationTheory.PointwiseGaugeRemoval
+import Math.RepresentationTheory.Constructions.PointwiseGaugeRemoval
+
+open Physics
 
 /-! An SM-preserving inner action: the color probe is an unbroken gauge
 element, and its factor cannot change a gauge-invariant coefficient. -/

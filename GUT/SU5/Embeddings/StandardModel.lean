@@ -1,6 +1,8 @@
-import Physics.StandardModel.Gauge.StandardSMGaugeTensor
+import Physics.StandardModel.Gauge.Tensors.StandardSMGaugeTensor
 import Mathlib.LinearAlgebra.Matrix.Reindex
 import TauCeti.Topology.Algebra.UnitaryGroup
+
+open Physics
 
 /-!
 # The standard covering homomorphism into SU(5)

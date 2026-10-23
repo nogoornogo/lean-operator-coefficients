@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.PhysicalWeylZeroModeSupport
 import GUT.SU6.SelectionRules.FinalNoGoAssembly
 
+open Physics
+
 /-!
 # Continuous geometry and the all-left-handed symmetric mass endpoint
 

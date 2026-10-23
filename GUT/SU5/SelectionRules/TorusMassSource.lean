@@ -1,10 +1,12 @@
 import GUT.SU5.Branching.TorusCharacterSource
 import GUT.SU5.Embeddings.PhysicalTorus
-import Physics.FieldTheory.Mass.AbelianMassSpectrum
-import Physics.StandardModel.Spectrum.ProfileChiralIndex
-import Physics.StandardModel.Operators.StandardModelLocalOperator
+import Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum
+import Physics.StandardModel.Spectrum.Charges.ProfileChiralIndex
+import Physics.StandardModel.Operators.Selection.StandardModelLocalOperator
 
-open Math
+open Physics
+
+open Math Physics
 
 /-!
 # Arbitrary SU(5) matter with an exact dual light target
@@ -22,6 +24,7 @@ signatures, not a nonzero amplitude or a general full-gauge radical tensor.
 set_option autoImplicit false
 
 namespace GUT.SU5.TorusMassSource
+open Physics.SU5
 
 noncomputable section
 
@@ -77,20 +80,20 @@ This is a pullback of the full character spectrum, not an assertion that
 every character of an abstract source is an integral torus character. -/
 def spectrum : ResolvedCharacter (ChargeLabel H) :=
   Finsupp.comapDomain keyCharacter
-    (AbelianMassSpectrum.radicalSpectrum B (restricted_unitary rho hu)) keyCharacter_injective.injOn
+    (Physics.AbelianMassSpectrum.radicalSpectrum B (restricted_unitary rho hu)) keyCharacter_injective.injOn
 
 theorem spectrum_nonneg (key : ResolvedKey (ChargeLabel H)) : 0 ≤ spectrum rho hu B key :=
-  AbelianMassSpectrum.radicalSpectrum_nonneg B (restricted_unitary rho hu) _
+  Physics.AbelianMassSpectrum.radicalSpectrum_nonneg B (restricted_unitary rho hu) _
 
 /-- A full radical trace identity determines its resolved spectrum, unlike
 the weaker dual-index target. -/
 theorem spectrum_eq_of_character (p : ResolvedCharacter (ChargeLabel H))
     (hc : ∀ g, B.radical.toRepresentation.character g = TorusCharacter.eval p g) :
     spectrum rho hu B = p := by
-  have he : AbelianMassSpectrum.radicalSpectrum B (restricted_unitary rho hu) = lift p := by
+  have he : Physics.AbelianMassSpectrum.radicalSpectrum B (restricted_unitary rho hu) = lift p := by
     apply AbelianActualSpectrum.eval_injective
     intro g
-    rw [AbelianMassSpectrum.radicalSpectrum_eval, eval_lift, hc]
+    rw [Physics.AbelianMassSpectrum.radicalSpectrum_eval, eval_lift, hc]
   ext key
   have hh := congrArg (fun q : AbelianActualSpectrum.Polynomial (TorusCharacter.CombinedGroup H) =>
     q (keyCharacter key)) he
@@ -99,7 +102,7 @@ theorem spectrum_eq_of_character (p : ResolvedCharacter (ChargeLabel H))
 
 theorem chiral_spectrum (ht : HasTarget rho B P s) :
     chiralDifference (spectrum rho hu B) = chiralDifference (targetWithSinglets P s) := by
-  have he := AbelianMassSpectrum.radical_dual_spectrum_eq_target B (restricted_unitary rho hu)
+  have he := Physics.AbelianMassSpectrum.radical_dual_spectrum_eq_target B (restricted_unitary rho hu)
     (lift (chiralDifference (targetWithSinglets P s))) (by
       intro g
       rw [eval_lift]
@@ -117,7 +120,7 @@ theorem exists_zeroMode (ht : HasTarget rho B P s) (i : Fin 15) (q : ChargeLabel
     ∃ v : B.radical.toSubmodule, v ≠ 0 ∧
       ∀ g, B.radical.toRepresentation g v = keyCharacter (smReducedWeight i, q) g • v := by
   apply UnitaryCharacterSpectrum.exists_eigenvector_of_coeff_ne_zero
-    B.radical.toRepresentation (AbelianMassSpectrum.radical_unitary B (restricted_unitary rho hu))
+    B.radical.toRepresentation (Physics.AbelianMassSpectrum.radical_unitary B (restricted_unitary rho hu))
   have hp := coefficient_lower_bound P s _ (spectrum_nonneg rho hu B)
     (chiral_spectrum rho hu B P s ht) i q
   change spectrum rho hu B (smReducedWeight i, q) ≠ 0

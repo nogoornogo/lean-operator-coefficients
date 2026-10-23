@@ -1,0 +1,33 @@
+[
+  {
+    "kind": "source-extension-and-helper-reconciliation",
+    "audit": "Math/Algebra/Constructions/Audit/AuditHiggsQuarticFourFoundations.lean",
+    "ownerLayer": "Math",
+    "prefixes": [
+      "Math.HiggsFourWaveCubature"
+    ],
+    "baselineCount": 4757,
+    "rebuiltCount": 788,
+    "removedCount": 4200,
+    "addedCount": 231,
+    "removedSHA256": "cdcf9c4492b6bfb527a93294e11de96e57703abc27b50835c0c1bc3adfc0c882",
+    "addedSHA256": "fd94e4e9c970b61ac8368b9c42f3f86d79cac5ac5b5ea127a066e5b51b8e84bc",
+    "messageCount": 10,
+    "messageIndex": 5,
+    "newSources": [
+      "Math/Algebra/HiggsFourWaveCubature/Structural/Audit.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/CollinearChecks.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/CollinearData.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/CollinearMoments.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/CollinearSymmetry.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/TensorShape.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/RemainingAudit.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/SecondCollinear.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/TransverseChecks.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/TransverseData.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/TransverseMoments.lean",
+      "Math/Algebra/HiggsFourWaveCubature/Structural/TransverseSymmetry.lean"
+    ],
+    "reason": "The structural derivation removes all 4200 compiler-generated finite-moment proof helpers and adds 231 public-namespace structural declarations/auxiliaries across the three families. Every old source-declared parent and protected API remains present. Exact new source owners and checksums are registered; the owner-wide strict audits also cover private helpers. All 420 old moment entry types are exactly preserved. The original foundation audit rejects Physics/GUT imports, so its count concerns Math-owned declarations; six later Physics extensions of the same object namespace are absent from its environment. All original strict axiom/layer predicates and the other nine message counts remain unchanged."
+  }
+]

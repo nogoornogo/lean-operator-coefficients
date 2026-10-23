@@ -1,6 +1,8 @@
 import GUT.SU6.Yukawa.CouplingEvaluation
 import GUT.SU6.Yukawa.LightEquations
 
+open Physics
+
 /-! A full-group invariant nonzero Yukawa that vanishes at the specified vacuum. -/
 set_option autoImplicit false
 set_option backward.isDefEq.respectTransparency false

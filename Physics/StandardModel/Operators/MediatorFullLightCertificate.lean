@@ -1,106 +1,82 @@
+import Physics.StandardModel.Operators.Selection.MediatorFullLightCertificate
 import Physics.StandardModel.Operators.FullLightSpeciesQque
 import Physics.StandardModel.Operators.MediatorQqueEvaluation
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Selection.MediatorFullLightCertificate instead." (since := "source-api-v1")
 
-/-! Model obligations for a generated exchange on canonical full light
-species. Nonzero exterior descent is derived from an alternating probe. -/
-set_option autoImplicit false
-set_option backward.isDefEq.respectTransparency false
-namespace GUT.MediatorFullLightCertificate
-noncomputable section
-open Representation StandardSMGaugeTensor SMEpsilonTensor
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.MediatorFullLightCertificate.Certificate => Physics.MediatorFullLightCertificate.Certificate,
+  GUT.MediatorFullLightCertificate.Certificate.a => Physics.MediatorFullLightCertificate.Certificate.a,
+  GUT.MediatorFullLightCertificate.Certificate.b => Physics.MediatorFullLightCertificate.Certificate.b,
+  GUT.MediatorFullLightCertificate.Certificate.casesOn => Physics.MediatorFullLightCertificate.Certificate.casesOn,
+  GUT.MediatorFullLightCertificate.Certificate.ctorIdx => Physics.MediatorFullLightCertificate.Certificate.ctorIdx,
+  GUT.MediatorFullLightCertificate.Certificate.generated => Physics.MediatorFullLightCertificate.Certificate.generated,
+  GUT.MediatorFullLightCertificate.Certificate.generated_nonzero => Physics.MediatorFullLightCertificate.Certificate.generated_nonzero,
+  GUT.MediatorFullLightCertificate.Certificate.hasCoefficient => Physics.MediatorFullLightCertificate.Certificate.hasCoefficient,
+  GUT.MediatorFullLightCertificate.Certificate.hasResidualMap => Physics.MediatorFullLightCertificate.Certificate.hasResidualMap,
+  GUT.MediatorFullLightCertificate.Certificate.invariant => Physics.MediatorFullLightCertificate.Certificate.invariant,
+  GUT.MediatorFullLightCertificate.Certificate.l => Physics.MediatorFullLightCertificate.Certificate.l,
+  GUT.MediatorFullLightCertificate.Certificate.mk => Physics.MediatorFullLightCertificate.Certificate.mk,
+  GUT.MediatorFullLightCertificate.Certificate.mk.inj => Physics.MediatorFullLightCertificate.Certificate.mk.inj,
+  GUT.MediatorFullLightCertificate.Certificate.mk.injEq => Physics.MediatorFullLightCertificate.Certificate.mk.injEq,
+  GUT.MediatorFullLightCertificate.Certificate.mk.noConfusion => Physics.MediatorFullLightCertificate.Certificate.mk.noConfusion,
+  GUT.MediatorFullLightCertificate.Certificate.mk.sizeOf_spec => Physics.MediatorFullLightCertificate.Certificate.mk.sizeOf_spec,
+  GUT.MediatorFullLightCertificate.Certificate.noConfusion => Physics.MediatorFullLightCertificate.Certificate.noConfusion,
+  GUT.MediatorFullLightCertificate.Certificate.noConfusionType => Physics.MediatorFullLightCertificate.Certificate.noConfusionType,
+  GUT.MediatorFullLightCertificate.Certificate.probe => Physics.MediatorFullLightCertificate.Certificate.probe,
+  GUT.MediatorFullLightCertificate.Certificate.rec => Physics.MediatorFullLightCertificate.Certificate.rec,
+  GUT.MediatorFullLightCertificate.Certificate.recOn => Physics.MediatorFullLightCertificate.Certificate.recOn,
+  GUT.MediatorFullLightCertificate.Certificate.reconstruct => Physics.MediatorFullLightCertificate.Certificate.reconstruct,
+  GUT.MediatorFullLightCertificate.Certificate.residualHom => Physics.MediatorFullLightCertificate.Certificate.residualHom,
+  GUT.MediatorFullLightCertificate.Certificate.residualHom_nonzero => Physics.MediatorFullLightCertificate.Certificate.residualHom_nonzero,
+  GUT.MediatorFullLightCertificate.Certificate.s => Physics.MediatorFullLightCertificate.Certificate.s,
+  GUT.MediatorFullLightCertificate.Certificate.t => Physics.MediatorFullLightCertificate.Certificate.t,
+  GUT.MediatorFullLightCertificate.Certificate.x => Physics.MediatorFullLightCertificate.Certificate.x,
+  GUT.MediatorFullLightCertificate.Certificate.y => Physics.MediatorFullLightCertificate.Certificate.y,
+  GUT.MediatorFullLightCertificate.Certificate.z => Physics.MediatorFullLightCertificate.Certificate.z,
+  GUT.MediatorFullLightCertificate.E => Physics.MediatorFullLightCertificate.E,
+  GUT.MediatorFullLightCertificate.Q => Physics.MediatorFullLightCertificate.Q,
+  GUT.MediatorFullLightCertificate.U => Physics.MediatorFullLightCertificate.U,
+  GUT.MediatorFullLightCertificate.eRep => Physics.MediatorFullLightCertificate.eRep,
+  GUT.MediatorFullLightCertificate.ofRestriction => Physics.MediatorFullLightCertificate.ofRestriction,
+  GUT.MediatorFullLightCertificate.qRep => Physics.MediatorFullLightCertificate.qRep,
+  GUT.MediatorFullLightCertificate.uRep => Physics.MediatorFullLightCertificate.uRep
+]
 
-variable {H K V : Type*} [Group H]
-  [AddCommGroup K] [Module ℂ K] [FiniteDimensional ℂ K]
-  [AddCommGroup V] [Module ℂ V]
-  (tau : Representation ℂ (GaugeGroup × H) K)
-
-abbrev Q := (FullLightSpeciesQque.Q tau).toSubmodule
-abbrev U := (FullLightSpeciesQque.U tau).toSubmodule
-abbrev E := (FullLightSpeciesQque.E tau).toSubmodule
-abbrev qRep := (FullLightSpeciesQque.Q tau).toRepresentation
-abbrev uRep := (FullLightSpeciesQque.U tau).toRepresentation
-abbrev eRep := (FullLightSpeciesQque.E tau).toRepresentation
-
-variable (M : V ≃ₗ[ℂ] V) (g : ℂ)
-  (J : Q tau ⊗[ℂ] U tau →ₗ[ℂ] V)
-  (R : Q tau ⊗[ℂ] E tau →ₗ[ℂ] Module.Dual ℂ V)
-
-structure Certificate where
-  invariant : MediatorQque.IsInvariant (qRep tau) (uRep tau) (eRep tau) M g J R
-  x : Q tau
-  y : Q tau
-  a : U tau
-  b : E tau
-  s : WeylSpinor.Space
-  t : WeylSpinor.Space
-  z : WeylSpinor.Space
-  l : WeylSpinor.Space
-  probe :
-    MediatorExchange.coefficient M g J R ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (a ⊗ₜ[ℂ] b)) *
-      (eps2 s t * eps2 z l) -
-    MediatorExchange.coefficient M g J R ((y ⊗ₜ[ℂ] x) ⊗ₜ[ℂ] (a ⊗ₜ[ℂ] b)) *
-      (eps2 t s * eps2 z l) ≠ 0
-
-namespace Certificate
-variable {tau M g J R} (c : Certificate tau M g J R)
-
-def generated : FullLightSpeciesQque.Sector tau :=
-  MediatorQque.sector (qRep tau) (uRep tau) (eRep tau) M g J R c.invariant
-
-omit [FiniteDimensional ℂ K] in
-theorem generated_nonzero : c.generated ≠ 0 :=
-  MediatorQqueEvaluation.sector_ne_zero_of_slots (qRep tau) (uRep tau) (eRep tau)
-    M g J R c.invariant
-    c.x c.y c.a c.b c.s c.t c.z c.l c.probe
-
-variable (hs : IsSemisimpleRepresentation (ProductFactorization.firstRestriction tau))
-
-def residualHom : FullLightSpeciesQque.ResidualHom tau :=
-  (FullLightSpeciesQque.equiv tau hs).symm c.generated
-
-theorem reconstruct : FullLightSpeciesQque.equiv tau hs (c.residualHom hs) = c.generated :=
-  (FullLightSpeciesQque.equiv tau hs).apply_symm_apply c.generated
-
-theorem residualHom_nonzero : c.residualHom hs ≠ 0 :=
-  (FullLightSpeciesQque.equiv tau hs).symm.map_ne_zero_iff.mpr c.generated_nonzero
-
-include c in
-omit [FiniteDimensional ℂ K] in
-theorem hasCoefficient : FullLightSpeciesQque.HasCoefficient tau :=
-  ⟨c.generated, c.generated_nonzero⟩
-
-include c hs in
-theorem hasResidualMap : FullLightSpeciesQque.HasResidualMap tau :=
-  ⟨c.residualHom hs, c.residualHom_nonzero hs⟩
-
-end Certificate
-
-def ofRestriction
-    {A B C : Type*} [AddCommGroup A] [Module ℂ A]
-    [AddCommGroup B] [Module ℂ B] [AddCommGroup C] [Module ℂ C]
-    (h : MediatorQque.IsInvariant (qRep tau) (uRep tau) (eRep tau) M g J R)
-    (iQ : A →ₗ[ℂ] Q tau) (iU : B →ₗ[ℂ] U tau) (iE : C →ₗ[ℂ] E tau)
-    (f : (A ⊗[ℂ] A) ⊗[ℂ] (B ⊗[ℂ] C) →ₗ[ℂ] ℂ)
-    (hf : ∀ x y a b, MediatorExchange.coefficient M g J R
-      ((iQ x ⊗ₜ[ℂ] iQ y) ⊗ₜ[ℂ] (iU a ⊗ₜ[ℂ] iE b)) =
-        f ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (a ⊗ₜ[ℂ] b)))
-    (x y : A) (a : B) (b : C) (s t z l : WeylSpinor.Space)
-    (hn : f ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (a ⊗ₜ[ℂ] b)) * (eps2 s t * eps2 z l) -
-      f ((y ⊗ₜ[ℂ] x) ⊗ₜ[ℂ] (a ⊗ₜ[ℂ] b)) * (eps2 t s * eps2 z l) ≠ 0) :
-    Certificate tau M g J R where
-  invariant := h
-  x := iQ x
-  y := iQ y
-  a := iU a
-  b := iE b
-  s := s
-  t := t
-  z := z
-  l := l
-  probe := by simpa only [hf] using hn
-
-end
-end GUT.MediatorFullLightCertificate
+assert_compatible GUT.MediatorFullLightCertificate.Certificate => Physics.MediatorFullLightCertificate.Certificate
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.a => Physics.MediatorFullLightCertificate.Certificate.a
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.b => Physics.MediatorFullLightCertificate.Certificate.b
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.casesOn => Physics.MediatorFullLightCertificate.Certificate.casesOn
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.ctorIdx => Physics.MediatorFullLightCertificate.Certificate.ctorIdx
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.generated => Physics.MediatorFullLightCertificate.Certificate.generated
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.generated_nonzero => Physics.MediatorFullLightCertificate.Certificate.generated_nonzero
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.hasCoefficient => Physics.MediatorFullLightCertificate.Certificate.hasCoefficient
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.hasResidualMap => Physics.MediatorFullLightCertificate.Certificate.hasResidualMap
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.invariant => Physics.MediatorFullLightCertificate.Certificate.invariant
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.l => Physics.MediatorFullLightCertificate.Certificate.l
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.mk => Physics.MediatorFullLightCertificate.Certificate.mk
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.mk.inj => Physics.MediatorFullLightCertificate.Certificate.mk.inj
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.mk.injEq => Physics.MediatorFullLightCertificate.Certificate.mk.injEq
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.mk.noConfusion => Physics.MediatorFullLightCertificate.Certificate.mk.noConfusion
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.mk.sizeOf_spec => Physics.MediatorFullLightCertificate.Certificate.mk.sizeOf_spec
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.noConfusion => Physics.MediatorFullLightCertificate.Certificate.noConfusion
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.noConfusionType => Physics.MediatorFullLightCertificate.Certificate.noConfusionType
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.probe => Physics.MediatorFullLightCertificate.Certificate.probe
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.rec => Physics.MediatorFullLightCertificate.Certificate.rec
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.recOn => Physics.MediatorFullLightCertificate.Certificate.recOn
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.reconstruct => Physics.MediatorFullLightCertificate.Certificate.reconstruct
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.residualHom => Physics.MediatorFullLightCertificate.Certificate.residualHom
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.residualHom_nonzero => Physics.MediatorFullLightCertificate.Certificate.residualHom_nonzero
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.s => Physics.MediatorFullLightCertificate.Certificate.s
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.t => Physics.MediatorFullLightCertificate.Certificate.t
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.x => Physics.MediatorFullLightCertificate.Certificate.x
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.y => Physics.MediatorFullLightCertificate.Certificate.y
+assert_compatible GUT.MediatorFullLightCertificate.Certificate.z => Physics.MediatorFullLightCertificate.Certificate.z
+assert_compatible GUT.MediatorFullLightCertificate.E => Physics.MediatorFullLightCertificate.E
+assert_compatible GUT.MediatorFullLightCertificate.Q => Physics.MediatorFullLightCertificate.Q
+assert_compatible GUT.MediatorFullLightCertificate.U => Physics.MediatorFullLightCertificate.U
+assert_compatible GUT.MediatorFullLightCertificate.eRep => Physics.MediatorFullLightCertificate.eRep
+assert_compatible GUT.MediatorFullLightCertificate.ofRestriction => Physics.MediatorFullLightCertificate.ofRestriction
+assert_compatible GUT.MediatorFullLightCertificate.qRep => Physics.MediatorFullLightCertificate.qRep
+assert_compatible GUT.MediatorFullLightCertificate.uRep => Physics.MediatorFullLightCertificate.uRep

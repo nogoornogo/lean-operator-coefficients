@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVStabilizer
 
+open Physics
+
 /-! Persistent audit: the existing nonzero 15-mode benchmark VEV has a
 stabilizer strictly larger than the standard SM image. The mass and VEV
 are not replaced, and neither a scalar potential nor an amplitude is assumed. -/

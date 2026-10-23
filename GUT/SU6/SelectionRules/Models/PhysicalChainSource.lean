@@ -2,8 +2,10 @@ import GUT.Common.StandardChain.StandardChain
 import GUT.SU6.Embeddings.StandardSU5Inclusion
 import GUT.SU6.Representations.ChargedAmbientRealization
 import GUT.SU6.SelectionRules.Models.ProfileZeroModeSupport
-import Physics.FieldTheory.Mass.SurjectiveMassDescent
+import Physics.FieldTheory.Mass.Surplus.SurjectiveMassDescent
 import Math.RepresentationTheory.Characters.UnitarySpectrumRestriction
+
+open Physics
 
 open Math
 
@@ -95,7 +97,7 @@ theorem spectrum_eq :
     SU5.TorusMassSource.spectrum (StandardChain.pullback inclusion R.rho)
         (StandardChain.pullback_unitary inclusion R.rho R.unitary) (mass R B) =
       ProfileZeroModeSupport.spectrum (physicalFields R) B := by
-  let hu := AbelianMassSpectrum.radical_unitary (mass R B)
+  let hu := Physics.AbelianMassSpectrum.radical_unitary (mass R B)
     (SU5.TorusMassSource.restricted_unitary (StandardChain.pullback inclusion R.rho)
       (StandardChain.pullback_unitary inclusion R.rho R.unitary))
   have hs : UnitaryCharacterSpectrum.spectrum

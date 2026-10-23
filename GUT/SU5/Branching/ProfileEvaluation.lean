@@ -1,5 +1,7 @@
 import GUT.SU5.Branching.TorusMatterCharacter
-import Physics.StandardModel.Spectrum.FiniteChargeProfiles
+import Physics.StandardModel.Spectrum.Charges.FiniteChargeProfiles
+
+open Physics
 
 open Math Math.SU5
 
@@ -9,6 +11,7 @@ This is the target side of the retained-matter trace comparison. -/
 set_option autoImplicit false
 
 namespace GUT.SU5.ProfileEvaluation
+open Physics.SU5
 
 noncomputable section
 

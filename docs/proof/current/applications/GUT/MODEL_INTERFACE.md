@@ -232,7 +232,7 @@ to that wrapper, preserving the actual mass and radical representation.
 ##### Yukawa source
 
 The weakest earlier endpoint uses an invariant Hermitian mass pairing and
-derives its intertwining map.  `Physics/FieldTheory/Yukawa/DiracYukawaMass.lean` now derives that
+derives its intertwining map.  `Physics/FieldTheory/Yukawa/Mass/DiracYukawaMass.lean` now derives that
 map from an invariant bare mass and an equivariant Yukawa family evaluated at
 an invariant vacuum expectation value.  Their sum is proved equivariant under
 the full unbroken product group, then target unitarity constructs the earlier

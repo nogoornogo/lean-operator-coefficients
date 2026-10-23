@@ -2,7 +2,7 @@
 
 ## Result
 
-[GradedSixQuarkComparison](../../../../../Physics/StandardModel/Operators/GradedSixQuarkComparison.lean)
+[GradedSixQuarkComparison](../../../../../Physics/StandardModel/Operators/BaryonTwo/Coefficients/GradedSixQuarkComparison.lean)
 proves a linear equivalence from the independently defined physical `u²d⁴`
 model sector to the constructed residual quotient Hom at mixed degree `(6,0)`:
 
@@ -47,8 +47,8 @@ equations for the large constructed equivalence while preventing costly reductio
 
 ## Verification
 
-[Consumer audit](../../../../../Physics/StandardModel/Operators/Audit/AuditGradedSixQuarkComparison.lean)
-and [inverse audit](../../../../../Physics/StandardModel/Operators/Audit/AuditSixQuarkArbitraryFlavor.lean)
+[Consumer audit](../../../../../Physics/StandardModel/Operators/BaryonTwo/Coefficients/Audit/AuditGradedSixQuarkComparison.lean)
+and [inverse audit](../../../../../Physics/StandardModel/Operators/BaryonTwo/Coefficients/Audit/AuditSixQuarkArbitraryFlavor.lean)
 check the declarations transitively, including the definition equation. Only
 `propext`, `Classical.choice` and `Quot.sound` are permitted. Commands and
 compatibility verification are recorded in the [topic results](../../../../topics/graded-sector-regressions/results.md).

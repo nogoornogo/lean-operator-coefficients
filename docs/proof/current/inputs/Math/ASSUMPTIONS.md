@@ -4,12 +4,87 @@ This ledger records current core, input-construction and application interfaces.
 Optional sufficient input routes are not premises of the general theorem.
 Additional concrete model statements are in the [scoped-input ledger](assumptions/concrete-model-inputs.md).
 
+## Derivative Input Necessary Conditions
+
+The [shared field connections](../Physics/FIELD_CONNECTIONS.md) accept actual
+representations, selected inclusion/extraction maps and both inverse laws.
+Selected extraction covariance follows; no global equivariant projector,
+compactness, unitarity or semisimplicity is required. Constant equivariant
+field dictionaries lift to jets with the supplied common direction action.
+The derivative entry takes the exact preimage of the complete stable relation
+module. Bases supply syntax, not a target-spectrum assumption. These additive
+factories do not change the existing input or global-extension conditions.
+
+The [all-order interacting presentation](../../core/Math/INTERACTING_LAGRANGIAN_COORDINATES.md)
+accepts the existing finite polynomial syntax, supplied complex group action
+and full-relation stability. It constructs the actual unbounded monomial
+basis and proves complete generated Euler/product/derivative/divergence rows.
+No finite dimension, invariant basis, row-span premise or degree cutoff is
+supplied. Odd ordering and optional selected bases are noncomputable choices.
+Selected-source coordinates use an invariant subspace and the full relation
+preimage; no global invariant-extension hypothesis is added. The output is
+an exact possibly infinite linear presentation, not a universal finite solver.
+
+[MixedScalarInclusion](../../../../../Math/Algebra/Constructions/MixedScalarInclusion.lean)
+requires only the supplied field/direction types, and a monoid with supplied
+jet representations for action naturality. Scalar equation transport assumes
+every embedded seed belongs to the target two-sided differential closure.
+It derives full closure inclusion; it does not assume or prove a complete
+finite mixed relation presentation. See the
+[mixed dossier](../../core/Math/MIXED_JET_IBP.md).
+
+The [Higgs foundation extension](../Physics/HIGGS_LAGRANGIAN_INPUT.md) proves
+the generated/direct full relation equality for the explicit four-label
+density. Its canonical paired contractions require finite component indices;
+internal groups and their complex representations remain arbitrary. Source
+semisimplicity or an invariant-complement premise is not used to prove
+nonlinear equation stability. The physical specialization uses the existing
+actual gauge/Lorentz representations, with their scope stated separately.
+
+The [quotient tests](DERIVATIVE_PROHIBITION_INPUT.md) consume the existing
+complex source action, stable relations and actual quotient. Scalar charge
+necessity requires a proved scalar action and a nontrivial quotient; the
+support-guarded iff explicitly handles zero quotients. The common-irreducible
+iff instead requires semisimplicity of the actual quotient representation.
+Neither requires finite dimension. Group H is supplied; local invariance
+must already be accounted for when H is used only as a residual group.
+
+Additional relations must be stable. A selected subspace must be invariant.
+Global target vanishing implies selected-input prohibition only under
+surjectivity of the actual coefficient restriction; the fixed-line
+counterexample proves that this hypothesis is substantive. Indexed tests
+assume the specified family, rather than infer a nonlinear on-shell grading,
+support enumeration or finite cutoff. Zero-grade compatibility concerns the
+existing graded input before EOM. No new literature premise is used.
+
+## Bounded Derivative Literature Controls
+
+The [finite certificates](../../applications/Physics/FINITE_DERIVATIVE_CERTIFICATES.md)
+require an actual finite complex basis and a proved span equality with the
+input relations. Action rows quantify over the full supplied group. Neither
+semisimplicity nor an invariant-extension theorem is presumed. The constant
+jet map kills total derivatives and commutes with arbitrary linear direction
+changes; its scalar image certificate reconstructs the complete grade at
+derivative degree zero. Two-sided covariance instead works in a possibly
+noncommutative complex algebra, with multiplicativity, seed membership and
+finite direction covariance as explicit hypotheses.
+
+The [bounded derivative comparisons](../../applications/Physics/DERIVATIVE_LITERATURE_CONTROLS.md)
+use actual complex jet quotients. Their one-direction quadratic certificate
+adds the full linear-EOM kernel to actual IBP. Component Higgs identities
+use independently labelled commuting fields and the specified differential
+ideal; mixed controls use the actual exterior/polynomial algebra. Raw
+polynomial probes do not imply quotient independence, and the supplementary
+finite scripts are not Lean premises. No new external completeness input
+is introduced; the physical dictionaries and unresolved basis claims remain
+outside these algebraic certificates.
+
 ## Algebraic Selection And Cyclic Charges
 
-[SelectionCriteria](../../../../../Math/LinearAlgebra/SelectionCriteria.lean) needs
+[SelectionCriteria](../../../../../Math/LinearAlgebra/Selection/SelectionCriteria.lean) needs
 only a zero for its predicates and family rules; linear-equivalence transport
 works over a semiring with additive commutative monoid modules.
-[CyclicCharge](../../../../../Math/RepresentationTheory/CyclicCharge.lean) fixes
+[CyclicCharge](../../../../../Math/RepresentationTheory/Weights/CyclicCharge.lean) fixes
 `N : ℕ` with `[NeZero N]` and uses Mathlib's proved faithful standard additive
 character. Tensor-charge and dual-charge equations are proved, not assumed.
 The [physical consumer](../../applications/Physics/RESIDUAL_SELECTION_CRITERIA.md) has narrower
@@ -114,7 +189,7 @@ and completeness for both dictionaries and allows arbitrary residual flavor.
 
 ## Invariant Mass Extension Protection
 
-[InvariantMassProtection](../../../../../Physics/FieldTheory/Mass/InvariantMassProtection.lean)
+[InvariantMassProtection](../../../../../Physics/FieldTheory/Mass/Algebra/InvariantMassProtection.lean)
 fixes an arbitrary group G, complex representations V and W, and an invariant
 symmetric mass B on V. All extensions are invariant symmetric masses on V x W
 whose restriction to V is B. The original radical is retained through x -> (x,0).
@@ -134,7 +209,7 @@ See the [topic record](../../../../topics/invariant-mass-protection/README.md).
 
 ## Yukawa Classification And Specified Spectra
 
-[YukawaClassification](../../../../../Physics/FieldTheory/Yukawa/YukawaClassification.lean)
+[YukawaClassification](../../../../../Physics/FieldTheory/Yukawa/Mass/YukawaClassification.lean)
 parameterizes all scalar-linear, fermion-symmetric complex bilinear couplings
 invariant under the supplied group by intertwiners to its symmetric-form
 representation. It needs neither semisimplicity nor finite-dimensionality.
@@ -253,15 +328,15 @@ form premises. See the dossier for declarations and strict audits.
 
 ## Exact Component Elimination And Boson Substitution
 
-[TwoSourceQuadraticElimination](../../../../../Math/LinearAlgebra/TwoSourceQuadraticElimination.lean)
+[TwoSourceQuadraticElimination](../../../../../Math/LinearAlgebra/Constructions/TwoSourceQuadraticElimination.lean)
 uses a field, a module, an arbitrary bilinear pairing and a nonzero selected
 quadratic scalar. Its unequal-source on-shell and stationary-variation identities
 are algebraic, not a propagator or uniqueness theorem for a possibly degenerate
 pairing. No positivity, finite-dimensionality or topology is required.
-[MixedSinglePatternEvaluation](../../../../../Math/RepresentationTheory/MixedSinglePatternEvaluation.lean)
+[MixedSinglePatternEvaluation](../../../../../Math/RepresentationTheory/Content/MixedSinglePatternEvaluation.lean)
 retains finite species/slot indices and actual invariance, deriving the
 stabilizer-normalized exterior projection without assuming initial exchange
-compatibility. [MixedSingleBosonEvaluation](../../../../../Math/RepresentationTheory/MixedSingleBosonEvaluation.lean)
+compatibility. [MixedSingleBosonEvaluation](../../../../../Math/RepresentationTheory/Constructions/MixedSingleBosonEvaluation.lean)
 substitutes a boson and pulls back along an arbitrary linear field map; nonzero
 requires an actual probe. Residual invariance is proved only at transformations
 fixing that boson. None of these helpers requires PS, common copy S,T or a
@@ -270,7 +345,7 @@ source conventions are recorded in the [PS result](../../../../topics/ps-bnv-coe
 
 ## Light-Line Normalization And Coordinate Transport
 
-[LightLineNormalization](../../../../../Math/LinearAlgebra/LightLineNormalization.lean)
+[LightLineNormalization](../../../../../Math/LinearAlgebra/Constructions/LightLineNormalization.lean)
 uses a supplied complex inner-product norm and a nonzero vector. Its inverse
 norm scaling preserves a complex-linear mass kernel and linear-functional
 nonzero values. Alternating coefficient pullback preserves nonzero under a
@@ -281,13 +356,27 @@ is a conditional consumer.
 
 ## Neutral Kernel Graph
 
-[NeutralKernelGraph](../../../../../Math/LinearAlgebra/NeutralKernelGraph.lean)
+[NeutralKernelGraph](../../../../../Math/LinearAlgebra/Constructions/NeutralKernelGraph.lean)
 assumes a field, modules, invertible heavy mixing and (for the full auxiliary
 block kernel) an injective reverse block. It identifies the complete graph
 and actual alternating pullback; it assumes no kinetic form, invariance or
 coefficient generation. See the [bounded result](../../../../topics/ps-bnv-coefficient-bridge/mechanism-completion-result.md).
 
 ## Coefficient-Space Symmetry-Extension Criterion and All-Degree Charge Selection Rules
+
+The separate [finite-group spurion evaluation](../../core/Math/FINITE_GROUP_SPURION_EVALUATION.md)
+consumer assumes a finite group, complex scalars and finite source/target
+coordinate sets. It derives interpolation and evaluation surjectivity at every
+value; no genericity, faithful action or nonzero-value premise is needed.
+The residual-Hom consumer supplies an actual quotient representation and
+finite dual coordinates, or derives coordinates from finite dimensionality.
+The dual action is contragredient. Source-coordinate transport preserves the
+actual stabilizer. These hypotheses do not restrict the general completeness
+theorem. No general-group saturation or UV matching premise is admitted.
+The bounded consumer derives a sufficient total spurion degree of
+`orbitSize a s - 1`, with the uniform bound `Fintype.card H - 1`.
+These are proved witness bounds, not extra hypotheses or operator mass-dimension
+cutoffs. Degree-zero witnesses suffice for the singleton zero orbit.
 
 The [dossier](../../core/Math/ALL_DEGREE_SYMMETRY_PROTECTION.md) uses supplied
 group representations, a group homomorphism for restriction, finite species
@@ -299,8 +388,9 @@ element for each selected content. Charges may lie in any abelian additive
 group; neutrality alone does not imply a nonzero invariant.
 
 Polynomial covariants are coordinate polynomial data with a checked
-transformation law. Evaluation uses the actual stabilizer. Only the trivial
-target and nonzero scalar weight-one examples prove surjectivity; no generic
+transformation law. Evaluation uses the actual stabilizer. The original trivial
+target and nonzero scalar weight-one examples are supplemented by the finite-group
+result above; no generic
 closed-orbit, reductive algebraic-group or general saturation premise is
 silently supplied. The circle example is algebraic and asserts no continuity.
 
@@ -1172,3 +1262,396 @@ equivalence. The only additional argument is equality with the existing
 expression, supplied by the uniform core-data theorems; no occurrence or rank
 assumption is introduced. Its field equality and definition pass a persistent
 two-declaration strict transitive audit. See the SM connection dossier above.
+
+## Physlib Even Algebra Derivations
+
+The [Physlib algebra connection](../../../../topics/derivative-ibp/dependency-integration.md)
+imports the general exterior algebra from the pinned Physlib dependency and
+an [attributed symmetric fragment](../../../../../Math/LinearAlgebra/Symmetric/PhyslibSymmetricDerivations.lean)
+under `Math.PhyslibSymmetric`. It co-imports TauCeti functoriality and requires
+both the fragment and external exterior module. They extend generator endomorphisms to even derivations,
+with Leibniz, commutation and covariance statements. Their algebra/module and
+generator compatibility hypotheses remain explicit in the imported statements.
+The [persistent audit](../../../../../Math/Audit/AuditPhyslibAlgebraConnection.lean)
+checks 12 declarations transitively against the existing standard axiom policy
+and admits only the exterior mathematics module in its external Physlib closure.
+This supplies no jet grading, divergence relation, IBP quotient completeness,
+EOM theorem or full external SM-package verification.
+
+## Distinct Carrier Coefficient Transport
+
+[CarrierPresentation](../../../../../Math/RepresentationTheory/Coefficients/CarrierPresentation.lean)
+transports a complex representation along a supplied linear equivalence,
+preserving its determinant. Its distinct carrier has a proved representation
+equivalence to the original module. Given self-duality, a nontrivial source
+and an injective intertwiner, it constructs an invariant coefficient on the
+carriers and returns it to the original tensor representation. These remain
+explicit generic inputs; concrete Q18 equivalences and self-duality are proved
+by its consumer. The [audit](../../../../../Math/Audit/AuditCarrierPresentation.lean)
+checks 11 declarations transitively against the standard axiom policy and
+rejects Physics/GUT imports. See the [carrier pilot](../../../../topics/derivative-ibp/carrier-pilot.md).
+
+## Scalar Jet And IBP Coefficients
+
+The [scalar foundation](../../core/Math/SCALAR_JET_IBP.md) uses complex
+commutative polynomial jets with ordinary commuting total derivatives, no
+highest-order truncation and no EOM. Component/direction types are arbitrary;
+finite-dimensional fixed field/derivative grades require both types finite.
+The IBP relation submodule is the actual divergence range from finitely
+supported currents. Its annihilator condition and inverse quotient/Hom
+correspondence are proved, with the coefficient interpreted as a linear
+functional on the source, not as a quotient of redundant coefficient coordinates.
+
+Concrete internal actions are group homomorphisms to component permutations
+fixing directions. Their covariance and relation stability are proved.
+The local/residual wrapper requires two such actions commuting pointwise;
+the groups need not be finite or compact. The general `LocalRelationHom`
+framework supplies inverse descent without invariant exactness or
+semisimplicity. The complete one-scalar/two-field/two-derivative consumer proves
+the entire source and divergence spans, a quotient equivalence with the
+complex line, dimension one and a surviving class. It assumes no candidate
+basis completeness or external literature theorem. Arbitrary linear/spacetime
+actions and the mixed-statistics source bridge remain outside this package.
+The [scalar audit](../../../../../Math/Algebra/Jets/Audit/AuditScalarJetIBP.lean)
+checks 62 declarations transitively against the standard axiom policy and
+rejects Physics/GUT imports.
+
+### Internal Linear And Mixed Jet IBP
+
+The [A/B extension](../../core/Math/MIXED_JET_IBP.md) uses specified free complex
+component bases and unbounded ordinary jet indices. Internal groups act by
+arbitrary linear component representations while fixing derivative directions.
+Finite component/direction types are required only for finite fixed grades.
+The scalar polynomial/free-symmetric presentation bridge intertwines the
+actual derivatives and field maps; an invertible non-permutation shear is
+checked. No finite-group, compactness or semisimplicity premise is introduced.
+
+The mixed algebra is one exterior algebra of all odd jets tensored with the
+even polynomial algebra. Its actual derivative is even, satisfies the usual
+Leibniz rule and commutes with the other directions. Joint subspaces are spans
+of actual words; their product, derivative shift and finite-dimensionality
+are proved. A new global direct-sum decomposition is not asserted.
+The existing `Λⁿ J_F ⊗ Symᵐ J_B` source embeds injectively using a proved
+symmetric-power/polynomial equivalence. Grade restrictions, inverse coefficient
+transport and equivariant recovery at derivative degree zero are proved.
+
+The IBP submodule is exactly the divergence range from finitely supported
+currents. For commuting local/residual component actions, covariance,
+stability and the local-coinvariant/residual-Hom correspondence are proved.
+There is no invariant-exactness or ideal-closure assumption. The complete
+two-odd/one-even/two-derivative consumer proves full source/current spans,
+Pauli cancellation, the entire relation range, quotient equivalence with ℂ,
+dimension one and a surviving class. It assumes no candidate relation matrix
+or literature completeness statement. Clifford contractions are coordinate
+probes, distinct from the total derivative.
+
+The [mixed audit](../../../../../Math/Algebra/Jets/Audit/AuditMixedJetIBP.lean)
+checks 223 declarations transitively under the standard axiom policy and
+rejects Physics/GUT imports. Direction mixing, actual Lorentz action,
+gauge-covariant derivatives, EOM/Bianchi relations, analytic integration,
+amplitudes and general EFT counting are outside this package.
+
+### Direction-Covariant Jets And Scalar Equation Quotients
+
+The [direction/EOM extension](../../core/Math/DIRECTIONAL_JET_EOM_IBP.md)
+uses specified free complex component and direction modules. Linear maps on
+the direction module act by substitution on ordinary, unnormalized derivative
+symbols and preserve actual jet order. Internal and direction actions commute;
+their combined action preserves scalar/mixed grades and the existing actual
+exterior/symmetric source equivalence. Finite directions enter coordinate sums;
+finite components and directions enter finite-grade claims. Groups remain
+arbitrary, without averaging or semisimplicity.
+
+Currents carry the direction tensor representation. Actual derivative
+covariance proves divergence equivariance and stability. The tensor-current
+range equals the preceding finitely supported-current range, with inverse
+equivariant coefficient descent. The
+[direction audit](../../../../../Math/Algebra/Jets/Audit/AuditDirectionalJetIBP.lean)
+checks 112 declarations transitively and rejects Physics/GUT imports.
+
+For a specified symbol polynomial, the equation relations span **all**
+component-labelled polynomial multiples in the jet-generator module.
+Shift stability, commuting quotient shifts, the free scalar algebra and its
+inverse EOM-ideal presentation are proved. A group action requires an explicit
+symbol-invariance hypothesis; its quotient stability is then proved rather
+than supplied. The physical specialization proves that hypothesis separately.
+Fixed on-shell spaces are images of actual scalar grades, with finite
+dimension for finite component/direction sets. No global on-shell or mixed
+direct-sum theorem is asserted.
+
+The combined source uses the EOM kernel **plus** the actual IBP range; the
+latter is not ideal-closed. Inverse linear and representation equivalences
+compare it with EOM followed by actual on-shell IBP. A complete one-direction
+quadratic consumer has zero quotient; null-symbol evaluations detect retained
+four-dimensional jets. The
+[equation audit](../../../../../Math/Algebra/Jets/Audit/AuditJetEquationIBP.lean)
+checks 94 declarations under the same standard axiom and layer policy.
+No literature completeness premise is used. Massive/interacting or fermionic
+EOM, gauge-covariant derivatives, Bianchi, integrated actions and amplitude
+equivalence are outside this endpoint.
+
+### Finite-Group Spurions On Actual Jet Quotients
+
+The [jet/spurion connection](../../../../topics/jet-spurion-evaluation/results.md)
+constructs local coinvariants of actual scalar EOM/IBP and mixed off-shell
+IBP sources, with the residual internal and local direction actions combined
+before quotienting. Finite component/direction sets discharge finite-grade
+and quotient-dual finiteness. The scalar symbol's local invariance remains
+explicit; no source span, relation matrix or coefficient completeness is a
+new premise. Mixed equation relations are not introduced.
+
+For every specified constant spurion value, polynomial evaluation attains
+all local-invariant, actual-stabilizer-invariant coefficients, with degree at
+most orbit size minus one or group order minus one. Only the residual group
+is finite and averaged. The complete two-odd/one-even derivative example
+derives the sign action on its actual nonzero quotient from component actions;
+degree one suffices and degree zero cannot produce its nonzero coefficient.
+This is neither a general-group saturation nor a minimum operator dimension
+theorem. The [strict audit](../../../../../Math/Algebra/Jets/Audit/AuditJetSpurionEvaluation.lean)
+checks the connection transitively under the existing axiom/layer policy.
+
+### Component-Mixing Linear Equations And Mixed EOM/IBP
+
+The [linear-system construction](../../../../topics/linear-eom-weyl/results.md)
+starts from an explicit complex linear seed into the actual jet module.
+Its derivative closure is constructed from all polynomial multiples. Shift
+stability and commuting quotient shifts are proved. Generic group descent
+assumes seed covariance; stability of the relation module then follows.
+The scalar-symbol relation module and quotient shifts are recovered without
+changing the prior scalar proofs. Zero seeds impose no equation relations.
+
+The odd/even algebra uses the exterior/symmetric functors on these actual
+quotient generators. Its off-shell projection is proved onto and intertwines
+the actual even commuting derivatives and group actions. Fixed grades are
+images, finite for finite component/direction sets; an arbitrary inhomogeneous
+system is not assumed to admit a global direct-sum grading. EOM/IBP comparison
+uses the actual projection kernel plus the off-shell divergence range, with
+inverse linear and representation equivalences and coefficient descent.
+IBP is not ideal-closed. A separate mixed two-sided ideal presentation is not
+claimed by this construction.
+
+Constructed product actions retain local-coinvariant/finite-residual spurion
+evaluation with the orbit and group-order cutoffs. Intrinsic local component
+actions are permitted, and generic covariance inputs remain explicit. The
+[Math strict audit](../../../../../Math/Algebra/Jets/Audit/AuditLinearJetEquation.lean)
+checks these constructions and rejects Physics/GUT imports under the existing
+standard-axiom policy. No literature completeness or invariant-exactness
+premise is added.
+
+### Mixed Linear EOM Kernel And Exterior Adjoint
+
+The [kernel and adjoint dossier](../../core/Math/LINEAR_JET_KERNEL_ADJOINT.md)
+identifies the actual mixed projection kernel with the two-sided ideal of
+all odd/even linear EOM descendants. No finiteness, covariance or homogeneity
+hypothesis is introduced for that identity. A chosen linear splitting and free
+algebra reconstruction prove the reverse inclusion. All choices are audited
+under the existing standard-axiom policy.
+
+For arbitrary specified seed maps, every positive-order single-odd-field image
+grade is its divergence range; the EOM/IBP quotient has dimension zero and an
+empty basis. The general exterior adjoint theorem takes an explicit semilinear
+generator involution commuting with the even derivative maps. It proves
+derivative compatibility, naturality and descent through the actual ungraded
+linear divergence range. IBP is never ideal-closed. The physical paired Weyl
+consumer constructs and proves these inputs. The
+[strict audit](../../../../../Math/Algebra/Jets/Audit/AuditJetEOMCompletion.lean)
+checks all 38 new public mathematical declarations transitively.
+
+### Polynomial Differential Ideals And Formal Connections
+
+The [nonlinear EOM dossier](../../core/Math/NONLINEAR_EOM_IBP.md) takes a
+commutative complex algebra, specified ordinary derivations and an arbitrary
+seed set. The ideal spanned by all finite derivative words is proved minimal
+and stable. The onto quotient has the exact ideal kernel; mathlib's proved
+surjective derivation transport gives descended Leibniz derivatives. Their
+commutation requires the explicit ordinary commutation hypothesis. The ideal
+and inverse EOM/IBP comparison do not require that hypothesis or linearity,
+homogeneity or finiteness of equations.
+
+The actual divergence range gives inverse source and coefficient equivalences
+between EOM followed by IBP and the off-shell quotient by EOM plus divergence.
+IBP remains a linear quotient, without a class product. Finite-dimensional
+source subspaces have finite-dimensional images, not an asserted interacting
+direct-sum grading. The retained scalar linear ideal is recovered from the
+linear forms of its full relation module. Generic algebra/IBP transport keeps
+explicit ideal stability and derivative covariance inputs.
+
+`Math.FormalConnection.Ordinary` supplies linear commuting ordinary derivatives
+and their Leibniz laws on an associative complex algebra. The connection
+components then determine curvature and covariant derivatives. Covariant
+Leibniz, antisymmetry, curvature commutator and Bianchi are proved, not assumed.
+Constant conjugation retains explicit inverse and derivative-constant inputs.
+Entrywise derivatives on actual finite matrix jet algebras discharge the
+ordinary interface. The
+[strict audit](../../../../../Math/Algebra/Jets/Audit/AuditNonlinearGaugeJets.lean)
+checks all 72 public mathematical declarations transitively, rejects
+Physics/GUT imports and permits only the three standard axioms.
+
+### Internal-Unit Gauge Formulas, Trace IBP And Engineering Sources
+
+The [gauge/trace/engineering dossier](../../core/Math/GAUGE_TRACE_ENGINEERING.md)
+takes the retained associative ordinary differential algebra and an internal
+unit. The inverse derivative identity, covariant derivative/curvature/signed
+EOM conjugation, identity and composition are proved without assuming a
+constant transformation. The unit need not induce an automorphism of a fixed
+connection-only jet ring. A nonconstant polynomial unit is constructed and
+has a nonzero flat transformed connection.
+
+Finite matrices over a commutative complex differential algebra supply trace
+cyclicity, trace/derivative compatibility and covariant trace IBP. Its right
+side lies in the actual ordinary divergence range, giving the identity after
+arbitrary polynomial EOM. The parent's inverse source/coefficient comparison
+is reused; no multiplication or ideal closure of IBP classes is introduced.
+
+Component and derivative dimension one give variable weight `1 + jet order`.
+Products add degrees and total derivatives add one. For finite species and
+directions, each degree has finitely many monomials and finite-dimensional
+EOM/IBP images. No quotient direct-sum grading or general normal form is
+assumed. The degree-two scalar source has proved reconstruction by the square
+and all first jets. The
+[strict audit](../../../../../Math/Algebra/Constructions/Audit/AuditGaugeEngineering.lean)
+checks all 48 named public declarations transitively, rejects Physics/GUT
+imports and uses only the standard axioms. No variational premise is added.
+
+## Local Polynomial Lagrangian Helper
+
+The optional [helper](../../../../topics/local-lagrangian-helper/results.md)
+accepts finite complex expressions in actual mixed exterior/polynomial jets,
+with arbitrary finite derivative words. No degree/order cutoff, finite field
+type, kinetic regularity, supplied EOM or first-variation identity is assumed.
+Its universal algebraic variation formula requires parity-preserving
+components; input construction itself does not require a variation argument.
+Word adjoints produce explicit IBP currents and finite-support Euler seeds.
+Their least two-sided differential closure is proved to specialize exactly
+to the existing commutative differential ideal. Divergences remain a linear
+range. The result connects to the existing common coefficient input and
+four-direction bosonic evolutionary derivation/substitution.
+
+Generic represented inputs require combined-relation stability; no symmetry
+discovery or invariant-complement premise is added. See the
+[interface map](interfaces/local-lagrangian-helper.md) for the distinction
+between syntax, actual algebra evaluation and the existing quotient operations.
+No analytic or quantum premise, new dependency or audit allowance is introduced.
+
+## Formal First Variation
+
+The [formal first-variation result](../../../../topics/formal-first-variation/results.md)
+uses complex polynomial jets in four commuting ordinary directions. Arbitrary
+polynomial variations are prolonged to every jet. Finite matrix indices,
+commutative complex coefficient algebras and explicit commuting derivations
+support the trace identity. The scalar coupling is arbitrary complex; the
+physical consumers use signature (+---). Normalized Euler coefficients and
+all descendant ideals are proved to agree with the existing EOM inputs,
+including the matrix transpose and signature signs. No analytic action,
+boundary condition, literature identity or quantum equivalence is assumed.
+
+## Additive Derivative Input Adapters
+
+The [adapter result](../../../../topics/derivative-interface-adapters/results.md)
+preserves the published nonderivative source/API. A proved coefficient
+presentation and its explicit input evaluation law transport additional stable
+source relations to their actual coordinate images. Finite local coordinates
+retain normalization, invariant completeness and exchange hypotheses; no
+flavor-dimension, averaging or invariant-complement assumption is added.
+The new source-map adapters use additive-group complex modules.
+Actual direction-covariant mixed divergence and equivariant zero-jet bridges
+are reused. Full polynomial EOM inputs require annihilation of the complete
+differential ideal and divergence range and combined residual stability;
+they assume no homogeneous shell decomposition. The scalar consumer proves
+that stability for the existing actual Lorentz action and retains the
+cross-grade interaction equation. No new literature, analytic action,
+Lagrangian input or quantum premise is introduced.
+
+The uniform `Math.MixedOperatorInput` entry accepts natural-number derivative
+degrees including zero. Its actual source/action includes arbitrary supplied
+field and direction representations, with finite direction index type. The
+IBP relation is bottom at zero and the actual divergence range at positive
+degree. The original zero-order exterior/symmetric source is equivariantly
+recovered even with direction mixing; existing nonderivative callers gain no
+new hypotheses. This grading is an off-shell/IBP interface, not an assumed
+grading of the nonlinear EOM quotient.
+
+The optional `Math.DerivativeInterface.Input` record packages source action,
+actual relation module and stability, with separate graded and commutative
+EOM factories and common coefficient operations. Configuration hypotheses are
+unchanged. For a supplied invariant subspace, selection uses the preimage of
+the complete relation module and has a proved linear equivalence to its image
+in the full quotient. Global coefficient restriction is compatible; extension
+of all selected invariant coefficients is not asserted. The actual Lorentz
+scalar factory packages its existing covariance, and its invariant wave/cubic
+selection retains the cross-degree EOM law. No global decomposition, finite
+dimension or invariant-complement premise is introduced.
+
+The [nonderivative input recheck](../../../../topics/derivative-literature-foundations/nonderivative-recheck.md)
+consumes original exterior/symmetric coefficients at derivative degree zero,
+with both inverse and evaluation laws, nonzero/forbidden agreement and
+independence of the direction action. Its concrete determinant/product
+examples use Unit symmetry and actual exterior/symmetric statistics; they
+are not physical SM dictionaries. A complete scalar local example also
+checks empty added relations and coordinate evaluation in the published
+finite-local route. No original source definition or caller hypothesis changes.
+
+The [additional verification](../../../../topics/derivative-literature-foundations/extended-checks.md)
+introduces no external theorem premise. `Math.InputPresentation` requires an
+equivariant linear source equivalence and equality of the mapped full relation
+module; its reexpression factory transports both action and relations.
+Common nonzero seed scaling and invertible elementary row addition preserve
+the full differential closure and IBP. A fixed action is not assumed invariant
+under an arbitrary change of basis, and zero rescaling is excluded.
+
+The two-species C1 checks fix two commuting fields, one ordinary direction,
+both free second-derivative equations and linear divergence-range IBP. They
+prove complete d=0 images at every content and a zero full (1,1), d=2 image.
+The [finite completeness successor](../../../../topics/scalar-derivative-completeness/results.md)
+also proves contents (1,1),d=1 and (2,2),d=1,2 have one-dimensional actual
+images and coefficient spaces. The global first-jet projection commutes
+with derivatives, and the explicit normalized functionals kill the whole
+free EOM/IBP module; actual-source monomial classification proves complete
+reconstruction. No invariant coefficient extension or paper-count premise
+is assumed. The [consumer verification](../../../../topics/scalar-derivative-completeness/validation.md)
+checks global restriction, inverse coordinates, actual-image extraction and
+transported presentations. Its IBP product control has q(phi')=0 and
+q(chi phi') nonzero, so these results require the linear IBP range and do
+not replace it by an ideal. Other finite script counts remain independent diagnostics.
+
+The [quartic order-four successor](../../../../topics/scalar-quartic-four-completeness/results.md)
+adds complete four-field weighted source decomposition, square-free wave
+polarization, and a displayed 36-configuration Gaussian-integer moment table.
+The null/conserving conditions and all 1280 moment identities are checked
+inside Lean by kernel reduction. The generating script's finite group
+enumeration and all Python counts remain outside the proof premises.
+These helpers add no caller hypothesis or source-layer exception.
+
+Polynomial conjugation and semilinear relation descent require the stated seed/product
+and derivative compatibility. Self-adjoint coefficient lines and independent
+conjugate coordinate pairs are real modules of dimensions 1 and 2; these
+coordinate facts are not physical operator independence assumptions.
+
+
+## Lagrangian Model Packages
+
+The [model package](LAGRANGIAN_MODELS.md) retains the existing generated
+inputs and all-order equivalences. A model stores its total density, specified
+action and full-relation stability. The optional Euler-span constructor uses
+finite directions, multiplicative action, constant-matrix derivative covariance
+and transformed Euler components in their total-family span. It proves full
+EOM/IBP stability without a cutoff, finite rank or invariant-extension premise.
+Selected coordinates retain complete relation preimages; default bases can be
+noncomputable. The additive [density-invariance constructor](../../core/Math/EULER_NATURALITY.md)
+proves the missing Euler certificate for compatible constant linear field and
+direction actions. No new external theorem premise or audit exception is introduced.
+
+
+## Semantic Euler Naturality
+
+[Semantic descent and naturality](../../core/Math/EULER_NATURALITY.md) use the
+actual unbounded mixed ordinary-jet algebra and left graded derivatives.
+Equal evaluated finite polynomial densities give equal Euler families.
+The chain rule assumes a parity-preserving linear jet substitution induced by
+an algebra map, its base-field map and compatible constant derivative/direction
+covariance. Naturality does not require invertibility; deriving Euler-span
+stability from density invariance uses an invertible base-field map.
+`StandardDensityAction.model` constructs all action-side data from three group
+representations and requires only evaluated invariance per density. Directions
+are finite; no fixed field degree or jet order is imposed. This theorem uses
+no geometric variational-bicomplex premise, analytic integral or new axiom.

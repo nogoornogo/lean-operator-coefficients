@@ -17,9 +17,9 @@ Its source contains zero and its target contains one. Both are proved
 open in the existing subspace topologies. The model has real dimension 78.
 
 The forward map is the actual matrix exponential. On the entire target,
-the inverse, coerced to matrices, is `logOneAdd` applied to `g - 1`.
+the inverse, coerced to matrices, is `NormedSpace.log g`.
 Both inverse laws and continuity on the chart domains are kernel-checked.
-The ambient logarithm is analytic at every target matrix minus one.
+The ambient logarithm is analytic at every target matrix.
 No chart-existence, radius, or group-realization certificate is an input.
 
 ## 4. Proof structure
@@ -84,4 +84,6 @@ lake build
 python3 -m unittest discover -s tools/e6 -p 'test_*.py'
 ```
 
-Reference roles: linked Lean files are implementation or audit evidence; linked repository documents provide supplementary context, not external theorem premises. Any literature input is identified explicitly below or in the linked boundary dossier. Recorded build and audit outcomes are historical checkpoints; this documentation revision did not rerun Lean.
+Reference roles: linked Lean files are implementation or audit evidence; linked repository documents provide supplementary context, not external theorem premises. Any literature input is identified explicitly below or in the linked boundary dossier. Recorded build and audit counts above are historical checkpoints. The later
+[v4.35.0 compatibility verification](../../../../topics/derivative-ibp/dependency-integration.md)
+records the current dependency port and its builds without replacing that evidence.

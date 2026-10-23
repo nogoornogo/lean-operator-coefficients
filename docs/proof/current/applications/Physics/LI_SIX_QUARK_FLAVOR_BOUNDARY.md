@@ -25,16 +25,16 @@ remain imposed; these are not 24 unconstrained flavor maps.
 
 ## Proof Structure And Interfaces
 
-- [Printed span](../../../../../Physics/StandardModel/Operators/LiSixQuarkPrintedSpan.lean):
+- [Printed span](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkPrintedSpan.lean):
   `printedSpan_eq_kernel`, `printed_finrank`, `printed_reconstruction`.
-- [Flavor projection](../../../../../Physics/StandardModel/Operators/LiSixQuarkFlavorProjection.lean):
+- [Flavor projection](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkFlavorProjection.lean):
   `missing_exchange`, `missing_zero_iff_printed`.
-- [Universal quotients](../../../../../Physics/StandardModel/Operators/LiSixQuarkFlavorAlternating.lean):
+- [Universal quotients](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkFlavorAlternating.lean):
   `downAlternating`, `up_symmetric`, `missingTensor_apply`,
   `missingTensor_zero_iff`, `missing_zero_of_down_finrank`.
-- [Physical completeness](../../../../../Physics/StandardModel/Operators/LiSixQuarkPrintedCompleteness.lean):
+- [Physical completeness](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkPrintedCompleteness.lean):
   `PrintedHom`, `printedHom_iff`, `physicalEquiv` and its two inverse identities.
-- [Audit](../../../../../Physics/StandardModel/Operators/Audit/AuditLiSixQuarkFlavorBoundary.lean).
+- [Audit](../../../../../Physics/StandardModel/Operators/BaryonTwo/Li/Audit/AuditLiSixQuarkFlavorBoundary.lean).
 
 The local inverse certificate proves the hyperplane equality. The probe's
 character follows from the independent exchange matrices. Adjacent down swaps

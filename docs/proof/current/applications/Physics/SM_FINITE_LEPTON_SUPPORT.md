@@ -12,7 +12,7 @@ nonzero invariant coefficients, not UV generation, amplitudes or rates.
 
 ## Original-space statements
 
-[SMFiniteLeptonSupport](../../../../../Physics/StandardModel/Operators/SMFiniteLeptonSupport.lean)
+[SMFiniteLeptonSupport](../../../../../Physics/StandardModel/Operators/Support/Decomposition/SMFiniteLeptonSupport.lean)
 defines `leptonRange b={L∈[-18,18] | (b+L)%2=0}`. For b=3 or 6,
 `exact_original_iff` proves, for arbitrary k≠0,q,l,
 
@@ -43,7 +43,7 @@ even B3+L. At absolute B3=b, `normalize` handles negative B3 by negating both
 charges in the residual equation; the candidate range is symmetric. This is
 an arithmetic sign argument, without a new conjugate-representation premise.
 
-[SMLeptonChargeWitnesses](../../../../../Physics/StandardModel/Operators/SMLeptonChargeWitnesses.lean)
+[SMLeptonChargeWitnesses](../../../../../Physics/StandardModel/Operators/Support/Lepton/SMLeptonChargeWitnesses.lean)
 commits explicit full joint color/weak/left/right witnesses for all 37 values.
 Each pattern's species counts and exact charges are kernel-checked, as are a
 balanced generation occupation, a joint component and its complete support.
@@ -62,7 +62,7 @@ Lean output is checked by the normal library build.
 
 ## Maintained 572-row application
 
-[SMFiniteLeptonAssignments](../../../../../Physics/StandardModel/Operators/SMFiniteLeptonAssignments.lean)
+[SMFiniteLeptonAssignments](../../../../../Physics/StandardModel/Operators/Support/Decomposition/SMFiniteLeptonAssignments.lean)
 defines candidates and verdicts entirely in Lean. `candidatePairs k` filters
 the product of `List.range k` with itself by `(3*q+l)%k≠0`; eleven modulus
 batches cover k=2,…,12. `classify` calculates both flags from the proved
@@ -93,7 +93,7 @@ which also compares the optional Lean export to the retained CSV. The earlier
 generated literal table and its Python renderer were replaced by the
 Lean-owned definitions.
 
-[Examples](../../../../../Physics/StandardModel/Operators/SMFiniteLeptonSupportExamples.lean)
+[Examples](../../../../../Physics/StandardModel/Operators/Support/Decomposition/SMFiniteLeptonSupportExamples.lean)
 include an imported row request, an allowance at k=101,q=28,l=1 with L=17,
 and B1 prohibition at k=101,q=10,l=1 despite an unrestricted odd congruence
 solution L=71. This last example demonstrates why an unbounded integer

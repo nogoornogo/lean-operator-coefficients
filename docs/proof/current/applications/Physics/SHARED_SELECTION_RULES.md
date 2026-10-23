@@ -44,13 +44,13 @@ their left-handed conjugates. The two charge tests are therefore
 | Module | Responsibility |
 | --- | --- |
 | `Math/RepresentationTheory/Characters/AbelianCharge.lean` | Circle-valued group characters as additive charge labels |
-| `Physics/StandardModel/Operators/AbelianProtonCharge.lean` | Five field charges and two proton-operator charge functionals |
-| `Physics/StandardModel/Operators/AbelianProtonCharacter.lean` | Evaluation of those functionals as residual characters |
+| `Physics/StandardModel/Operators/Selection/AbelianProtonCharge.lean` | Five field charges and two proton-operator charge functionals |
+| `Physics/StandardModel/Operators/Selection/AbelianProtonCharacter.lean` | Evaluation of those functionals as residual characters |
 | `Math/LieGroups/SpecialUnitary/RankFive/WeylOrbit.lean` | Permutations of five raw exponents |
-| `Physics/StandardModel/Spectrum/ChargeResolved.lean` | Rank-four normal form, independent charge labels, coefficient profiles and support |
-| `Physics/StandardModel/Operators/StandardModelLocalOperator.lean` | Supported dimension-six signatures and charge tests |
-| `Physics/StandardModel/Gauge/SMEpsilonTensor.lean` and `StandardSMGaugeTensor.lean` | Actual ordered internal gauge tensors |
-| `Physics/StandardModel/Gauge/ResidualGaugeTensor.lean` | Residual transformation laws and conditional invariant tensors |
+| `Physics/StandardModel/Spectrum/Charges/ChargeResolved.lean` | Rank-four normal form, independent charge labels, coefficient profiles and support |
+| `Physics/StandardModel/Operators/Selection/StandardModelLocalOperator.lean` | Supported dimension-six signatures and charge tests |
+| `Physics/StandardModel/Gauge/Tensors/SMEpsilonTensor.lean` and `StandardSMGaugeTensor.lean` | Actual ordered internal gauge tensors |
+| `Physics/StandardModel/Gauge/Tensors/ResidualGaugeTensor.lean` | Residual transformation laws and conditional invariant tensors |
 
 These modules have no transitive SU(6) imports. Existing declaration
 namespaces, including `GUT.FiniteAbelianChargeSectors` and
@@ -90,7 +90,7 @@ quotient or a nonzero interaction coefficient or amplitude.
 
 ### Persistent Audit
 
-`Physics/StandardModel/Operators/Audit/AuditSharedSelectionRules.lean` checks the actual
+`Physics/StandardModel/Operators/Selection/Audit/AuditSharedSelectionRules.lean` checks the actual
 transitive Lean environment and fails compilation if a `GUT.SU6` module is
 imported. It retains the finite sign-character positive/negative tensor
 tests and adds the nontriviality of that character, collapse of the raw
@@ -102,7 +102,7 @@ The old SU(6) tensor audit imports this shared audit and additionally checks
 the original physical-source specialization. Both are included in `GUT.lean`.
 
 ```sh
-lake build Physics.StandardModel.Operators.Audit.AuditSharedSelectionRules
+lake build Physics.StandardModel.Operators.Selection.Audit.AuditSharedSelectionRules
 lake build GUT.SU6.SelectionRules.Audit.AuditStandardSMGaugeTensor
 lake build
 ```

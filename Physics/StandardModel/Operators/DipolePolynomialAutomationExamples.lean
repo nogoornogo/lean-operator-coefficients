@@ -1,102 +1,78 @@
+import Physics.StandardModel.Operators.Dipole.DipolePolynomialAutomationExamples
 import Physics.StandardModel.Operators.DipolePolynomialAutomation
 import Physics.StandardModel.Operators.DipoleCouplingControls
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Dipole.DipolePolynomialAutomationExamples instead." (since := "source-api-v1")
 
-/-! End-to-end automatic certificates; all models here are algebraic controls. -/
-namespace GUT.DipolePolynomialAutomationExamples
-set_option autoImplicit false
-noncomputable section
-open Representation DipoleControls DipoleModelInterface MvPolynomial
+compatibility_declarations [
+  GUT.DipoleModelInterface.PolynomialCertificate.mk.congr_simp => Physics.DipoleModelInterface.PolynomialCertificate.mk.congr_simp,
+  GUT.DipoleModelInterface.Registered.mk.congr_simp => Physics.DipoleModelInterface.Registered.mk.congr_simp,
+  GUT.DipoleModelInterface.ofCouplings.eq_1 => Physics.DipoleModelInterface.ofCouplings.eq_1,
+  GUT.DipoleModelInterface.ofResidual.eq_1 => Physics.DipoleModelInterface.ofResidual.eq_1,
+  GUT.DipolePolynomialAutomation.certificate.eq_1 => Physics.DipolePolynomialAutomation.certificate.eq_1,
+  GUT.DipolePolynomialAutomation.register.eq_1 => Physics.DipolePolynomialAutomation.register.eq_1,
+  GUT.DipolePolynomialAutomationExamples.cancelling => Physics.DipolePolynomialAutomationExamples.cancelling,
+  GUT.DipolePolynomialAutomationExamples.cancelling.eq_1 => Physics.DipolePolynomialAutomationExamples.cancelling.eq_1,
+  GUT.DipolePolynomialAutomationExamples.cancellingCertificate => Physics.DipolePolynomialAutomationExamples.cancellingCertificate,
+  GUT.DipolePolynomialAutomationExamples.cancelling_grouped_zero => Physics.DipolePolynomialAutomationExamples.cancelling_grouped_zero,
+  GUT.DipolePolynomialAutomationExamples.cancelling_selected => Physics.DipolePolynomialAutomationExamples.cancelling_selected,
+  GUT.DipolePolynomialAutomationExamples.correspondence => Physics.DipolePolynomialAutomationExamples.correspondence,
+  GUT.DipolePolynomialAutomationExamples.cubic => Physics.DipolePolynomialAutomationExamples.cubic,
+  GUT.DipolePolynomialAutomationExamples.cubic.eq_1 => Physics.DipolePolynomialAutomationExamples.cubic.eq_1,
+  GUT.DipolePolynomialAutomationExamples.cubicCertificate => Physics.DipolePolynomialAutomationExamples.cubicCertificate,
+  GUT.DipolePolynomialAutomationExamples.cubicCertificate.eq_1 => Physics.DipolePolynomialAutomationExamples.cubicCertificate.eq_1,
+  GUT.DipolePolynomialAutomationExamples.cubic_realized => Physics.DipolePolynomialAutomationExamples.cubic_realized,
+  GUT.DipolePolynomialAutomationExamples.cubic_selected => Physics.DipolePolynomialAutomationExamples.cubic_selected,
+  GUT.DipolePolynomialAutomationExamples.differenceModel => Physics.DipolePolynomialAutomationExamples.differenceModel,
+  GUT.DipolePolynomialAutomationExamples.differenceModel.eq_1 => Physics.DipolePolynomialAutomationExamples.differenceModel.eq_1,
+  GUT.DipolePolynomialAutomationExamples.equalCoordinates => Physics.DipolePolynomialAutomationExamples.equalCoordinates,
+  GUT.DipolePolynomialAutomationExamples.equalCoordinates.eq_1 => Physics.DipolePolynomialAutomationExamples.equalCoordinates.eq_1,
+  GUT.DipolePolynomialAutomationExamples.explicitGeneration => Physics.DipolePolynomialAutomationExamples.explicitGeneration,
+  GUT.DipolePolynomialAutomationExamples.explicitGeneration.eq_1 => Physics.DipolePolynomialAutomationExamples.explicitGeneration.eq_1,
+  GUT.DipolePolynomialAutomationExamples.externalCertificate => Physics.DipolePolynomialAutomationExamples.externalCertificate,
+  GUT.DipolePolynomialAutomationExamples.external_realized => Physics.DipolePolynomialAutomationExamples.external_realized,
+  GUT.DipolePolynomialAutomationExamples.finiteDomain => Physics.DipolePolynomialAutomationExamples.finiteDomain,
+  GUT.DipolePolynomialAutomationExamples.finite_domain_no_nonzero => Physics.DipolePolynomialAutomationExamples.finite_domain_no_nonzero,
+  GUT.DipolePolynomialAutomationExamples.incomingCoordinates => Physics.DipolePolynomialAutomationExamples.incomingCoordinates,
+  GUT.DipolePolynomialAutomationExamples.incomingCoordinates.eq_1 => Physics.DipolePolynomialAutomationExamples.incomingCoordinates.eq_1,
+  GUT.DipolePolynomialAutomationExamples.outgoingCoordinates => Physics.DipolePolynomialAutomationExamples.outgoingCoordinates,
+  GUT.DipolePolynomialAutomationExamples.outgoingCoordinates.eq_1 => Physics.DipolePolynomialAutomationExamples.outgoingCoordinates.eq_1,
+  GUT.DipolePolynomialAutomationExamples.scalarBasis => Physics.DipolePolynomialAutomationExamples.scalarBasis,
+  GUT.DipolePolynomialAutomationExamples.scalarBasis.eq_1 => Physics.DipolePolynomialAutomationExamples.scalarBasis.eq_1
+]
 
-def scalarBasis : Module.Basis Unit ℂ ℂ := Module.Basis.singleton Unit ℂ
-def incomingCoordinates (_ : Unit) : MvPolynomial Unit ℂ := (X ())^2
-def outgoingCoordinates (_ : Unit) : MvPolynomial Unit ℂ := X ()
-
-def cubic := DipolePolynomialAutomation.register flavor flavor flavor
-  (DipoleCouplingControls.model 1) scalarBasis scalarBasis incomingCoordinates outgoingCoordinates
-  (fun _ => Set.univ) mu electron
-
-def cubicCertificate := DipolePolynomialAutomation.certificate flavor flavor flavor
-  (DipoleCouplingControls.model 1) scalarBasis scalarBasis incomingCoordinates outgoingCoordinates
-  (fun _ => Set.univ) mu electron (fun _ => Set.infinite_univ)
-
-theorem cubic_selected (x : Unit → ℂ) : cubic.observe x = ((x ())^3,0) := by
-  change DipoleFlavorSelection.selector flavor flavor mu electron
-    (DipoleCouplingModel.generation flavor flavor flavor (DipoleCouplingControls.model 1)
-      (PolynomialBasisCoordinates.evaluate scalarBasis incomingCoordinates x)
-      (PolynomialBasisCoordinates.evaluate scalarBasis outgoingCoordinates x)) = _
-  rw [DipoleCouplingControls.selected]
-  simp [PolynomialBasisCoordinates.evaluate, scalarBasis, incomingCoordinates,
-    outgoingCoordinates, pow_succ]
-
-theorem cubic_realized : ∃ x, cubic.NonzeroInput x := by
-  apply cubicCertificate.exists_nonzero_iff.mpr
-  refine ⟨Finsupp.single () 3, ?_⟩
-  have hw : ∀ i : Unit × Unit,
-      PolynomialBasisCoordinates.weights incomingCoordinates outgoingCoordinates i = (X ())^3 := by
-    intro i
-    simp only [PolynomialBasisCoordinates.weights, incomingCoordinates, outgoingCoordinates]
-    ring
-  simp [PolynomialCertificate.grouped, cubicCertificate, DipolePolynomialAutomation.certificate,
-    DipolePolynomialAutomation.register, ofCouplings, ofResidual,
-    BilinearSelectedPaths.paths, DipoleCouplingModel.residual, DipoleCouplingControls.model,
-    scalarBasis, hw, MvPolynomial.X_pow_eq_monomial]
-
-def explicitGeneration (x : Unit → ℂ) : DipoleFlavorSelection.Coefficients flavor flavor :=
-  DipoleCouplingModel.generation flavor flavor flavor (DipoleCouplingControls.model 1)
-    ((x ())^2) (x ())
-
-theorem correspondence : ∀ x ∈ cubic.admissible,
-    (DipoleSMCoefficient.equiv flavor flavor) (explicitGeneration x) = cubic.residual x := by
-  intro x _
-  simp [explicitGeneration, cubic, DipolePolynomialAutomation.register, ofCouplings, ofResidual,
-    PolynomialBasisCoordinates.evaluate, scalarBasis, incomingCoordinates, outgoingCoordinates]
-
-def externalCertificate := cubicCertificate.withCoefficients explicitGeneration correspondence
-
-theorem external_realized : ∃ x,
-    (cubic.withCoefficients explicitGeneration correspondence).NonzeroInput x := by
-  obtain ⟨x,hx⟩ := cubic_realized
-  exact ⟨x, (cubic.nonzero_withCoefficients_iff explicitGeneration correspondence x).mpr hx⟩
-
-def differenceModel : DipoleCouplingModel.Couplings (X := Fin 2 → ℂ) (Y := ℂ)
-    flavor flavor flavor where
-  incoming := (((Pi.basisFun ℂ (Fin 2)).coord 0) -
-    ((Pi.basisFun ℂ (Fin 2)).coord 1)).smulRight (IntertwiningMap.id flavor)
-  outgoingB := (_root_.LinearMap.id : ℂ →ₗ[ℂ] ℂ).smulRight bridge
-  outgoingW := 0
-  propagator := IntertwiningMap.id flavor
-
-def equalCoordinates (_ : Fin 2) : MvPolynomial Unit ℂ := X ()
-def cancelling := DipolePolynomialAutomation.register flavor flavor flavor differenceModel
-  (Pi.basisFun ℂ (Fin 2)) scalarBasis equalCoordinates outgoingCoordinates
-  (fun _ => Set.univ) mu electron
-def cancellingCertificate := DipolePolynomialAutomation.certificate flavor flavor flavor differenceModel
-  (Pi.basisFun ℂ (Fin 2)) scalarBasis equalCoordinates outgoingCoordinates
-  (fun _ => Set.univ) mu electron (fun _ => Set.infinite_univ)
-
-theorem cancelling_selected (x : Unit → ℂ) : cancelling.observe x = 0 := by
-  rw [cancelling, DipolePolynomialAutomation.selected]
-  simp [differenceModel, PolynomialBasisCoordinates.evaluate, equalCoordinates,
-    outgoingCoordinates, scalarBasis, Fin.sum_univ_two, Module.Basis.coord_apply]
-
-theorem cancelling_grouped_zero : ∀ d, cancellingCertificate.grouped d = 0 := by
-  apply cancellingCertificate.no_nonzero_iff.mp
-  intro x hx
-  exact hx.2 (cancelling_selected x)
-
-def finiteDomain := DipolePolynomialAutomation.register flavor flavor flavor
-  (DipoleCouplingControls.model 1) scalarBasis scalarBasis incomingCoordinates outgoingCoordinates
-  (fun _ => {0}) mu electron
-
-theorem finite_domain_no_nonzero : ∀ x, ¬ finiteDomain.NonzeroInput x := by
-  intro x hx
-  have hz : x () = 0 := hx.1 () (Set.mem_univ ())
-  have he : finiteDomain.observe x = cubic.observe x := rfl
-  apply hx.2
-  rw [he, cubic_selected, hz]
-  simp
-
-end
-end GUT.DipolePolynomialAutomationExamples
+assert_compatible GUT.DipoleModelInterface.PolynomialCertificate.mk.congr_simp => Physics.DipoleModelInterface.PolynomialCertificate.mk.congr_simp
+assert_compatible GUT.DipoleModelInterface.Registered.mk.congr_simp => Physics.DipoleModelInterface.Registered.mk.congr_simp
+assert_compatible GUT.DipoleModelInterface.ofCouplings.eq_1 => Physics.DipoleModelInterface.ofCouplings.eq_1
+assert_compatible GUT.DipoleModelInterface.ofResidual.eq_1 => Physics.DipoleModelInterface.ofResidual.eq_1
+assert_compatible GUT.DipolePolynomialAutomation.certificate.eq_1 => Physics.DipolePolynomialAutomation.certificate.eq_1
+assert_compatible GUT.DipolePolynomialAutomation.register.eq_1 => Physics.DipolePolynomialAutomation.register.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.cancelling => Physics.DipolePolynomialAutomationExamples.cancelling
+assert_compatible GUT.DipolePolynomialAutomationExamples.cancelling.eq_1 => Physics.DipolePolynomialAutomationExamples.cancelling.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.cancellingCertificate => Physics.DipolePolynomialAutomationExamples.cancellingCertificate
+assert_compatible GUT.DipolePolynomialAutomationExamples.cancelling_grouped_zero => Physics.DipolePolynomialAutomationExamples.cancelling_grouped_zero
+assert_compatible GUT.DipolePolynomialAutomationExamples.cancelling_selected => Physics.DipolePolynomialAutomationExamples.cancelling_selected
+assert_compatible GUT.DipolePolynomialAutomationExamples.correspondence => Physics.DipolePolynomialAutomationExamples.correspondence
+assert_compatible GUT.DipolePolynomialAutomationExamples.cubic => Physics.DipolePolynomialAutomationExamples.cubic
+assert_compatible GUT.DipolePolynomialAutomationExamples.cubic.eq_1 => Physics.DipolePolynomialAutomationExamples.cubic.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.cubicCertificate => Physics.DipolePolynomialAutomationExamples.cubicCertificate
+assert_compatible GUT.DipolePolynomialAutomationExamples.cubicCertificate.eq_1 => Physics.DipolePolynomialAutomationExamples.cubicCertificate.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.cubic_realized => Physics.DipolePolynomialAutomationExamples.cubic_realized
+assert_compatible GUT.DipolePolynomialAutomationExamples.cubic_selected => Physics.DipolePolynomialAutomationExamples.cubic_selected
+assert_compatible GUT.DipolePolynomialAutomationExamples.differenceModel => Physics.DipolePolynomialAutomationExamples.differenceModel
+assert_compatible GUT.DipolePolynomialAutomationExamples.differenceModel.eq_1 => Physics.DipolePolynomialAutomationExamples.differenceModel.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.equalCoordinates => Physics.DipolePolynomialAutomationExamples.equalCoordinates
+assert_compatible GUT.DipolePolynomialAutomationExamples.equalCoordinates.eq_1 => Physics.DipolePolynomialAutomationExamples.equalCoordinates.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.explicitGeneration => Physics.DipolePolynomialAutomationExamples.explicitGeneration
+assert_compatible GUT.DipolePolynomialAutomationExamples.explicitGeneration.eq_1 => Physics.DipolePolynomialAutomationExamples.explicitGeneration.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.externalCertificate => Physics.DipolePolynomialAutomationExamples.externalCertificate
+assert_compatible GUT.DipolePolynomialAutomationExamples.external_realized => Physics.DipolePolynomialAutomationExamples.external_realized
+assert_compatible GUT.DipolePolynomialAutomationExamples.finiteDomain => Physics.DipolePolynomialAutomationExamples.finiteDomain
+assert_compatible GUT.DipolePolynomialAutomationExamples.finite_domain_no_nonzero => Physics.DipolePolynomialAutomationExamples.finite_domain_no_nonzero
+assert_compatible GUT.DipolePolynomialAutomationExamples.incomingCoordinates => Physics.DipolePolynomialAutomationExamples.incomingCoordinates
+assert_compatible GUT.DipolePolynomialAutomationExamples.incomingCoordinates.eq_1 => Physics.DipolePolynomialAutomationExamples.incomingCoordinates.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.outgoingCoordinates => Physics.DipolePolynomialAutomationExamples.outgoingCoordinates
+assert_compatible GUT.DipolePolynomialAutomationExamples.outgoingCoordinates.eq_1 => Physics.DipolePolynomialAutomationExamples.outgoingCoordinates.eq_1
+assert_compatible GUT.DipolePolynomialAutomationExamples.scalarBasis => Physics.DipolePolynomialAutomationExamples.scalarBasis
+assert_compatible GUT.DipolePolynomialAutomationExamples.scalarBasis.eq_1 => Physics.DipolePolynomialAutomationExamples.scalarBasis.eq_1

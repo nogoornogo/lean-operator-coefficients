@@ -9,12 +9,25 @@ const sources = () => ({
 });
 
 test('valid three-layer graph and external imports', () => assert.deepEqual(validate(sources()), []));
+test('canonical implementations and legacy facades keep historical audit identities', () => {
+  const generated = originSource({'GUT/OldMass.lean': 'Physics/Mass/Core.lean'},
+    {'Physics/Mass.lean': 'Physics/Mass/Core.lean', 'Math/Input.lean': 'Math/Inputs/Core.lean'});
+  assert.ok(generated.includes('| `Physics.Mass.Core => `GUT.OldMass'));
+  assert.ok(generated.includes('| `Physics.Mass => `GUT.OldMass'));
+  assert.ok(generated.includes('| `Math.Inputs.Core => `Math.Input'));
+});
 test('nested comments, strings, import all and whitespace', () => assert.deepEqual(imports(`
 /- import GUT.Bad /- nested -/ -/
 import all Math.Algebra -- comment
 def s := "import GUT.Bad"
  public import Physics.Mass
 `), ['Math.Algebra', 'Physics.Mass']));
+test('split definitions retain the original audit identity', () => {
+  const generated = originSource({'GUT/Old.lean': 'Physics/New.lean'},
+    {'Physics/Old.lean': 'Physics/New.lean'},
+    [{canonical: 'Physics/New.lean', definitions: 'Physics/New/Basic.lean'}]);
+  assert.ok(generated.includes('| `Physics.New.Basic => `GUT.Old'));
+});
 test('reject both upward directions', () => {
   const s = sources(); s['Math.Algebra'] += '\nimport Physics.Mass';
   s['Physics.Mass'] += '\nimport GUT.Model';

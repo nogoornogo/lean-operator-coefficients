@@ -30,7 +30,7 @@ For all sufficiently small matrices X:
   exp X is in N  <->  X is in k.
 
 For all g in N sufficiently close to 1:
-  compactLocalLog g = logOneAdd (g - 1) is in k,
+  compactLocalLog g = log g is in k,
   exp (compactLocalLog g) = g.
 
 N0 is open in N.
@@ -55,7 +55,7 @@ realization or a renamed compact E6 carrier.
    proves that the convergent operator logarithm preserves any closed
    invariant real submodule. All powers and partial sums preserve the
    submodule, and closedness preserves the limit. The local identity
-   `logOneAdd (exp T - 1) = T` then recovers invariance under T from
+   `log (exp T) = T` then recovers invariance under T from
    invariance under `exp T`, for small T. Apply this to the continuous
    commutator operator and TauCeti's exponential-conjugation identity to
    recover Lie normalization from conjugation by `exp X` near zero.
@@ -96,8 +96,8 @@ M2 is advanced but not closed: simple connectedness, exact center and
 global E6 form remain open. The order-27 scalar of the full normalizer has
 not been assigned to a connected component. No actual Spin(10) group
 inclusion, oriented group branching, positive-target 27 model or new
-physical endpoint follows yet. Dependency pins and physical assumptions
-are unchanged.
+physical endpoint follows yet. Physical assumptions are unchanged; the later v4.35.0 dependency port
+is recorded separately below.
 
 ## 7. Sources and verification
 
@@ -124,4 +124,6 @@ python3 -m unittest discover -s tools/e6 -p 'test_*.py'
 Disposable logs: `.lake/e6-0i-audit.log` and `.lake/e6-0i-full-build.log`.
 Proofs and reusable audits are tracked; package sources were not edited.
 
-Reference roles: linked Lean files are implementation or audit evidence; linked repository documents provide supplementary context, not external theorem premises. Any literature input is identified explicitly below or in the linked boundary dossier. Recorded build and audit outcomes are historical checkpoints; this documentation revision did not rerun Lean.
+Reference roles: linked Lean files are implementation or audit evidence; linked repository documents provide supplementary context, not external theorem premises. Any literature input is identified explicitly below or in the linked boundary dossier. Recorded build and audit counts above are historical checkpoints. The later
+[v4.35.0 compatibility verification](../../../../topics/derivative-ibp/dependency-integration.md)
+records the current dependency port and its builds without replacing that evidence.

@@ -4,19 +4,19 @@
 and [pinned sources](../../../../topics/non-susy-mixed-candidates/references.md)
 define two independent bounded consumers of `MixedSelectionRequests.Satisfies`.
 
-- `GUT.DevMohapatraParity.all_bOne_forbidden`: actual derivative-free signed
+- `Physics.DevMohapatraParity.all_bOne_forbidden`: actual derivative-free signed
   SM/Higgs inputs vanish at every fermion/scalar degree for absolute B=1.
   Quark phases are b modulo two, with b=3B; leptons/Higgs are neutral.
-- `GUT.DevMohapatraParity.llhh_allowed`: the one-copy Weinberg SM sector is
+- `Physics.DevMohapatraParity.llhh_allowed`: the one-copy Weinberg SM sector is
   nonzero using the proved neutral lepton action.
-- `GUT.DevMohapatraSixQuark.selected_nonzero`: a two-flavor u²d²s² evaluation
+- `Physics.DevMohapatraSixQuark.selected_nonzero`: a two-flavor u²d²s² evaluation
   is nonzero in the color/Lorentz/statistics/residual coefficient domain.
   Flavor projection transports an existing admissible local coefficient;
   six odd phases cancel. Literal Eq.(4), antisymmetric source coupling and
   full flavored SM-intertwiner transport are outside this certificate.
-- `GUT.DevMohapatraSixQuark.satisfies`: packages B1 prohibition and the two
+- `Physics.DevMohapatraSixQuark.satisfies`: packages B1 prohibition and the two
   independent allowances without claiming simultaneous UV generation.
-- `GUT.MaZ3Mixed.bare_forbidden`, `dressed_evaluation`, `satisfies`: actual
+- `Physics.MaZ3Mixed.bare_forbidden`, `dressed_evaluation`, `satisfies`: actual
   SM-singlet right-Weyl and complex chi2 representations with common omega
   phase give zero bare exterior-square domain and a dressed coefficient
   evaluating to one. The Lorentz epsilon form supplies the witness.

@@ -1,7 +1,9 @@
 import Math.Audit.ImportOrigin
 import GUT.SU5.SelectionRules.SelectionRule
 import GUT.SU5.Audit.AuditMatterSource
-import Physics.StandardModel.Operators.Audit.AuditSharedSelectionRules
+import Physics.StandardModel.Operators.Selection.Audit.AuditSharedSelectionRules
+
+open Physics
 
 open Math
 

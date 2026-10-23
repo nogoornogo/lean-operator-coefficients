@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylBenchmark
 import GUT.SU6.SelectionRules.Models.AbelianActualSpectrum
-import Physics.FieldTheory.Mass.InvariantLineMass
+import Physics.FieldTheory.Mass.Algebra.InvariantLineMass
+
+open Physics
 
 open Math
 

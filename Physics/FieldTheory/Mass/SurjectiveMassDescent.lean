@@ -1,36 +1,19 @@
+import Physics.FieldTheory.Mass.Surplus.SurjectiveMassDescent
 import Physics.FieldTheory.Mass.SymmetricMassIndex
+import Math.Lean.Compatibility
 
-/-! An invariant mass descends along a surjective group homomorphism when
-the field action already factors through it. No inverse chart is chosen. -/
+deprecated_module "Use Physics.FieldTheory.Mass.Surplus.SurjectiveMassDescent instead." (since := "source-api-v1")
 
-set_option autoImplicit false
+compatibility_declarations [
+  GUT.InvariantWeylMass.SymmetricMass.descend => Physics.InvariantWeylMass.SymmetricMass.descend,
+  GUT.InvariantWeylMass.SymmetricMass.descend_form => Physics.InvariantWeylMass.SymmetricMass.descend_form,
+  GUT.InvariantWeylMass.SymmetricMass.descend_radical => Physics.InvariantWeylMass.SymmetricMass.descend_radical,
+  GUT.InvariantWeylMass.SymmetricMass.descend_radical_character => Physics.InvariantWeylMass.SymmetricMass.descend_radical_character,
+  GUT.InvariantWeylMass.SymmetricMass.descend_radical_comp => Physics.InvariantWeylMass.SymmetricMass.descend_radical_comp
+]
 
-namespace GUT.InvariantWeylMass.SymmetricMass
-
-noncomputable section
-
-variable {G K E : Type*} [Group G] [Group K] [AddCommGroup E] [Module ℂ E]
-  (rho : Representation ℂ G E) (f : K →* G) (hf : Function.Surjective f)
-  (B : SymmetricMass (rho.comp f))
-
-def descend : SymmetricMass rho where
-  form := B.form
-  symmetric := B.symmetric
-  invariant g x y := by
-    obtain ⟨k, rfl⟩ := hf g
-    exact B.invariant k x y
-
-@[simp] theorem descend_form : (descend rho f hf B).form = B.form := rfl
-
-theorem descend_radical : (descend rho f hf B).radical.toSubmodule = B.radical.toSubmodule := rfl
-
-theorem descend_radical_comp :
-    (descend rho f hf B).radical.toRepresentation.comp f = B.radical.toRepresentation := rfl
-
-theorem descend_radical_character [FiniteDimensional ℂ E] (k : K) :
-    (descend rho f hf B).radical.toRepresentation.character (f k) =
-      B.radical.toRepresentation.character k := rfl
-
-end
-
-end GUT.InvariantWeylMass.SymmetricMass
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.descend => Physics.InvariantWeylMass.SymmetricMass.descend
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.descend_form => Physics.InvariantWeylMass.SymmetricMass.descend_form
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.descend_radical => Physics.InvariantWeylMass.SymmetricMass.descend_radical
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.descend_radical_character => Physics.InvariantWeylMass.SymmetricMass.descend_radical_character
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.descend_radical_comp => Physics.InvariantWeylMass.SymmetricMass.descend_radical_comp

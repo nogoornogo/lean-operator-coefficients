@@ -3,6 +3,8 @@ import GUT.Sp.RestrictedCharacter
 import GUT.Sp.Audit.AuditTorus
 import Math.LieGroups.Symplectic.Audit.AuditEigenvectorPair
 
+open Physics
+
 open Math
 
 /-! SP-2 arbitrary-element conjugacy, including elements outside the

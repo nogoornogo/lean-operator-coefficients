@@ -1,6 +1,8 @@
 import GUT.SU5.Embeddings.StandardModel
 import Mathlib.Analysis.SpecialFunctions.Complex.CircleAddChar
 
+open Physics
+
 /-!
 # The exact global kernel of the standard SU(5) covering homomorphism
 

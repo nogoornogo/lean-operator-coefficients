@@ -1,5 +1,7 @@
 import GUT.SU5.Matching.MediatorMatching
-import Physics.StandardModel.Operators.QqueMediatorInheritance
+import Physics.StandardModel.Operators.BaryonOne.Qque.QqueMediatorInheritance
+
+open Physics
 
 open Math
 

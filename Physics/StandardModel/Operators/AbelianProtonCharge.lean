@@ -1,57 +1,58 @@
-import Mathlib.Tactic
+import Physics.StandardModel.Operators.Selection.AbelianProtonCharge
+import Math.Lean.Compatibility
 
-/-!
-# Abelian charges of Standard Model proton-operator signatures
+deprecated_module "Use Physics.StandardModel.Operators.Selection.AbelianProtonCharge instead." (since := "source-api-v1")
 
-The charge algebra uses any additive commutative group, including torsion.
-It requires no UV gauge group, anomaly constraint, or physical-source model.
-Declaration namespaces are retained for compatibility.
--/
+compatibility_declarations [
+  GUT.StandardBranchProtonObstruction.Charges => Physics.StandardBranchProtonObstruction.Charges,
+  GUT.StandardBranchProtonObstruction.Charges.casesOn => Physics.StandardBranchProtonObstruction.Charges.casesOn,
+  GUT.StandardBranchProtonObstruction.Charges.ctorIdx => Physics.StandardBranchProtonObstruction.Charges.ctorIdx,
+  GUT.StandardBranchProtonObstruction.Charges.down => Physics.StandardBranchProtonObstruction.Charges.down,
+  GUT.StandardBranchProtonObstruction.Charges.electron => Physics.StandardBranchProtonObstruction.Charges.electron,
+  GUT.StandardBranchProtonObstruction.Charges.ext => Physics.StandardBranchProtonObstruction.Charges.ext,
+  GUT.StandardBranchProtonObstruction.Charges.ext_iff => Physics.StandardBranchProtonObstruction.Charges.ext_iff,
+  GUT.StandardBranchProtonObstruction.Charges.lepton => Physics.StandardBranchProtonObstruction.Charges.lepton,
+  GUT.StandardBranchProtonObstruction.Charges.mk => Physics.StandardBranchProtonObstruction.Charges.mk,
+  GUT.StandardBranchProtonObstruction.Charges.mk.inj => Physics.StandardBranchProtonObstruction.Charges.mk.inj,
+  GUT.StandardBranchProtonObstruction.Charges.mk.injEq => Physics.StandardBranchProtonObstruction.Charges.mk.injEq,
+  GUT.StandardBranchProtonObstruction.Charges.mk.noConfusion => Physics.StandardBranchProtonObstruction.Charges.mk.noConfusion,
+  GUT.StandardBranchProtonObstruction.Charges.mk.sizeOf_spec => Physics.StandardBranchProtonObstruction.Charges.mk.sizeOf_spec,
+  GUT.StandardBranchProtonObstruction.Charges.noConfusion => Physics.StandardBranchProtonObstruction.Charges.noConfusion,
+  GUT.StandardBranchProtonObstruction.Charges.noConfusionType => Physics.StandardBranchProtonObstruction.Charges.noConfusionType,
+  GUT.StandardBranchProtonObstruction.Charges.quark => Physics.StandardBranchProtonObstruction.Charges.quark,
+  GUT.StandardBranchProtonObstruction.Charges.rec => Physics.StandardBranchProtonObstruction.Charges.rec,
+  GUT.StandardBranchProtonObstruction.Charges.recOn => Physics.StandardBranchProtonObstruction.Charges.recOn,
+  GUT.StandardBranchProtonObstruction.Charges.up => Physics.StandardBranchProtonObstruction.Charges.up,
+  GUT.StandardBranchProtonObstruction.SU5OrbitCompatible => Physics.StandardBranchProtonObstruction.SU5OrbitCompatible,
+  GUT.StandardBranchProtonObstruction.protonFirst => Physics.StandardBranchProtonObstruction.protonFirst,
+  GUT.StandardBranchProtonObstruction.protonFirst.eq_1 => Physics.StandardBranchProtonObstruction.protonFirst.eq_1,
+  GUT.StandardBranchProtonObstruction.protonSecond => Physics.StandardBranchProtonObstruction.protonSecond,
+  GUT.StandardBranchProtonObstruction.protonSecond.eq_1 => Physics.StandardBranchProtonObstruction.protonSecond.eq_1,
+  GUT.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_su5OrbitCompatible => Physics.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_su5OrbitCompatible
+]
 
-namespace GUT.StandardBranchProtonObstruction
-
-/-- Charges of the five chiral Standard Model multiplet types.  The names
-`up` and `electron` refer to the left-handed conjugate multiplets appearing in
-the chiral spectrum. -/
-@[ext]
-structure Charges (A : Type*) where
-  quark : A
-  up : A
-  down : A
-  lepton : A
-  electron : A
-
-section AdditiveCharges
-
-variable {A : Type*} [AddCommGroup A]
-
-/-- Charge of the first gauge-mediated proton-decay contraction, in the sign
-convention `2*k_Q-k_u-k_e`. -/
-def protonFirst (k : Charges A) : A :=
-  k.quark + k.quark - k.up - k.electron
-
-/-- Charge of the second contraction, in the sign convention
-`k_Q+k_L-k_u-k_d`. -/
-def protonSecond (k : Charges A) : A :=
-  k.quark + k.lepton - k.up - k.down
-
-/-- Charge equalities forced when `Q,u^c,e^c` occupy one charged `10` sector
-and `d^c,L` occupy one charged anti-fundamental sector. -/
-def SU5OrbitCompatible (k : Charges A) : Prop :=
-  k.quark = k.up ∧ k.quark = k.electron ∧ k.down = k.lepton
-
-/-- The `SU(5)` orbit charge equalities make both proton-decay functionals
-neutral in any ordinary Abelian charge group. -/
-theorem proton_functionals_eq_zero_of_su5OrbitCompatible
-    (k : Charges A) (h : SU5OrbitCompatible k) :
-    protonFirst k = 0 ∧ protonSecond k = 0 := by
-  rcases h with ⟨hQU, hQE, hDL⟩
-  have hUE : k.up = k.electron := hQU.symm.trans hQE
-  constructor
-  · simp [protonFirst, hQU, hUE]
-  · simp [protonSecond, hQU, hDL]
-
-end AdditiveCharges
-
-
-end GUT.StandardBranchProtonObstruction
+assert_compatible GUT.StandardBranchProtonObstruction.Charges => Physics.StandardBranchProtonObstruction.Charges
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.casesOn => Physics.StandardBranchProtonObstruction.Charges.casesOn
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.ctorIdx => Physics.StandardBranchProtonObstruction.Charges.ctorIdx
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.down => Physics.StandardBranchProtonObstruction.Charges.down
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.electron => Physics.StandardBranchProtonObstruction.Charges.electron
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.ext => Physics.StandardBranchProtonObstruction.Charges.ext
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.ext_iff => Physics.StandardBranchProtonObstruction.Charges.ext_iff
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.lepton => Physics.StandardBranchProtonObstruction.Charges.lepton
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.mk => Physics.StandardBranchProtonObstruction.Charges.mk
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.mk.inj => Physics.StandardBranchProtonObstruction.Charges.mk.inj
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.mk.injEq => Physics.StandardBranchProtonObstruction.Charges.mk.injEq
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.mk.noConfusion => Physics.StandardBranchProtonObstruction.Charges.mk.noConfusion
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.mk.sizeOf_spec => Physics.StandardBranchProtonObstruction.Charges.mk.sizeOf_spec
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.noConfusion => Physics.StandardBranchProtonObstruction.Charges.noConfusion
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.noConfusionType => Physics.StandardBranchProtonObstruction.Charges.noConfusionType
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.quark => Physics.StandardBranchProtonObstruction.Charges.quark
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.rec => Physics.StandardBranchProtonObstruction.Charges.rec
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.recOn => Physics.StandardBranchProtonObstruction.Charges.recOn
+assert_compatible GUT.StandardBranchProtonObstruction.Charges.up => Physics.StandardBranchProtonObstruction.Charges.up
+assert_compatible GUT.StandardBranchProtonObstruction.SU5OrbitCompatible => Physics.StandardBranchProtonObstruction.SU5OrbitCompatible
+assert_compatible GUT.StandardBranchProtonObstruction.protonFirst => Physics.StandardBranchProtonObstruction.protonFirst
+assert_compatible GUT.StandardBranchProtonObstruction.protonFirst.eq_1 => Physics.StandardBranchProtonObstruction.protonFirst.eq_1
+assert_compatible GUT.StandardBranchProtonObstruction.protonSecond => Physics.StandardBranchProtonObstruction.protonSecond
+assert_compatible GUT.StandardBranchProtonObstruction.protonSecond.eq_1 => Physics.StandardBranchProtonObstruction.protonSecond.eq_1
+assert_compatible GUT.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_su5OrbitCompatible => Physics.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_su5OrbitCompatible

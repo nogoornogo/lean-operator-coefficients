@@ -1,6 +1,8 @@
 import GUT.SU5.Branching.FortySelectedCopies
-import Physics.StandardModel.Gauge.SMEpsilonUniqueness
+import Physics.StandardModel.Gauge.Tensors.SMEpsilonUniqueness
 import Mathlib.LinearAlgebra.Multilinear.Basis
+
+open Physics
 
 namespace GUT.SU5.FortyElectronExclusion
 set_option autoImplicit false

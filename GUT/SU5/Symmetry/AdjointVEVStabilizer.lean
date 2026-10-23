@@ -2,6 +2,8 @@ import GUT.SU5.Embeddings.StandardModel
 import Math.LieGroups.SpecialUnitary.AdjointStabilizer
 import Mathlib.LinearAlgebra.Matrix.Trace
 
+open Physics
+
 open Math
 
 /-! Exact stabilizer of the specified traceless SU(5) adjoint VEV. This is a

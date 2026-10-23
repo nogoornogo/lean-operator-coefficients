@@ -1,71 +1,74 @@
+import Physics.StandardModel.Operators.Support.Coordinates.SMGaussianLocalData
 import Physics.StandardModel.Operators.SMRationalLocalKernel
 import Math.RepresentationTheory.GaussianCompactTests
+import Math.Lean.Compatibility
 
-/-! The exhaustive local samples have explicit Gaussian rational coordinates. -/
-namespace GUT.SMGaussianLocalData
-set_option autoImplicit false
-open Math GaussianRational Matrix
-abbrev K := Scalar
+deprecated_module "Use Physics.StandardModel.Operators.Support.Coordinates.SMGaussianLocalData instead." (since := "source-api-v1")
 
-structure Data where
-  color : Matrix (Fin 3) (Fin 3) K
-  weak : Matrix (Fin 2) (Fin 2) K
-  phase : K
-  spin : Matrix (Fin 2) (Fin 2) K
+compatibility_declarations [
+  GUT.SMGaussianLocalData.Data => Physics.SMGaussianLocalData.Data,
+  GUT.SMGaussianLocalData.Data.casesOn => Physics.SMGaussianLocalData.Data.casesOn,
+  GUT.SMGaussianLocalData.Data.color => Physics.SMGaussianLocalData.Data.color,
+  GUT.SMGaussianLocalData.Data.ctorIdx => Physics.SMGaussianLocalData.Data.ctorIdx,
+  GUT.SMGaussianLocalData.Data.mk => Physics.SMGaussianLocalData.Data.mk,
+  GUT.SMGaussianLocalData.Data.mk.inj => Physics.SMGaussianLocalData.Data.mk.inj,
+  GUT.SMGaussianLocalData.Data.mk.injEq => Physics.SMGaussianLocalData.Data.mk.injEq,
+  GUT.SMGaussianLocalData.Data.mk.noConfusion => Physics.SMGaussianLocalData.Data.mk.noConfusion,
+  GUT.SMGaussianLocalData.Data.mk.sizeOf_spec => Physics.SMGaussianLocalData.Data.mk.sizeOf_spec,
+  GUT.SMGaussianLocalData.Data.noConfusion => Physics.SMGaussianLocalData.Data.noConfusion,
+  GUT.SMGaussianLocalData.Data.noConfusionType => Physics.SMGaussianLocalData.Data.noConfusionType,
+  GUT.SMGaussianLocalData.Data.phase => Physics.SMGaussianLocalData.Data.phase,
+  GUT.SMGaussianLocalData.Data.rec => Physics.SMGaussianLocalData.Data.rec,
+  GUT.SMGaussianLocalData.Data.recOn => Physics.SMGaussianLocalData.Data.recOn,
+  GUT.SMGaussianLocalData.Data.spin => Physics.SMGaussianLocalData.Data.spin,
+  GUT.SMGaussianLocalData.Data.weak => Physics.SMGaussianLocalData.Data.weak,
+  GUT.SMGaussianLocalData.K => Physics.SMGaussianLocalData.K,
+  GUT.SMGaussianLocalData.color_embed => Physics.SMGaussianLocalData.color_embed,
+  GUT.SMGaussianLocalData.data => Physics.SMGaussianLocalData.data,
+  GUT.SMGaussianLocalData.data.eq_1 => Physics.SMGaussianLocalData.data.eq_1,
+  GUT.SMGaussianLocalData.data.eq_2 => Physics.SMGaussianLocalData.data.eq_2,
+  GUT.SMGaussianLocalData.data.eq_3 => Physics.SMGaussianLocalData.data.eq_3,
+  GUT.SMGaussianLocalData.data.eq_4 => Physics.SMGaussianLocalData.data.eq_4,
+  GUT.SMGaussianLocalData.phase_embed => Physics.SMGaussianLocalData.phase_embed,
+  GUT.SMGaussianLocalData.spinSample => Physics.SMGaussianLocalData.spinSample,
+  GUT.SMGaussianLocalData.spin_data_embed => Physics.SMGaussianLocalData.spin_data_embed,
+  GUT.SMGaussianLocalData.spin_embed => Physics.SMGaussianLocalData.spin_embed,
+  GUT.SMGaussianLocalData.weak_embed => Physics.SMGaussianLocalData.weak_embed,
+  GUT.SMRationalLocalKernel.tests.eq_1 => Physics.SMRationalLocalKernel.tests.eq_1,
+  GUT.SMRationalLocalKernel.tests.eq_2 => Physics.SMRationalLocalKernel.tests.eq_2,
+  GUT.SMRationalLocalKernel.tests.eq_3 => Physics.SMRationalLocalKernel.tests.eq_3,
+  GUT.SMRationalLocalKernel.tests.eq_4 => Physics.SMRationalLocalKernel.tests.eq_4
+]
 
-def spinSample (n : ℕ) (a : WeylRealTransvections.Index × Fin (n+1)) : Matrix (Fin 2) (Fin 2) K :=
-  Matrix.transvection a.1.1.val.1 a.1.1.val.2
-    ((if a.1.2 then QuadraticAlgebra.omega else 1) * (a.2.val : K))
-
-def data (n : ℕ) : SMRationalLocalKernel.Index n → Data
-  | .inl i => ⟨GaussianCompactTests.color i,1,1,1⟩
-  | .inr (.inl b) => ⟨1,GaussianCompactTests.weak b,1,1⟩
-  | .inr (.inr (.inl _)) => ⟨1,1,GaussianCompactTests.sample,1⟩
-  | .inr (.inr (.inr a)) => ⟨1,1,1,spinSample n a⟩
-
-theorem spin_embed (n : ℕ) (a : WeylRealTransvections.Index × Fin (n+1)) :
-    (spinSample n a).map embed = (WeylRealTransvections.tests n a).val := by
-  change (Matrix.transvection a.1.1.val.1 a.1.1.val.2
-    ((if a.1.2 then QuadraticAlgebra.omega else 1) * (a.2.val : K))).map embed =
-    Matrix.transvection a.1.1.val.1 a.1.1.val.2
-      (WeylRealTransvections.phase a.1.2 * (a.2.val : ℂ))
-  have ho : embed (QuadraticAlgebra.omega : K) = Complex.I := by simp [QuadraticAlgebra.omega]
-  rcases a with ⟨⟨pair,b⟩,k⟩
-  cases b <;> ext i j <;>
-    simp [-embed_apply, WeylRealTransvections.phase, Matrix.transvection,
-      Matrix.single_apply, Matrix.one_apply]
-  all_goals split_ifs <;> simp only [map_mul, map_natCast, map_zero, ho]
-
-variable (n : ℕ) (i : SMRationalLocalKernel.Index n)
-
-theorem color_embed : (data n i).color.map embed =
-    ((SMRationalLocalKernel.tests n i).1.1 : Matrix (Fin 3) (Fin 3) ℂ) := by
-  rcases i with i | (b | (u | a))
-  · exact GaussianCompactTests.color_embed i
-  all_goals ext j k; simp [-embed_apply, data, SMRationalLocalKernel.tests,
-    SMIntegralLocalWeights.weak, SMIntegralLocalWeights.hyper,
-    SMIntegralLocalWeights.spin, Matrix.one_apply]
-
-theorem weak_embed : (data n i).weak.map embed =
-    ((SMRationalLocalKernel.tests n i).1.2.1 : Matrix (Fin 2) (Fin 2) ℂ) := by
-  rcases i with c | (b | (u | a))
-  · ext j k; simp [-embed_apply, data, SMRationalLocalKernel.tests, SMIntegralLocalWeights.color, Matrix.one_apply]
-  · exact GaussianCompactTests.weak_embed b
-  all_goals ext j k; simp [-embed_apply, data, SMRationalLocalKernel.tests,
-    SMIntegralLocalWeights.hyper, SMIntegralLocalWeights.spin, Matrix.one_apply]
-
-theorem phase_embed : embed (data n i).phase = ((SMRationalLocalKernel.tests n i).1.2.2 : ℂ) := by
-  rcases i with c | (b | (u | a)) <;>
-    simp [-embed_apply, data, SMRationalLocalKernel.tests, SMIntegralLocalWeights.color,
-      SMIntegralLocalWeights.weak, SMIntegralLocalWeights.hyper, SMIntegralLocalWeights.spin,
-      GaussianCompactTests.sample_embed]
-
-theorem spin_data_embed : (data n i).spin.map embed =
-    ((SMRationalLocalKernel.tests n i).2 : Matrix (Fin 2) (Fin 2) ℂ) := by
-  rcases i with c | (b | (u | a))
-  all_goals first
-    | exact spin_embed n a
-    | (ext j k; simp [-embed_apply, data, SMRationalLocalKernel.tests, SMIntegralLocalWeights.color,
-        SMIntegralLocalWeights.weak, SMIntegralLocalWeights.hyper, Matrix.one_apply])
-
-end GUT.SMGaussianLocalData
+assert_compatible GUT.SMGaussianLocalData.Data => Physics.SMGaussianLocalData.Data
+assert_compatible GUT.SMGaussianLocalData.Data.casesOn => Physics.SMGaussianLocalData.Data.casesOn
+assert_compatible GUT.SMGaussianLocalData.Data.color => Physics.SMGaussianLocalData.Data.color
+assert_compatible GUT.SMGaussianLocalData.Data.ctorIdx => Physics.SMGaussianLocalData.Data.ctorIdx
+assert_compatible GUT.SMGaussianLocalData.Data.mk => Physics.SMGaussianLocalData.Data.mk
+assert_compatible GUT.SMGaussianLocalData.Data.mk.inj => Physics.SMGaussianLocalData.Data.mk.inj
+assert_compatible GUT.SMGaussianLocalData.Data.mk.injEq => Physics.SMGaussianLocalData.Data.mk.injEq
+assert_compatible GUT.SMGaussianLocalData.Data.mk.noConfusion => Physics.SMGaussianLocalData.Data.mk.noConfusion
+assert_compatible GUT.SMGaussianLocalData.Data.mk.sizeOf_spec => Physics.SMGaussianLocalData.Data.mk.sizeOf_spec
+assert_compatible GUT.SMGaussianLocalData.Data.noConfusion => Physics.SMGaussianLocalData.Data.noConfusion
+assert_compatible GUT.SMGaussianLocalData.Data.noConfusionType => Physics.SMGaussianLocalData.Data.noConfusionType
+assert_compatible GUT.SMGaussianLocalData.Data.phase => Physics.SMGaussianLocalData.Data.phase
+assert_compatible GUT.SMGaussianLocalData.Data.rec => Physics.SMGaussianLocalData.Data.rec
+assert_compatible GUT.SMGaussianLocalData.Data.recOn => Physics.SMGaussianLocalData.Data.recOn
+assert_compatible GUT.SMGaussianLocalData.Data.spin => Physics.SMGaussianLocalData.Data.spin
+assert_compatible GUT.SMGaussianLocalData.Data.weak => Physics.SMGaussianLocalData.Data.weak
+assert_compatible GUT.SMGaussianLocalData.K => Physics.SMGaussianLocalData.K
+assert_compatible GUT.SMGaussianLocalData.color_embed => Physics.SMGaussianLocalData.color_embed
+assert_compatible GUT.SMGaussianLocalData.data => Physics.SMGaussianLocalData.data
+assert_compatible GUT.SMGaussianLocalData.data.eq_1 => Physics.SMGaussianLocalData.data.eq_1
+assert_compatible GUT.SMGaussianLocalData.data.eq_2 => Physics.SMGaussianLocalData.data.eq_2
+assert_compatible GUT.SMGaussianLocalData.data.eq_3 => Physics.SMGaussianLocalData.data.eq_3
+assert_compatible GUT.SMGaussianLocalData.data.eq_4 => Physics.SMGaussianLocalData.data.eq_4
+assert_compatible GUT.SMGaussianLocalData.phase_embed => Physics.SMGaussianLocalData.phase_embed
+assert_compatible GUT.SMGaussianLocalData.spinSample => Physics.SMGaussianLocalData.spinSample
+assert_compatible GUT.SMGaussianLocalData.spin_data_embed => Physics.SMGaussianLocalData.spin_data_embed
+assert_compatible GUT.SMGaussianLocalData.spin_embed => Physics.SMGaussianLocalData.spin_embed
+assert_compatible GUT.SMGaussianLocalData.weak_embed => Physics.SMGaussianLocalData.weak_embed
+assert_compatible GUT.SMRationalLocalKernel.tests.eq_1 => Physics.SMRationalLocalKernel.tests.eq_1
+assert_compatible GUT.SMRationalLocalKernel.tests.eq_2 => Physics.SMRationalLocalKernel.tests.eq_2
+assert_compatible GUT.SMRationalLocalKernel.tests.eq_3 => Physics.SMRationalLocalKernel.tests.eq_3
+assert_compatible GUT.SMRationalLocalKernel.tests.eq_4 => Physics.SMRationalLocalKernel.tests.eq_4

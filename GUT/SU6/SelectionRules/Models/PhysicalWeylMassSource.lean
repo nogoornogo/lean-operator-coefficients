@@ -2,6 +2,8 @@ import GUT.SU6.SelectionRules.StandardBranch.PhysicalWeylChargeBridge
 import GUT.SU6.SelectionRules.Models.PhysicalMassSpectrumBridge
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylMassSource
 
+open Physics
+
 open Math
 
 /-!

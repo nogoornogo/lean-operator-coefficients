@@ -81,7 +81,7 @@ theorem contMDiff_proj (j : Fin 6) :
   have h_proj : ContMDiffAt I 𝓘(ℝ, EuclideanSpace ℝ (Fin 1)) ∞
       (fun (θ : ModelPi (fun _ : Fin 6 => EuclideanSpace ℝ (Fin 1))) => θ j)
       (extChartAt I x x) :=
-    (contDiff_apply (𝕜 := ℝ) (E := EuclideanSpace ℝ (Fin 1)) (i := j)).contMDiff.contMDiffAt
+    (contDiff_apply (𝕜 := ℝ) (F' := fun _ : Fin 6 => EuclideanSpace ℝ (Fin 1)) (i := j)).contMDiff.contMDiffAt
   -- (extChartAt (𝓡 1) (x j)).symm is ContMDiffAt at (extChartAt (𝓡 1) (x j) (x j))
   have h_symm : ContMDiffAt 𝓘(ℝ, EuclideanSpace ℝ (Fin 1)) (𝓡 1) ∞
       (extChartAt (𝓡 1) (x j)).symm (extChartAt (𝓡 1) (x j) (x j)) := by

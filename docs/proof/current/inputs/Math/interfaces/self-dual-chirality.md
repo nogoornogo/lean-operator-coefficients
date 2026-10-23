@@ -50,8 +50,8 @@ namespace `GUT.SelfDualCharacter`:
 - `restrict_character_eq_dual_of_inversion_element`
 - `virtualCharacter_restrict_inv`
 
-[SelfDualMassIndex](../../../../../../Physics/FieldTheory/Mass/SelfDualMassIndex.lean), namespace
-`GUT.InvariantWeylMass.SymmetricMass`:
+[SelfDualMassIndex](../../../../../../Physics/FieldTheory/Mass/Spectrum/SelfDualMassIndex.lean), namespace
+`Physics.InvariantWeylMass.SymmetricMass`:
 
 - `radical_dual_character_zero_at`: source equality at a tested element
   suffices, without imposing equality on the whole unbroken group.
@@ -67,8 +67,8 @@ unchanged. See [the scope](../../../applications/Physics/SELF_DUAL_CHIRALITY.md)
 
 ### Verification
 
-[SelfDualChirality](../../../../../../Physics/StandardModel/Spectrum/SelfDualChirality.lean), namespace
-`GUT.SelfDualChirality`, adds the DUAL-2 core:
+[SelfDualChirality](../../../../../../Physics/StandardModel/Spectrum/Representations/SelfDualChirality.lean), namespace
+`Physics.SelfDualChirality`, adds the DUAL-2 core:
 
 - `forgetCharges_chiralDifference`, `forgotten_target_coefficient`, and
   `forgotten_target_ne_zero`.
@@ -108,13 +108,13 @@ for this pass's checks.
 
 ### Audits
 
-[AuditSelfDualMassIndex](../../../../../../Physics/FieldTheory/Mass/Audit/AuditSelfDualMassIndex.lean)
+[AuditSelfDualMassIndex](../../../../../../Physics/FieldTheory/Mass/Spectrum/Audit/AuditSelfDualMassIndex.lean)
 checks zero/nonzero masses, nonzero radical at zero index, non-Abelian
 pointwise conjugacy, and a U(1) counter-control. It reuses existing scalar
 and mass examples from `AuditAbelianMassSpectrum` and is imported by `GUT`.
 
 ```sh
-lake build Physics.FieldTheory.Mass.Audit.AuditSelfDualMassIndex
+lake build Physics.FieldTheory.Mass.Spectrum.Audit.AuditSelfDualMassIndex
 lake build GUT.Common.Chirality.Audit.AuditSelfDualSource
 lake build
 ```
@@ -125,7 +125,7 @@ and `Quot.sound`.
 
 DUAL-2 verification: targeted 3927 jobs / 82 axiom reports; full 4444 jobs /
 1703 reports, with the same standard axioms only.
-[AuditSelfDualChirality](../../../../../../Physics/StandardModel/Spectrum/Audit/AuditSelfDualChirality.lean)
+[AuditSelfDualChirality](../../../../../../Physics/StandardModel/Spectrum/Representations/Audit/AuditSelfDualChirality.lean)
 checks torsion, singlets, vectorlike pairs, zero generations, and a
 gauge-versus-residual self-duality counterexample.
 [AuditSelfDualSource](../../../../../../GUT/Common/Chirality/Audit/AuditSelfDualSource.lean)

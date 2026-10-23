@@ -1,6 +1,8 @@
 import GUT.SU6.Branching.StandardU5Group
 import GUT.SU6.Branching.SU5TorusCompatibility
 
+open Physics
+
 /-! The existing concrete U(5) block embedding restricts to the standard
 SU(5) subgroup and factors the legacy (-2,3) physical torus map. -/
 

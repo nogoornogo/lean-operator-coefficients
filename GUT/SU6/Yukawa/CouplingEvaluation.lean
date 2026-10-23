@@ -1,6 +1,8 @@
 import GUT.SU6.Yukawa.VacuumImage
-import Physics.FieldTheory.Yukawa.YukawaClassification
-import Math.LinearAlgebra.SplitEvaluation
+import Physics.FieldTheory.Yukawa.Mass.YukawaClassification
+import Math.LinearAlgebra.Constructions.SplitEvaluation
+
+open Physics
 
 open Math
 

@@ -1,5 +1,5 @@
 import Math.LieGroups.SpecialUnitary.Matter
-import Math.LinearAlgebra.ExteriorEigenbasisTrace
+import Math.LinearAlgebra.Exterior.ExteriorEigenbasisTrace
 import GUT.SU5.Embeddings.MaximalTorus
 
 open Math

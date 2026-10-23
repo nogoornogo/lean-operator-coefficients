@@ -1,5 +1,7 @@
 import GUT.PatiSalam.Matching.SourceConnection
-import Physics.FieldTheory.Mass.ChiralActionConvention
+import Physics.FieldTheory.Mass.Spectrum.ChiralActionConvention
+
+open Physics
 
 /-! A single canonical chiral convention for the displayed Yukawa action.
 Real chosen scalar VEVs, complex source couplings, and explicit Hermitian
@@ -33,15 +35,15 @@ theorem parameters_dirac (p : Input) :
 
 /-- A single translated holomorphic action; the colored vertex still uses
 source yR in its anti-holomorphic term, not the mass coefficient star(yR). -/
-def massAction (p : Input) : GUT.WeylGrassmannAction.Algebra (Fin 3) :=
-  -(dirac p • GUT.WeylGrassmannAction.pair 0 1 +
-    mixing p • GUT.WeylGrassmannAction.pair 1 2)
+def massAction (p : Input) : Physics.WeylGrassmannAction.Algebra (Fin 3) :=
+  -(dirac p • Physics.WeylGrassmannAction.pair 0 1 +
+    mixing p • Physics.WeylGrassmannAction.pair 1 2)
 
-theorem action_matrix (p : Input) : massAction p = GUT.WeylGrassmannAction.action
+theorem action_matrix (p : Input) : massAction p = Physics.WeylGrassmannAction.action
     (NeutralMass.mass ((parameters p).Y*star (parameters p).w) (parameters p).M 0) := by
   rw [parameters_dirac]
   unfold NeutralMass.mass
-  rw [GUT.WeylGrassmannAction.three_species_action]
+  rw [Physics.WeylGrassmannAction.three_species_action]
   simp [massAction, parameters]
 
 variable {R : Type*} [Ring R] [StarRing R] [Algebra ℂ R] [StarModule ℂ R]
@@ -51,31 +53,31 @@ neutral mass and colored vertex, without separate coupling redefinitions. -/
 theorem translated_chi_vertex (p : Input) (z : ℂ) (s n : Fin 2 → R)
     (h0 : star (s 0)*star (n 1) = -(star (n 1)*star (s 0)))
     (h1 : star (s 1)*star (n 0) = -(star (n 0)*star (s 1))) :
-    star ((-(p.yR*star z)) • GUT.ChiralActionConvention.barredLR s n) =
-      (-(star p.yR*z)) • GUT.ChiralActionConvention.bracket s n :=
-  GUT.ChiralActionConvention.conjugate_vertex p.yR z s n h0 h1
+    star ((-(p.yR*star z)) • Physics.ChiralActionConvention.barredLR s n) =
+      (-(star p.yR*z)) • Physics.ChiralActionConvention.bracket s n :=
+  Physics.ChiralActionConvention.conjugate_vertex p.yR z s n h0 h1
 
 theorem translated_majorana_vertex (p : Input) (z : ℂ) (s n : Fin 2 → R)
     (h0 : star (s 0)*star (n 1) = -(star (n 1)*star (s 0)))
     (h1 : star (s 1)*star (n 0) = -(star (n 0)*star (s 1))) :
-    star ((-(p.yR*star z)) • GUT.ChiralActionConvention.majoranaBarRight s n) =
-      (-(star p.yR*z)) • GUT.ChiralActionConvention.bracket s n := by
-  rw [GUT.ChiralActionConvention.majorana_bar_right]
+    star ((-(p.yR*star z)) • Physics.ChiralActionConvention.majoranaBarRight s n) =
+      (-(star p.yR*z)) • Physics.ChiralActionConvention.bracket s n := by
+  rw [Physics.ChiralActionConvention.majorana_bar_right]
   exact translated_chi_vertex p z s n h0 h1
 
 theorem translated_neutral (p : Input) (s n : Fin 2 → R)
     (h0 : star (s 0)*star (n 1) = -(star (n 1)*star (s 0)))
     (h1 : star (s 1)*star (n 0) = -(star (n 0)*star (s 1))) :
-    star ((-(p.yR*star (componentVEV p))) • GUT.ChiralActionConvention.barredLR s n) =
-      (-mixing p) • GUT.ChiralActionConvention.bracket s n :=
+    star ((-(p.yR*star (componentVEV p))) • Physics.ChiralActionConvention.barredLR s n) =
+      (-mixing p) • Physics.ChiralActionConvention.bracket s n :=
   translated_chi_vertex p _ s n h0 h1
 
 theorem translated_phi (p : Input) (s n : Fin 2 → R)
     (h0 : star (s 0)*star (n 1) = -(star (n 1)*star (s 0)))
     (h1 : star (s 1)*star (n 0) = -(star (n 0)*star (s 1))) :
-    star ((p.yPhi*(p.w : ℂ)) • GUT.ChiralActionConvention.barredLR s n) =
-      (-dirac p) • GUT.ChiralActionConvention.bracket s n := by
-  rw [GUT.ChiralActionConvention.barred_lr s n h0 h1]
+    star ((p.yPhi*(p.w : ℂ)) • Physics.ChiralActionConvention.barredLR s n) =
+      (-dirac p) • Physics.ChiralActionConvention.bracket s n := by
+  rw [Physics.ChiralActionConvention.barred_lr s n h0 h1]
   simp [dirac]
 
 omit [Ring R] [StarRing R] [Algebra ℂ R] [StarModule ℂ R] in

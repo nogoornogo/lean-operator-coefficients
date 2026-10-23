@@ -1,6 +1,8 @@
 import Math.Audit.ImportOrigin
 import GUT.SU5.Embeddings.StandardModelQuotient
 
+open Physics
+
 
 /-! Persistent audit of the actual SU(5) map, its central kernel, and its
 quotient topology. Neither the ambient SU(6) group nor its source bridges

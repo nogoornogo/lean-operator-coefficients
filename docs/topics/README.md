@@ -20,6 +20,39 @@ of coverage of all EFT operators.
 
 ## Math — Shared Algebra And Representation Interfaces
 
+- [Interacting Lagrangian coefficients at all orders](interacting-lagrangian-classification/README.md)
+- [Lagrangian model connections](lagrangian-model-connections/README.md)
+- [Euler naturality for local polynomial densities](euler-naturality/README.md)
+
+- [Derivative literature foundations and generated inputs](derivative-literature-foundations/README.md)
+- [Finite scalar derivative completeness](scalar-derivative-completeness/README.md)
+- [Quartic scalar order-four invariant completeness](scalar-quartic-four-completeness/README.md)
+- [Higgs quartic order-four coefficient completeness](higgs-quartic-four-completeness/README.md)
+- [Weyl–Higgs current coefficient completeness](weyl-higgs-current-completeness/README.md)
+
+- [Literature examples for derivative input conditions](derivative-input-literature-review/README.md)
+
+- [Derivative input necessary prohibition conditions](derivative-prohibition-input/README.md)
+
+- [Local polynomial Lagrangian helper](local-lagrangian-helper/README.md)
+
+- [Additive derivative interface adapters](derivative-interface-adapters/README.md)
+
+- [Formal first variation and EOM connection](formal-first-variation/README.md)
+
+- [Formal gauge covariance, trace IBP and engineering degree](gauge-covariance-engineering/README.md)
+
+- [Nonlinear EOM and formal gauge jets](nonlinear-eom-gauge-jets/README.md)
+
+- [Linear equation systems and free Weyl jets](linear-eom-weyl/README.md)
+- [Mixed EOM kernel, four-dimensional IBP and conjugation](jet-eom-completion/README.md)
+
+- [Jet and finite-group spurion evaluation](jet-spurion-evaluation/README.md)
+
+- [Derivatives and integration-by-parts extension](derivative-ibp/README.md)
+
+- [Finite-group spurion evaluation](finite-group-spurion-evaluation/README.md)
+
 - [Input-side necessary conditions for prohibition](prohibition-input-api/README.md)
 
 - [Composable prohibition specifications](composable-prohibition-specifications/README.md)
@@ -34,6 +67,12 @@ of coverage of all EFT operators.
 - [Takagi existence, Majorana congruence and exact basis freedom](majorana-congruence-interface/README.md)
 
 ## Physics — Operator Coefficients And Model Inputs
+
+- [Field, selection and symmetry connections](model-input-connections/README.md)
+
+- [Derivative interface literature comparisons](derivative-literature-comparison/README.md)
+
+- [Free Abelian field-strength jets and Maxwell/Bianchi equations](abelian-field-strength/README.md)
 
 - [Attainable finite SM lepton charges](sm-attainable-lepton-charges/README.md)
 - [Structural SM support evaluator feasibility](sm-support-evaluator-feasibility/README.md)
@@ -158,6 +197,8 @@ of coverage of all EFT operators.
 
 ## GUT — Specified Models And Applications
 
+- [SU(6) protection-model feasibility](su6-protection-feasibility/README.md)
+
 - [Dev–Mohapatra coefficient connection](dev-mohapatra-coefficient-connection/README.md): selected action/contraction, exact elimination and conditional normalization comparison.
 
 - [E6 Literature-Assisted Topology Boundary](e6-global-topology/README.md)
@@ -187,6 +228,11 @@ of coverage of all EFT operators.
 
 ## Infrastructure — Libraries And Tooling
 
+- [Fresh compilation and proof memory audit](proof-memory-audit/README.md)
+- [Structural Higgs cubature proofs](higgs-cubature-structure/README.md)
+
+- [Source API compatibility and subdivision](source-api-compatibility/README.md)
+
 - [SM Weyl specialization regression maintenance](sm-weyl-regression-maintenance/README.md): exact external diagnostics and support-documentation corrections.
 
 - [Math declaration namespace alignment](math-namespaces/README.md)
@@ -197,6 +243,8 @@ of coverage of all EFT operators.
 - [Computational audit workflow](computational-audit-workflow/README.md)
 
 ## Infrastructure — Documentation And Workflow
+
+- [Publication upgrade notice and README maps](publish-v1-upgrade/README.md)
 
 - [Literature links for current results](literature-linking/README.md)
 

@@ -1,5 +1,7 @@
 import GUT.SU5.SelectionRules.MixedTenMass
 
+open Physics
+
 /-! Arbitrary species matrices on finite copies of actual SU(5) tens. -/
 namespace GUT.SU5.MatrixTenMass
 set_option autoImplicit false

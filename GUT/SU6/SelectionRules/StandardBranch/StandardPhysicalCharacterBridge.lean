@@ -1,6 +1,8 @@
 import GUT.SU6.Branching.StandardSMCharacterTarget
 import Mathlib.Tactic
 
+open Physics
+
 open Math
 
 /-!

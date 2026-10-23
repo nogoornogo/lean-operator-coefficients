@@ -1,8 +1,10 @@
-import Physics.StandardModel.Spectrum.FiniteSMTarget
+import Physics.StandardModel.Spectrum.Representations.FiniteSMTarget
 import GUT.SU6.Branching.PhysicalSMTorusTarget
 import GUT.SU6.SelectionRules.StandardBranch.FiniteResidualActionFactorization
 import Mathlib.LinearAlgebra.LinearIndependent.Basic
 import Mathlib.Tactic
+
+open Physics
 
 open Math
 
@@ -27,6 +29,7 @@ open scoped BigOperators
 
 namespace GUT
 namespace StandardSMCharacterTarget
+open Physics.StandardSMCharacterTarget
 
 noncomputable section
 

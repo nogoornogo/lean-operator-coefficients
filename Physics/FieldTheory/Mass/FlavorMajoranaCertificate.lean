@@ -1,107 +1,71 @@
+import Physics.FieldTheory.Mass.Flavor.FlavorMajoranaCertificate
 import Physics.FieldTheory.Mass.FlavorMajoranaUnitary
 import Math.LinearAlgebra.UnitaryCongruenceCertificate
 import Math.LinearAlgebra.TakagiExistence
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.FieldTheory.Mass.Flavor.FlavorMajoranaCertificate instead." (since := "source-api-v1")
 
-/-! Majorana inputs with an explicit, not assumed-existing, normalization certificate. -/
-namespace GUT.FlavorMajoranaCertificate
-set_option autoImplicit false
-noncomputable section
-open Matrix
-variable {I : Type*} [Fintype I] [DecidableEq I]
+compatibility_declarations [
+  GUT.FlavorMajoranaCertificate.Input => Physics.FlavorMajoranaCertificate.Input,
+  GUT.FlavorMajoranaCertificate.Input.basis => Physics.FlavorMajoranaCertificate.Input.basis,
+  GUT.FlavorMajoranaCertificate.Input.casesOn => Physics.FlavorMajoranaCertificate.Input.casesOn,
+  GUT.FlavorMajoranaCertificate.Input.ctorIdx => Physics.FlavorMajoranaCertificate.Input.ctorIdx,
+  GUT.FlavorMajoranaCertificate.Input.mass => Physics.FlavorMajoranaCertificate.Input.mass,
+  GUT.FlavorMajoranaCertificate.Input.matrix => Physics.FlavorMajoranaCertificate.Input.matrix,
+  GUT.FlavorMajoranaCertificate.Input.mk => Physics.FlavorMajoranaCertificate.Input.mk,
+  GUT.FlavorMajoranaCertificate.Input.mk.inj => Physics.FlavorMajoranaCertificate.Input.mk.inj,
+  GUT.FlavorMajoranaCertificate.Input.mk.injEq => Physics.FlavorMajoranaCertificate.Input.mk.injEq,
+  GUT.FlavorMajoranaCertificate.Input.mk.noConfusion => Physics.FlavorMajoranaCertificate.Input.mk.noConfusion,
+  GUT.FlavorMajoranaCertificate.Input.mk.sizeOf_spec => Physics.FlavorMajoranaCertificate.Input.mk.sizeOf_spec,
+  GUT.FlavorMajoranaCertificate.Input.noConfusion => Physics.FlavorMajoranaCertificate.Input.noConfusion,
+  GUT.FlavorMajoranaCertificate.Input.noConfusionType => Physics.FlavorMajoranaCertificate.Input.noConfusionType,
+  GUT.FlavorMajoranaCertificate.Input.nonnegative => Physics.FlavorMajoranaCertificate.Input.nonnegative,
+  GUT.FlavorMajoranaCertificate.Input.normalization => Physics.FlavorMajoranaCertificate.Input.normalization,
+  GUT.FlavorMajoranaCertificate.Input.rec => Physics.FlavorMajoranaCertificate.Input.rec,
+  GUT.FlavorMajoranaCertificate.Input.recOn => Physics.FlavorMajoranaCertificate.Input.recOn,
+  GUT.FlavorMajoranaCertificate.Input.symmetric => Physics.FlavorMajoranaCertificate.Input.symmetric,
+  GUT.FlavorMajoranaCertificate.basisFreedom => Physics.FlavorMajoranaCertificate.basisFreedom,
+  GUT.FlavorMajoranaCertificate.classification => Physics.FlavorMajoranaCertificate.classification,
+  GUT.FlavorMajoranaCertificate.form => Physics.FlavorMajoranaCertificate.form,
+  GUT.FlavorMajoranaCertificate.form_symmetric => Physics.FlavorMajoranaCertificate.form_symmetric,
+  GUT.FlavorMajoranaCertificate.fromDiagonal => Physics.FlavorMajoranaCertificate.fromDiagonal,
+  GUT.FlavorMajoranaCertificate.fromDiagonal_surjective => Physics.FlavorMajoranaCertificate.fromDiagonal_surjective,
+  GUT.FlavorMajoranaCertificate.ofSymmetric => Physics.FlavorMajoranaCertificate.ofSymmetric,
+  GUT.FlavorMajoranaCertificate.ofSymmetric_matrix => Physics.FlavorMajoranaCertificate.ofSymmetric_matrix,
+  GUT.FlavorMajoranaCertificate.residualHomEquiv => Physics.FlavorMajoranaCertificate.residualHomEquiv,
+  GUT.FlavorMajoranaCertificate.residual_nonzero_iff => Physics.FlavorMajoranaCertificate.residual_nonzero_iff,
+  GUT.FlavorMajoranaCertificate.subgroup => Physics.FlavorMajoranaCertificate.subgroup,
+  GUT.FlavorMajoranaCertificate.subgroup_eq => Physics.FlavorMajoranaCertificate.subgroup_eq
+]
 
-/-- A specified symmetric form and a verified unitary normalization.
-This structure does not assert that every symmetric matrix admits such data. -/
-structure Input (I : Type*) [Fintype I] [DecidableEq I] where
-  matrix : Matrix I I ℂ
-  symmetric : matrix.IsSymm
-  mass : I → ℝ
-  nonnegative : ∀ i, 0 ≤ mass i
-  basis : unitaryGroup I ℂ
-  normalization : UnitaryCongruenceCertificate.Congruent matrix
-    (diagonal (fun i => (mass i : ℂ))) basis
-
-/-- Construct certified inputs in any supplied unitary basis, without a
-diagonalization oracle. `fromDiagonal_surjective` proves completeness. -/
-def fromDiagonal (m : I → ℝ) (hm : ∀ i, 0 ≤ m i) (P : unitaryGroup I ℂ) : Input I where
-  matrix := (P⁻¹).val.transpose * diagonal (fun i => (m i : ℂ)) * (P⁻¹).val
-  symmetric := by
-    change ((_ : Matrix I I ℂ).transpose) = _
-    simp only [transpose_mul, transpose_transpose, diagonal_transpose, Matrix.mul_assoc]
-  mass := m
-  nonnegative := hm
-  basis := P
-  normalization := by
-    simpa using (UnitaryCongruenceCertificate.inverse
-      (M := diagonal (fun i => (m i : ℂ))) (P := P⁻¹) rfl)
-
-/-- A certificate constructed by the proved Takagi theorem, not an external premise. -/
-def ofSymmetric (M : Matrix I I ℂ) (hM : M.IsSymm) : Input I :=
-  let h := TakagiExistence.exists_nonnegative_diagonal M hM
-  { matrix := M
-    symmetric := hM
-    mass := h.choose
-    nonnegative := h.choose_spec.1
-    basis := h.choose_spec.2.choose
-    normalization := h.choose_spec.2.choose_spec }
-
-theorem ofSymmetric_matrix (M : Matrix I I ℂ) (hM : M.IsSymm) :
-    (ofSymmetric M hM).matrix = M := rfl
-
-/-- The previously conditional parametrization now covers every symmetric matrix. -/
-theorem fromDiagonal_surjective (M : Matrix I I ℂ) (hM : M.IsSymm) :
-    ∃ (m : I → ℝ) (hm : ∀ i, 0 ≤ m i) (P : unitaryGroup I ℂ),
-      (fromDiagonal m hm P).matrix = M := by
-  obtain ⟨m, hm, P, hP⟩ := TakagiExistence.exists_nonnegative_diagonal M hM
-  exact ⟨m, hm, P, UnitaryCongruenceCertificate.inverse hP⟩
-
-def form (D : Input I) : LinearMap.BilinForm ℂ (I → ℂ) := D.matrix.toBilin'
-
-theorem form_symmetric (D : Input I) : (form D).IsSymm :=
-  Matrix.isSymm_toBilin'_iff_isSymm.mpr D.symmetric
-
-def subgroup (D : Input I) : Subgroup (unitaryGroup I ℂ) :=
-  FlavorStabilizer.massSubgroup FlavorMajoranaUnitary.action (form D)
-
-theorem subgroup_eq (D : Input I) :
-    subgroup D = UnitaryCongruenceCertificate.subgroup D.matrix := by
-  ext U
-  rw [UnitaryCongruenceCertificate.bilinear_iff]
-  change U ∈ FlavorStabilizer.massSubgroup FlavorMajoranaUnitary.action (form D) ↔ _
-  rw [FlavorStabilizer.mass_mem_iff]
-  rfl
-
-def classification (D : Input I) :
-    subgroup D ≃* MajoranaUnitaryClassification.Coordinates (fun i => (D.mass i : ℂ)) :=
-  (MulEquiv.subgroupCongr (subgroup_eq D)).trans
-    (UnitaryCongruenceCertificate.classification D.matrix _ D.basis D.normalization)
-
-def basisFreedom (D : Input I) :
-    UnitaryDiagonalCongruence.subgroup (fun i => (D.mass i : ℂ)) ≃
-      {Q : unitaryGroup I ℂ // UnitaryCongruenceCertificate.Congruent D.matrix
-        (diagonal (fun i => (D.mass i : ℂ))) Q} :=
-  UnitaryCongruenceCertificate.certificateEquiv D.basis D.normalization
-
-def residualHomEquiv {V W : Type*} [AddCommMonoid V] [Module ℂ V]
-    [AddCommMonoid W] [Module ℂ W] (D : Input I)
-    (a : Representation ℂ (subgroup D) V) (b : Representation ℂ (subgroup D) W) :
-    Representation.IntertwiningMap
-      (a.comp (classification D).symm.toMonoidHom)
-      (b.comp (classification D).symm.toMonoidHom) ≃ₗ[ℂ]
-        Representation.IntertwiningMap a b :=
-  SurjectiveHomTransport.homEquiv (classification D).symm.toMonoidHom
-    (classification D).symm.surjective a b
-
-theorem residual_nonzero_iff {V W : Type*} [AddCommMonoid V] [Module ℂ V]
-    [AddCommMonoid W] [Module ℂ W] (D : Input I)
-    (a : Representation ℂ (subgroup D) V) (b : Representation ℂ (subgroup D) W) :
-    (∃ f : Representation.IntertwiningMap
-      (a.comp (classification D).symm.toMonoidHom)
-      (b.comp (classification D).symm.toMonoidHom), f ≠ 0) ↔
-        ∃ f : Representation.IntertwiningMap a b, f ≠ 0 :=
-  SurjectiveHomTransport.nonzero_iff (classification D).symm.toMonoidHom
-    (classification D).symm.surjective a b
-
-end
-end GUT.FlavorMajoranaCertificate
+assert_compatible GUT.FlavorMajoranaCertificate.Input => Physics.FlavorMajoranaCertificate.Input
+assert_compatible GUT.FlavorMajoranaCertificate.Input.basis => Physics.FlavorMajoranaCertificate.Input.basis
+assert_compatible GUT.FlavorMajoranaCertificate.Input.casesOn => Physics.FlavorMajoranaCertificate.Input.casesOn
+assert_compatible GUT.FlavorMajoranaCertificate.Input.ctorIdx => Physics.FlavorMajoranaCertificate.Input.ctorIdx
+assert_compatible GUT.FlavorMajoranaCertificate.Input.mass => Physics.FlavorMajoranaCertificate.Input.mass
+assert_compatible GUT.FlavorMajoranaCertificate.Input.matrix => Physics.FlavorMajoranaCertificate.Input.matrix
+assert_compatible GUT.FlavorMajoranaCertificate.Input.mk => Physics.FlavorMajoranaCertificate.Input.mk
+assert_compatible GUT.FlavorMajoranaCertificate.Input.mk.inj => Physics.FlavorMajoranaCertificate.Input.mk.inj
+assert_compatible GUT.FlavorMajoranaCertificate.Input.mk.injEq => Physics.FlavorMajoranaCertificate.Input.mk.injEq
+assert_compatible GUT.FlavorMajoranaCertificate.Input.mk.noConfusion => Physics.FlavorMajoranaCertificate.Input.mk.noConfusion
+assert_compatible GUT.FlavorMajoranaCertificate.Input.mk.sizeOf_spec => Physics.FlavorMajoranaCertificate.Input.mk.sizeOf_spec
+assert_compatible GUT.FlavorMajoranaCertificate.Input.noConfusion => Physics.FlavorMajoranaCertificate.Input.noConfusion
+assert_compatible GUT.FlavorMajoranaCertificate.Input.noConfusionType => Physics.FlavorMajoranaCertificate.Input.noConfusionType
+assert_compatible GUT.FlavorMajoranaCertificate.Input.nonnegative => Physics.FlavorMajoranaCertificate.Input.nonnegative
+assert_compatible GUT.FlavorMajoranaCertificate.Input.normalization => Physics.FlavorMajoranaCertificate.Input.normalization
+assert_compatible GUT.FlavorMajoranaCertificate.Input.rec => Physics.FlavorMajoranaCertificate.Input.rec
+assert_compatible GUT.FlavorMajoranaCertificate.Input.recOn => Physics.FlavorMajoranaCertificate.Input.recOn
+assert_compatible GUT.FlavorMajoranaCertificate.Input.symmetric => Physics.FlavorMajoranaCertificate.Input.symmetric
+assert_compatible GUT.FlavorMajoranaCertificate.basisFreedom => Physics.FlavorMajoranaCertificate.basisFreedom
+assert_compatible GUT.FlavorMajoranaCertificate.classification => Physics.FlavorMajoranaCertificate.classification
+assert_compatible GUT.FlavorMajoranaCertificate.form => Physics.FlavorMajoranaCertificate.form
+assert_compatible GUT.FlavorMajoranaCertificate.form_symmetric => Physics.FlavorMajoranaCertificate.form_symmetric
+assert_compatible GUT.FlavorMajoranaCertificate.fromDiagonal => Physics.FlavorMajoranaCertificate.fromDiagonal
+assert_compatible GUT.FlavorMajoranaCertificate.fromDiagonal_surjective => Physics.FlavorMajoranaCertificate.fromDiagonal_surjective
+assert_compatible GUT.FlavorMajoranaCertificate.ofSymmetric => Physics.FlavorMajoranaCertificate.ofSymmetric
+assert_compatible GUT.FlavorMajoranaCertificate.ofSymmetric_matrix => Physics.FlavorMajoranaCertificate.ofSymmetric_matrix
+assert_compatible GUT.FlavorMajoranaCertificate.residualHomEquiv => Physics.FlavorMajoranaCertificate.residualHomEquiv
+assert_compatible GUT.FlavorMajoranaCertificate.residual_nonzero_iff => Physics.FlavorMajoranaCertificate.residual_nonzero_iff
+assert_compatible GUT.FlavorMajoranaCertificate.subgroup => Physics.FlavorMajoranaCertificate.subgroup
+assert_compatible GUT.FlavorMajoranaCertificate.subgroup_eq => Physics.FlavorMajoranaCertificate.subgroup_eq

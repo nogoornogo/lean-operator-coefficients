@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.ContinuousWeylYukawaModel
 import GUT.SU6.SelectionRules.Models.ContinuousWeylFullMass
 
+open Physics
+
 /-!
 # Nonzero symmetric Yukawa examples
 

@@ -1,7 +1,9 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylMassSource
-import Physics.StandardModel.Operators.StandardModelLocalOperator
+import Physics.StandardModel.Operators.Selection.StandardModelLocalOperator
 import GUT.SU6.SelectionRules.StandardBranch.StandardAbelianCharge
 import Mathlib.Tactic
+
+open Physics
 
 open Math
 

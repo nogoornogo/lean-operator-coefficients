@@ -2,6 +2,8 @@ import GUT.SU6.SelectionRules.StandardBranch.StandardBlockPhysicalCharacterBridg
 import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Tactic
 
+open Physics
+
 open Math
 
 /-!

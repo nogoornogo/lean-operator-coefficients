@@ -2,6 +2,8 @@ import Math.Audit.ImportOrigin
 import GUT.SU5.Branching.Unitary
 import GUT.SU5.Representations.MatterIrreducibility
 
+open Physics
+
 open Math
 
 /-! Persistent tests for actual matter branching, analytic realization, and
@@ -103,9 +105,9 @@ theorem quotient_recovers_barFive (g : GaugeGroup) :
     QuotientDescent.barFive (QuotientGroup.mk g) = FundamentalBranching.barBlocksRho g := rfl
 
 example : Continuous UnitaryMatter.ten := UnitaryMatter.ten_continuous
-example : TauCeti.ContRepresentation.IsUnitary UnitaryMatter.ten := UnitaryMatter.ten_unitary
+example : ContRepresentation.IsUnitary UnitaryMatter.ten := UnitaryMatter.ten_unitary
 example : Continuous UnitaryBranching.quotientTen := UnitaryBranching.quotientTen_continuous
-example : TauCeti.ContRepresentation.IsUnitary UnitaryBranching.quotientTen :=
+example : ContRepresentation.IsUnitary UnitaryBranching.quotientTen :=
   UnitaryBranching.quotientTen_unitary
 
 theorem actual_matter_irreducible :

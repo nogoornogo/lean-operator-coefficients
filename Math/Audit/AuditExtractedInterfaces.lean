@@ -1,4 +1,4 @@
-import Math.LinearAlgebra.EigenbasisTrace
+import Math.LinearAlgebra.Constructions.EigenbasisTrace
 import Math.RepresentationTheory.Characters.VirtualRepresentation
 import Math.RepresentationTheory.Decomposition.Schur
 import Math.RepresentationTheory.Unitary.ContinuousConstructions

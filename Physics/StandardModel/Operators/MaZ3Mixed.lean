@@ -1,142 +1,100 @@
+import Physics.StandardModel.Operators.Selection.MaZ3Mixed
 import Physics.StandardModel.Operators.QuarticityAdapters
 import Math.LinearAlgebra.MixedSelectionRequests
+import Math.Lean.Compatibility
 
-/-! Selected Ma et al. Z3 singlet sectors; scalar chi2 is complex. -/
-namespace GUT.MaZ3Mixed
-set_option autoImplicit false
-noncomputable section
-open Math Representation SMEpsilonTensor
-open scoped TensorProduct
-abbrev H := CyclicCharge.Group 3
-abbrev P := (StandardSMGaugeTensor.GaugeGroup × WeylSpinor.Group) × H
-@[reducible] local instance : AddCommGroup (⋀[ℂ]^2 WeylSpinor.Space) := inferInstance
-@[reducible] local instance : AddCommGroup ((⋀[ℂ]^2 WeylSpinor.Space) ⊗[ℂ] ℂ) := inferInstance
+deprecated_module "Use Physics.StandardModel.Operators.Selection.MaZ3Mixed instead." (since := "source-api-v1")
 
-def phase (g : H) : ℂ := MixedChargeSelection.cyclicCharacter g (1 : ZMod 3)
+compatibility_declarations [
+  GUT.MaZ3Mixed.Bare => Physics.MaZ3Mixed.Bare,
+  GUT.MaZ3Mixed.Dressed => Physics.MaZ3Mixed.Dressed,
+  GUT.MaZ3Mixed.H => Physics.MaZ3Mixed.H,
+  GUT.MaZ3Mixed.P => Physics.MaZ3Mixed.P,
+  GUT.MaZ3Mixed.Target => Physics.MaZ3Mixed.Target,
+  GUT.MaZ3Mixed.Target.bare => Physics.MaZ3Mixed.Target.bare,
+  GUT.MaZ3Mixed.Target.bare.elim => Physics.MaZ3Mixed.Target.bare.elim,
+  GUT.MaZ3Mixed.Target.bare.sizeOf_spec => Physics.MaZ3Mixed.Target.bare.sizeOf_spec,
+  GUT.MaZ3Mixed.Target.casesOn => Physics.MaZ3Mixed.Target.casesOn,
+  GUT.MaZ3Mixed.Target.ctorElim => Physics.MaZ3Mixed.Target.ctorElim,
+  GUT.MaZ3Mixed.Target.ctorElimType => Physics.MaZ3Mixed.Target.ctorElimType,
+  GUT.MaZ3Mixed.Target.ctorIdx => Physics.MaZ3Mixed.Target.ctorIdx,
+  GUT.MaZ3Mixed.Target.dressed => Physics.MaZ3Mixed.Target.dressed,
+  GUT.MaZ3Mixed.Target.dressed.elim => Physics.MaZ3Mixed.Target.dressed.elim,
+  GUT.MaZ3Mixed.Target.dressed.sizeOf_spec => Physics.MaZ3Mixed.Target.dressed.sizeOf_spec,
+  GUT.MaZ3Mixed.Target.noConfusion => Physics.MaZ3Mixed.Target.noConfusion,
+  GUT.MaZ3Mixed.Target.noConfusionType => Physics.MaZ3Mixed.Target.noConfusionType,
+  GUT.MaZ3Mixed.Target.ofNat => Physics.MaZ3Mixed.Target.ofNat,
+  GUT.MaZ3Mixed.Target.ofNat_ctorIdx => Physics.MaZ3Mixed.Target.ofNat_ctorIdx,
+  GUT.MaZ3Mixed.Target.rec => Physics.MaZ3Mixed.Target.rec,
+  GUT.MaZ3Mixed.Target.recOn => Physics.MaZ3Mixed.Target.recOn,
+  GUT.MaZ3Mixed.bare_forbidden => Physics.MaZ3Mixed.bare_forbidden,
+  GUT.MaZ3Mixed.compensated => Physics.MaZ3Mixed.compensated,
+  GUT.MaZ3Mixed.detector => Physics.MaZ3Mixed.detector,
+  GUT.MaZ3Mixed.detector_square => Physics.MaZ3Mixed.detector_square,
+  GUT.MaZ3Mixed.domain => Physics.MaZ3Mixed.domain,
+  GUT.MaZ3Mixed.dressed => Physics.MaZ3Mixed.dressed,
+  GUT.MaZ3Mixed.dressed_evaluation => Physics.MaZ3Mixed.dressed_evaluation,
+  GUT.MaZ3Mixed.dressed_nonzero => Physics.MaZ3Mixed.dressed_nonzero,
+  GUT.MaZ3Mixed.epsilonExterior => Physics.MaZ3Mixed.epsilonExterior,
+  GUT.MaZ3Mixed.epsilonExterior.eq_1 => Physics.MaZ3Mixed.epsilonExterior.eq_1,
+  GUT.MaZ3Mixed.epsilonExterior_apply => Physics.MaZ3Mixed.epsilonExterior_apply,
+  GUT.MaZ3Mixed.epsilon_neutrino => Physics.MaZ3Mixed.epsilon_neutrino,
+  GUT.MaZ3Mixed.exists_dressed => Physics.MaZ3Mixed.exists_dressed,
+  GUT.MaZ3Mixed.instAddCommGroupSubtypeExteriorAlgebraComplexSpaceMemSubmoduleExteriorPowerOfNatNat => Physics.MaZ3Mixed.instAddCommGroupSubtypeExteriorAlgebraComplexSpaceMemSubmoduleExteriorPowerOfNatNat,
+  GUT.MaZ3Mixed.instAddCommGroupTensorProductComplexSubtypeExteriorAlgebraSpaceMemSubmoduleExteriorPowerOfNatNat => Physics.MaZ3Mixed.instAddCommGroupTensorProductComplexSubtypeExteriorAlgebraSpaceMemSubmoduleExteriorPowerOfNatNat,
+  GUT.MaZ3Mixed.instDecidableEqTarget => Physics.MaZ3Mixed.instDecidableEqTarget,
+  GUT.MaZ3Mixed.instZeroDomain => Physics.MaZ3Mixed.instZeroDomain,
+  GUT.MaZ3Mixed.neutrino => Physics.MaZ3Mixed.neutrino,
+  GUT.MaZ3Mixed.phase => Physics.MaZ3Mixed.phase,
+  GUT.MaZ3Mixed.phase.eq_1 => Physics.MaZ3Mixed.phase.eq_1,
+  GUT.MaZ3Mixed.request => Physics.MaZ3Mixed.request,
+  GUT.MaZ3Mixed.satisfies => Physics.MaZ3Mixed.satisfies,
+  GUT.MaZ3Mixed.scalar => Physics.MaZ3Mixed.scalar,
+  GUT.MaZ3Mixed.scalar_action => Physics.MaZ3Mixed.scalar_action
+]
 
-theorem compensated (g : H) : phase g * phase g * phase g = 1 := by
-  unfold phase
-  rw [← (MixedChargeSelection.cyclicCharacter g).map_add_eq_mul,
-    ← (MixedChargeSelection.cyclicCharacter g).map_add_eq_mul]
-  change MixedChargeSelection.cyclicCharacter g (0 : ZMod 3) = 1
-  exact (MixedChargeSelection.cyclicCharacter g).map_zero_eq_one
-
-def neutrino : Representation ℂ P WeylSpinor.Space where
-  toFun g := phase g.2 • WeylSpinor.right g.1.2
-  map_one' := by ext; simp [phase, MixedChargeSelection.cyclicCharacter]
-  map_mul' g h := by
-    ext x
-    simp [phase, MixedChargeSelection.cyclicCharacter, mul_add,
-      AddChar.map_add_eq_mul, map_mul, smul_smul, mul_comm]
-
-/-- Selected complex chi2 field: printed residual phase equals the lepton phase. -/
-def scalar : Representation ℂ P ℂ :=
-  (CyclicCharge.representation (1 : ZMod 3)).comp (MonoidHom.snd _ _)
-
-theorem scalar_action (g : P) (v : ℂ) : scalar g v = phase g.2 * v := rfl
-
-def epsilonExterior : (⋀[ℂ]^2 WeylSpinor.Space) →ₗ[ℂ] ℂ :=
-  exteriorPower.alternatingMapLinearEquiv (Matrix.detRowAlternating :
-    WeylSpinor.Space [⋀^Fin 2]→ₗ[ℂ] ℂ)
-
-theorem epsilonExterior_apply (v : Fin 2 → WeylSpinor.Space) :
-    epsilonExterior (exteriorPower.ιMulti ℂ 2 v) = eps2 (v 0) (v 1) := by
-  rw [epsilonExterior, exteriorPower.alternatingMapLinearEquiv_apply_ιMulti]
-  change Matrix.det (Matrix.of v) = _
-  rw [Matrix.det_fin_two]
-  rfl
-
-theorem epsilon_neutrino (g : P) (x y : WeylSpinor.Space) :
-    eps2 (neutrino g x) (neutrino g y) =
-      (phase g.2 * phase g.2) * eps2 x y := by
-  change eps2 (phase g.2 • WeylSpinor.right g.1.2 x)
-    (phase g.2 • WeylSpinor.right g.1.2 y) = _
-  rw [eps2_smul_left, eps2_smul_right]
-  have he := IntertwiningMap.isIntertwining _ _ WeylSpinor.epsilonRight g.1.2 (x ⊗ₜ[ℂ] y)
-  change eps2 (WeylSpinor.right g.1.2 x) (WeylSpinor.right g.1.2 y) = eps2 x y at he
-  rw [he]
-  ring
-
-abbrev Bare := IntertwiningMap (neutrino.exteriorPower 2) (Representation.trivial ℂ P ℂ)
-abbrev Dressed := IntertwiningMap ((neutrino.exteriorPower 2).tprod scalar)
-  (Representation.trivial ℂ P ℂ)
-
-def dressed : Dressed where
-  toLinearMap := TensorProduct.lift ((LinearMap.mul ℂ ℂ).comp epsilonExterior)
-  isIntertwining' g := by
-    apply TensorProduct.ext
-    apply exteriorPower.linearMap_ext
-    apply AlternatingMap.ext
-    intro v
-    apply LinearMap.ext
-    intro z
-    change epsilonExterior ((neutrino.exteriorPower 2) g (exteriorPower.ιMulti ℂ 2 v)) *
-      scalar g z = epsilonExterior (exteriorPower.ιMulti ℂ 2 v) * z
-    rw [Representation.exteriorPower_apply_ιMulti, epsilonExterior_apply, epsilonExterior_apply]
-    change eps2 (neutrino g (v 0)) (neutrino g (v 1)) * (phase g.2 * z) = _
-    rw [epsilon_neutrino]
-    calc
-      _ = (phase g.2 * phase g.2 * phase g.2) * (eps2 (v 0) (v 1) * z) := by ring
-      _ = _ := by rw [compensated, one_mul]
-
-theorem dressed_evaluation : dressed
-    (exteriorPower.ιMulti ℂ 2 ![weakBasis 0,weakBasis 1] ⊗ₜ[ℂ] (1 : ℂ)) = 1 := by
-  change epsilonExterior (exteriorPower.ιMulti ℂ 2 ![weakBasis 0,weakBasis 1]) * 1 = 1
-  rw [epsilonExterior_apply]
-  simp
-
-theorem dressed_nonzero : dressed ≠ 0 := by
-  intro h
-  have he := dressed_evaluation
-  rw [h] at he
-  exact zero_ne_one he
-
-theorem exists_dressed : ∃ f : Dressed, f ≠ 0 := ⟨dressed,dressed_nonzero⟩
-
-/-- A residual element detecting the bare Majorana pair. -/
-def detector : P := (1,Multiplicative.ofAdd (1 : ZMod 3))
-
-theorem detector_square : phase detector.2 * phase detector.2 ≠ 1 := by
-  unfold phase
-  rw [← (MixedChargeSelection.cyclicCharacter detector.2).map_add_eq_mul]
-  change ZMod.stdAddChar ((2 : ZMod 3) * 1) ≠ 1
-  simp only [mul_one]
-  intro h
-  have he := ZMod.injective_stdAddChar
-    (h.trans (ZMod.stdAddChar (N := 3)).map_zero_eq_one.symm)
-  exact (by decide : (2 : ZMod 3) ≠ 0) he
-
-theorem bare_forbidden (f : Bare) : f = 0 := by
-  apply IntertwiningMap.ext
-  apply exteriorPower.linearMap_ext
-  apply AlternatingMap.ext
-  intro v
-  have he := IntertwiningMap.isIntertwining _ _ f detector (exteriorPower.ιMulti ℂ 2 v)
-  rw [Representation.exteriorPower_apply_ιMulti] at he
-  have hn : (fun i => neutrino detector (v i)) = fun i => phase detector.2 • v i := by
-    funext i
-    change phase detector.2 • WeylSpinor.right 1 (v i) = _
-    simp
-  change f (exteriorPower.ιMulti ℂ 2 (fun i => neutrino detector (v i))) = f (exteriorPower.ιMulti ℂ 2 v) at he
-  rw [hn, (exteriorPower.ιMulti ℂ 2).map_smul_univ, map_smul] at he
-  simp only [Fin.prod_univ_two, smul_eq_mul] at he
-  have hz : (phase detector.2 * phase detector.2 - 1) * f (exteriorPower.ιMulti ℂ 2 v) = 0 := by
-    linear_combination he
-  exact (mul_eq_zero.mp hz).resolve_left (sub_ne_zero.mpr detector_square)
-
-open MixedSelectionRequests SelectionCriteria
-inductive Target where | bare | dressed deriving DecidableEq
-
-def domain : Target → Type
-  | .bare => Bare
-  | .dressed => Dressed
-instance (t : Target) : Zero (domain t) := by cases t <;> unfold domain <;> infer_instance
-
-def request : Request Target := ⟨{t | t = .bare}, {t | t = .dressed}⟩
-
-theorem satisfies : Satisfies domain request := by
-  constructor
-  · intro t ht; change t = .bare at ht; subst t; exact bare_forbidden
-  · intro t ht; change t = .dressed at ht; subst t; exact exists_dressed
-end
-end GUT.MaZ3Mixed
+assert_compatible GUT.MaZ3Mixed.Bare => Physics.MaZ3Mixed.Bare
+assert_compatible GUT.MaZ3Mixed.Dressed => Physics.MaZ3Mixed.Dressed
+assert_compatible GUT.MaZ3Mixed.H => Physics.MaZ3Mixed.H
+assert_compatible GUT.MaZ3Mixed.P => Physics.MaZ3Mixed.P
+assert_compatible GUT.MaZ3Mixed.Target => Physics.MaZ3Mixed.Target
+assert_compatible GUT.MaZ3Mixed.Target.bare => Physics.MaZ3Mixed.Target.bare
+assert_compatible GUT.MaZ3Mixed.Target.bare.elim => Physics.MaZ3Mixed.Target.bare.elim
+assert_compatible GUT.MaZ3Mixed.Target.bare.sizeOf_spec => Physics.MaZ3Mixed.Target.bare.sizeOf_spec
+assert_compatible GUT.MaZ3Mixed.Target.casesOn => Physics.MaZ3Mixed.Target.casesOn
+assert_compatible GUT.MaZ3Mixed.Target.ctorElim => Physics.MaZ3Mixed.Target.ctorElim
+assert_compatible GUT.MaZ3Mixed.Target.ctorElimType => Physics.MaZ3Mixed.Target.ctorElimType
+assert_compatible GUT.MaZ3Mixed.Target.ctorIdx => Physics.MaZ3Mixed.Target.ctorIdx
+assert_compatible GUT.MaZ3Mixed.Target.dressed => Physics.MaZ3Mixed.Target.dressed
+assert_compatible GUT.MaZ3Mixed.Target.dressed.elim => Physics.MaZ3Mixed.Target.dressed.elim
+assert_compatible GUT.MaZ3Mixed.Target.dressed.sizeOf_spec => Physics.MaZ3Mixed.Target.dressed.sizeOf_spec
+assert_compatible GUT.MaZ3Mixed.Target.noConfusion => Physics.MaZ3Mixed.Target.noConfusion
+assert_compatible GUT.MaZ3Mixed.Target.noConfusionType => Physics.MaZ3Mixed.Target.noConfusionType
+assert_compatible GUT.MaZ3Mixed.Target.ofNat => Physics.MaZ3Mixed.Target.ofNat
+assert_compatible GUT.MaZ3Mixed.Target.ofNat_ctorIdx => Physics.MaZ3Mixed.Target.ofNat_ctorIdx
+assert_compatible GUT.MaZ3Mixed.Target.rec => Physics.MaZ3Mixed.Target.rec
+assert_compatible GUT.MaZ3Mixed.Target.recOn => Physics.MaZ3Mixed.Target.recOn
+assert_compatible GUT.MaZ3Mixed.bare_forbidden => Physics.MaZ3Mixed.bare_forbidden
+assert_compatible GUT.MaZ3Mixed.compensated => Physics.MaZ3Mixed.compensated
+assert_compatible GUT.MaZ3Mixed.detector => Physics.MaZ3Mixed.detector
+assert_compatible GUT.MaZ3Mixed.detector_square => Physics.MaZ3Mixed.detector_square
+assert_compatible GUT.MaZ3Mixed.domain => Physics.MaZ3Mixed.domain
+assert_compatible GUT.MaZ3Mixed.dressed => Physics.MaZ3Mixed.dressed
+assert_compatible GUT.MaZ3Mixed.dressed_evaluation => Physics.MaZ3Mixed.dressed_evaluation
+assert_compatible GUT.MaZ3Mixed.dressed_nonzero => Physics.MaZ3Mixed.dressed_nonzero
+assert_compatible GUT.MaZ3Mixed.epsilonExterior => Physics.MaZ3Mixed.epsilonExterior
+assert_compatible GUT.MaZ3Mixed.epsilonExterior.eq_1 => Physics.MaZ3Mixed.epsilonExterior.eq_1
+assert_compatible GUT.MaZ3Mixed.epsilonExterior_apply => Physics.MaZ3Mixed.epsilonExterior_apply
+assert_compatible GUT.MaZ3Mixed.epsilon_neutrino => Physics.MaZ3Mixed.epsilon_neutrino
+assert_compatible GUT.MaZ3Mixed.exists_dressed => Physics.MaZ3Mixed.exists_dressed
+assert_compatible GUT.MaZ3Mixed.instAddCommGroupSubtypeExteriorAlgebraComplexSpaceMemSubmoduleExteriorPowerOfNatNat => Physics.MaZ3Mixed.instAddCommGroupSubtypeExteriorAlgebraComplexSpaceMemSubmoduleExteriorPowerOfNatNat
+assert_compatible GUT.MaZ3Mixed.instAddCommGroupTensorProductComplexSubtypeExteriorAlgebraSpaceMemSubmoduleExteriorPowerOfNatNat => Physics.MaZ3Mixed.instAddCommGroupTensorProductComplexSubtypeExteriorAlgebraSpaceMemSubmoduleExteriorPowerOfNatNat
+assert_compatible GUT.MaZ3Mixed.instDecidableEqTarget => Physics.MaZ3Mixed.instDecidableEqTarget
+assert_compatible GUT.MaZ3Mixed.instZeroDomain => Physics.MaZ3Mixed.instZeroDomain
+assert_compatible GUT.MaZ3Mixed.neutrino => Physics.MaZ3Mixed.neutrino
+assert_compatible GUT.MaZ3Mixed.phase => Physics.MaZ3Mixed.phase
+assert_compatible GUT.MaZ3Mixed.phase.eq_1 => Physics.MaZ3Mixed.phase.eq_1
+assert_compatible GUT.MaZ3Mixed.request => Physics.MaZ3Mixed.request
+assert_compatible GUT.MaZ3Mixed.satisfies => Physics.MaZ3Mixed.satisfies
+assert_compatible GUT.MaZ3Mixed.scalar => Physics.MaZ3Mixed.scalar
+assert_compatible GUT.MaZ3Mixed.scalar_action => Physics.MaZ3Mixed.scalar_action

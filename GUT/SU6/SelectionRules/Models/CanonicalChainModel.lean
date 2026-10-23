@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.CanonicalChainTransport
 import GUT.SU6.SelectionRules.Models.ContinuousProfileModel
 
+open Physics
+
 /-! The existing positive canonical SU(6) models inhabit the common chain
 interface. Their proved hypercharge rigidity is used, not replaced by a new
 standard-embedding premise. The field action, mass and full spectrum agree. -/

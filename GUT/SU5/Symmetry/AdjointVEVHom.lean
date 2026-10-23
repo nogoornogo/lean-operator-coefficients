@@ -2,6 +2,8 @@ import GUT.SU5.Symmetry.AdjointVEVCover
 import Math.LieGroups.SpecialUnitary.AdjointBlockEquiv
 import Math.RepresentationTheory.Decomposition.SurjectiveHomTransport
 
+open Physics
+
 open Math
 
 /-! Exact global-group and algebraic residual-Hom interfaces. The gauge

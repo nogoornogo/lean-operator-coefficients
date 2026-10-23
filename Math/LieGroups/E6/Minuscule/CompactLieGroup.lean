@@ -73,7 +73,7 @@ theorem contMDiffAt_of_compactMatrix (hc : ContinuousAt f x)
     rw [← compactMatrix_mul, inv_mul_cancel, compactMatrix_one]
   have hl : AnalyticAt ℝ compactLogExtension (compactMatrix g⁻¹ * compactMatrix g) := by
     apply analyticAt_compactLogExtension
-    simpa only [hi, sub_self] using analyticAt_logOneAdd ℝ Matrix27
+    simpa only [hi] using analyticAt_log_one ℝ Matrix27
   have hm : AnalyticAt ℝ (fun A : Matrix27 => compactMatrix g⁻¹ * A) (compactMatrix g) :=
     analyticAt_const.mul analyticAt_id
   have ha := hl.comp (f := fun A : Matrix27 => compactMatrix g⁻¹ * A) hm

@@ -1,6 +1,6 @@
 import Math.RepresentationTheory.Characters.CharacterExact
 import GUT.SU5.Representations.ExoticWedgeKernel
-import Math.RepresentationTheory.TensorSquareMultilinear
+import Math.RepresentationTheory.Tensors.TensorSquareMultilinear
 import Mathlib.LinearAlgebra.ExteriorPower.WedgePairing
 import TauCeti.LinearAlgebra.SymmetricPower.Basis
 

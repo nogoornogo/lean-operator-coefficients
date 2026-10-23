@@ -1,204 +1,67 @@
+import Physics.StandardModel.Operators.Weinberg.LiWeinbergCertificate
 import Physics.StandardModel.Operators.WeinbergSMInterface
 import Physics.StandardModel.Operators.LiWeinbergConvention
 import Math.RepresentationTheory.InvariantFunctionalCoordinates
-import TauCeti.LinearAlgebra.SymmetricPower.Basis
-import Mathlib.Data.Sym.Card
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Weinberg.LiWeinbergCertificate instead." (since := "source-api-v1")
 
-/-! Normalized local interpretation of Li v2, page 38, Out[7]. -/
-namespace GUT.LiWeinbergCertificate
-set_option autoImplicit false
-noncomputable section
-open Representation ExternalInvariantTensor SMEpsilonTensor LiWeinbergConvention
-open scoped TensorProduct
-variable {R F : Type*} [Group R] [AddCommGroup F] [Module ℂ F]
-  (a : Representation ℂ R F)
+compatibility_declarations [
+  GUT.LiWeinbergCertificate.Residual => Physics.LiWeinbergCertificate.Residual,
+  GUT.LiWeinbergCertificate.candidate => Physics.LiWeinbergCertificate.candidate,
+  GUT.LiWeinbergCertificate.candidate_apply => Physics.LiWeinbergCertificate.candidate_apply,
+  GUT.LiWeinbergCertificate.candidate_diagonal => Physics.LiWeinbergCertificate.candidate_diagonal,
+  GUT.LiWeinbergCertificate.candidate_eq => Physics.LiWeinbergCertificate.candidate_eq,
+  GUT.LiWeinbergCertificate.candidate_extract => Physics.LiWeinbergCertificate.candidate_extract,
+  GUT.LiWeinbergCertificate.extract_candidate => Physics.LiWeinbergCertificate.extract_candidate,
+  GUT.LiWeinbergCertificate.finiteEquiv => Physics.LiWeinbergCertificate.finiteEquiv,
+  GUT.LiWeinbergCertificate.finite_inverse_is_candidate => Physics.LiWeinbergCertificate.finite_inverse_is_candidate,
+  GUT.LiWeinbergCertificate.finite_trivial_finrank => Physics.LiWeinbergCertificate.finite_trivial_finrank,
+  GUT.LiWeinbergCertificate.flavorBasis => Physics.LiWeinbergCertificate.flavorBasis,
+  GUT.LiWeinbergCertificate.flavorBasis_independent => Physics.LiWeinbergCertificate.flavorBasis_independent,
+  GUT.LiWeinbergCertificate.flavorBasis_is_candidate => Physics.LiWeinbergCertificate.flavorBasis_is_candidate,
+  GUT.LiWeinbergCertificate.flavorBasis_spans => Physics.LiWeinbergCertificate.flavorBasis_spans,
+  GUT.LiWeinbergCertificate.flavorEquiv => Physics.LiWeinbergCertificate.flavorEquiv,
+  GUT.LiWeinbergCertificate.flavor_entry => Physics.LiWeinbergCertificate.flavor_entry,
+  GUT.LiWeinbergCertificate.flavor_finrank => Physics.LiWeinbergCertificate.flavor_finrank,
+  GUT.LiWeinbergCertificate.mass_formula => Physics.LiWeinbergCertificate.mass_formula,
+  GUT.LiWeinbergCertificate.onFieldsCandidate => Physics.LiWeinbergCertificate.onFieldsCandidate,
+  GUT.LiWeinbergCertificate.onFields_extract => Physics.LiWeinbergCertificate.onFields_extract,
+  GUT.LiWeinbergCertificate.onFields_reconstruct => Physics.LiWeinbergCertificate.onFields_reconstruct,
+  GUT.LiWeinbergCertificate.ordered => Physics.LiWeinbergCertificate.ordered,
+  GUT.LiWeinbergCertificate.ordered_eq => Physics.LiWeinbergCertificate.ordered_eq,
+  GUT.LiWeinbergCertificate.probe => Physics.LiWeinbergCertificate.probe,
+  GUT.LiWeinbergCertificate.sign_candidate_nonzero => Physics.LiWeinbergCertificate.sign_candidate_nonzero,
+  GUT.LiWeinbergCertificate.trivial_symmetric_action => Physics.LiWeinbergCertificate.trivial_symmetric_action,
+  GUT.WeinbergResidualHom.homEquiv.eq_1 => Physics.WeinbergResidualHom.homEquiv.eq_1,
+  GUT.WeinbergSMInterface.homEquiv.eq_1 => Physics.WeinbergSMInterface.homEquiv.eq_1
+]
 
-abbrev Residual := TensorSquareMultilinear.symmetricIntertwiners a
-  (Representation.trivial ℂ R ℂ)
-
-/-- Assemble the invariant local factor and the supplied symmetric flavor map,
-before physical-field descent. This is not defined using the sector inverse. -/
-def ordered (k : Residual a) : WeinbergResidualHom.sector a :=
-  ⟨coefficient WeinbergResidualHom.localContraction k.val, by
-    intro x y h s t u v
-    change WeinbergResidualHom.localContraction _ * k.val (v ⊗ₜ[ℂ] u) =
-      -(WeinbergResidualHom.localContraction _ * k.val (u ⊗ₜ[ℂ] v))
-    rw [k.property u v]
-    change (WeinbergWeakInvariant.contraction _ * eps2 t s) * k.val _ =
-      -((WeinbergWeakInvariant.contraction _ * eps2 s t) * k.val _)
-    rw [WeinbergWeakInvariant.contraction_apply, WeinbergWeakInvariant.contraction_apply]
-    simp only [eps2]
-    ring⟩
-
-def candidate (k : Residual a) : WeinbergSMInterface.ModelSector a :=
-  (WeinbergSMInterface.reducedEquiv a).symm
-    ((WeinbergModelSector.sectorEquiv a).symm (ordered a k))
-
-theorem ordered_eq (k : Residual a) :
-    ordered a k = (WeinbergResidualHom.symmetricEquiv a).symm k := rfl
-
-theorem candidate_eq (k : Residual a) : candidate a k =
-    (WeinbergSMInterface.homEquiv a).symm
-      (TensorSquareMultilinear.symmetricSquareEquiv a _ k) := by
-  simp only [WeinbergSMInterface.homEquiv, WeinbergModelSector.homEquiv_agrees,
-    WeinbergResidualHom.homEquiv, LinearEquiv.trans_symm,
-    LinearEquiv.trans_apply, LinearEquiv.symm_apply_apply]
-  rfl
-
-theorem extract_candidate (k : Residual a) :
-    WeinbergSMInterface.homEquiv a (candidate a k) =
-      TensorSquareMultilinear.symmetricSquareEquiv a _ k := by
-  rw [candidate_eq, LinearEquiv.apply_symm_apply]
-
-theorem candidate_extract (f : WeinbergSMInterface.ModelSector a) :
-    candidate a ((TensorSquareMultilinear.symmetricSquareEquiv a _).symm
-      (WeinbergSMInterface.homEquiv a f)) = f := by
-  rw [candidate_eq, LinearEquiv.apply_symm_apply, LinearEquiv.symm_apply_apply]
-
-theorem candidate_apply (k : Residual a) (x y : Weak) (s t : WeylSpinor.Space)
-    (u v : F) (h : Fin 2 → Weak) :
-    candidate a k (exteriorPower.ιMulti ℂ 2
-      ![(x ⊗ₜ[ℂ] s) ⊗ₜ[ℂ] u, (y ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] v] ⊗ₜ[ℂ]
-      SymmetricPower.tprod ℂ h) = polarizedLocal x y h s t * k.val (u ⊗ₜ[ℂ] v) := by
-  rw [← WeinbergSMInterface.coefficientEquiv_apply]
-  change ((WeinbergModelSector.sectorEquiv a)
-    ((WeinbergModelSector.sectorEquiv a).symm (ordered a k))).val
-      (WeinbergResidualHom.input x y h s t u v) = _
-  rw [LinearEquiv.apply_symm_apply]
-  change (WeinbergWeakInvariant.contraction _ * eps2 s t) * k.val _ = _
-  rw [WeinbergWeakInvariant.contraction_apply]
-  rfl
-
-theorem candidate_diagonal (k : Residual a) (x y h : Weak)
-    (s t : WeylSpinor.Space) (u v : F) :
-    candidate a k (exteriorPower.ιMulti ℂ 2
-      ![(x ⊗ₜ[ℂ] s) ⊗ₜ[ℂ] u, (y ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] v] ⊗ₜ[ℂ]
-      SymmetricPower.tprod ℂ ![h,h]) = paperLocal x y h s t * k.val (u ⊗ₜ[ℂ] v) := by
-  rw [candidate_apply, diagonal_local]
-
-theorem probe (k : Residual a) (u v : F) :
-    candidate a k (exteriorPower.ιMulti ℂ 2
-      ![(weakBasis 0 ⊗ₜ[ℂ] weakBasis 0) ⊗ₜ[ℂ] u,
-        (weakBasis 0 ⊗ₜ[ℂ] weakBasis 1) ⊗ₜ[ℂ] v] ⊗ₜ[ℂ]
-      SymmetricPower.tprod ℂ ![weakBasis 1,weakBasis 1]) = k.val (u ⊗ₜ[ℂ] v) := by
-  rw [candidate_diagonal]
-  norm_num [paperLocal, eps2, weakBasis]
-
-theorem mass_formula (k : Residual a) (v : ℂ) (u w : F) :
-    (WeinbergSMInterface.mass a v (candidate a k)).form u w =
-      v ^ 2 * k.val (u ⊗ₜ[ℂ] w) := by
-  rw [← WeinbergSMInterface.mass_evaluation, candidate_diagonal]
-  simp [paperLocal, WeinbergMajorana.vacuum, eps2, weakBasis, pow_two]
-
-variable {I : Type*} [Fintype I] [DecidableEq I] (b : Module.Basis I ℂ F)
-
-def finiteEquiv := (WeinbergSMInterface.homEquiv a).trans
-  (InvariantFunctionalCoordinates.equiv (a.symmetricPower 2) (b.symmetricPower 2))
-
-def flavorEquiv (hr : ∀ g, (a.symmetricPower 2) g = 1) :
-    WeinbergSMInterface.ModelSector a ≃ₗ[ℂ] (Sym I 2 → ℂ) :=
-  (WeinbergSMInterface.homEquiv a).trans
-    (InvariantFunctionalCoordinates.unrestrictedEquiv _ (b.symmetricPower 2) hr)
-
-def flavorBasis (hr : ∀ g, (a.symmetricPower 2) g = 1) :=
-  Module.Basis.ofEquivFun (flavorEquiv a b hr)
-
-omit [DecidableEq I] in
-theorem flavorBasis_independent (hr : ∀ g, (a.symmetricPower 2) g = 1) :
-    LinearIndependent ℂ (flavorBasis a b hr) := (flavorBasis a b hr).linearIndependent
-
-omit [DecidableEq I] in
-theorem flavorBasis_spans (hr : ∀ g, (a.symmetricPower 2) g = 1) :
-    Submodule.span ℂ (Set.range (flavorBasis a b hr)) = ⊤ := (flavorBasis a b hr).span_eq
-
-include b in
-theorem flavor_finrank (hr : ∀ g, (a.symmetricPower 2) g = 1) :
-    Module.finrank ℂ (WeinbergSMInterface.ModelSector a) =
-      Fintype.card I * (Fintype.card I + 1) / 2 := by
-  rw [(flavorEquiv a b hr).finrank_eq, Module.finrank_pi]
-  rw [Sym.card_sym_eq_choose, Nat.choose_two_right]
-  simp [Nat.mul_comm]
-
-omit [Fintype I] [DecidableEq I] in
-theorem finite_inverse_is_candidate
-    (c : InvariantFunctionalCoordinates.space (a.symmetricPower 2) (b.symmetricPower 2)) :
-    (finiteEquiv a b).symm c = candidate a
-      ((TensorSquareMultilinear.symmetricSquareEquiv a _).symm
-        ((InvariantFunctionalCoordinates.equiv _ (b.symmetricPower 2)).symm c)) := by
-  rw [candidate_eq, LinearEquiv.apply_symm_apply]
-  rfl
-
-omit [Fintype I] [DecidableEq I] in
-theorem flavor_entry (hr : ∀ g, (a.symmetricPower 2) g = 1)
-    (f : WeinbergSMInterface.ModelSector a) (i j : I) :
-    flavorEquiv a b hr f (TauCeti.Sym.ofFn ![i,j]) =
-      (WeinbergSMInterface.homEquiv a f)
-        (SymmetricPower.tprod ℂ ![b i,b j]) := by
-  change ((b.symmetricPower 2).constr ℂ).symm
-    (WeinbergSMInterface.homEquiv a f).toLinearMap (TauCeti.Sym.ofFn ![i,j]) = _
-  rw [Module.Basis.constr_symm_apply, Module.Basis.symmetricPower_apply,
-    SymmetricPower.tprodOfSym_ofFn]
-  rfl
-
-theorem trivial_symmetric_action (g : R) :
-    ((Representation.trivial ℂ R F).symmetricPower 2) g = 1 := by
-  apply SymmetricSquareDescent.ext
-  intro v
-  rw [Representation.symmetricPower_apply_tprod]
-  rfl
-
-theorem finite_trivial_finrank (n : ℕ) :
-    Module.finrank ℂ (WeinbergSMInterface.ModelSector
-      (Representation.trivial ℂ R (Fin n → ℂ))) = n * (n + 1) / 2 := by
-  simpa using flavor_finrank (Representation.trivial ℂ R (Fin n → ℂ))
-    (Pi.basisFun ℂ (Fin n)) (trivial_symmetric_action (F := Fin n → ℂ))
-
-omit [DecidableEq I] in
-theorem flavorBasis_is_candidate (hr : ∀ g, (a.symmetricPower 2) g = 1) (i : Sym I 2) :
-    candidate a ((TensorSquareMultilinear.symmetricSquareEquiv a _).symm
-      (WeinbergSMInterface.homEquiv a (flavorBasis a b hr i))) = flavorBasis a b hr i :=
-  candidate_extract a _
-
-theorem sign_candidate_nonzero : ∃ k : Residual WeylMassTwoTorsion.signRepresentation,
-    candidate WeylMassTwoTorsion.signRepresentation k ≠ 0 := by
-  let k := WeinbergScalarFlavor.scalarCoefficient WeylMassTwoTorsion.signRepresentation
-    (by
-      intro r
-      obtain rfl | rfl := Int.units_eq_one_or r <;>
-        norm_num [WeylMassTwoTorsion.signRepresentation_apply])
-  refine ⟨k, ?_⟩
-  intro hz
-  have hp := probe WeylMassTwoTorsion.signRepresentation k 1 1
-  rw [hz] at hp
-  change (0 : ℂ) = 1 * 1 at hp
-  norm_num at hp
-
-section ActualFields
-variable {L H : Type*} [AddCommGroup L] [Module ℂ L] [AddCommGroup H] [Module ℂ H]
-  (l : Representation ℂ (WeinbergSMInterface.PhysicalGroup R) L)
-  (h : Representation ℂ (WeinbergSMInterface.PhysicalGroup R) H)
-
-def onFieldsCandidate (i : WeinbergSMInterface.Inputs a l h) (k : Residual a) :=
-  (WeinbergSMInterface.onFieldsModelEquiv a l h i).symm (candidate a k)
-
-theorem onFields_extract (i : WeinbergSMInterface.Inputs a l h) (k : Residual a) :
-    WeinbergSMInterface.onFieldsEquiv a l h i (onFieldsCandidate a l h i k) =
-      TensorSquareMultilinear.symmetricSquareEquiv a _ k := by
-  change WeinbergSMInterface.homEquiv a
-    ((WeinbergSMInterface.onFieldsModelEquiv a l h i)
-      ((WeinbergSMInterface.onFieldsModelEquiv a l h i).symm (candidate a k))) = _
-  rw [LinearEquiv.apply_symm_apply, extract_candidate]
-
-theorem onFields_reconstruct (i : WeinbergSMInterface.Inputs a l h)
-    (f : WeinbergSMInterface.Sector l h) :
-    onFieldsCandidate a l h i
-      ((TensorSquareMultilinear.symmetricSquareEquiv a _).symm
-        (WeinbergSMInterface.onFieldsEquiv a l h i f)) = f := by
-  unfold onFieldsCandidate WeinbergSMInterface.onFieldsEquiv
-  rw [LinearEquiv.trans_apply, candidate_extract, LinearEquiv.symm_apply_apply]
-end ActualFields
-
-end
-end GUT.LiWeinbergCertificate
+assert_compatible GUT.LiWeinbergCertificate.Residual => Physics.LiWeinbergCertificate.Residual
+assert_compatible GUT.LiWeinbergCertificate.candidate => Physics.LiWeinbergCertificate.candidate
+assert_compatible GUT.LiWeinbergCertificate.candidate_apply => Physics.LiWeinbergCertificate.candidate_apply
+assert_compatible GUT.LiWeinbergCertificate.candidate_diagonal => Physics.LiWeinbergCertificate.candidate_diagonal
+assert_compatible GUT.LiWeinbergCertificate.candidate_eq => Physics.LiWeinbergCertificate.candidate_eq
+assert_compatible GUT.LiWeinbergCertificate.candidate_extract => Physics.LiWeinbergCertificate.candidate_extract
+assert_compatible GUT.LiWeinbergCertificate.extract_candidate => Physics.LiWeinbergCertificate.extract_candidate
+assert_compatible GUT.LiWeinbergCertificate.finiteEquiv => Physics.LiWeinbergCertificate.finiteEquiv
+assert_compatible GUT.LiWeinbergCertificate.finite_inverse_is_candidate => Physics.LiWeinbergCertificate.finite_inverse_is_candidate
+assert_compatible GUT.LiWeinbergCertificate.finite_trivial_finrank => Physics.LiWeinbergCertificate.finite_trivial_finrank
+assert_compatible GUT.LiWeinbergCertificate.flavorBasis => Physics.LiWeinbergCertificate.flavorBasis
+assert_compatible GUT.LiWeinbergCertificate.flavorBasis_independent => Physics.LiWeinbergCertificate.flavorBasis_independent
+assert_compatible GUT.LiWeinbergCertificate.flavorBasis_is_candidate => Physics.LiWeinbergCertificate.flavorBasis_is_candidate
+assert_compatible GUT.LiWeinbergCertificate.flavorBasis_spans => Physics.LiWeinbergCertificate.flavorBasis_spans
+assert_compatible GUT.LiWeinbergCertificate.flavorEquiv => Physics.LiWeinbergCertificate.flavorEquiv
+assert_compatible GUT.LiWeinbergCertificate.flavor_entry => Physics.LiWeinbergCertificate.flavor_entry
+assert_compatible GUT.LiWeinbergCertificate.flavor_finrank => Physics.LiWeinbergCertificate.flavor_finrank
+assert_compatible GUT.LiWeinbergCertificate.mass_formula => Physics.LiWeinbergCertificate.mass_formula
+assert_compatible GUT.LiWeinbergCertificate.onFieldsCandidate => Physics.LiWeinbergCertificate.onFieldsCandidate
+assert_compatible GUT.LiWeinbergCertificate.onFields_extract => Physics.LiWeinbergCertificate.onFields_extract
+assert_compatible GUT.LiWeinbergCertificate.onFields_reconstruct => Physics.LiWeinbergCertificate.onFields_reconstruct
+assert_compatible GUT.LiWeinbergCertificate.ordered => Physics.LiWeinbergCertificate.ordered
+assert_compatible GUT.LiWeinbergCertificate.ordered_eq => Physics.LiWeinbergCertificate.ordered_eq
+assert_compatible GUT.LiWeinbergCertificate.probe => Physics.LiWeinbergCertificate.probe
+assert_compatible GUT.LiWeinbergCertificate.sign_candidate_nonzero => Physics.LiWeinbergCertificate.sign_candidate_nonzero
+assert_compatible GUT.LiWeinbergCertificate.trivial_symmetric_action => Physics.LiWeinbergCertificate.trivial_symmetric_action
+assert_compatible GUT.WeinbergResidualHom.homEquiv.eq_1 => Physics.WeinbergResidualHom.homEquiv.eq_1
+assert_compatible GUT.WeinbergSMInterface.homEquiv.eq_1 => Physics.WeinbergSMInterface.homEquiv.eq_1

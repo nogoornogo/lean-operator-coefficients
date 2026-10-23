@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.PhysicalWeylMassSource
 import GUT.SU6.SelectionRules.Models.ProfileZeroModeSupport
 
+open Physics
+
 /-!
 # Physical SU(6) sources for family-dependent SM profiles
 

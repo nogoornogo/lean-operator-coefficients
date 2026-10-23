@@ -1,5 +1,7 @@
 import GUT.PatiSalam.Embeddings.ComponentRepresentations
 
+open Physics
+
 /-! The bidoublet as Hom(right,left): its columns have 6Y=-3,+3.
 This dual-index convention is explicit; no EW vacuum-selection theorem. -/
 namespace GUT.PatiSalam.PhiRepresentation

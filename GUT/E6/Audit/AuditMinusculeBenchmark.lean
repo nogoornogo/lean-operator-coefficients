@@ -1,6 +1,8 @@
 import GUT.E6.SelectionRules.MinusculeBenchmark
 import Lean.Util.CollectAxioms
 
+open Physics
+
 open Math
 
 /-! Actual finite and continuous residual-group examples on the candidate
@@ -14,7 +16,7 @@ namespace GUT.E6.AuditMinusculeBenchmark
 open Math.E6
 noncomputable section
 
-open Minuscule Minuscule.SU5Coordinates MinusculeBenchmark GUT.SU5
+open Minuscule Minuscule.SU5Coordinates MinusculeBenchmark GUT.SU5 Physics.SU5
 open FiniteAbelianChargeSectors StandardAbelianCharge StandardSMCharacterTarget
 open StandardWeylDualTarget
 

@@ -4,6 +4,16 @@ This ledger records current core, input-construction and application interfaces.
 Optional sufficient input routes are not premises of the general theorem.
 Additional concrete model statements are in the [scoped-input ledger](assumptions/concrete-model-inputs.md).
 
+## Shared Selected-Field Connections
+
+The [SU(6) shared dictionary consumer](../Physics/FIELD_CONNECTIONS.md)
+constructs exact joint SM-gauge/residual-circle identifications from the
+existing unmixed boundary embeddings, extractions and selected-image proofs.
+Its right-sector stability and selected extraction covariance are derived.
+Weyl factors, internal duals, coefficient/jet transports and fixed-vacuum
+insertion use the shared factories. The sterile amplitude is kept separately;
+no analytic mixed-mode, full brane-action or quantum premise is discharged.
+
 ## SU(5) Scalar/Block And Mass Controls
 
 The [SU(5) physical qque adapter](../../applications/GUT/SU5_SCALAR_BLOCK_QQUE.md)
@@ -422,6 +432,43 @@ target, with arbitrary singlet index, forces neutral qque character for
 arbitrary genuine H characters. This extracts existing profile equalities;
 it neither supplies full-SM radical maps nor adds an independent no-go.
 
+## Cyclic Protecting-Input Feasibility
+
+The [model-admission test](../../../../model-studies/su6-protection/feasibility.md)
+uses the same actual finite-dimensional unitary SU(6) times commuting cyclic
+action, standard (-2,3) restriction, arbitrary invariant symmetric mass and
+positive pure-generation radical index, with arbitrary singlets. Faithful
+characters of any positive cyclic order and the all-left Yukawa dictionary
+`(q,-q-h,-q+h,l,-l+h)` give `3q+l=0`. At h=0 the associated actual
+three-generation bounded B1 input is allowed, so a protecting input cannot
+supply that UV target. No UV representation/copy bound, branching table,
+rank certificate or new light-field identification is assumed.
+
+The concrete Z2 lepton-parity IR mass/radical, Yukawa and all-degree
+derivative-free certificate is retained, while its proposed UV target is
+excluded. The charged-Higgs statement is only an index constraint. Other
+embeddings, noncommuting actions, non-pure targets and boundary-mode selection
+are not excluded by this test; no protecting SU(6) realization is produced.
+
+## Boundary-Selected SU(6) Input
+
+The [boundary construction](../../../../model-studies/su6-protection/boundary-model.md)
+constructs chiral amplitude projectors on actual exterior cube, exterior square,
+fundamental and singlet carriers. Standard SM-equivariant light maps and the
+residual action D(t)=diag(t² I3,I2,1) are proved. Its SU(6) compensator is a
+homomorphism, with the central degree phases derived on every exterior power.
+Singlet VEVs, the weak–singlet Higgs entry and the boundary internal contractions
+are invariant. The C4 restriction forbids all nonderivative SM/Higgs B1 degrees.
+The derivative selection theorem retains full stable relations and requires the
+selected charge law explicitly.
+
+No analytic unmixed/mixed mode equation, full brane-action identification,
+nonzero physical mass matrix, exotic-scalar completeness or quantum protection
+is assumed proved. In particular the paper's baryon anomaly remains a quantum
+boundary. A full mixed-mode identification must be supplied before transporting
+the coefficient result to that analytic spectrum. This amplitude construction
+does not satisfy or contradict the finite mass-radical mechanism above.
+
 ## Non-Abelian Residual and Color/Weak Samples
 
 [Sample results](../../../../topics/sm-support-and-lfv-decomposition/outside-class-sample-results.md):
@@ -480,3 +527,25 @@ premise. `LRModelAdmissionControls` proves an invariant identity operator has
 zero kernel and a zero operator has the whole bidoublet kernel, while the
 selected (1,0) operator has the desired Higgs kernel. This refutes sufficiency
 of symmetry data alone, not the source model or all scalar potentials.
+
+## Certified concrete mass transport
+
+The v4.35.0 compatibility port keeps the constructed SU(6) UV mass behind
+its existing pullback-certificate interface. `StandardSMUVMass.mass_form_eq`
+proves equality with the original branching pullback form. The continuous
+Weyl model uses a constructed equality-transport certificate retaining
+heterogeneous equality with the original mass and the same radical
+representation, dimension and character. No mass, branching equivalence or
+spectrum assumption is added. Coordinate and Yukawa consumers use the proved
+form equality; the physical scope is unchanged. The
+[dependency record](../../../../topics/derivative-ibp/dependency-integration.md)
+links the implementation and the 7/10 strict concrete transport audits.
+
+`StandardScalarBlock.embedding_mem_radical` now uses the proved coordinate
+form equality and a zero heavy-field/dual projection through
+`ProjectedWeylMass.mem_radical_of_projection`. The actual `StandardSMUVMass`
+definition and its character/radical results remain unchanged by this repair.
+The [ScalarBlock audit](../../../../../GUT/SU6/SelectionRules/Audit/AuditScalarBlockQque.lean)
+includes the six projection/form helpers among 83 strict transitive checks.
+The [carrier/projection pilot](../../../../topics/derivative-ibp/carrier-pilot.md)
+records the checked bridge and removed replacement-mass trials.

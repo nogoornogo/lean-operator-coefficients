@@ -1,5 +1,7 @@
 import GUT.SU5.Matching.LightSpeciesExhaustion
-import Math.LinearAlgebra.FourSlotGeneration
+import Math.LinearAlgebra.Constructions.FourSlotGeneration
+
+open Physics
 
 open Math
 

@@ -21,7 +21,7 @@ open HalfSpin
 example : Module.finrank ℂ (Space 1) = 1 := by simpa using finrank 1 (by decide)
 example : Module.finrank ℂ (Space 5) = 16 := finrank_sixteen
 example : Module.finrank ℂ (HilbertSpace 5) = 16 := hilbert_finrank_sixteen
-example : TauCeti.ContRepresentation.IsUnitary (unitaryModel 5) := unitaryModel_unitary 5
+example : ContRepresentation.IsUnitary (unitaryModel 5) := unitaryModel_unitary 5
 example : Continuous (fun p : Group 10 × HilbertSpace 5 => unitaryModel 5 p.1 p.2) :=
   unitaryModel_continuous 5
 example : Continuous (fun p : Group 0 × HilbertSpace 0 => unitaryModel 0 p.1 p.2) :=

@@ -7,6 +7,12 @@ linear exchange relations is exactly an equivariant Hom from the corresponding
 input quotient. With a proved finite local contraction basis, this gives a
 residual-Hom classification with explicit extraction and reconstruction.
 
+The [scalar jet/IBP consumer](SCALAR_JET_IBP.md) independently constructs its
+relation submodule as the range of actual total divergences, proves internal
+covariance and applies this descent framework. Its fixed-grade and complete
+quadratic quotient results do not extend the finite-local contraction theorem
+to arbitrary mixed-statistics derivative sources.
+
 ## 2. Inputs and conclusion
 
 The general quotient theorem accepts an arbitrary field, residual group,
@@ -80,31 +86,31 @@ gives the character component, with its eigencondition proved explicitly.
 This does not require finite-dimensionality. In characteristic dividing |S|
 the stated invertibility premise fails; no such decomposition is claimed.
 
-- [RelationQuotient](../../../../../Math/RepresentationTheory/RelationQuotient.lean):
+- [RelationQuotient](../../../../../Math/RepresentationTheory/Relations/RelationQuotient.lean):
   `equiv`, `vanish_relations_iff`, `relations_stable`.
-- [FiniteStatisticsQuotient](../../../../../Math/RepresentationTheory/FiniteStatisticsQuotient.lean):
+- [FiniteStatisticsQuotient](../../../../../Math/RepresentationTheory/Relations/FiniteStatisticsQuotient.lean):
   `equiv`, `average_sub_mem`, `characterEquiv`, `mem_twisted`.
-- [ResidualRelationPresentation](../../../../../Math/RepresentationTheory/ResidualRelationPresentation.lean):
+- [ResidualRelationPresentation](../../../../../Math/RepresentationTheory/Relations/ResidualRelationPresentation.lean):
   `familyEquiv`, `stable`, `admissible`, `equiv`.
-- [FiniteLocalRelationCompleteness](../../../../../Math/RepresentationTheory/FiniteLocalRelationCompleteness.lean):
+- [FiniteLocalRelationCompleteness](../../../../../Math/RepresentationTheory/Coefficients/FiniteLocalRelationCompleteness.lean):
   `equiv`, `extraction`, `reconstruction`, `nonzero_iff`.
-- [SignedRelationQuotient](../../../../../Math/RepresentationTheory/SignedRelationQuotient.lean):
+- [SignedRelationQuotient](../../../../../Math/RepresentationTheory/Relations/SignedRelationQuotient.lean):
   `equiv`, `empty_relations`, `identity_relations`, `identity_relations_top`.
-- [InvolutionYoung](../../../../../Math/RepresentationTheory/InvolutionYoung.lean):
+- [InvolutionYoung](../../../../../Math/RepresentationTheory/Tensors/InvolutionYoung.lean):
   `quotientEquiv`, `splitting`, `coefficientEquiv`.
-- [TwoSlotYoung](../../../../../Math/RepresentationTheory/TwoSlotYoung.lean):
+- [TwoSlotYoung](../../../../../Math/RepresentationTheory/Tensors/TwoSlotYoung.lean):
   tensor-slot `splitting`, signed quotient equivalences and projector formulas.
-- [TwoSlotYoungSquares](../../../../../Math/RepresentationTheory/TwoSlotYoungSquares.lean):
+- [TwoSlotYoungSquares](../../../../../Math/RepresentationTheory/Tensors/TwoSlotYoungSquares.lean):
   `symmetricEquiv`, `exteriorEquiv`, `splitting`, signed quotient adapters.
-- [Weinberg consumer](../../../../../Physics/StandardModel/Operators/WeinbergRelationCompleteness.lean):
+- [Weinberg consumer](../../../../../Physics/StandardModel/Operators/Weinberg/WeinbergRelationCompleteness.lean):
   `modelEquiv`, `symmetricHomEquiv`, `modelEquiv_agrees`.
 
 ## 6. Scope and limitations
 
-[TensorPermutationStatistics](../../../../../Math/RepresentationTheory/TensorPermutationStatistics.lean)
+[TensorPermutationStatistics](../../../../../Math/RepresentationTheory/Relations/TensorPermutationStatistics.lean)
 instantiates finite statistics for every tensor degree and arbitrary complex
 flavor. Its pure-tensor convention uses inverse permutation, matching TauCeti.
-[YoungTensorProjector](../../../../../Math/RepresentationTheory/YoungTensorProjector.lean)
+[YoungTensorProjector](../../../../../Math/RepresentationTheory/Tensors/YoungTensorProjector.lean)
 constructs a residual-equivariant projector for each supplied Young tableau,
 by transporting TauCeti's proved rational normalized symmetrizer. The kernel
 quotient is equivariantly equivalent to the image, and kernel and image are
@@ -125,62 +131,62 @@ identified with the standard square carriers by proved equivariant maps.
 No derivatives, EOM/IBP, amplitudes, UV matching or rates are included.
 
 The intrinsic extension in
-[CommutingStatisticsModule](../../../../../Math/RepresentationTheory/CommutingStatisticsModule.lean)
+[CommutingStatisticsModule](../../../../../Math/RepresentationTheory/Relations/CommutingStatisticsModule.lean)
 proves the nonredundant decomposition for any commuting finite statistics action,
 provided the group's cardinal is nonzero in the field. Maschke establishes
 semisimplicity, including for infinite-dimensional carriers. Residual maps
 preserve actual isotypic components, and their sum is an equivariant equivalence.
-[DirectSumResidualHom](../../../../../Math/RepresentationTheory/DirectSumResidualHom.lean)
+[DirectSumResidualHom](../../../../../Math/RepresentationTheory/Constructions/DirectSumResidualHom.lean)
 then gives a product of block Homs with inverse assembly.
 
-[SpechtIsotypicLabels](../../../../../Math/RepresentationTheory/SpechtIsotypicLabels.lean)
+[SpechtIsotypicLabels](../../../../../Math/RepresentationTheory/Constructions/SpechtIsotypicLabels.lean)
 connects TauCeti's complex Specht classification to arbitrary-dimensional modules
 through regular-module classes. A simple constituent's label is its Specht type;
 labels are injective and the set of occurring components is finite.
-[TensorStatisticsIsotypic](../../../../../Math/RepresentationTheory/TensorStatisticsIsotypic.lean)
+[TensorStatisticsIsotypic](../../../../../Math/RepresentationTheory/Relations/TensorStatisticsIsotypic.lean)
 gives supported-partition residual Hom coordinates in every tensor degree.
 This is a full intrinsic isotypic splitting, not a tableau basis or a
 multiplicity-space basis. Individual tableau images are not claimed to form
 the nonredundant direct sum.
 
-[RelationStatisticsIsotypic](../../../../../Math/RepresentationTheory/RelationStatisticsIsotypic.lean)
+[RelationStatisticsIsotypic](../../../../../Math/RepresentationTheory/Relations/RelationStatisticsIsotypic.lean)
 composes input-relation descent with the same decomposition. The relation space
 must be stable under both actions. This condition is explicit: arbitrary
 residual-stable relations need not admit the original statistics action.
 
-[FiniteLocalStatistics](../../../../../Math/RepresentationTheory/FiniteLocalStatistics.lean)
+[FiniteLocalStatistics](../../../../../Math/RepresentationTheory/Relations/FiniteLocalStatistics.lean)
 derives genuine input statistics from the proved finite local dictionary and
 commuting local/flavor actions. Its computed matrices obey the group law and
 agree with the coefficient-side exchange matrices.
-[FiniteLocalIsotypicCompleteness](../../../../../Math/RepresentationTheory/FiniteLocalIsotypicCompleteness.lean)
+[FiniteLocalIsotypicCompleteness](../../../../../Math/RepresentationTheory/Coefficients/FiniteLocalIsotypicCompleteness.lean)
 connects the actual local coefficient sector to the input relation quotient
 and its product of residual-Hom isotypic blocks. Probe extraction and contraction
 reconstruction are explicit. For units-valued character relations,
-[CharacterRelationStability](../../../../../Math/RepresentationTheory/CharacterRelationStability.lean)
+[CharacterRelationStability](../../../../../Math/RepresentationTheory/Relations/CharacterRelationStability.lean)
 proves statistics stability; it is not a new application assumption. Forward
 coefficient pullback remains contravariant, while the input action is a genuine
 representation. No finite-dimensional flavor hypothesis is added.
 
-[MultiplicityCoordinates](../../../../../Math/RepresentationTheory/MultiplicityCoordinates.lean)
+[MultiplicityCoordinates](../../../../../Math/RepresentationTheory/Constructions/MultiplicityCoordinates.lean)
 proves existence of simple-copy coordinates for each intrinsic isotypic block,
 with an arbitrary multiplicity index. These coordinates are noncanonical;
 their residual action is transported in full and may mix copies. Changes
 between chosen coordinates are equivariant, and residual coefficients admit
 an inverse Hom transport with explicit evaluation formulas.
-[FiniteLocalBasisConversion](../../../../../Math/RepresentationTheory/FiniteLocalBasisConversion.lean)
+[FiniteLocalBasisConversion](../../../../../Math/RepresentationTheory/Constructions/FiniteLocalBasisConversion.lean)
 converts two proved normalized/exhaustive local dictionaries by their cross-probe
 matrix, with its inverse and equality of reconstructed coefficients. This does
 not yet identify coordinates with a canonical statistics-Hom multiplicity space
 or with Li's basis conventions.
 
-[StatisticsMultiplicityCoordinates](../../../../../Math/RepresentationTheory/StatisticsMultiplicityCoordinates.lean)
+[StatisticsMultiplicityCoordinates](../../../../../Math/RepresentationTheory/Relations/StatisticsMultiplicityCoordinates.lean)
 constructs those chosen presentations for the actual commuting-statistics blocks,
 refines the full block-Hom product and proves extraction, inverse reconstruction,
 zero detection and independence under change of presentation.
 `FiniteLocalIsotypicCompleteness.characterMultiplicityEquiv` applies this to the
 independently defined local/flavor character sector. Coordinate existence is
 proved internally. The concrete
-[two-contraction controls](../../../../../Math/RepresentationTheory/FiniteLocalBasisConversionControls.lean)
+[two-contraction controls](../../../../../Math/RepresentationTheory/Constructions/FiniteLocalBasisConversionControls.lean)
 verify sum/difference dictionaries and both conversion matrices for arbitrary
 residual flavor. This completes the chosen-coordinate stage, not a canonical
 statistics-Hom realization or Li p/y/m/j identification.
@@ -193,30 +199,30 @@ theorem premise here; see the related
 All descent and classification claims above are Lean proofs.
 
 Persistent audits:
-[24 mathematical checks](../../../../../Math/RepresentationTheory/Audit/AuditRelationCompleteness.lean)
-and [9 Weinberg checks](../../../../../Physics/StandardModel/Operators/Audit/AuditWeinbergRelationCompleteness.lean).
+[24 mathematical checks](../../../../../Math/RepresentationTheory/Coefficients/Audit/AuditRelationCompleteness.lean)
+and [9 Weinberg checks](../../../../../Physics/StandardModel/Operators/Weinberg/Audit/AuditWeinbergRelationCompleteness.lean).
 They allow only `propext`, `Classical.choice` and `Quot.sound` transitively.
-[Signed controls](../../../../../Math/RepresentationTheory/SignedRelationControls.lean)
+[Signed controls](../../../../../Math/RepresentationTheory/Relations/SignedRelationControls.lean)
 verify both statistics signs, nonzero descended examples and the inconsistent
 identity zero quotient. Build commands and integration status belong to the
 [topic record](../../../../topics/derivative-free-completeness/README.md).
-The [two-slot audit](../../../../../Math/RepresentationTheory/Audit/AuditTwoSlotYoung.lean)
+The [two-slot audit](../../../../../Math/RepresentationTheory/Tensors/Audit/AuditTwoSlotYoung.lean)
 performs 36 strict transitive checks of projectors, equivariant inverse laws,
 decomposition, tensor specialization and independent square carrier adapters.
-The [finite statistics audit](../../../../../Math/RepresentationTheory/Audit/AuditFiniteStatisticsQuotient.lean)
+The [finite statistics audit](../../../../../Math/RepresentationTheory/Relations/Audit/AuditFiniteStatisticsQuotient.lean)
 adds 13 strict transitive checks. The average projection's invariant/image
 properties are proved mathlib inputs, not external literature premises.
-The [arbitrary-slot Young audit](../../../../../Math/RepresentationTheory/Audit/AuditYoungTensorProjector.lean)
+The [arbitrary-slot Young audit](../../../../../Math/RepresentationTheory/Tensors/Audit/AuditYoungTensorProjector.lean)
 adds 14 strict transitive checks, including the upstream normalization premise.
 See the [reuse record](../../../../topics/derivative-free-completeness/arbitrary-slot-young.md)
 for the inspected but unconnected Schur-Weyl boundary.
-The [isotypic audit](../../../../../Math/RepresentationTheory/Audit/AuditStatisticsIsotypic.lean)
+The [isotypic audit](../../../../../Math/RepresentationTheory/Relations/Audit/AuditStatisticsIsotypic.lean)
 adds 23 strict checks, including the complex Specht classification dependency
 and arbitrary-dimensional supported-partition coordinates.
-The [finite local statistics audit](../../../../../Math/RepresentationTheory/Audit/AuditFiniteLocalStatistics.lean)
+The [finite local statistics audit](../../../../../Math/RepresentationTheory/Relations/Audit/AuditFiniteLocalStatistics.lean)
 adds 16 strict checks of matrix laws, compatibility, character-relation stability,
 quotient extraction/reconstruction and the final block-Hom equivalence.
-The [multiplicity-coordinate audit](../../../../../Math/RepresentationTheory/Audit/AuditMultiplicityCoordinates.lean)
+The [multiplicity-coordinate audit](../../../../../Math/RepresentationTheory/Constructions/Audit/AuditMultiplicityCoordinates.lean)
 performs 31 strict checks of simple-copy existence, coordinate and Hom transport,
 the actual block/character-sector consumers, change of choice and concrete
 finite local dictionary conversion in both directions.

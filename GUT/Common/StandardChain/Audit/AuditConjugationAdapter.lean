@@ -2,6 +2,8 @@ import GUT.Common.StandardChain.ConjugationAdapter
 import GUT.SU5.SelectionRules.StandardChainBenchmark
 import Lean.Util.CollectAxioms
 
+open Physics
+
 open Math
 
 /-! Positive control: actual SU(5) representatives, unchanged arbitrary mass

@@ -5,12 +5,21 @@
 Can relaxing strict commutation with UV SU(6) allow a residual symmetry to
 prohibit dimension-six Delta-B-one coefficients in the original model setting?
 The investigation tested covariant actions and concrete candidates, then proved
-a conditional obstruction for a specified scalar/block class. No protecting
-model was constructed. The earlier exploration was stopped at stage 01 and reopened for a bounded
-light-placement screen at stage 02. This application remains separate from
+a conditional obstruction for a specified scalar/block class. The separate
+[boundary construction](boundary-model.md) now supplies algebraic protecting
+amplitudes, with analytic mixed-mode admission explicit. The earlier exploration
+was stopped at stage 01 and reopened for a bounded light-placement screen at stage 02. This application remains separate from
 the general completeness claim.
 
 ## Established Results
+
+The [renewed feasibility test](feasibility.md) connects the constructed
+lepton-parity SM input to actual SU(6) mass-radical index conditions. The
+generic test covers arbitrary cyclic order and UV representations; lepton
+parity fails its commuting standard-chain admission condition. The guide
+lists required changes for a new candidate and
+separates the [formal boundary construction](boundary-model.md) from this
+finite-dimensional mass-radical class.
 
 The [scalar/block obstruction](scalar-block-obstruction.md) is the main result
 of this study. On the standard `15 + bar6 + bar6` placement, with the specified

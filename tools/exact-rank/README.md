@@ -6,7 +6,7 @@ factor and a right inverse of the row factor. Every identity is then checked
 by `decide +kernel` in the generated Lean source. The generator is not trusted.
 
     python3 tools/exact-rank/certify.py tools/exact-rank/examples.json
-    python3 tools/exact-rank/certify.py tools/exact-rank/examples.json --check Math/LinearAlgebra/ExactRankCertificateExamples.lean
+    python3 tools/exact-rank/certify.py tools/exact-rank/examples.json --check Math/LinearAlgebra/Constructions/ExactRankCertificateExamples.lean
     lake build Math.LinearAlgebra.ExactRankCertificateExamples
 
 Input is a JSON list of matrices with explicit `rows`, `cols`, `entries`.
@@ -49,9 +49,9 @@ input here, so the table is before residual invariance or q/l selection.
 This standard-library, exact-integer diagnostic uses color weights
 `(1,0),(0,1),(-1,-1)` for `diag(z0,z1,(z0*z1)^-1)`, followed by weak,
 left-spin, right-spin and integral hypercharge coordinates. Its six positive
-roots match [SMCompactTorus](../../Physics/StandardModel/Operators/SMCompactTorus.lean).
+roots match [SMCompactTorus](../../Physics/StandardModel/Operators/Support/Decomposition/SMCompactTorus.lean).
 Gauge duals negate gauge weights; conjugate species exchange the active spin
-factor, as in [the signed dictionary](../../Physics/StandardModel/Operators/DeltaLOneSignedFields.lean).
+factor, as in [the signed dictionary](../../Physics/StandardModel/Operators/BaryonOne/Inputs/DeltaLOneSignedFields.lean).
 Three flavor copies repeat each slot. A Higgs constituent has weak weights
 `m,m-2,...,-m` and hypercharge `3*delta`.
 
@@ -110,7 +110,7 @@ kernel-checked result; the later coefficient decomposition below also
 closes Q18,m6,delta=-6. The all-107 certificate remains open. See the [result](../../docs/topics/sm-computable-characters/kernel-results.md)
 and [verification](../../docs/topics/sm-computable-characters/kernel-verification.md).
 
-    lake env lean tools/exact-rank/kernel-weight-data.lean | cmp - Physics/StandardModel/Operators/SMKernelWeightData.lean
+    lake env lean tools/exact-rank/kernel-weight-data.lean | cmp - Physics/StandardModel/Operators/Support/Coordinates/SMKernelWeightData.lean
     python3 tools/exact-rank/kernel-neutral-target.py 0 18 6 -6 > /tmp/q18-target.lean
     python3 tools/exact-rank/kernel-probe.py /tmp/q18-target.lean /tmp/q18-target.log
 

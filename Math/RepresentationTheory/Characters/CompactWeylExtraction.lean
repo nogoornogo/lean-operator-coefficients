@@ -1,5 +1,5 @@
 import Math.RepresentationTheory.Characters.CompactHomDimension
-import Math.RepresentationTheory.InvariantCoefficientTransport
+import Math.RepresentationTheory.Coefficients.InvariantCoefficientTransport
 
 /-! Positive-root extraction and a precisely isolated, unformalized Weyl
 integration input. Consumers prove implications, not the literature premise. -/

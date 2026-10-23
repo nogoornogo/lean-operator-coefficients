@@ -6,7 +6,7 @@ See the [proof-document conventions](../../../TEMPLATE.md) for citation roles an
 
 ### Statement
 
-[CompactLightQque](../../../../../Physics/StandardModel/Operators/CompactLightQque.lean)
+[CompactLightQque](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/CompactLightQque.lean)
 extends the four-weight non-Abelian qque source endpoint to compact topological
 groups H with continuous residual action. H need not be finite or Abelian.
 
@@ -45,7 +45,7 @@ existence theorem for compact infinite H is asserted by this result.
    target constituent yields a surjection from the actual light sector.
 4. [ResidualWeightContinuity](../../../../../Math/RepresentationTheory/Characters/ResidualWeightContinuity.lean)
    descends residual continuity to invariant subspaces and torus weights.
-5. [CompactResidualLightQuotient](../../../../../Physics/FieldTheory/Mass/CompactResidualLightQuotient.lean)
+5. [CompactResidualLightQuotient](../../../../../Physics/FieldTheory/Mass/Algebra/CompactResidualLightQuotient.lean)
    combines the target, the actual opposite-weight dual, and semisimple
    splitting to derive one nonzero irreducible split quotient common to the
    four sectors.

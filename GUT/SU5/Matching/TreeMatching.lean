@@ -1,6 +1,8 @@
 import GUT.SU5.Matching.HeavyCurrents
-import Physics.FieldTheory.Matching.PairedVector
-import Physics.StandardModel.Operators.QqueSpinorExterior
+import Physics.FieldTheory.Matching.Core.PairedVector
+import Physics.StandardModel.Operators.BaryonOne.Qque.QqueSpinorExterior
+
+open Physics
 
 open Math
 

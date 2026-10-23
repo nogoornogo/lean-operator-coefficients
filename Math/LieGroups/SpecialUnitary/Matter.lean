@@ -89,10 +89,10 @@ def dualEquiv (n : ℕ) : Representation.Equiv (antifundamental n) (unitaryDual 
 def wedgeEquiv (n : ℕ) : Representation.Equiv (exteriorTwo n) (unitaryWedge n).toRepresentation :=
   FiniteBasisUnitaryModel.modelEquiv _ _ _
 
-theorem dual_unitary (n : ℕ) : TauCeti.ContRepresentation.IsUnitary (unitaryDual n) :=
+theorem dual_unitary (n : ℕ) : ContRepresentation.IsUnitary (unitaryDual n) :=
   FiniteBasisUnitaryModel.model_unitary _ _ _
 
-theorem wedge_unitary (n : ℕ) : TauCeti.ContRepresentation.IsUnitary (unitaryWedge n) :=
+theorem wedge_unitary (n : ℕ) : ContRepresentation.IsUnitary (unitaryWedge n) :=
   FiniteBasisUnitaryModel.model_unitary _ _ _
 
 theorem dual_continuous (n : ℕ) : Continuous (unitaryDual n) :=

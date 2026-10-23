@@ -1,5 +1,7 @@
 import GUT.SU6.Yukawa.LightEquations
-import Math.LinearAlgebra.SmallSymmetricRank
+import Math.LinearAlgebra.Symmetric.SmallSymmetricRank
+
+open Physics
 
 open Math
 

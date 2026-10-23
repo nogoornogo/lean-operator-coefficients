@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardPhysicalCharacterBridge
 import Mathlib.Tactic
 
+open Physics
+
 open Math
 
 /-!

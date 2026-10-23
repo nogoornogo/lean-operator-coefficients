@@ -1,5 +1,7 @@
 import GUT.SU6.Yukawa.VacuumImage
 
+open Physics
+
 open Math
 
 /-! Exact light-field equations for the exhaustive generated mass family. -/

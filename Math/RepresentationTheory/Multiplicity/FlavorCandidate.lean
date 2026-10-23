@@ -1,5 +1,5 @@
 import Math.RepresentationTheory.Multiplicity.MultiplicityUnitaryCentralizer
-import Math.RepresentationTheory.FamilyStabilizer
+import Math.RepresentationTheory.Content.FamilyStabilizer
 
 /-! The actual gauge-commuting unitary mixing group as a candidate flavor
 action. Preserving specified interaction tensors is an additional condition. -/

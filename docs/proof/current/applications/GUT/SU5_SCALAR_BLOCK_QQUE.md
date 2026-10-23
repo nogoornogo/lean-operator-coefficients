@@ -138,7 +138,7 @@ proofs and standard library infrastructure.
 
 ## Shared Physical Implication
 
-[PhysicalCommonCopyModel](../../../../../Physics/FieldTheory/Mass/PhysicalCommonCopyModel.lean)
+[PhysicalCommonCopyModel](../../../../../Physics/FieldTheory/Mass/Surplus/PhysicalCommonCopyModel.lean)
 abstracts the actual mass-square, range-action and physical exterior implication
 without a SU(5) carrier or model-layer imports. Its model interface derives the
 three full-copy mass squares for every invariant symmetric B; light support and

@@ -1,39 +1,24 @@
+import Physics.StandardModel.Operators.Support.Quark.SMQFifthBranching
 import Physics.StandardModel.Operators.SMQCoreBranching
 import Math.RepresentationTheory.SU3DoubleSpinFifth
+import Math.Lean.Compatibility
 
-/-! Actual Q-core fifth and complementary seventh color/weak/spin
-decompositions. No numerical rank or multiplicity is evaluated. -/
-namespace GUT.SMQFifthBranching
-set_option autoImplicit false
-noncomputable section
-open Math Representation SMColoredCoreBranching SMQCoreBranching
-open scoped TensorProduct
-@[reducible] local instance (A B : Type*) [AddCommGroup A] [Module ℂ A]
-    [AddCommGroup B] [Module ℂ B] : AddCommGroup (A ⊗[ℂ] B) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((SU3DoubleSpinSquare.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((Module.Dual ℂ SU3DoubleSpinSquare.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
+deprecated_module "Use Physics.StandardModel.Operators.Support.Quark.SMQFifthBranching instead." (since := "source-api-v1")
 
-def positiveFifth : Representation.Equiv ((core 0).exteriorPower 5)
-    (SU3DoubleSpinFifth.positiveBranches.comp (projection false)) :=
-  (positiveEquiv.exteriorPower 5).trans
-    (SplitRepresentationProjection.restrictEquiv SU3DoubleSpinFifth.positive (projection false))
+compatibility_declarations [
+  GUT.SMQFifthBranching.instAddCommGroupTensorProductComplexColorDoublet_physics => Physics.SMQFifthBranching.instAddCommGroupTensorProductComplexColorDoublet_physics,
+  GUT.SMQFifthBranching.instAddCommGroupTensorProductComplexDualColorDoublet_physics => Physics.SMQFifthBranching.instAddCommGroupTensorProductComplexDualColorDoublet_physics,
+  GUT.SMQFifthBranching.instAddCommGroupTensorProductComplex_physics => Physics.SMQFifthBranching.instAddCommGroupTensorProductComplex_physics,
+  GUT.SMQFifthBranching.negativeFifth => Physics.SMQFifthBranching.negativeFifth,
+  GUT.SMQFifthBranching.negativeSeventh => Physics.SMQFifthBranching.negativeSeventh,
+  GUT.SMQFifthBranching.positiveFifth => Physics.SMQFifthBranching.positiveFifth,
+  GUT.SMQFifthBranching.positiveSeventh => Physics.SMQFifthBranching.positiveSeventh
+]
 
-def positiveSeventh : Representation.Equiv ((core 0).exteriorPower 7)
-    (SU3DoubleSpinFifth.positiveBranches.dual.comp (projection false)) :=
-  (positiveEquiv.exteriorPower 7).trans
-    (SplitRepresentationProjection.restrictEquiv SU3DoubleSpinFifth.positiveSeven (projection false))
-
-def negativeFifth : Representation.Equiv ((core 5).exteriorPower 5)
-    (SU3DoubleSpinFifth.positiveBranches.dual.comp (projection true)) :=
-  (negativeEquiv.exteriorPower 5).trans
-    (SplitRepresentationProjection.restrictEquiv SU3DoubleSpinFifth.negative (projection true))
-
-def negativeSeventh : Representation.Equiv ((core 5).exteriorPower 7)
-    (SU3DoubleSpinFifth.positiveBranches.comp (projection true)) :=
-  (negativeEquiv.exteriorPower 7).trans
-    (SplitRepresentationProjection.restrictEquiv SU3DoubleSpinFifth.negativeSeven (projection true))
-
-end
-end GUT.SMQFifthBranching
+assert_compatible GUT.SMQFifthBranching.instAddCommGroupTensorProductComplexColorDoublet_physics => Physics.SMQFifthBranching.instAddCommGroupTensorProductComplexColorDoublet_physics
+assert_compatible GUT.SMQFifthBranching.instAddCommGroupTensorProductComplexDualColorDoublet_physics => Physics.SMQFifthBranching.instAddCommGroupTensorProductComplexDualColorDoublet_physics
+assert_compatible GUT.SMQFifthBranching.instAddCommGroupTensorProductComplex_physics => Physics.SMQFifthBranching.instAddCommGroupTensorProductComplex_physics
+assert_compatible GUT.SMQFifthBranching.negativeFifth => Physics.SMQFifthBranching.negativeFifth
+assert_compatible GUT.SMQFifthBranching.negativeSeventh => Physics.SMQFifthBranching.negativeSeventh
+assert_compatible GUT.SMQFifthBranching.positiveFifth => Physics.SMQFifthBranching.positiveFifth
+assert_compatible GUT.SMQFifthBranching.positiveSeventh => Physics.SMQFifthBranching.positiveSeventh

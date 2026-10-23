@@ -4,7 +4,7 @@ See the [proof-document conventions](../../../TEMPLATE.md) for citation roles an
 
 ## 1. Result and status
 
-The [global entrance](../../../../../Physics/StandardModel/Operators/VectorlikeSpectrumQque.lean)
+The [global entrance](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/VectorlikeSpectrumQque.lean)
 derives the three H-equivariant multiplicity decompositions formerly supplied
 to [balanced species extensions](../../applications/Physics/BALANCED_SPECIES_EXTENSION.md).
 

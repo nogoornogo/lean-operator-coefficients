@@ -36,7 +36,7 @@ finite charge neutrality is never treated as sufficient by itself.
 
 ## Charged-Higgs restriction
 
-[BaryonTrialitySMInput](../../../../../Physics/StandardModel/Operators/BaryonTrialitySMInput.lean)
+[BaryonTrialitySMInput](../../../../../Physics/StandardModel/Operators/Selection/BaryonTrialitySMInput.lean)
 proves actual scalar actions, a nonzero-value charge constraint and 9-divisibility
 of 3B. It uses local hypercharge neutrality and an explicit integral charge
 identity. `all_forbidden` eliminates absolute B1/B2 at every mixed degree on

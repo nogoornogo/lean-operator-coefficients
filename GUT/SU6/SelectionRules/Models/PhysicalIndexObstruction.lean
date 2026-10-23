@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.PhysicalChainSource
 import GUT.SU6.SelectionRules.Models.FiniteIndexCertificate
 
+open Physics
+
 open Math
 namespace GUT.SU6PhysicalIndexObstruction
 set_option autoImplicit false

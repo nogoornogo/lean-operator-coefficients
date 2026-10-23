@@ -1,44 +1,23 @@
+import Physics.StandardModel.Operators.Support.Dimension.SMB1ExactMinimaExamples
 import Physics.StandardModel.Operators.SMB1ExactMinima
+import Math.Lean.Compatibility
 
-/-! Importing consumers of previously unresolved global B1 minima. -/
-namespace GUT.SMB1ExactMinimaExamples
-open Math SMB1ExactMinima SMMinimumOperatorDimension
+deprecated_module "Use Physics.StandardModel.Operators.Support.Dimension.SMB1ExactMinimaExamples instead." (since := "source-api-v1")
 
-theorem generic_weak_bound {k : ℕ} [NeZero k] (q l : ZMod k) {n : ℕ}
-    (p : Fin n → DeltaLOneSignedInput.Species) (h d : ℕ)
-    (ha : SelectionCriteria.Allowed
-      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d)) :
-    |7*(SMQLPatternRequests.blCharge p).2-(SMQLPatternRequests.blCharge p).1| ≤
-      12+(SMChargeDegreeBounds.twiceDimension n h d : ℤ) :=
-  SMB1WeakDimensionBounds.original_weak_envelope q l p h d ha
+compatibility_declarations [
+  GUT.SMB1ExactMinimaExamples.generic_row_minimum => Physics.SMB1ExactMinimaExamples.generic_row_minimum,
+  GUT.SMB1ExactMinimaExamples.generic_weak_bound => Physics.SMB1ExactMinimaExamples.generic_weak_bound,
+  GUT.SMB1ExactMinimaExamples.k11_minimum_thirty_one => Physics.SMB1ExactMinimaExamples.k11_minimum_thirty_one,
+  GUT.SMB1ExactMinimaExamples.k2_all_degree_forbidden => Physics.SMB1ExactMinimaExamples.k2_all_degree_forbidden,
+  GUT.SMB1ExactMinimaExamples.k2_none => Physics.SMB1ExactMinimaExamples.k2_none,
+  GUT.SMB1ExactMinimaExamples.k5_minimum_seven => Physics.SMB1ExactMinimaExamples.k5_minimum_seven,
+  GUT.SMB1ExactMinimaExamples.negative_baryon_below_minimum => Physics.SMB1ExactMinimaExamples.negative_baryon_below_minimum
+]
 
-/-- The old retained [6,7] interval is now closed at dimension seven. -/
-theorem k5_minimum_seven : IsMinimum (1 : ZMod 5) 3 3 14 :=
-  exact_of_match 1 3 14 (by decide +kernel) (by decide +kernel)
-
-/-- The old retained [21,31] interval is now closed at dimension thirty-one. -/
-theorem k11_minimum_thirty_one : IsMinimum (0 : ZMod 11) 1 3 62 :=
-  exact_of_match 0 1 62 (by decide +kernel) (by decide +kernel)
-
-theorem k2_none : lowerMinimum (0 : ZMod 2) 1=none := by decide +kernel
-
-theorem k2_all_degree_forbidden :
-    SMQLPatternRequests.OriginalForbidden (0 : ZMod 2) 1 (fun c => c.1.natAbs=3) :=
-  (none_iff_forbidden 0 1).mp k2_none
-
-theorem negative_baryon_below_minimum {n : ℕ}
-    (p : Fin n → DeltaLOneSignedInput.Species) (h d : ℕ)
-    (hb : (SMQLPatternRequests.blCharge p).1= -3)
-    (hd : SMChargeDegreeBounds.twiceDimension n h d<62) :
-    SelectionCriteria.Forbidden
-      (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor (0 : ZMod 11) 1) p h d) := by
-  apply k11_minimum_thirty_one.forbidden_below p h d _ hd
-  rw [hb]
-  decide +kernel
-
-theorem generic_row_minimum (i : Fin 11) (r : SMFiniteLeptonAssignments.Row) [NeZero r.k]
-    (hr : r ∈ SMFiniteLeptonAssignments.batches i) (ha : r.b1Forbidden=false) :
-    ∃ M, rowMinimum r=some M ∧ SMB1MinimumClassification.rowUpper r=some M ∧
-      IsMinimum (r.q : ZMod r.k) r.l 3 M := row_minimum i r hr ha
-
-end GUT.SMB1ExactMinimaExamples
+assert_compatible GUT.SMB1ExactMinimaExamples.generic_row_minimum => Physics.SMB1ExactMinimaExamples.generic_row_minimum
+assert_compatible GUT.SMB1ExactMinimaExamples.generic_weak_bound => Physics.SMB1ExactMinimaExamples.generic_weak_bound
+assert_compatible GUT.SMB1ExactMinimaExamples.k11_minimum_thirty_one => Physics.SMB1ExactMinimaExamples.k11_minimum_thirty_one
+assert_compatible GUT.SMB1ExactMinimaExamples.k2_all_degree_forbidden => Physics.SMB1ExactMinimaExamples.k2_all_degree_forbidden
+assert_compatible GUT.SMB1ExactMinimaExamples.k2_none => Physics.SMB1ExactMinimaExamples.k2_none
+assert_compatible GUT.SMB1ExactMinimaExamples.k5_minimum_seven => Physics.SMB1ExactMinimaExamples.k5_minimum_seven
+assert_compatible GUT.SMB1ExactMinimaExamples.negative_baryon_below_minimum => Physics.SMB1ExactMinimaExamples.negative_baryon_below_minimum

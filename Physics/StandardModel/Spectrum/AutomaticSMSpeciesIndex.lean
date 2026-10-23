@@ -1,54 +1,30 @@
+import Physics.StandardModel.Spectrum.Representations.AutomaticSMSpeciesIndex
 import Physics.StandardModel.Spectrum.ExactSMResidualSpectrum
 import Physics.StandardModel.Spectrum.PairwisePositiveSpeciesIndex
-import Math.RepresentationTheory.Multiplicity.CompactMultiplicityPresentation
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Spectrum.Representations.AutomaticSMSpeciesIndex instead." (since := "source-api-v1")
 
-/-! Actual species indices have a normalized finite irreducible presentation.
-No exact-spectrum assumption or supplied target family is used here. -/
+compatibility_declarations [
+  GUT.AutomaticSMSpeciesIndex.Carrier => Physics.AutomaticSMSpeciesIndex.Carrier,
+  GUT.AutomaticSMSpeciesIndex.Index => Physics.AutomaticSMSpeciesIndex.Index,
+  GUT.AutomaticSMSpeciesIndex.PairwisePositive => Physics.AutomaticSMSpeciesIndex.PairwisePositive,
+  GUT.AutomaticSMSpeciesIndex.action => Physics.AutomaticSMSpeciesIndex.action,
+  GUT.AutomaticSMSpeciesIndex.coefficients => Physics.AutomaticSMSpeciesIndex.coefficients,
+  GUT.AutomaticSMSpeciesIndex.continuous => Physics.AutomaticSMSpeciesIndex.continuous,
+  GUT.AutomaticSMSpeciesIndex.index_character => Physics.AutomaticSMSpeciesIndex.index_character,
+  GUT.AutomaticSMSpeciesIndex.inequivalent => Physics.AutomaticSMSpeciesIndex.inequivalent,
+  GUT.AutomaticSMSpeciesIndex.presentation => Physics.AutomaticSMSpeciesIndex.presentation,
+  GUT.AutomaticSMSpeciesIndex.species_matches => Physics.AutomaticSMSpeciesIndex.species_matches
+]
 
-namespace GUT.AutomaticSMSpeciesIndex
-noncomputable section
-open Representation InvariantWeylMass ContinuousRepresentationScope ProductFactorization
-open SU5.MaximalTorus
-
-variable {H G E : Type*} [Group H] [Group G]
-  [NormedAddCommGroup E] [InnerProductSpace ℂ E] [FiniteDimensional ℂ E]
-  (j : Torus →* G) (rho : Representation ℂ (G × H) E)
-  (B : SymmetricMass (rho.comp (j.prodMap (MonoidHom.id H))))
-  (D : LightSMAction.Compatible j rho B)
-  [TopologicalSpace H] [IsTopologicalGroup H] [CompactSpace H]
-  (hd : IsJointlyContinuous D.action)
-
-def presentation := CompactMultiplicityPresentation.normalized D.action ExactSMResidualSpectrum.gauge
-  (hd.comp (ContinuousMonoidHom.inr _ H))
-abbrev Index := (presentation j rho B D hd).Index
-abbrev Carrier := (presentation j rho B D hd).Carrier
-abbrev action := (presentation j rho B D hd).action
-abbrev coefficients := (presentation j rho B D hd).coefficients
-
-theorem continuous (i : Index j rho B D hd) :
-    IsJointlyContinuous (action j rho B D hd i) :=
-  (presentation j rho B D hd).continuous i
-
-theorem inequivalent (i k : Index j rho B D hd) (hne : i ≠ k) :
-    IsEmpty (Representation.Equiv (action j rho B D hd i) (action j rho B D hd k)) :=
-  (presentation j rho B D hd).inequivalent i k hne
-
-theorem index_character (s : Fin 5) (h : H) :
-    CompactMultiplicityIndex.index D.action (ExactSMResidualSpectrum.gauge s) h =
-      CompactVirtualCharacter.character (action j rho B D hd)
-        (coefficients j rho B D hd s) h :=
-  (presentation j rho B D hd).character s h
-
-theorem species_matches : VirtualSMSpeciesIndex.SpeciesMatches j rho B D
-    (action j rho B D hd) (coefficients j rho B D hd) :=
-  ⟨index_character j rho B D hd 0,
-    index_character j rho B D hd 1,
-    index_character j rho B D hd 4⟩
-
-def PairwisePositive : Prop :=
-  PairwisePositiveSpeciesIndex.PairwisePositive (coefficients j rho B D hd)
-
-end
-end GUT.AutomaticSMSpeciesIndex
+assert_compatible GUT.AutomaticSMSpeciesIndex.Carrier => Physics.AutomaticSMSpeciesIndex.Carrier
+assert_compatible GUT.AutomaticSMSpeciesIndex.Index => Physics.AutomaticSMSpeciesIndex.Index
+assert_compatible GUT.AutomaticSMSpeciesIndex.PairwisePositive => Physics.AutomaticSMSpeciesIndex.PairwisePositive
+assert_compatible GUT.AutomaticSMSpeciesIndex.action => Physics.AutomaticSMSpeciesIndex.action
+assert_compatible GUT.AutomaticSMSpeciesIndex.coefficients => Physics.AutomaticSMSpeciesIndex.coefficients
+assert_compatible GUT.AutomaticSMSpeciesIndex.continuous => Physics.AutomaticSMSpeciesIndex.continuous
+assert_compatible GUT.AutomaticSMSpeciesIndex.index_character => Physics.AutomaticSMSpeciesIndex.index_character
+assert_compatible GUT.AutomaticSMSpeciesIndex.inequivalent => Physics.AutomaticSMSpeciesIndex.inequivalent
+assert_compatible GUT.AutomaticSMSpeciesIndex.presentation => Physics.AutomaticSMSpeciesIndex.presentation
+assert_compatible GUT.AutomaticSMSpeciesIndex.species_matches => Physics.AutomaticSMSpeciesIndex.species_matches

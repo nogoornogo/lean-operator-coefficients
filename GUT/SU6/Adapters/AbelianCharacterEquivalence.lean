@@ -1,5 +1,7 @@
 import GUT.SU6.Adapters.AbelianCharacterBasis
 
+open Physics
+
 /-! Equal trace characters give actual equivalences of finite-dimensional
 unitary Abelian representations, via the proved prescribed eigenbases. -/
 

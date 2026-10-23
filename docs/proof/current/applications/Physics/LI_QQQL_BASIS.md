@@ -7,9 +7,9 @@ independently defined derivative-free degree-(3,1) qqql exterior coefficient
 sector. The proof includes literal contraction agreement, exterior descent and
 two-sided nonredundant flavor reconstruction, not just a matching count.
 
-Sources: [conventions](../../../../../Physics/StandardModel/Operators/LiQqqlConvention.lean),
-[exterior certificate](../../../../../Physics/StandardModel/Operators/LiQqqlExterior.lean),
-[finite coordinates](../../../../../Physics/StandardModel/Operators/QqqlFiniteFlavor.lean).
+Sources: [conventions](../../../../../Physics/StandardModel/Operators/BaryonOne/Qqql/LiQqqlConvention.lean),
+[exterior certificate](../../../../../Physics/StandardModel/Operators/BaryonOne/Qqql/LiQqqlExterior.lean),
+[finite coordinates](../../../../../Physics/StandardModel/Operators/BaryonOne/Qqql/QqqlFiniteFlavor.lean).
 
 ## Inputs And Citation Role
 
@@ -69,7 +69,7 @@ choice, not ABC4EFT runtime arrays or a general Young-tableau algorithm.
 The full p/y/m/j construction, amplitude correspondence, derivatives, EOM/IBP,
 four-family total and physical rates are not claimed.
 
-The [strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditQqqlFlavorComponents.lean)
+The [strict audit](../../../../../Physics/StandardModel/Operators/BaryonOne/Qqql/Audit/AuditQqqlFlavorComponents.lean)
 checks transitive axioms and import layers. Only `propext`, `Classical.choice`
 and `Quot.sound` are permitted. Exact finite sign/cardinality checks are Lean
 kernel proofs, not external premises. Commands and full-build evidence are

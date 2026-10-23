@@ -1,178 +1,89 @@
+import Physics.StandardModel.Operators.BaryonOne.Inputs.BnvSevenLocal
 import Physics.StandardModel.Gauge.DipoleGaugeTensor
 import Physics.FieldTheory.Spinor.FourSameWeylCompleteness
 import Physics.StandardModel.Operators.DuqlOrderedCompleteness
 import Physics.StandardModel.Operators.FourWeakWeylCompleteness
 import Math.RepresentationTheory.FiniteLocalRelationCompleteness
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.Inputs.BnvSevenLocal instead." (since := "source-api-v1")
 
-/-! Reduced local dictionaries for the same-chirality dimension-seven families.
-The charged, typed field transports and fermionic exchange quotient are separate
-obligations; this module does not identify a full physical sector with this core. -/
-namespace GUT.BnvSevenLocal
-set_option autoImplicit false
-noncomputable section
-open Representation SMEpsilonTensor ExternalInvariantTensor ExternalInvariantFactorization
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.BnvSevenLocal.LocalCoefficient => Physics.BnvSevenLocal.LocalCoefficient,
+  GUT.BnvSevenLocal.colorPairing => Physics.BnvSevenLocal.colorPairing,
+  GUT.BnvSevenLocal.colorPairing.eq_1 => Physics.BnvSevenLocal.colorPairing.eq_1,
+  GUT.BnvSevenLocal.colorProbe => Physics.BnvSevenLocal.colorProbe,
+  GUT.BnvSevenLocal.colorProbe.eq_1 => Physics.BnvSevenLocal.colorProbe.eq_1,
+  GUT.BnvSevenLocal.colorRepresentation => Physics.BnvSevenLocal.colorRepresentation,
+  GUT.BnvSevenLocal.color_unique => Physics.BnvSevenLocal.color_unique,
+  GUT.BnvSevenLocal.coordinates => Physics.BnvSevenLocal.coordinates,
+  GUT.BnvSevenLocal.fourWeakGaugePairing => Physics.BnvSevenLocal.fourWeakGaugePairing,
+  GUT.BnvSevenLocal.fourWeakGaugeProbe => Physics.BnvSevenLocal.fourWeakGaugeProbe,
+  GUT.BnvSevenLocal.fourWeakGaugeRepresentation => Physics.BnvSevenLocal.fourWeakGaugeRepresentation,
+  GUT.BnvSevenLocal.fourWeakGauge_reconstruction => Physics.BnvSevenLocal.fourWeakGauge_reconstruction,
+  GUT.BnvSevenLocal.gaugePairing => Physics.BnvSevenLocal.gaugePairing,
+  GUT.BnvSevenLocal.gaugeProbe => Physics.BnvSevenLocal.gaugeProbe,
+  GUT.BnvSevenLocal.gaugeRepresentation => Physics.BnvSevenLocal.gaugeRepresentation,
+  GUT.BnvSevenLocal.gauge_normalized => Physics.BnvSevenLocal.gauge_normalized,
+  GUT.BnvSevenLocal.gauge_unique => Physics.BnvSevenLocal.gauge_unique,
+  GUT.BnvSevenLocal.mixedFlavorEquiv => Physics.BnvSevenLocal.mixedFlavorEquiv,
+  GUT.BnvSevenLocal.mixedFourWeakFlavorEquiv => Physics.BnvSevenLocal.mixedFourWeakFlavorEquiv,
+  GUT.BnvSevenLocal.mixedFourWeakPairing => Physics.BnvSevenLocal.mixedFourWeakPairing,
+  GUT.BnvSevenLocal.mixedFourWeakProbe => Physics.BnvSevenLocal.mixedFourWeakProbe,
+  GUT.BnvSevenLocal.mixedFourWeakRepresentation => Physics.BnvSevenLocal.mixedFourWeakRepresentation,
+  GUT.BnvSevenLocal.mixedFourWeakStatisticsEquiv => Physics.BnvSevenLocal.mixedFourWeakStatisticsEquiv,
+  GUT.BnvSevenLocal.mixedFourWeak_pairing_probe => Physics.BnvSevenLocal.mixedFourWeak_pairing_probe,
+  GUT.BnvSevenLocal.mixedFourWeak_reconstruction => Physics.BnvSevenLocal.mixedFourWeak_reconstruction,
+  GUT.BnvSevenLocal.mixedPairing => Physics.BnvSevenLocal.mixedPairing,
+  GUT.BnvSevenLocal.mixedProbe => Physics.BnvSevenLocal.mixedProbe,
+  GUT.BnvSevenLocal.mixedRepresentation => Physics.BnvSevenLocal.mixedRepresentation,
+  GUT.BnvSevenLocal.mixed_normalized => Physics.BnvSevenLocal.mixed_normalized,
+  GUT.BnvSevenLocal.mixed_unique => Physics.BnvSevenLocal.mixed_unique,
+  GUT.BnvSevenLocal.pairing => Physics.BnvSevenLocal.pairing,
+  GUT.BnvSevenLocal.pairing_probe => Physics.BnvSevenLocal.pairing_probe,
+  GUT.BnvSevenLocal.probe => Physics.BnvSevenLocal.probe,
+  GUT.BnvSevenLocal.reconstruction => Physics.BnvSevenLocal.reconstruction,
+  GUT.BnvSevenLocal.representation => Physics.BnvSevenLocal.representation,
+  GUT.BnvSevenLocal.sameFlavorEquiv => Physics.BnvSevenLocal.sameFlavorEquiv,
+  GUT.BnvSevenLocal.sameStatisticsEquiv => Physics.BnvSevenLocal.sameStatisticsEquiv,
+  GUT.BnvSevenLocal.spin_normalized => Physics.BnvSevenLocal.spin_normalized
+]
 
-def colorRepresentation :=
-  ((SmallSpecialUnitary.defining 3).tprod (SmallSpecialUnitary.defining 3)).tprod
-    (SmallSpecialUnitary.defining 3)
-
-def colorPairing : IntertwiningMap colorRepresentation
-    (Representation.trivial ℂ (Matrix.specialUnitaryGroup (Fin 3) ℂ) ℂ) where
-  toLinearMap := colorTensor
-  isIntertwining' g := by
-    apply TensorProduct.ext
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro a
-    apply LinearMap.ext; intro b
-    apply LinearMap.ext; intro c
-    exact eps3_invariant _ g.prop.2 a b c
-
-def colorProbe := (colorBasis 0 ⊗ₜ[ℂ] colorBasis 1) ⊗ₜ[ℂ] colorBasis 2
-
-theorem color_unique (f : IntertwiningMap colorRepresentation
-    (Representation.trivial ℂ (Matrix.specialUnitaryGroup (Fin 3) ℂ) ℂ)) :
-    f = f colorProbe • colorPairing := by
-  let k := TensorProduct.curry (TensorProduct.curry f.toLinearMap)
-  have hk := SMEpsilonUniqueness.color_unique k (by
-    intro g a b c
-    exact IntertwiningMap.isIntertwining _ _ f g ((a ⊗ₜ[ℂ] b) ⊗ₜ[ℂ] c))
-  apply IntertwiningMap.ext
-  apply TensorProduct.ext
-  apply TensorProduct.ext
-  apply LinearMap.ext; intro a
-  apply LinearMap.ext; intro b
-  apply LinearMap.ext; intro c
-  exact LinearMap.congr_fun (LinearMap.congr_fun (LinearMap.congr_fun hk a) b) c
-
-def gaugeRepresentation := external colorRepresentation DipoleGaugeTensor.singletRepresentation
-def gaugePairing := coefficient colorPairing DipoleGaugeTensor.singlet
-def gaugeProbe := colorProbe ⊗ₜ[ℂ] DipoleGaugeTensor.singletWitness
-
-theorem gauge_unique (f : Coefficient colorRepresentation DipoleGaugeTensor.singletRepresentation) :
-    f = f gaugeProbe • gaugePairing :=
-  NormalizedInvariantFactor.product_unique _ _ _ _ _ _ color_unique
-    DipoleGaugeTensor.singlet_unique f
-
-def representation := external gaugeRepresentation (FourSameWeylCompleteness.representation true)
-abbrev LocalCoefficient := IntertwiningMap representation
-  (Representation.trivial ℂ _ ℂ)
-def pairing (i : Fin 2) := coefficient gaugePairing (FourSameWeylCompleteness.basisPairing true i)
-def probe (i : Fin 2) := gaugeProbe ⊗ₜ[ℂ] FourSameWeylCompleteness.probe i
-
-theorem gauge_normalized : gaugePairing gaugeProbe = 1 := by
-  change colorPairing colorProbe * DipoleGaugeTensor.singlet DipoleGaugeTensor.singletWitness = 1
-  simp [colorPairing, colorProbe, DipoleGaugeTensor.singlet_normalized]
-
-theorem pairing_probe (i j : Fin 2) : pairing i (probe j) = if i = j then 1 else 0 := by
-  change gaugePairing gaugeProbe *
-    FourSameWeylCompleteness.basisPairing true i (FourSameWeylCompleteness.probe j) = _
-  rw [gauge_normalized, one_mul, FourSameWeylCompleteness.basisPairing_probe]
-
-theorem reconstruction (f : LocalCoefficient) : f = ∑ i, f (probe i) • pairing i :=
-  FiniteInvariantFactor.product_left_line gaugeRepresentation
-    (FourSameWeylCompleteness.representation true) gaugePairing gaugeProbe gauge_unique
-    _ _ (FourSameWeylCompleteness.basisPairing_formula true) f
-
-def coordinates : LocalCoefficient ≃ₗ[ℂ] (Fin 2 → ℂ) where
-  toFun f i := f (probe i)
-  invFun c := ∑ i, c i • pairing i
-  left_inv f := (reconstruction f).symm
-  right_inv c := by
-    funext j
-    change (∑ i, c i • pairing i) (probe j) = c j
-    rw [IntertwiningMap.sum_apply]
-    change (∑ i, c i * pairing i (probe j)) = c j
-    simp [pairing_probe]
-  map_add' _ _ := rfl
-  map_smul' _ _ := rfl
-
-/-- Two-left/two-right spin contraction, with the two weak-doublet core. -/
-def mixedRepresentation := external gaugeRepresentation DuqlOrderedCompleteness.spin
-def mixedPairing := coefficient gaugePairing DuqlOrderedCompleteness.spinContraction
-def mixedProbe := gaugeProbe ⊗ₜ[ℂ] DuqlOrderedCompleteness.spinWitness
-
-theorem mixed_unique (f : IntertwiningMap mixedRepresentation
-    (Representation.trivial ℂ _ ℂ)) : f = f mixedProbe • mixedPairing :=
-  NormalizedInvariantFactor.product_unique _ _ _ _ _ _ gauge_unique
-    DuqlOrderedCompleteness.spin_unique f
-
-def fourWeakGaugeRepresentation := external colorRepresentation FourWeakWeylCompleteness.weakRepresentation
-def fourWeakGaugePairing (i : Fin 2) := coefficient colorPairing (FourWeakWeylCompleteness.weakPairing i)
-def fourWeakGaugeProbe (i : Fin 2) := colorProbe ⊗ₜ[ℂ] FourSameWeylCompleteness.probe i
-
-theorem fourWeakGauge_reconstruction (f : IntertwiningMap fourWeakGaugeRepresentation
-    (Representation.trivial ℂ _ ℂ)) :
-    f = ∑ i, f (fourWeakGaugeProbe i) • fourWeakGaugePairing i :=
-  FiniteInvariantFactor.product_left_line _ _ colorPairing colorProbe color_unique
-    _ _ FourWeakWeylCompleteness.weak_formula f
-
-/-- Two-left/two-right spin contraction, with the four weak-doublet core. -/
-def mixedFourWeakRepresentation := external fourWeakGaugeRepresentation DuqlOrderedCompleteness.spin
-def mixedFourWeakPairing (i : Fin 2) :=
-  coefficient (fourWeakGaugePairing i) DuqlOrderedCompleteness.spinContraction
-def mixedFourWeakProbe (i : Fin 2) :=
-  fourWeakGaugeProbe i ⊗ₜ[ℂ] DuqlOrderedCompleteness.spinWitness
-
-theorem mixedFourWeak_reconstruction (f : IntertwiningMap mixedFourWeakRepresentation
-    (Representation.trivial ℂ _ ℂ)) :
-    f = ∑ i, f (mixedFourWeakProbe i) • mixedFourWeakPairing i :=
-  FiniteInvariantFactor.product_right_line _ _ _ _ fourWeakGauge_reconstruction
-    _ _ DuqlOrderedCompleteness.spin_unique f
-
-theorem spin_normalized : DuqlOrderedCompleteness.spinContraction
-    DuqlOrderedCompleteness.spinWitness = 1 := by
-  norm_num [DuqlOrderedCompleteness.spinContraction, DuqlOrderedCompleteness.spinSwap,
-    DuqlOrderedCompleteness.spinWitness, WeylSpinor.four, WeylSpinor.epsilonLeft,
-    WeylSpinor.epsilonRight, eps2, weakBasis]
-
-theorem mixed_normalized : mixedPairing mixedProbe = 1 := by
-  change gaugePairing gaugeProbe * DuqlOrderedCompleteness.spinContraction
-    DuqlOrderedCompleteness.spinWitness = 1
-  rw [gauge_normalized, spin_normalized, mul_one]
-
-theorem mixedFourWeak_pairing_probe (i j : Fin 2) :
-    mixedFourWeakPairing i (mixedFourWeakProbe j) = if i = j then 1 else 0 := by
-  change (colorPairing colorProbe * FourWeakWeylCompleteness.weakPairing i
-    (FourSameWeylCompleteness.probe j)) * DuqlOrderedCompleteness.spinContraction
-      DuqlOrderedCompleteness.spinWitness = _
-  have hc : colorPairing colorProbe = 1 := by simp [colorPairing, colorProbe]
-  rw [hc, spin_normalized, mul_one, one_mul, FourWeakWeylCompleteness.weak_probe]
-
-variable {R X : Type*} [Group R] [AddCommGroup X] [Module ℂ X]
-
-def sameFlavorEquiv (x : Representation ℂ R X) : Coefficient representation x ≃ₗ[ℂ]
-    (Fin 2 → IntertwiningMap x (Representation.trivial ℂ R ℂ)) :=
-  FiniteInvariantFactor.equiv _ x pairing probe pairing_probe reconstruction
-
-def mixedFlavorEquiv (x : Representation ℂ R X) : Coefficient mixedRepresentation x ≃ₗ[ℂ]
-    IntertwiningMap x (Representation.trivial ℂ R ℂ) :=
-  NormalizedInvariantFactor.equiv _ x mixedPairing mixedProbe mixed_normalized mixed_unique
-
-def mixedFourWeakFlavorEquiv (x : Representation ℂ R X) :
-    Coefficient mixedFourWeakRepresentation x ≃ₗ[ℂ]
-      (Fin 2 → IntertwiningMap x (Representation.trivial ℂ R ℂ)) :=
-  FiniteInvariantFactor.equiv _ x mixedFourWeakPairing mixedFourWeakProbe
-    mixedFourWeak_pairing_probe mixedFourWeak_reconstruction
-
-variable {J : Type*}
-
-/-- A complete local core descends through supplied compatible exchange maps.
-This consumer requires actual field exchanges, not an extra spanning premise. -/
-def sameStatisticsEquiv (x : Representation ℂ R X)
-    (localExchange : J → Representation.Equiv representation representation)
-    (flavorExchange : J → Representation.Equiv x x) (sign : J → ℂ) :=
-  FiniteLocalRelationCompleteness.equiv representation x pairing probe
-    pairing_probe reconstruction localExchange flavorExchange sign
-
-def mixedFourWeakStatisticsEquiv (x : Representation ℂ R X)
-    (localExchange : J → Representation.Equiv mixedFourWeakRepresentation mixedFourWeakRepresentation)
-    (flavorExchange : J → Representation.Equiv x x) (sign : J → ℂ) :=
-  FiniteLocalRelationCompleteness.equiv mixedFourWeakRepresentation x
-    mixedFourWeakPairing mixedFourWeakProbe mixedFourWeak_pairing_probe
-    mixedFourWeak_reconstruction localExchange flavorExchange sign
-
-end
-end GUT.BnvSevenLocal
+assert_compatible GUT.BnvSevenLocal.LocalCoefficient => Physics.BnvSevenLocal.LocalCoefficient
+assert_compatible GUT.BnvSevenLocal.colorPairing => Physics.BnvSevenLocal.colorPairing
+assert_compatible GUT.BnvSevenLocal.colorPairing.eq_1 => Physics.BnvSevenLocal.colorPairing.eq_1
+assert_compatible GUT.BnvSevenLocal.colorProbe => Physics.BnvSevenLocal.colorProbe
+assert_compatible GUT.BnvSevenLocal.colorProbe.eq_1 => Physics.BnvSevenLocal.colorProbe.eq_1
+assert_compatible GUT.BnvSevenLocal.colorRepresentation => Physics.BnvSevenLocal.colorRepresentation
+assert_compatible GUT.BnvSevenLocal.color_unique => Physics.BnvSevenLocal.color_unique
+assert_compatible GUT.BnvSevenLocal.coordinates => Physics.BnvSevenLocal.coordinates
+assert_compatible GUT.BnvSevenLocal.fourWeakGaugePairing => Physics.BnvSevenLocal.fourWeakGaugePairing
+assert_compatible GUT.BnvSevenLocal.fourWeakGaugeProbe => Physics.BnvSevenLocal.fourWeakGaugeProbe
+assert_compatible GUT.BnvSevenLocal.fourWeakGaugeRepresentation => Physics.BnvSevenLocal.fourWeakGaugeRepresentation
+assert_compatible GUT.BnvSevenLocal.fourWeakGauge_reconstruction => Physics.BnvSevenLocal.fourWeakGauge_reconstruction
+assert_compatible GUT.BnvSevenLocal.gaugePairing => Physics.BnvSevenLocal.gaugePairing
+assert_compatible GUT.BnvSevenLocal.gaugeProbe => Physics.BnvSevenLocal.gaugeProbe
+assert_compatible GUT.BnvSevenLocal.gaugeRepresentation => Physics.BnvSevenLocal.gaugeRepresentation
+assert_compatible GUT.BnvSevenLocal.gauge_normalized => Physics.BnvSevenLocal.gauge_normalized
+assert_compatible GUT.BnvSevenLocal.gauge_unique => Physics.BnvSevenLocal.gauge_unique
+assert_compatible GUT.BnvSevenLocal.mixedFlavorEquiv => Physics.BnvSevenLocal.mixedFlavorEquiv
+assert_compatible GUT.BnvSevenLocal.mixedFourWeakFlavorEquiv => Physics.BnvSevenLocal.mixedFourWeakFlavorEquiv
+assert_compatible GUT.BnvSevenLocal.mixedFourWeakPairing => Physics.BnvSevenLocal.mixedFourWeakPairing
+assert_compatible GUT.BnvSevenLocal.mixedFourWeakProbe => Physics.BnvSevenLocal.mixedFourWeakProbe
+assert_compatible GUT.BnvSevenLocal.mixedFourWeakRepresentation => Physics.BnvSevenLocal.mixedFourWeakRepresentation
+assert_compatible GUT.BnvSevenLocal.mixedFourWeakStatisticsEquiv => Physics.BnvSevenLocal.mixedFourWeakStatisticsEquiv
+assert_compatible GUT.BnvSevenLocal.mixedFourWeak_pairing_probe => Physics.BnvSevenLocal.mixedFourWeak_pairing_probe
+assert_compatible GUT.BnvSevenLocal.mixedFourWeak_reconstruction => Physics.BnvSevenLocal.mixedFourWeak_reconstruction
+assert_compatible GUT.BnvSevenLocal.mixedPairing => Physics.BnvSevenLocal.mixedPairing
+assert_compatible GUT.BnvSevenLocal.mixedProbe => Physics.BnvSevenLocal.mixedProbe
+assert_compatible GUT.BnvSevenLocal.mixedRepresentation => Physics.BnvSevenLocal.mixedRepresentation
+assert_compatible GUT.BnvSevenLocal.mixed_normalized => Physics.BnvSevenLocal.mixed_normalized
+assert_compatible GUT.BnvSevenLocal.mixed_unique => Physics.BnvSevenLocal.mixed_unique
+assert_compatible GUT.BnvSevenLocal.pairing => Physics.BnvSevenLocal.pairing
+assert_compatible GUT.BnvSevenLocal.pairing_probe => Physics.BnvSevenLocal.pairing_probe
+assert_compatible GUT.BnvSevenLocal.probe => Physics.BnvSevenLocal.probe
+assert_compatible GUT.BnvSevenLocal.reconstruction => Physics.BnvSevenLocal.reconstruction
+assert_compatible GUT.BnvSevenLocal.representation => Physics.BnvSevenLocal.representation
+assert_compatible GUT.BnvSevenLocal.sameFlavorEquiv => Physics.BnvSevenLocal.sameFlavorEquiv
+assert_compatible GUT.BnvSevenLocal.sameStatisticsEquiv => Physics.BnvSevenLocal.sameStatisticsEquiv
+assert_compatible GUT.BnvSevenLocal.spin_normalized => Physics.BnvSevenLocal.spin_normalized

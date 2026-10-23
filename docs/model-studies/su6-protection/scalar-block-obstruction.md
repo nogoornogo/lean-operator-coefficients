@@ -69,7 +69,7 @@ Their coordinate maps are invertible. The `_gauge_restriction` and
 restricted UV SM action and U, respectively. Their `_light` theorems establish
 membership in the actual mass radical.
 
-[ScalarEigencharacter](../../../Math/RepresentationTheory/ScalarEigencharacter.lean)
+[ScalarEigencharacter](../../../Math/RepresentationTheory/Constructions/ScalarEigencharacter.lean)
 derives genuine species characters from U's group law and the nonzero embedded
 species. It never asserts that the individual functions a,c,w are characters.
 For the right-handed duals of u^c and e^c the phases are inverse, so
@@ -82,7 +82,7 @@ holds pointwise for every h. The helper `charges` fills unused d/L entries
 with zero solely to reuse the qque interface; it does not identify their
 physical residual charges or establish a duql result.
 
-[NeutralQqueExterior](../../../Physics/StandardModel/Operators/NeutralQqueExterior.lean)
+[NeutralQqueExterior](../../../Physics/StandardModel/Operators/BaryonOne/Qque/NeutralQqueExterior.lean)
 combines the neutral internal qque contraction with the explicit left/right
 SL(2,C) epsilon pairings, and performs fermionic alternation. Its selected
 four-field witness evaluates to **2**, proving nonvanishing, rather than just

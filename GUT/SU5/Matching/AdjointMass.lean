@@ -1,4 +1,4 @@
-import Math.LinearAlgebra.DiagonalAdjointMass
+import Math.LinearAlgebra.Constructions.DiagonalAdjointMass
 import GUT.SU5.Representations.CurrentBlocks
 
 open Math

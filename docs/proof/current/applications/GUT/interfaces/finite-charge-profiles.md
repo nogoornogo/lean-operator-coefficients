@@ -45,14 +45,14 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
 
 | Module | Responsibility |
 | --- | --- |
-| [FiniteSMTarget](../../../../../../Physics/StandardModel/Spectrum/FiniteSMTarget.lean) | Extracted fifteen SM weights, old single-charge and singlet targets, and representative-profile identities; namespace `GUT.StandardSMCharacterTarget` retained |
-| [FiniteChargeProfiles](../../../../../../Physics/StandardModel/Spectrum/FiniteChargeProfiles.lean) | Natural distributions, common positive total, integer resolved target, charge-forgetting, pure-target recovery, conditional neutrality |
-| [ProfileOperatorSignatures](../../../../../../Physics/StandardModel/Operators/ProfileOperatorSignatures.lean) | Two supported invariant target signatures at the same charge assignment |
-| [AuditFiniteChargeProfiles](../../../../../../Physics/StandardModel/Spectrum/Audit/AuditFiniteChargeProfiles.lean) | Actual finite residual characters, repeated/distinct charges, negative control, import and axiom audit |
+| [FiniteSMTarget](../../../../../../Physics/StandardModel/Spectrum/Representations/FiniteSMTarget.lean) | Extracted fifteen SM weights, old single-charge and singlet targets, and representative-profile identities; namespace `GUT.StandardSMCharacterTarget` retained |
+| [FiniteChargeProfiles](../../../../../../Physics/StandardModel/Spectrum/Charges/FiniteChargeProfiles.lean) | Natural distributions, common positive total, integer resolved target, charge-forgetting, pure-target recovery, conditional neutrality |
+| [ProfileOperatorSignatures](../../../../../../Physics/StandardModel/Operators/Selection/ProfileOperatorSignatures.lean) | Two supported invariant target signatures at the same charge assignment |
+| [AuditFiniteChargeProfiles](../../../../../../Physics/StandardModel/Spectrum/Charges/Audit/AuditFiniteChargeProfiles.lean) | Actual finite residual characters, repeated/distinct charges, negative control, import and axiom audit |
 
 ### Core API
 
-In `GUT.FiniteChargeProfiles`:
+In `Physics.FiniteChargeProfiles`:
 
 - `Profiles`, `HasCommonTotal`, `Family`: five natural finite distributions
   and a common positive generation total. No orbit equality is built in.
@@ -76,9 +76,9 @@ In `GUT.FiniteChargeProfiles`:
 The [PROFILE-2 dossier](../PROFILE_ZERO_MODES.md) records the actual-support
 bridge and its exclusions. Added modules:
 
-- [SMChiralIndex](../../../../../../Physics/StandardModel/Spectrum/SMChiralIndex.lean): extracted duality,
+- [SMChiralIndex](../../../../../../Physics/StandardModel/Spectrum/Representations/SMChiralIndex.lean): extracted duality,
   Weyl compatibility, and disjointness of oriented/conjugate SM weights.
-- [ProfileChiralIndex](../../../../../../Physics/StandardModel/Spectrum/ProfileChiralIndex.lean):
+- [ProfileChiralIndex](../../../../../../Physics/StandardModel/Spectrum/Charges/ProfileChiralIndex.lean):
   `chiralDifference_target_apply`, `coefficient_lower_bound`,
   `chargesSupported_of_occupied`, and `orbitCompatible_of_dual_target`.
 - [ProfileZeroModeSupport](../../../../../../GUT/SU6/SelectionRules/Models/ProfileZeroModeSupport.lean):
@@ -88,7 +88,7 @@ bridge and its exclusions. Added modules:
   `legacy_spectrum` preserve the old interface.
 
 Persistent audits are
-[AuditProfileChiralIndex](../../../../../../Physics/StandardModel/Spectrum/Audit/AuditProfileChiralIndex.lean)
+[AuditProfileChiralIndex](../../../../../../Physics/StandardModel/Spectrum/Charges/Audit/AuditProfileChiralIndex.lean)
 and [AuditProfileZeroModeSupport](../../../../../../GUT/SU6/SelectionRules/Audit/AuditProfileZeroModeSupport.lean).
 Build the latter for the targeted audit. Logs are ignored artifacts at
 `.lake/build/profile2-targeted.log` and `.lake/build/profile2-full.log`.
@@ -150,7 +150,7 @@ for this pass's checks.
 ### Verification
 
 ```sh
-lake build Physics.StandardModel.Spectrum.Audit.AuditFiniteChargeProfiles \
+lake build Physics.StandardModel.Spectrum.Charges.Audit.AuditFiniteChargeProfiles \
   GUT.SU6.Branching.StandardSMCharacterTarget
 lake build
 ```

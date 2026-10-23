@@ -68,11 +68,11 @@ continuous compact H action, T-unitarity, and invariant symmetric mass.
 
 ### Construction
 
-- [ExternalInvariantTensor](../../../../../Math/RepresentationTheory/ExternalInvariantTensor.lean)
+- [ExternalInvariantTensor](../../../../../Math/RepresentationTheory/Tensors/ExternalInvariantTensor.lean)
   combines invariant functionals for independent groups and proves that their
   tensor product is nonzero. Equivariant regrouping separates gauge and
   multiplicity factors without changing field order.
-- [ExplicitSMResidualTensor](../../../../../Physics/StandardModel/Gauge/ExplicitSMResidualTensor.lean)
+- [ExplicitSMResidualTensor](../../../../../Physics/StandardModel/Gauge/Tensors/ExplicitSMResidualTensor.lean)
   multiplies the checked nonzero SM color/weak epsilon contraction by the
   H-invariant multiplicity functional. `qque_tmul` gives this exact product
   on decomposable fields. `qque_ne_zero_iff` verifies that the construction
@@ -81,14 +81,14 @@ continuous compact H action, T-unitarity, and invariant symmetric mass.
   representation equivalences, retaining the same Q field in both slots.
   This algebraic construction accepts arbitrary H; compactness is needed
   only to derive the residual coefficient from the source in the next step.
-- [CompactExplicitSMTensor](../../../../../Physics/StandardModel/Gauge/CompactExplicitSMTensor.lean)
+- [CompactExplicitSMTensor](../../../../../Physics/StandardModel/Gauge/Tensors/CompactExplicitSMTensor.lean)
   composes the actual compact light-source theorem with that transport.
 
 ## 6. Scope and limitations
 
 ### Controls And Boundary
 
-The [persistent physics audit](../../../../../Physics/StandardModel/Gauge/Audit/AuditExplicitSMResidualTensor.lean)
+The [persistent physics audit](../../../../../Physics/StandardModel/Gauge/Tensors/Audit/AuditExplicitSMResidualTensor.lean)
 checks nonzero SM x S3 and SM x A4 tensors with the existing two- and
 three-dimensional sum-zero permutation representations as multiplicities.
 More generally, matched multiplicities r,r,r*,r* work for any nonzero complex
@@ -96,7 +96,7 @@ H representation. These controls inhabit the explicit decomposed-field
 construction; they do **not** construct a UV model or an inhabitant of the
 additional radical-decomposition adapter.
 
-The [mathematics audit](../../../../../Math/RepresentationTheory/Audit/AuditExternalInvariantTensor.lean)
+The [mathematics audit](../../../../../Math/RepresentationTheory/Tensors/Audit/AuditExternalInvariantTensor.lean)
 and physics audit reject all transitive axioms except `propext`,
 `Classical.choice`, and `Quot.sound`, and enforce source-layer boundaries.
 
@@ -116,7 +116,7 @@ Reference roles: linked Lean files are implementation or audit evidence; linked 
 
 ## Residual-action input filter
 
-[ResidualQquePrefilter](../../../../../Physics/StandardModel/Operators/ResidualQquePrefilter.lean)
+[ResidualQquePrefilter](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/ResidualQquePrefilter.lean)
 uses the existing neutral physical exterior theorem on actual invariant
 light Q/uc/ec subspaces with character-twisted SM equivalences. The dual
 uc/ec ranges are the right-handed carriers. Prohibition covering every
@@ -131,7 +131,7 @@ records the explicit original-mass radical connection and SM-copy filter.
 
 ## Mixed cyclic Q pairs
 
-[MixedQqueCyclicNecessity](../../../../../Physics/StandardModel/Operators/MixedQqueCyclicNecessity.lean)
+[MixedQqueCyclicNecessity](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/MixedQqueCyclicNecessity.lean)
 extracts the existing actual flavored exterior dictionary for arbitrary finite
 cyclic flavor sets. Prohibition requires every mixed pair sum to be nonzero,
 not only repeated-index sums. The Z3 three-generation control passes all
@@ -142,7 +142,7 @@ UV realization. See the [result and limits](../../../../topics/sm-support-and-lf
 
 ## Non-Abelian sample controls
 
-[NonabelianQqueSamples](../../../../../Physics/StandardModel/Operators/NonabelianQqueSamples.lean)
+[NonabelianQqueSamples](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/NonabelianQqueSamples.lean)
 uses the existing matched split pairing on common S3/A4 three-dimensional
 flavor factors, with actual left-to-right dual transport and nonzero exterior
 descent. A4's lack of invariant flavor functionals does not eliminate the
@@ -154,7 +154,7 @@ support classification.
 
 ## Unequal SM-preserving S3 actions
 
-[S3QqueTensorSamples](../../../../../Physics/StandardModel/Operators/S3QqueTensorSamples.lean)
+[S3QqueTensorSamples](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/S3QqueTensorSamples.lean)
 proves opposite actual qque outcomes for (permutation,trivial,sign) and
 (permutation,sign,sign) three-dimensional flavor representations. Basis
 transpositions plus Q symmetry prove the zero result; two sign factors cancel
@@ -166,7 +166,7 @@ selected physical sector, not a full protecting SU(6) construction.
 
 ## S3 sample passing bijective flavor-map gates
 
-[S3YukawaCompatibleQque](../../../../../Physics/StandardModel/Operators/S3YukawaCompatibleQque.lean)
+[S3YukawaCompatibleQque](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/S3YukawaCompatibleQque.lean)
 fixes Q,uR,dR to permutation flavor and L,eR to three sign copies, with a
 residual-neutral Higgs. Species flavor actions commute with the independent
 SM gauge action; the quark action is noncommuting. Bijective invariant maps

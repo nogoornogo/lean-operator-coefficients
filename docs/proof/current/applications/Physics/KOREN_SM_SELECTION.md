@@ -1,6 +1,6 @@
 # Koren SM Symmetry: A Sufficient Finite-Subgroup Certificate
 
-[Source](../../../../../Physics/StandardModel/Operators/KorenSMSelection.lean)
+[Source](../../../../../Physics/StandardModel/Operators/Selection/KorenSMSelection.lean)
 constructs Z9 times Z3 actions on the existing signed SM/Higgs input and proves
 simultaneous absolute Delta B=1,2 and Delta L=2 prohibition at every
 derivative-free degree. Complex multiplicity modules are arbitrary; the

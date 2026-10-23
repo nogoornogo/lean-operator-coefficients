@@ -20,7 +20,7 @@ full-five-species support or minimality of the four weights.
 
 ### Checked Endpoints
 
-[FourWeightQque](../../../../../Physics/StandardModel/Spectrum/FourWeightQque.lean):
+[FourWeightQque](../../../../../Physics/StandardModel/Spectrum/Representations/FourWeightQque.lean):
 
 - `of_partial_target`: the old fifteen-weight actual-source hypothesis implies
   the new one, with the same representation, mass and radical spectrum.
@@ -33,7 +33,7 @@ full-five-species support or minimality of the four weights.
   prohibition as the previous Q-only endpoint. It does not refute the legacy
   full-support predicate when spectator species are absent.
 
-[FourWeightLightQque](../../../../../Physics/StandardModel/Operators/FourWeightLightQque.lean):
+[FourWeightLightQque](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/FourWeightLightQque.lean):
 
 - `of_matches`: restricts the previous H-character target to the four weights.
 - `characters_compatible`: derives Q/up/e character equalities.
@@ -52,7 +52,7 @@ contragredients of the actual left-chiral sectors, not assumed light projections
 
 ### Target And Support
 
-[QqueLocalTarget](../../../../../Physics/StandardModel/Spectrum/QqueLocalTarget.lean)
+[QqueLocalTarget](../../../../../Physics/StandardModel/Spectrum/Representations/QqueLocalTarget.lean)
 defines `Monitored i` as `i = 0 or 3 or 8 or 14`. `Matches p P` requires
 
 ```text

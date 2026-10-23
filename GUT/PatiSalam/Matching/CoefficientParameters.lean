@@ -1,4 +1,4 @@
-import Math.LinearAlgebra.TwoSourceQuadraticElimination
+import Math.LinearAlgebra.Constructions.TwoSourceQuadraticElimination
 import GUT.PatiSalam.Matching.NeutralMass
 
 /-! Parameter algebra of the specified scalar-mediated PS path.

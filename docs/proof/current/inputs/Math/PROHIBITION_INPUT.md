@@ -1,5 +1,9 @@
 # Input-Side Prohibition Conditions
 
+The additive [derivative extension](DERIVATIVE_PROHIBITION_INPUT.md) applies
+the scalar and common-constituent tests to actual IBP/EOM quotients, retaining
+the selected-coefficient extension boundary. This nonderivative API is unchanged.
+
 The [API results](../../../../topics/prohibition-input-api/results.md) describe
 `Math.ProhibitionInput` and `Math.ScalarProhibitionNecessity`.
 The selected-domain predicate is the existing `Forbidden`, and its factorwise
@@ -18,8 +22,8 @@ obstruct surjectivity of the actual selected restriction map. This does not
 assert protection of all smaller-group coefficients. Physical admission and
 model classification remain separate obligations.
 
-Sources: [ProhibitionInput](../../../../../Math/RepresentationTheory/ProhibitionInput.lean),
-[scalar necessity](../../../../../Math/RepresentationTheory/ScalarProhibitionNecessity.lean).
+Sources: [ProhibitionInput](../../../../../Math/RepresentationTheory/Protection/ProhibitionInput.lean),
+[scalar necessity](../../../../../Math/RepresentationTheory/Protection/ScalarProhibitionNecessity.lean).
 Verification is recorded in the [topic](../../../../topics/prohibition-input-api/verification.md).
 
 The [representative catalogue](../../../../topics/prohibition-patterns/catalogue.md)

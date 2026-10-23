@@ -1,46 +1,22 @@
+import Physics.StandardModel.Operators.Selection.InverseCyclicSectorProperties
 import Physics.StandardModel.Operators.InverseCyclicSMCharges
 import Physics.StandardModel.Operators.DeltaBTwoCyclicSelection
+import Math.Lean.Compatibility
 
-namespace GUT.InverseCyclicSectorProperties
-set_option autoImplicit false
-noncomputable section
-open Math Representation SelectionCriteria CyclicCharge
-variable {k : ℕ} [NeZero k]
+deprecated_module "Use Physics.StandardModel.Operators.Selection.InverseCyclicSectorProperties instead." (since := "source-api-v1")
 
-theorem six_quark_forbidden_iff (q : ZMod k) :
-    Forbidden (DeltaBTwoModelInterface.ModelSector (representation q) (representation q)) ↔ 6*q ≠ 0 := by
-  rw [DeltaBTwoCyclicSelection.forbidden_iff]
-  have he : DeltaBTwoCyclicSelection.charge q q = 6*q := by unfold DeltaBTwoCyclicSelection.charge; ring
-  rw [he]
+compatibility_declarations [
+  GUT.InverseCyclicSectorProperties.llhh_allowed_iff => Physics.InverseCyclicSectorProperties.llhh_allowed_iff,
+  GUT.InverseCyclicSectorProperties.llhh_forbidden_iff => Physics.InverseCyclicSectorProperties.llhh_forbidden_iff,
+  GUT.InverseCyclicSectorProperties.profileCount => Physics.InverseCyclicSectorProperties.profileCount,
+  GUT.InverseCyclicSectorProperties.profile_counts => Physics.InverseCyclicSectorProperties.profile_counts,
+  GUT.InverseCyclicSectorProperties.six_quark_allowed_iff => Physics.InverseCyclicSectorProperties.six_quark_allowed_iff,
+  GUT.InverseCyclicSectorProperties.six_quark_forbidden_iff => Physics.InverseCyclicSectorProperties.six_quark_forbidden_iff
+]
 
-theorem llhh_forbidden_iff (l : ZMod k) :
-    Forbidden (WeinbergSMInterface.ModelSector (representation l)) ↔ 2*l ≠ 0 := by
-  rw [forbidden_iff_not_allowed,CyclicResidualSelection.allowed_weinberg_iff]
-  have he : l+l=2*l := by ring
-  rw [he]
-
-theorem six_quark_allowed_iff (q : ZMod k) :
-    Allowed (DeltaBTwoModelInterface.ModelSector (representation q) (representation q)) ↔ 6*q = 0 := by
-  rw [DeltaBTwoCyclicSelection.allowed_iff]
-  have he : DeltaBTwoCyclicSelection.charge q q = 6*q := by unfold DeltaBTwoCyclicSelection.charge; ring
-  rw [he]
-
-theorem llhh_allowed_iff (l : ZMod k) :
-    Allowed (WeinbergSMInterface.ModelSector (representation l)) ↔ 2*l = 0 := by
-  rw [CyclicResidualSelection.allowed_weinberg_iff]
-  have he : l+l=2*l := by ring
-  rw [he]
-
-/-- Counts classify labeled assignments and specified one-copy domains only. -/
-def profileCount (k : ℕ) (b l : Bool) : ℕ :=
-  ((InverseCyclicSMCharges.candidates k).filter (fun x =>
-    decide (6*x.1 ≠ 0) = b ∧ decide (2*x.2 ≠ 0) = l)).card
-
-theorem profile_counts :
-    (∑ i : Fin 11, profileCount (i.val+2) false false) = 20 ∧
-    (∑ i : Fin 11, profileCount (i.val+2) false true) = 166 ∧
-    (∑ i : Fin 11, profileCount (i.val+2) true false) = 70 ∧
-    (∑ i : Fin 11, profileCount (i.val+2) true true) = 316 := by
-  decide +kernel
-end
-end GUT.InverseCyclicSectorProperties
+assert_compatible GUT.InverseCyclicSectorProperties.llhh_allowed_iff => Physics.InverseCyclicSectorProperties.llhh_allowed_iff
+assert_compatible GUT.InverseCyclicSectorProperties.llhh_forbidden_iff => Physics.InverseCyclicSectorProperties.llhh_forbidden_iff
+assert_compatible GUT.InverseCyclicSectorProperties.profileCount => Physics.InverseCyclicSectorProperties.profileCount
+assert_compatible GUT.InverseCyclicSectorProperties.profile_counts => Physics.InverseCyclicSectorProperties.profile_counts
+assert_compatible GUT.InverseCyclicSectorProperties.six_quark_allowed_iff => Physics.InverseCyclicSectorProperties.six_quark_allowed_iff
+assert_compatible GUT.InverseCyclicSectorProperties.six_quark_forbidden_iff => Physics.InverseCyclicSectorProperties.six_quark_forbidden_iff

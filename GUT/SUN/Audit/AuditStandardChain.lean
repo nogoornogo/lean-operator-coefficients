@@ -2,6 +2,8 @@ import Math.Audit.ImportOrigin
 import Math.LieGroups.SpecialUnitary.Audit.AuditBlock
 import GUT.SUN.SelectionRules.RankSevenBenchmark
 
+open Physics
+
 open Math
 
 /-! Universal standard-block theorem, exact rank-five recovery, and an

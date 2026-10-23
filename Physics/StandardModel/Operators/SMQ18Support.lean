@@ -1,64 +1,83 @@
+import Physics.StandardModel.Operators.Support.Quark.SMQ18Support
 import Physics.StandardModel.Operators.SMGenerationSupport
 import Physics.StandardModel.Operators.SMConstantWeakCapacity
 import Math.RepresentationTheory.SelfDualCoefficient
+import Math.Lean.Compatibility
 
-/-! Structural Q18 support from the perfect middle exterior pairing.
-No character recurrence, numerical multiplicity or rank certificate is used. -/
-namespace GUT.SMQ18Support
-set_option autoImplicit false
-noncomputable section
-open Math Representation SMGenerationCauchy
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Support.Quark.SMQ18Support instead." (since := "source-api-v1")
 
-attribute [local irreducible] TopExteriorCauchy.map SymmetricCauchy.map
-  SU2SymmetricEmbeddings.omegaPower
+compatibility_declarations [
+  GUT.SMQ18Support.Field => Physics.SMQ18Support.Field,
+  GUT.SMQ18Support.PresentedField => Physics.SMQ18Support.PresentedField,
+  GUT.SMQ18Support.PresentedField.action => Physics.SMQ18Support.PresentedField.action,
+  GUT.SMQ18Support.PresentedField.addEquiv => Physics.SMQ18Support.PresentedField.addEquiv,
+  GUT.SMQ18Support.PresentedField.casesOn => Physics.SMQ18Support.PresentedField.casesOn,
+  GUT.SMQ18Support.PresentedField.ctorIdx => Physics.SMQ18Support.PresentedField.ctorIdx,
+  GUT.SMQ18Support.PresentedField.determinant => Physics.SMQ18Support.PresentedField.determinant,
+  GUT.SMQ18Support.PresentedField.dimension => Physics.SMQ18Support.PresentedField.dimension,
+  GUT.SMQ18Support.PresentedField.equiv => Physics.SMQ18Support.PresentedField.equiv,
+  GUT.SMQ18Support.PresentedField.instAddCommGroup => Physics.SMQ18Support.PresentedField.instAddCommGroup,
+  GUT.SMQ18Support.PresentedField.instFiniteDimensionalComplex => Physics.SMQ18Support.PresentedField.instFiniteDimensionalComplex,
+  GUT.SMQ18Support.PresentedField.instModuleComplex => Physics.SMQ18Support.PresentedField.instModuleComplex,
+  GUT.SMQ18Support.PresentedField.linearEquiv => Physics.SMQ18Support.PresentedField.linearEquiv,
+  GUT.SMQ18Support.PresentedField.middleDuality => Physics.SMQ18Support.PresentedField.middleDuality,
+  GUT.SMQ18Support.PresentedField.mk => Physics.SMQ18Support.PresentedField.mk,
+  GUT.SMQ18Support.PresentedField.mk.inj => Physics.SMQ18Support.PresentedField.mk.inj,
+  GUT.SMQ18Support.PresentedField.mk.injEq => Physics.SMQ18Support.PresentedField.mk.injEq,
+  GUT.SMQ18Support.PresentedField.mk.noConfusion => Physics.SMQ18Support.PresentedField.mk.noConfusion,
+  GUT.SMQ18Support.PresentedField.mk.sizeOf_spec => Physics.SMQ18Support.PresentedField.mk.sizeOf_spec,
+  GUT.SMQ18Support.PresentedField.noConfusion => Physics.SMQ18Support.PresentedField.noConfusion,
+  GUT.SMQ18Support.PresentedField.noConfusionType => Physics.SMQ18Support.PresentedField.noConfusionType,
+  GUT.SMQ18Support.PresentedField.rec => Physics.SMQ18Support.PresentedField.rec,
+  GUT.SMQ18Support.PresentedField.recOn => Physics.SMQ18Support.PresentedField.recOn,
+  GUT.SMQ18Support.PresentedField.representationEquiv => Physics.SMQ18Support.PresentedField.representationEquiv,
+  GUT.SMQ18Support.PresentedField.val => Physics.SMQ18Support.PresentedField.val,
+  GUT.SMQ18Support.actualFieldEquiv => Physics.SMQ18Support.actualFieldEquiv,
+  GUT.SMQ18Support.actualQuarkEquiv => Physics.SMQ18Support.actualQuarkEquiv,
+  GUT.SMQ18Support.field_det => Physics.SMQ18Support.field_det,
+  GUT.SMQ18Support.field_dimension => Physics.SMQ18Support.field_dimension,
+  GUT.SMQ18Support.instAddCommGroupField => Physics.SMQ18Support.instAddCommGroupField,
+  GUT.SMQ18Support.instAddCommGroupTensorProductComplexColorDoublet => Physics.SMQ18Support.instAddCommGroupTensorProductComplexColorDoublet,
+  GUT.SMQ18Support.instAddCommGroupTensorProductComplexColorDoublet_1 => Physics.SMQ18Support.instAddCommGroupTensorProductComplexColorDoublet_1,
+  GUT.SMQ18Support.middleDuality => Physics.SMQ18Support.middleDuality,
+  GUT.SMQ18Support.rho => Physics.SMQ18Support.rho,
+  GUT.SMQ18Support.semisimple_allowed => Physics.SMQ18Support.semisimple_allowed,
+  GUT.SMQ18Support.weak_det => Physics.SMQ18Support.weak_det
+]
 
-abbrev Field := ((SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ]
-  WeakDoubletScalars.Doublet) ⊗[ℂ] (Fin 3 → ℂ)
-
-@[reducible] local instance : AddCommGroup
-    (SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ]
-      WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup Field := inferInstance
-
-abbrev rho : Representation ℂ Group Field := generations SMGenerationCauchy.quark
-
-theorem field_dimension : Module.finrank ℂ Field = 36 := by
-  simp [Field, SMEpsilonTensor.Color, WeakDoubletScalars.Doublet,
-    Module.finrank_tensorProduct]
-
-theorem weak_det (g : Group) : LinearMap.det (weak g) = 1 := by
-  change LinearMap.det (Matrix.toLin' (g.2.1 : Matrix (Fin 2) (Fin 2) ℂ)) = 1
-  rw [LinearMap.det_toLin']
-  exact g.2.1.prop.2
-
-theorem field_det (g : Group) : LinearMap.det (rho g) = 1 := by
-  have hq : LinearMap.det (quark g) = 1 :=
-    TensorDeterminant.map_one (colorBasis.tensorProduct spinBasis) spinBasis
-      ((color.tprod weak) g) (spin g)
-      (TensorDeterminant.map_one colorBasis spinBasis (color g) (weak g)
-        (color_det g) (weak_det g)) (spin_det g)
-  exact TensorDeterminant.map_one
-    ((colorBasis.tensorProduct spinBasis).tensorProduct spinBasis)
-    (Pi.basisFun ℂ (Fin 3)) (quark g) (LinearMap.id) hq (by simp)
-
-def middleDuality : Representation.Equiv (rho.exteriorPower 18)
-    (rho.exteriorPower 18).dual :=
-  ComplementaryExteriorDuality.equiv rho field_det
-    (exteriorPower.topEquiv (Module.finBasis ℂ Field)) (by rw [field_dimension])
-
-theorem semisimple_allowed (m : ℕ) (hm : m % 2 = 0) (hmax : m ≤ 18) :
-    SelectionCriteria.Allowed (InvariantCoefficientTransport.Invariants
-      ((rho.exteriorPower 18).tprod (weak.symmetricPower m))) := by
-  let : Nontrivial (Sym[ℂ]^m WeakDoubletScalars.Doublet) :=
-    Module.nontrivial_of_finrank_pos (R := ℂ) (by
-      change 0 < Module.finrank ℂ (Sym[ℂ]^m (Fin 2 → ℂ))
-      rw [TauCeti.SU2.finrank_symPower]
-      omega)
-  obtain ⟨f,hf⟩ := SMGenerationSupport.quark_eighteen m hm hmax
-  exact SelfDualCoefficient.allowed _ _ middleDuality f hf
-
-end
-end GUT.SMQ18Support
+assert_compatible GUT.SMQ18Support.Field => Physics.SMQ18Support.Field
+assert_compatible GUT.SMQ18Support.PresentedField => Physics.SMQ18Support.PresentedField
+assert_compatible GUT.SMQ18Support.PresentedField.action => Physics.SMQ18Support.PresentedField.action
+assert_compatible GUT.SMQ18Support.PresentedField.addEquiv => Physics.SMQ18Support.PresentedField.addEquiv
+assert_compatible GUT.SMQ18Support.PresentedField.casesOn => Physics.SMQ18Support.PresentedField.casesOn
+assert_compatible GUT.SMQ18Support.PresentedField.ctorIdx => Physics.SMQ18Support.PresentedField.ctorIdx
+assert_compatible GUT.SMQ18Support.PresentedField.determinant => Physics.SMQ18Support.PresentedField.determinant
+assert_compatible GUT.SMQ18Support.PresentedField.dimension => Physics.SMQ18Support.PresentedField.dimension
+assert_compatible GUT.SMQ18Support.PresentedField.equiv => Physics.SMQ18Support.PresentedField.equiv
+assert_compatible GUT.SMQ18Support.PresentedField.instAddCommGroup => Physics.SMQ18Support.PresentedField.instAddCommGroup
+assert_compatible GUT.SMQ18Support.PresentedField.instFiniteDimensionalComplex => Physics.SMQ18Support.PresentedField.instFiniteDimensionalComplex
+assert_compatible GUT.SMQ18Support.PresentedField.instModuleComplex => Physics.SMQ18Support.PresentedField.instModuleComplex
+assert_compatible GUT.SMQ18Support.PresentedField.linearEquiv => Physics.SMQ18Support.PresentedField.linearEquiv
+assert_compatible GUT.SMQ18Support.PresentedField.middleDuality => Physics.SMQ18Support.PresentedField.middleDuality
+assert_compatible GUT.SMQ18Support.PresentedField.mk => Physics.SMQ18Support.PresentedField.mk
+assert_compatible GUT.SMQ18Support.PresentedField.mk.inj => Physics.SMQ18Support.PresentedField.mk.inj
+assert_compatible GUT.SMQ18Support.PresentedField.mk.injEq => Physics.SMQ18Support.PresentedField.mk.injEq
+assert_compatible GUT.SMQ18Support.PresentedField.mk.noConfusion => Physics.SMQ18Support.PresentedField.mk.noConfusion
+assert_compatible GUT.SMQ18Support.PresentedField.mk.sizeOf_spec => Physics.SMQ18Support.PresentedField.mk.sizeOf_spec
+assert_compatible GUT.SMQ18Support.PresentedField.noConfusion => Physics.SMQ18Support.PresentedField.noConfusion
+assert_compatible GUT.SMQ18Support.PresentedField.noConfusionType => Physics.SMQ18Support.PresentedField.noConfusionType
+assert_compatible GUT.SMQ18Support.PresentedField.rec => Physics.SMQ18Support.PresentedField.rec
+assert_compatible GUT.SMQ18Support.PresentedField.recOn => Physics.SMQ18Support.PresentedField.recOn
+assert_compatible GUT.SMQ18Support.PresentedField.representationEquiv => Physics.SMQ18Support.PresentedField.representationEquiv
+assert_compatible GUT.SMQ18Support.PresentedField.val => Physics.SMQ18Support.PresentedField.val
+assert_compatible GUT.SMQ18Support.actualFieldEquiv => Physics.SMQ18Support.actualFieldEquiv
+assert_compatible GUT.SMQ18Support.actualQuarkEquiv => Physics.SMQ18Support.actualQuarkEquiv
+assert_compatible GUT.SMQ18Support.field_det => Physics.SMQ18Support.field_det
+assert_compatible GUT.SMQ18Support.field_dimension => Physics.SMQ18Support.field_dimension
+assert_compatible GUT.SMQ18Support.instAddCommGroupField => Physics.SMQ18Support.instAddCommGroupField
+assert_compatible GUT.SMQ18Support.instAddCommGroupTensorProductComplexColorDoublet => Physics.SMQ18Support.instAddCommGroupTensorProductComplexColorDoublet
+assert_compatible GUT.SMQ18Support.instAddCommGroupTensorProductComplexColorDoublet_1 => Physics.SMQ18Support.instAddCommGroupTensorProductComplexColorDoublet_1
+assert_compatible GUT.SMQ18Support.middleDuality => Physics.SMQ18Support.middleDuality
+assert_compatible GUT.SMQ18Support.rho => Physics.SMQ18Support.rho
+assert_compatible GUT.SMQ18Support.semisimple_allowed => Physics.SMQ18Support.semisimple_allowed
+assert_compatible GUT.SMQ18Support.weak_det => Physics.SMQ18Support.weak_det

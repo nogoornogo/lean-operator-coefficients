@@ -57,7 +57,7 @@ the same nonzero coefficient and whole-space radical.
 
 The [model audit](../../../../../GUT/SU6/SelectionRules/Audit/AuditWeylMassFamilyModel.lean)
 checks legacy equality and finite Abelian specialization. The generic
-[source audit](../../../../../Physics/FieldTheory/Yukawa/Audit/AuditMultilinearWeylMass.lean)
+[source audit](../../../../../Physics/FieldTheory/Yukawa/Mass/Audit/AuditMultilinearWeylMass.lean)
 retains a transitive SU(5)/SU(6)-free import guard for the power construction.
 
 ## 5. Lean entry points
@@ -76,7 +76,7 @@ without a new continuity hypothesis: finite-dimensional multilinearity
 proves that condition. The entire `toMassModel`, the mass, and the actual
 light spectrum are preserved by equality. No old theorem is replaced.
 
-[WeylMassPolynomial](../../../../../Physics/FieldTheory/Yukawa/WeylMassPolynomial.lean) constructs
+[WeylMassPolynomial](../../../../../Physics/FieldTheory/Yukawa/Mass/WeylMassPolynomial.lean) constructs
 the neutral finite coefficient `C(s_1,...,s_n) = product(s_i) B` for any
 invariant symmetric mass `B`. Its diagonal is `s^n B`. Zero bare mass and
 VEV one recover `B` exactly, including at n=0; positive arity at VEV zero

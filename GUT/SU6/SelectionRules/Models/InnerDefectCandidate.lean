@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.AutomorphismCovariantModel
-import Math.RepresentationTheory.PointwiseInnerDefect
+import Math.RepresentationTheory.Constructions.PointwiseInnerDefect
+
+open Physics
 
 /-! Actual-light-field tests for pointwise inner lifts in the unbroken group.
 The hypotheses concern represented K-defects, not UV character support or

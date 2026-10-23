@@ -1,63 +1,34 @@
+import Physics.StandardModel.Operators.Selection.ProhibitionInputSM
 import Math.RepresentationTheory.ProhibitionInput
 import Physics.StandardModel.Operators.KorenSMSelection
 import Physics.StandardModel.Operators.BgwZ6Selection
 import Physics.StandardModel.Operators.DgtFlavorRestriction
 import Physics.StandardModel.Operators.QuarticityAdapters
 import Physics.StandardModel.Operators.WeinbergSMInterface
+import Math.Lean.Compatibility
 
-namespace GUT.ProhibitionInputSM
-set_option autoImplicit false
-noncomputable section
-open Math Representation DeltaLOneSignedInput SelectionCriteria
-variable {R : Type*} [Group R] {F : Species → Type*}
-  [∀ u, AddCommGroup (F u)] [∀ u, Module ℂ (F u)]
-  {S : BnvMixedInput.ScalarSpecies → Type*}
-  [∀ u, AddCommGroup (S u)] [∀ u, Module ℂ (S u)]
-  (flavor : ∀ u, Representation ℂ R (F u))
-  (scalarFlavor : ∀ u, Representation ℂ R (S u))
+deprecated_module "Use Physics.StandardModel.Operators.Selection.ProhibitionInputSM instead." (since := "source-api-v1")
 
+compatibility_declarations [
+  GUT.ProhibitionInputSM.AllForbids => Physics.ProhibitionInputSM.AllForbids,
+  GUT.ProhibitionInputSM.Forbids => Physics.ProhibitionInputSM.Forbids,
+  GUT.ProhibitionInputSM.bgw => Physics.ProhibitionInputSM.bgw,
+  GUT.ProhibitionInputSM.dgt => Physics.ProhibitionInputSM.dgt,
+  GUT.ProhibitionInputSM.dgt_restriction => Physics.ProhibitionInputSM.dgt_restriction,
+  GUT.ProhibitionInputSM.facade_iff => Physics.ProhibitionInputSM.facade_iff,
+  GUT.ProhibitionInputSM.koren => Physics.ProhibitionInputSM.koren,
+  GUT.ProhibitionInputSM.llhh_forbidden_iff => Physics.ProhibitionInputSM.llhh_forbidden_iff,
+  GUT.ProhibitionInputSM.quarticity_domains => Physics.ProhibitionInputSM.quarticity_domains,
+  GUT.ProhibitionInputSM.residual_iff => Physics.ProhibitionInputSM.residual_iff
+]
 
-abbrev Forbids (t : ℤ × ℤ → Prop) (n m : ℕ) : Prop :=
-  Forbidden (ComposableBLSupport.Input flavor scalarFlavor t n m)
-abbrev AllForbids (t : ℤ × ℤ → Prop) : Prop := ∀ n m, Forbids flavor scalarFlavor t n m
-
-theorem facade_iff (t : ℤ × ℤ → Prop) (n m : ℕ) :
-    Forbids flavor scalarFlavor t n m ↔ ProhibitionInput.Forbids
-      DeltaLOneSignedFields.localField GradedBnvComparison.scalarLocal flavor scalarFlavor
-      (ComposableBLSupport.specification t) n m :=
-  (SelectionCriteria.ofEquiv (ComposableBLSupport.inputEquiv flavor scalarFlavor t n m)).forbidden
-
-theorem residual_iff (t : ℤ × ℤ → Prop) (n m : ℕ) :
-    Forbids flavor scalarFlavor t n m ↔
-      Forbidden (ComposableBLSupport.Residual flavor scalarFlavor t n m) :=
-  (SelectionCriteria.ofEquiv (ComposableBLSupport.equiv flavor scalarFlavor t n m)).forbidden
-
-theorem koren : AllForbids (KorenSMSelection.flavor (F := F))
-    (KorenSMSelection.scalarFlavor (S := S)) KorenSMSelection.target :=
-  KorenSMSelection.all_forbidden
-
-theorem bgw : AllForbids (BgwZ6Selection.flavor (F := F))
-    (BgwZ6Selection.scalarFlavor (S := S)) ComposableBLSupport.bOneTwo :=
-  BgwZ6Selection.all_forbidden
-
-theorem dgt : AllForbids DgtFlavorRestriction.irFlavor DgtFlavorRestriction.irScalar
-    ComposableBLSupport.bOneTwo := DgtFlavorRestriction.all_bnv_forbidden
-
-theorem dgt_restriction : ¬ Function.Surjective DgtFlavorRestriction.restrictMap :=
-  DgtFlavorRestriction.restriction_not_surjective
-
-/-- Different alphabets: SM/Higgs L2 vanishes while the dressed nuR/eta sector survives. -/
-theorem quarticity_domains :
-    AllForbids QuarticityAdapters.smFlavor QuarticityAdapters.smScalar
-      (fun q => q.2.natAbs = 2) ∧ Allowed QuarticityAdapters.Dressed :=
-  ⟨QuarticityAdapters.sm_lTwo_forbidden, QuarticityAdapters.exists_dressed⟩
-
-/-- Actual one-copy LLHH coefficient domain, with neutral Higgs flavor. -/
-theorem llhh_forbidden_iff (a : Representation ℂ R ℂ) :
-    Forbidden (WeinbergSMInterface.ModelSector a) ↔ ∃ g, (a g 1) ^ 2 ≠ 1 := by
-  rw [SelectionCriteria.forbidden_iff_not_allowed]
-  rw [SelectionCriteria.allowed_equiv (WeinbergSMInterface.coefficientEquiv a),
-    Allowed, WeinbergScalarFlavor.exists_nonzero_iff_square_trivial]
-  simp only [not_forall]
-end
-end GUT.ProhibitionInputSM
+assert_compatible GUT.ProhibitionInputSM.AllForbids => Physics.ProhibitionInputSM.AllForbids
+assert_compatible GUT.ProhibitionInputSM.Forbids => Physics.ProhibitionInputSM.Forbids
+assert_compatible GUT.ProhibitionInputSM.bgw => Physics.ProhibitionInputSM.bgw
+assert_compatible GUT.ProhibitionInputSM.dgt => Physics.ProhibitionInputSM.dgt
+assert_compatible GUT.ProhibitionInputSM.dgt_restriction => Physics.ProhibitionInputSM.dgt_restriction
+assert_compatible GUT.ProhibitionInputSM.facade_iff => Physics.ProhibitionInputSM.facade_iff
+assert_compatible GUT.ProhibitionInputSM.koren => Physics.ProhibitionInputSM.koren
+assert_compatible GUT.ProhibitionInputSM.llhh_forbidden_iff => Physics.ProhibitionInputSM.llhh_forbidden_iff
+assert_compatible GUT.ProhibitionInputSM.quarticity_domains => Physics.ProhibitionInputSM.quarticity_domains
+assert_compatible GUT.ProhibitionInputSM.residual_iff => Physics.ProhibitionInputSM.residual_iff

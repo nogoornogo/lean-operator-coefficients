@@ -1,7 +1,9 @@
 import GUT.SU5.SelectionRules.ActualFullFamilyIndex
 import Math.RepresentationTheory.Multiplicity.CopySumEquivalence
-import Physics.FieldTheory.Mass.ConstructedSpectatorRadical
-import Physics.FieldTheory.Mass.EquivariantWeylMassTransport
+import Physics.FieldTheory.Mass.Surplus.ConstructedSpectatorRadical
+import Physics.FieldTheory.Mass.Algebra.EquivariantWeylMassTransport
+
+open Physics
 
 namespace GUT.SU5.ActualFullFamilyMassExistence
 set_option autoImplicit false

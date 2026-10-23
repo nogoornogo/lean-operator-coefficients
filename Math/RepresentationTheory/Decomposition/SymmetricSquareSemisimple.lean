@@ -1,4 +1,4 @@
-import Math.RepresentationTheory.TensorSquareMultilinear
+import Math.RepresentationTheory.Tensors.TensorSquareMultilinear
 import Math.RepresentationTheory.Decomposition.CompactIrreducibleQuotient
 import Math.RepresentationTheory.Unitary.ContinuousConstructions
 

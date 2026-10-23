@@ -1,5 +1,5 @@
 import Math.LieGroups.Symplectic.QuaternionicStructure
-import Math.LinearAlgebra.QuaternionicEigenbasis
+import Math.LinearAlgebra.Quaternion.QuaternionicEigenbasis
 
 /-! Apply the abstract paired spectral theorem to actual compact symplectic
 matrices, retaining the canonical pairing of the two halves of the basis. -/

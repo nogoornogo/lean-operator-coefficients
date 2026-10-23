@@ -26,8 +26,15 @@ finite classifications and conditional model-admission checks.
 - [Species-dependent mass surplus and physical qque](Physics/SPECIES_COPY_SURPLUS_QQUE.md).
 - [Physical assumptions](../inputs/Physics/ASSUMPTIONS.md).
 - [Literature coverage](../../../verification/README.md).
+- [Bounded derivative literature controls](Physics/DERIVATIVE_LITERATURE_CONTROLS.md):
+  actual scalar relation/substitution results and partial Higgs/mixed readings,
+  with their invariant-basis and physical-dictionary boundaries.
+- [Actual finite derivative certificates](Physics/FINITE_DERIVATIVE_CERTIFICATES.md):
+  inverse finite input coordinates, free scalar zero-derivative images and
+  an exact cubic-value condition, with remaining positive-degree basis gates.
 
-These are not all-EFT, derivative, EOM/IBP or amplitude claims.
+Each dossier owns its derivative/EOM/IBP scope; none establishes all-EFT or
+amplitude coverage.
 
 - [Inverse cyclic SM construction](Physics/INVERSE_CYCLIC_SM_CONSTRUCTION.md):
   bounded charge filtering and a constructed algebraic light/mass input;

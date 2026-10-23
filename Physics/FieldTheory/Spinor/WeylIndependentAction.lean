@@ -1,58 +1,34 @@
+import Physics.FieldTheory.Spinor.Weyl.WeylIndependentAction
 import Physics.FieldTheory.Spinor.WeylRealTransvections
 import Math.RepresentationTheory.PairedPolynomialInvariants
+import Math.Lean.Compatibility
 
-/-! Independent complex left/right factors and their actual real-form embedding. -/
-namespace GUT.WeylIndependentAction
-set_option autoImplicit false
-noncomputable section
-open Math Representation
-abbrev Group := WeylSpinor.Group × WeylSpinor.Group
+deprecated_module "Use Physics.FieldTheory.Spinor.Weyl.WeylIndependentAction instead." (since := "source-api-v1")
 
-def paired : WeylSpinor.Group →* Group :=
-  PairedPolynomialInvariants.paired WeylSpinor.conjugate
+compatibility_declarations [
+  GUT.WeylIndependentAction.Group => Physics.WeylIndependentAction.Group,
+  GUT.WeylIndependentAction.direction => Physics.WeylIndependentAction.direction,
+  GUT.WeylIndependentAction.direction.eq_1 => Physics.WeylIndependentAction.direction.eq_1,
+  GUT.WeylIndependentAction.family => Physics.WeylIndependentAction.family,
+  GUT.WeylIndependentAction.family.eq_1 => Physics.WeylIndependentAction.family.eq_1,
+  GUT.WeylIndependentAction.family_conjugate => Physics.WeylIndependentAction.family_conjugate,
+  GUT.WeylIndependentAction.family_generates => Physics.WeylIndependentAction.family_generates,
+  GUT.WeylIndependentAction.family_zero => Physics.WeylIndependentAction.family_zero,
+  GUT.WeylIndependentAction.paired => Physics.WeylIndependentAction.paired,
+  GUT.WeylIndependentAction.spin => Physics.WeylIndependentAction.spin,
+  GUT.WeylIndependentAction.spin_affine => Physics.WeylIndependentAction.spin_affine,
+  GUT.WeylIndependentAction.spin_paired => Physics.WeylIndependentAction.spin_paired
+]
 
-def spin (right : Bool) : Representation ℂ Group WeylSpinor.Space :=
-  if right then WeylSpinor.left.comp (MonoidHom.snd _ _) else WeylSpinor.left.comp (MonoidHom.fst _ _)
-
-theorem spin_paired (right : Bool) : (spin right).comp paired = FourSameWeylCompleteness.action right := by
-  cases right <;> rfl
-
-def family (a : WeylRealTransvections.Pair) (z : ℂ) : WeylSpinor.Group :=
-  Matrix.SpecialLinearGroup.transvection a.property z
-
-theorem family_zero (a : WeylRealTransvections.Pair) : family a 0 = 1 := by
-  apply Subtype.ext
-  simp [family,Matrix.SpecialLinearGroup.transvection]
-
-theorem family_conjugate (a : WeylRealTransvections.Pair) (z : ℂ) :
-    WeylSpinor.conjugate (family a z) = family a (star z) := by
-  apply Subtype.ext
-  ext i j
-  change star ((1 + Matrix.single a.val.1 a.val.2 z : Matrix (Fin 2) (Fin 2) ℂ) i j) =
-    (1 + Matrix.single a.val.1 a.val.2 (star z) : Matrix (Fin 2) (Fin 2) ℂ) i j
-  simp only [Matrix.add_apply,Matrix.one_apply,Matrix.single_apply]
-  split_ifs <;> simp
-
-theorem family_generates : Subgroup.closure
-    (Set.range (fun az : WeylRealTransvections.Pair × ℂ => family az.1 az.2)) = ⊤ := by
-  apply top_unique
-  rw [← WeylGeneratorTests.generates]
-  apply Subgroup.closure_mono
-  rintro _ ⟨a,rfl⟩
-  exact ⟨(⟨(a.i,a.j),a.hij⟩,a.c),rfl⟩
-
-def direction (a : WeylRealTransvections.Pair) : Module.End ℂ WeylSpinor.Space :=
-  Matrix.toLin' (Matrix.single a.val.1 a.val.2 1)
-
-theorem spin_affine (right : Bool) (a : WeylRealTransvections.Pair) (u v : ℂ) (x : WeylSpinor.Space) :
-    spin right (family a u,family a v) x = x + (if right then v else u) • direction a x := by
-  have hh (z : ℂ) : WeylSpinor.left (family a z) x = x + z • direction a x := by
-    rcases a with ⟨⟨i,j⟩,hij⟩
-    fin_cases i <;> fin_cases j <;> try contradiction
-    all_goals ext k; fin_cases k <;>
-      simp [family,direction,WeylSpinor.left,Matrix.SpecialLinearGroup.transvection,
-        Matrix.transvection,Matrix.toLin'_apply,Matrix.mulVec,dotProduct,Matrix.single_apply]
-  cases right <;> exact hh _
-
-end
-end GUT.WeylIndependentAction
+assert_compatible GUT.WeylIndependentAction.Group => Physics.WeylIndependentAction.Group
+assert_compatible GUT.WeylIndependentAction.direction => Physics.WeylIndependentAction.direction
+assert_compatible GUT.WeylIndependentAction.direction.eq_1 => Physics.WeylIndependentAction.direction.eq_1
+assert_compatible GUT.WeylIndependentAction.family => Physics.WeylIndependentAction.family
+assert_compatible GUT.WeylIndependentAction.family.eq_1 => Physics.WeylIndependentAction.family.eq_1
+assert_compatible GUT.WeylIndependentAction.family_conjugate => Physics.WeylIndependentAction.family_conjugate
+assert_compatible GUT.WeylIndependentAction.family_generates => Physics.WeylIndependentAction.family_generates
+assert_compatible GUT.WeylIndependentAction.family_zero => Physics.WeylIndependentAction.family_zero
+assert_compatible GUT.WeylIndependentAction.paired => Physics.WeylIndependentAction.paired
+assert_compatible GUT.WeylIndependentAction.spin => Physics.WeylIndependentAction.spin
+assert_compatible GUT.WeylIndependentAction.spin_affine => Physics.WeylIndependentAction.spin_affine
+assert_compatible GUT.WeylIndependentAction.spin_paired => Physics.WeylIndependentAction.spin_paired

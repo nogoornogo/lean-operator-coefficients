@@ -13,7 +13,7 @@ used to exclude derivative operators. No EOM/IBP-independent EFT minimum,
 matching, Wilson-coefficient generation or decay rate is established here.
 See [scope and theorem quantifiers](../../RESULTS_AND_SCOPE.md).
 
-[SMChargeDegreeBounds](../../../../../Physics/StandardModel/Operators/SMChargeDegreeBounds.lean)
+[SMChargeDegreeBounds](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMChargeDegreeBounds.lean)
 uses the fixed ten signed species dictionary. For every ordered pattern p of
 n fermions, with signed charges `(B3,L)=SMQLPatternRequests.blCharge p`,
 `charge_degree` proves `|B3|+|L|≤n`. At each species the sum of the two
@@ -43,7 +43,7 @@ is an independent historical cross-check under the opt-in verifier.
 
 ## Computed minimum and uniform bounds
 
-[SMFiniteLeptonDegreeBounds](../../../../../Physics/StandardModel/Operators/SMFiniteLeptonDegreeBounds.lean)
+[SMFiniteLeptonDegreeBounds](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMFiniteLeptonDegreeBounds.lean)
 defines `neutralLeptons` by filtering the proved `leptonRange b` with the
 residual equation, and `leptonSizes` by taking absolute values. `minLepton`
 returns `Option Nat`: Some m is the least member, and None denotes an empty
@@ -94,7 +94,7 @@ fermion lower bounds, and a negative-B3 consumer. Checkpoint evidence belongs to
 
 ## Four exact minimum engineering dimensions
 
-[SMMinimumOperatorDimension](../../../../../Physics/StandardModel/Operators/SMMinimumOperatorDimension.lean)
+[SMMinimumOperatorDimension](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMMinimumOperatorDimension.lean)
 defines `IsMinimum q l b M` by actual original-space attainment of doubled
 dimension M and a bound for every allowed content with absolute B3=b,
 at every Higgs bidegree. It proves uniqueness and prohibition below M.
@@ -124,10 +124,10 @@ allowed coefficients, with no UV-generation or rate consequence. Closed
 support certificates use existing decisions checked by the Lean kernel;
 no numerical/CSV or new external mathematical premise is introduced.
 
-[Importing consumers](../../../../../Physics/StandardModel/Operators/SMMinimumOperatorDimensionExamples.lean)
+[Importing consumers](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMMinimumOperatorDimensionExamples.lean)
 exercise exact minima, negative B3, the H2 zero-Higgs exclusion and rejection
 of false smaller/larger minimum claims. The persistent
-[audit](../../../../../Physics/StandardModel/Operators/Audit/AuditSMMinimumOperatorDimension.lean)
+[audit](../../../../../Physics/StandardModel/Operators/Support/Dimension/Audit/AuditSMMinimumOperatorDimension.lean)
 checks implementation and example declarations transitively against exactly
 propext, Classical.choice and Quot.sound. See the
 [topic results](../../../../topics/sm-minimum-operator-dimension/results.md)
@@ -135,7 +135,7 @@ for verification and scope.
 
 ## Complete B1 support strictly below dimension ten
 
-[SMB1BelowTen](../../../../../Physics/StandardModel/Operators/SMB1BelowTen.lean)
+[SMB1BelowTen](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1BelowTen.lean)
 proves, for arbitrary nonzero k and scalar cyclic q/l actions on the same
 fixed SM/Higgs dictionary, actual B1 allowance at `3*n+2*(h+d)<20` iff
 `3*q+l=0 ∨ 3*q-l=0 ∨ 3*q+3*l=0` in ZMod k. Its complementary criterion
@@ -147,7 +147,7 @@ and Lorentz parity leave L=1,-1,3. Actual joint certificates realize these
 at dimensions six, seven and nine respectively. The necessity proof handles
 both signed charge branches without a source-conjugation premise.
 
-[SMB1BelowTenAssignments](../../../../../Physics/StandardModel/Operators/SMB1BelowTenAssignments.lean)
+[SMB1BelowTenAssignments](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1BelowTenAssignments.lean)
 reuses the complete unique 572-row domain. Its domain excludes `3*q+l=0`,
 so only the other two congruences remain. Kernel counts give 146 below-ten
 allowed and 426 below-ten forbidden rows. Of the latter, 180 are allowed
@@ -162,16 +162,16 @@ scope extension is used. See the [bounded topic](../../../../topics/sm-b1-below-
 
 ## Retained B1 intervals after the full-minimum attempt
 
-[SMB1DimensionBounds](../../../../../Physics/StandardModel/Operators/SMB1DimensionBounds.lean)
+[SMB1DimensionBounds](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1DimensionBounds.lean)
 adds the actual independent-left-chirality and engineering-grade congruence
 `(twiceDimension-3*B3+L)%4=0`. The retained interval lower bound uses the
 existing absolute-charge bound and complete below-ten exclusion; it does not
 assume the stopped proposed complementary-weak envelope.
 
-[SMB1DimensionWitnesses](../../../../../Physics/StandardModel/Operators/SMB1DimensionWitnesses.lean)
+[SMB1DimensionWitnesses](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1DimensionWitnesses.lean)
 supplies actual graded witnesses for every one of the 18 normalized B1
 charges, reusing old certificates and eight new joint-support templates.
-[SMB1MinimumClassification](../../../../../Physics/StandardModel/Operators/SMB1MinimumClassification.lean)
+[SMB1MinimumClassification](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1MinimumClassification.lean)
 proves attained upper grades and universal original-space lower grades for
 all 326 allowed rows in the unchanged domain, and kernel-counts 160 exact
 minima and 166 nontrivial intervals. Exact rows have minimum dimension nine
@@ -191,13 +191,13 @@ record the exact stop, verification and remaining boundary.
 
 The subsequent [connection revision](../../../../topics/sm-b1-weak-connection/results.md)
 proves the previously missing weak envelope by three small interfaces:
-[abstract count arithmetic](../../../../../Physics/StandardModel/Operators/SMB1WeakCountArithmetic.lean),
-[actual support extraction](../../../../../Physics/StandardModel/Operators/SMB1WeakDimensionBounds.lean)
-and [strong signed grade bounds](../../../../../Physics/StandardModel/Operators/SMB1StrongDimensionBounds.lean).
+[abstract count arithmetic](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1WeakCountArithmetic.lean),
+[actual support extraction](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1WeakDimensionBounds.lean)
+and [strong signed grade bounds](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1StrongDimensionBounds.lean).
 The proved `abs(7*L-B3)≤12+twiceDimension` combines with existing capacity,
 hypercharge and chirality facts without a new mathematical premise.
 
-[SMB1ExactMinima](../../../../../Physics/StandardModel/Operators/SMB1ExactMinima.lean)
+[SMB1ExactMinima](../../../../../Physics/StandardModel/Operators/Support/Dimension/SMB1ExactMinima.lean)
 proves actual attained global minima for all 326 allowed rows, by matching
 the stronger universal lower grades to the unchanged graded witnesses.
 All selected contents, both baryon signs and every Higgs degree are covered.

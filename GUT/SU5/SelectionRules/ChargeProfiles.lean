@@ -1,6 +1,8 @@
 import Math.RepresentationTheory.Characters.UnitaryCharacterProfile
-import Physics.StandardModel.Spectrum.FiniteChargeProfiles
+import Physics.StandardModel.Spectrum.Charges.FiniteChargeProfiles
 import GUT.SU5.SelectionRules.SupportedFields
+
+open Physics
 
 open Math
 

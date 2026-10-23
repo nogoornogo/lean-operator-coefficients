@@ -1,81 +1,34 @@
+import Physics.StandardModel.Operators.Support.Joint.SMJointContentSupport
 import Math.RepresentationTheory.JointContentPresentation
 import Physics.StandardModel.Operators.SMSignedCoreJointPresentation
 import Physics.StandardModel.Operators.SMIteratedContent
 import Physics.StandardModel.Operators.SMGenerationCoefficients
+import Math.Lean.Compatibility
 
-/-! Actual complete ten-species, three-generation semisimple support.
-Only finite occupation choices, positive color diagrams and three SU2
-coupling paths remain. No multiplicity, rank or source-comparison input. -/
-namespace GUT.SMJointContentSupport
-set_option autoImplicit false
-noncomputable section
-open Math Representation ExteriorContentTree JointSourcePresentation
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Support.Joint.SMJointContentSupport instead." (since := "source-api-v1")
 
-def leaves (c : DeltaLOneSignedInput.Species → ℕ) (s : DeltaLOneSignedInput.Species) :
-    Leaf SMGenerationCauchy.Group where
-  Carrier := SMGenerationExhaustion.Core s
-  rho := SMColoredCoreBranching.core s
-  degree := c s
+compatibility_declarations [
+  GUT.SMJointContentSupport.Supports => Physics.SMJointContentSupport.Supports,
+  GUT.SMJointContentSupport.actionEquiv => Physics.SMJointContentSupport.actionEquiv,
+  GUT.SMJointContentSupport.cores => Physics.SMJointContentSupport.cores,
+  GUT.SMJointContentSupport.expression => Physics.SMJointContentSupport.expression,
+  GUT.SMJointContentSupport.field_restrict => Physics.SMJointContentSupport.field_restrict,
+  GUT.SMJointContentSupport.leaves => Physics.SMJointContentSupport.leaves,
+  GUT.SMJointContentSupport.restricted_iff => Physics.SMJointContentSupport.restricted_iff,
+  GUT.SMJointContentSupport.sourceEquiv => Physics.SMJointContentSupport.sourceEquiv,
+  GUT.SMJointContentSupport.source_restrict => Physics.SMJointContentSupport.source_restrict,
+  GUT.SMJointContentSupport.supports_iff_choices => Physics.SMJointContentSupport.supports_iff_choices,
+  GUT.SMJointContentSupport.tree => Physics.SMJointContentSupport.tree
+]
 
-abbrev tree (c : DeltaLOneSignedInput.Species → ℕ) := IndexedExteriorContent.tree 9 (leaves c)
-
-def cores (c : DeltaLOneSignedInput.Species → ℕ) : JointContentPresentation.Cores (tree c) :=
-  JointContentPresentation.indexedCores 9 (leaves c) SMSignedCoreJointPresentation.presentation
-
-def Supports (c : DeltaLOneSignedInput.Species → ℕ) (m : ℕ) : Prop :=
-  JointContentPresentation.Supports (tree c) (cores c) (SMQJointPresentation.weak m)
-
-/-- The expression is metadata from proved core decompositions. Its branch
-choices do not contain a supplied Hom, rank or source-matching condition. -/
-def expression (c : DeltaLOneSignedInput.Species → ℕ) (m : ℕ)
-    (o : GenerationTensorSupport.Choice (tree c)) : JointSourceExpression.Expr :=
-  (tensor (JointContentPresentation.occupied (tree c) (cores c) o)
-    (SMQJointPresentation.weak m)).expression
-
-theorem supports_iff_choices (c : DeltaLOneSignedInput.Species → ℕ) (m : ℕ) :
-    Supports c m ↔ ∃ o : GenerationTensorSupport.Choice (tree c),
-      ∃ b : JointSourceExpression.Choice (expression c m o),
-        JointColorSpinWord.Supports (JointSourceExpression.word (expression c m o) b) := Iff.rfl
-
-theorem field_restrict (s : DeltaLOneSignedInput.Species) :
-    (SMCombinedCompactAction.field s).comp SMGenerationCauchy.inclusion =
-      GenerationExteriorExhaustion.generations (SMColoredCoreBranching.core s) := by
-  ext g x y z
-  rfl
-
-variable {H : Type*} [Group H]
-  (flavor : ∀ s, Representation ℂ H (ThreeGenerationFermionBound.Flavor s))
-  {n : ℕ} (p : Fin n → DeltaLOneSignedInput.Species)
-
-theorem source_restrict :
-    (SMCombinedCompactAction.source flavor p).comp SMGenerationCauchy.inclusion =
-    PatternExteriorSource.representation
-      (fun s => GenerationExteriorExhaustion.generations (SMColoredCoreBranching.core s)) p :=
-  StatisticalSourceRestriction.source SMCombinedCompactAction.field SMGenerationCauchy.inclusion
-    _ p field_restrict
-
-def sourceEquiv : Representation.Equiv
-    (factor (GenerationTensorSupport.generations (tree (SMIteratedContent.counts p))))
-    ((SMCombinedCompactAction.source flavor p).comp SMGenerationCauchy.inclusion) :=
-  (GenerationTensorSupport.indexedDecomposition 9 (leaves (SMIteratedContent.counts p)) p
-    (fun _ => rfl)).trans
-      (GenerationTensorSupport.equivOfEq (source_restrict flavor p).symm)
-
-def actionEquiv (m : ℕ) (delta : ℤ) : Representation.Equiv
-    ((factor (GenerationTensorSupport.generations (tree (SMIteratedContent.counts p)))).tprod
-      (SMGenerationCauchy.weak.symmetricPower m))
-    ((SMCombinedCompactAction.action flavor p m delta).comp SMGenerationCauchy.inclusion) :=
-  (ExternalInvariantTensor.tensorEquiv (sourceEquiv flavor p) (.refl _)).trans
-    (SMGenerationCoefficients.actionEquiv flavor p m delta)
-
-theorem restricted_iff (m : ℕ) (delta : ℤ) :
-    SelectionCriteria.Allowed (InvariantCoefficientTransport.Invariants
-      ((SMCombinedCompactAction.action flavor p m delta).comp SMGenerationCauchy.inclusion)) ↔
-    Supports (SMIteratedContent.counts p) m :=
-  (SelectionCriteria.allowed_equiv (InvariantCoefficientTransport.alongEquiv
-    (actionEquiv flavor p m delta))).symm.trans
-      (JointContentPresentation.allowed_iff _ (cores _) (SMQJointPresentation.weak m))
-
-end
-end GUT.SMJointContentSupport
+assert_compatible GUT.SMJointContentSupport.Supports => Physics.SMJointContentSupport.Supports
+assert_compatible GUT.SMJointContentSupport.actionEquiv => Physics.SMJointContentSupport.actionEquiv
+assert_compatible GUT.SMJointContentSupport.cores => Physics.SMJointContentSupport.cores
+assert_compatible GUT.SMJointContentSupport.expression => Physics.SMJointContentSupport.expression
+assert_compatible GUT.SMJointContentSupport.field_restrict => Physics.SMJointContentSupport.field_restrict
+assert_compatible GUT.SMJointContentSupport.leaves => Physics.SMJointContentSupport.leaves
+assert_compatible GUT.SMJointContentSupport.restricted_iff => Physics.SMJointContentSupport.restricted_iff
+assert_compatible GUT.SMJointContentSupport.sourceEquiv => Physics.SMJointContentSupport.sourceEquiv
+assert_compatible GUT.SMJointContentSupport.source_restrict => Physics.SMJointContentSupport.source_restrict
+assert_compatible GUT.SMJointContentSupport.supports_iff_choices => Physics.SMJointContentSupport.supports_iff_choices
+assert_compatible GUT.SMJointContentSupport.tree => Physics.SMJointContentSupport.tree

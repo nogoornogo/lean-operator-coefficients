@@ -1,5 +1,7 @@
 import GUT.SU5.SelectionRules.NonScalarInvariantMass
-import Physics.FieldTheory.Mass.PhysicalCommonCopyModel
+import Physics.FieldTheory.Mass.Surplus.PhysicalCommonCopyModel
+
+open Physics
 
 /-! SU(5) is a checked realization of the model-independent physical theorem.
 The original symmetric mass is arbitrary; classification remains in this adapter. -/

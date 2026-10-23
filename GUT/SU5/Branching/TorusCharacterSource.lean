@@ -1,5 +1,8 @@
-import GUT.SU5.Branching.TorusCharacter
+import GUT.SU5.Embeddings.MaximalTorus
+import Physics.StandardModel.Spectrum.Representations.TorusCharacter
 import Math.RepresentationTheory.Characters.CharacterRestriction
+
+open Physics
 
 open Math
 
@@ -15,6 +18,7 @@ finite weight model; no source Laurent-polynomial certificate is assumed.
 set_option autoImplicit false
 
 namespace GUT.SU5.TorusCharacterSource
+open Physics.SU5
 open Math.SU5.MaximalTorus
 
 noncomputable section

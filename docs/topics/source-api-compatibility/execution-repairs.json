@@ -1,0 +1,75 @@
+[
+  {
+    "kind": "synchronous-certificate-elaboration",
+    "canonical": "Physics/StandardModel/Operators/Support/Lepton/SMLeptonChargeWitnesses.lean",
+    "marker": "namespace Physics.SMLeptonChargeWitnesses\n",
+    "insertion": "-- Elaborate the generated certificates sequentially within this module.\nset_option Elab.async false\n\n",
+    "reason": "Repeated asynchronous thread-creation failure; identical proofs pass synchronously",
+    "preserved": "All declarations, proof bodies, kernel decisions, proof limits and strict axiom checks",
+    "guards": "Unchanged 16 GiB, 540 seconds and two threads",
+    "generator": "tools/structural-support/finite-charge-witnesses.py"
+  },
+  {
+    "kind": "synchronous-certificate-elaboration",
+    "canonical": "Physics/StandardModel/Operators/Support/Dimension/SMMinimumOperatorDimension.lean",
+    "marker": "namespace Physics.SMMinimumOperatorDimension\n",
+    "insertion": "-- Elaborate the finite certificates sequentially within this module.\nset_option Elab.async false\n\n",
+    "reason": "Asynchronous thread-creation failure; identical proofs pass synchronously",
+    "preserved": "All declarations, proof bodies, kernel decisions, proof limits and strict axiom checks",
+    "guards": "Unchanged 16 GiB, 540 seconds and two threads"
+  },
+  {
+    "kind": "synchronous-certificate-elaboration",
+    "canonical": "Physics/StandardModel/Operators/Support/Dimension/SMB1DimensionProposals.lean",
+    "marker": "namespace Physics.SMB1DimensionProposals\n",
+    "insertion": "-- Elaborate the finite certificates sequentially within this module.\nset_option Elab.async false\n\n",
+    "reason": "Asynchronous thread-creation failure; identical proofs pass synchronously",
+    "preserved": "All declarations, proof bodies, kernel decisions, proof limits and strict axiom checks",
+    "guards": "Unchanged 16 GiB, 540 seconds and two threads"
+  },
+  {
+    "kind": "synchronous-certificate-elaboration",
+    "canonical": "Physics/StandardModel/Operators/Support/Dimension/SMB1DimensionWitnesses.lean",
+    "marker": "namespace Physics.SMB1DimensionWitnesses\n",
+    "insertion": "-- Elaborate the finite certificates sequentially within this module.\nset_option Elab.async false\n\n",
+    "reason": "Same finite-certificate dependency series; producer and witness consumers exhibited asynchronous thread-creation failure",
+    "preserved": "All declarations, proof bodies, kernel decisions, proof limits and strict axiom checks",
+    "guards": "Unchanged 16 GiB, 540 seconds and two threads"
+  },
+  {
+    "kind": "synchronous-certificate-elaboration",
+    "canonical": "Physics/StandardModel/Operators/Support/Dimension/SMB1ExactMinima.lean",
+    "marker": "namespace Physics.SMB1ExactMinima\n",
+    "insertion": "-- Elaborate the finite certificates sequentially within this module.\nset_option Elab.async false\n\n",
+    "reason": "Same finite-certificate dependency series; producer and witness consumers exhibited asynchronous thread-creation failure",
+    "preserved": "All declarations, proof bodies, kernel decisions, proof limits and strict axiom checks",
+    "guards": "Unchanged 16 GiB, 540 seconds and two threads"
+  },
+  {
+    "kind": "synchronous-certificate-elaboration",
+    "canonical": "Physics/StandardModel/Operators/Support/Dimension/SMB1ExactMinimaExamples.lean",
+    "marker": "namespace Physics.SMB1ExactMinimaExamples\n",
+    "insertion": "-- Elaborate the finite certificates sequentially within this module.\nset_option Elab.async false\n\n",
+    "reason": "Same finite-certificate dependency series; producer and witness consumers exhibited asynchronous thread-creation failure",
+    "preserved": "All declarations, proof bodies, kernel decisions, proof limits and strict axiom checks",
+    "guards": "Unchanged 16 GiB, 540 seconds and two threads"
+  },
+  {
+    "kind": "synchronous-certificate-elaboration",
+    "canonical": "Physics/StandardModel/Operators/Support/Dimension/SMB1MinimumClassification.lean",
+    "marker": "namespace Physics.SMB1MinimumClassification\n",
+    "insertion": "-- Elaborate the finite certificates sequentially within this module.\nset_option Elab.async false\n\n",
+    "reason": "Same finite-certificate dependency series; producer and witness consumers exhibited asynchronous thread-creation failure",
+    "preserved": "All declarations, proof bodies, kernel decisions, proof limits and strict axiom checks",
+    "guards": "Unchanged 16 GiB, 540 seconds and two threads"
+  },
+  {
+    "kind": "synchronous-certificate-elaboration",
+    "canonical": "Physics/StandardModel/Operators/Support/Dimension/SMB1MinimumClassificationExamples.lean",
+    "marker": "namespace Physics.SMB1MinimumClassificationExamples\n",
+    "insertion": "-- Elaborate the finite certificates sequentially within this module.\nset_option Elab.async false\n\n",
+    "reason": "Same finite-certificate dependency series; producer and witness consumers exhibited asynchronous thread-creation failure",
+    "preserved": "All declarations, proof bodies, kernel decisions, proof limits and strict axiom checks",
+    "guards": "Unchanged 16 GiB, 540 seconds and two threads"
+  }
+]

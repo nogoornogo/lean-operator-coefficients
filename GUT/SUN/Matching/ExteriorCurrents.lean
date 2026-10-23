@@ -1,6 +1,8 @@
 import GUT.SUN.Matching.DiagonalBackground
 import GUT.SUN.Matching.ExteriorMatter
 
+open Physics
+
 open Math
 
 /-! Projected currents are computed from the actual exterior action on every

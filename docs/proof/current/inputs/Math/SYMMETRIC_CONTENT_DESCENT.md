@@ -1,6 +1,6 @@
 # Symmetric Content Descent Interfaces
 
-[TypedSymmetricPatternHom](../../../../../Math/RepresentationTheory/TypedSymmetricPatternHom.lean)
+[TypedSymmetricPatternHom](../../../../../Math/RepresentationTheory/Symmetric/TypedSymmetricPatternHom.lean)
 identifies a fixed-content subspace of the actual full symmetric species
 coefficient carrier with invariant typed multilinear maps satisfying all
 pattern-preserving permutation relations. Its output may be any supplied
@@ -12,7 +12,7 @@ pattern orbit. Restriction and stabilizer-normalized reconstruction are
 mutually inverse. `sourceSpace_iff` identifies the curried definition with
 vanishing for every source vector; no new content correspondence is assumed.
 
-[TwoBlockSymmetricDescent](../../../../../Math/RepresentationTheory/TwoBlockSymmetricDescent.lean)
+[TwoBlockSymmetricDescent](../../../../../Math/RepresentationTheory/Symmetric/TwoBlockSymmetricDescent.lean)
 separately identifies coefficients on a source tensor two symmetric powers
 with source-linear, independently symmetric nested forms satisfying actual
 simultaneous group invariance. Distinct block module types and arbitrary
@@ -24,7 +24,7 @@ here. These interfaces do not by themselves transport the earlier weak-singlet
 support iff to the original full symmetric direct-sum carrier. Nontrivial
 weak-source decomposition likewise requires an actual SU2 carrier certificate.
 
-[HiggsPatternDescent](../../../../../Physics/StandardModel/Operators/HiggsPatternDescent.lean)
+[HiggsPatternDescent](../../../../../Physics/StandardModel/Operators/Higgs/HiggsPatternDescent.lean)
 applies the first interface to the original SM scalar species and arbitrary
 exterior degree of its ten signed fermion fields. It retains local, residual
 and fermionic statistical constraints and transports allowance/prohibition

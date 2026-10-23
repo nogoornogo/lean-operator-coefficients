@@ -1,0 +1,490 @@
+{
+  "units": "KiB and seconds",
+  "measurementProtocol": "measurement-summary.json",
+  "reviewThresholds": {
+    "residentKiB": 6291456,
+    "virtualKiB": 14680064
+  },
+  "scope": "Measured source invocations; a failed original run is not a completed-proof resident baseline. Import-only controls omit the target body and use the same imported local artifact closure.",
+  "modules": [
+    {
+      "module": "Math.RepresentationTheory.Tensors.SixSlotRestrictionLift",
+      "change": "proof",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 92.45,
+        "peakResidentKiB": 6814756,
+        "sampledPeakVirtualKiB": 12692816,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "2f9f8eaab207966f76d291118307b827048333ea5110d7cff9504c3760a58344",
+        "sourceSHA256": "db94295c8b5a6a84ddf9e19064b10d343d8243b0e779dea4d8dc3f386776c266"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 11.633,
+        "peakResidentKiB": 3561840,
+        "sampledPeakVirtualKiB": 9612040,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "9089a293544b496a01ddde0bea4404c8eef03df2ae5269f6541486495f61bc36",
+        "sourceSHA256": "f76fcd568f4dcd3edc7e993de6291e75fb6fdfef46558b9a705956e8f1288dfb"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 1.607,
+        "peakResidentKiB": 3434572,
+        "sampledPeakVirtualKiB": 8481620,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "9089a293544b496a01ddde0bea4404c8eef03df2ae5269f6541486495f61bc36"
+      },
+      "audits": [
+        "Math.RepresentationTheory.Tensors.Audit.AuditSixSlotRestrictionLift"
+      ]
+    },
+    {
+      "module": "Physics.StandardModel.Gauge.Tensors.SixColorInvariant",
+      "change": "proof",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 30.885,
+        "peakResidentKiB": 4528176,
+        "sampledPeakVirtualKiB": 15069356,
+        "sampledPeakOSThreads": 9,
+        "fingerprint": "787eb97c109dfc50b4cc541fe5976f17766f5f0604dd27d3d4e34a818bac708f",
+        "sourceSHA256": "0201414dd88bbcfc5cdc1846cd80cd6241ff82463b08d462ab9ad421e9806867"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 25.386,
+        "peakResidentKiB": 4208324,
+        "sampledPeakVirtualKiB": 13988008,
+        "sampledPeakOSThreads": 9,
+        "fingerprint": "24d2a7cb0f0f6d0df42b2865564e371c6a35a6a9500efe0f436a639b6319ffcf",
+        "sourceSHA256": "835dadb2e54c693a54b6a7f30209b1c5d8f0679caeac911481c7526d7b00e1ca"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 1.606,
+        "peakResidentKiB": 3477388,
+        "sampledPeakVirtualKiB": 8531832,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "24d2a7cb0f0f6d0df42b2865564e371c6a35a6a9500efe0f436a639b6319ffcf"
+      },
+      "audits": [
+        "Physics.StandardModel.Gauge.Tensors.Audit.AuditSixColorInvariant"
+      ]
+    },
+    {
+      "module": "Math.RepresentationTheory.Content.SixSlotSpeciesSum",
+      "change": "scheduling",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 8.125,
+        "peakResidentKiB": 3848660,
+        "sampledPeakVirtualKiB": 16033540,
+        "sampledPeakOSThreads": 11,
+        "fingerprint": "df5b3e5b117c68522757bccbad908b49828efbdd832ad432d005a4444716d62d",
+        "sourceSHA256": "3cdbb70667f52f82ab1a443193712b2ad1506b974b78d5b50568ecc628e64a3e"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 12.335,
+        "peakResidentKiB": 3799144,
+        "sampledPeakVirtualKiB": 9610924,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "d1fe98ca720851476e8f0a0a4de2269585ad6c7117e4b2b445d3e493d219e07c",
+        "sourceSHA256": "9eb1f6cec218211ce1aeab37af24fd27244806d00db08f6abb1124e5b234dea1"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 1.607,
+        "peakResidentKiB": 3433616,
+        "sampledPeakVirtualKiB": 8480432,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "d1fe98ca720851476e8f0a0a4de2269585ad6c7117e4b2b445d3e493d219e07c"
+      },
+      "audits": [
+        "Math.RepresentationTheory.Content.Audit.AuditSixSlotSpeciesSum"
+      ]
+    },
+    {
+      "module": "Math.LieGroups.E6.Minuscule.D5Blocks",
+      "change": "scheduling",
+      "original": {
+        "status": "failed",
+        "exit": -6,
+        "timeout": false,
+        "seconds": 1.707,
+        "peakResidentKiB": 3111300,
+        "sampledPeakVirtualKiB": 16728508,
+        "sampledPeakOSThreads": 12,
+        "fingerprint": "e1c69d79218b31ce674006517a3ee94eec8be43a8695bcaf0d3db41dee0fe51b",
+        "sourceSHA256": "855bd87fd08b794d7581394b04c1c4363edfedde48ec9792add3c3fd50f46404"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 6.52,
+        "peakResidentKiB": 3243932,
+        "sampledPeakVirtualKiB": 9257312,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "8387196257ea6e329ef98295b5fc306b40c45f9ac7fe705b9c03e2b1234e0d2d",
+        "sourceSHA256": "3d06d2ab72686d616f1afde8b60eaa6f87f5c23b26f7de39787c64f3a2db7556"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 1.407,
+        "peakResidentKiB": 3087752,
+        "sampledPeakVirtualKiB": 8126820,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "8387196257ea6e329ef98295b5fc306b40c45f9ac7fe705b9c03e2b1234e0d2d"
+      },
+      "audits": [
+        "Math.LieGroups.E6.Audit.AuditMinusculeCompact"
+      ]
+    },
+    {
+      "module": "Math.LieGroups.E6.Minuscule.LieCertificateChecks",
+      "change": "proof and scheduling",
+      "original": {
+        "status": "failed",
+        "exit": -6,
+        "timeout": false,
+        "seconds": 1.708,
+        "peakResidentKiB": 3571044,
+        "sampledPeakVirtualKiB": 16239556,
+        "sampledPeakOSThreads": 11,
+        "fingerprint": "5029cd63ffe20dd06fc045263ff8927fc8a96a26c22e7721bd8c69ff9da3f676",
+        "sourceSHA256": "0f085f3bd7c39538c4cce0bf38430768544913978ea680c80e2c76258717d627"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 93.882,
+        "peakResidentKiB": 3944188,
+        "sampledPeakVirtualKiB": 9817004,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "035b8b6d1495c6091bf80bdb8a9bf833c67cadb443da3a965f1730d071df3e01",
+        "sourceSHA256": "55b0eb643a21a80d117a64858656ca00fe342ae57417ac3124a3d62d1f650586"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 1.607,
+        "peakResidentKiB": 3560984,
+        "sampledPeakVirtualKiB": 8686448,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "12f8074ac3bda3f3e0a6cd3e39f1deed46e9baf8c4128c5e2430432d35ae8577"
+      },
+      "audits": [
+        "Math.LieGroups.E6.Audit.AuditMatrixLieAlgebra"
+      ],
+      "completedSequentialBaseline": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 69.189,
+        "peakResidentKiB": 6670304,
+        "sampledPeakVirtualKiB": 12897516,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "12f8074ac3bda3f3e0a6cd3e39f1deed46e9baf8c4128c5e2430432d35ae8577",
+        "sourceSHA256": "a77c629b539e977ecb9ee2fddfe66a05828cc81f4170573dfa69989c50427c33"
+      }
+    },
+    {
+      "module": "Math.LieGroups.E6.Minuscule.MatrixLieBasis",
+      "change": "scheduling",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 23.473,
+        "peakResidentKiB": 4823976,
+        "sampledPeakVirtualKiB": 16244440,
+        "sampledPeakOSThreads": 10,
+        "fingerprint": "d9084a8ecb993d6fa9d0ef925995e287482163e37619dd8c04622cde1d69199b",
+        "sourceSHA256": "e9426a3ef5f2e6eba4ccbe86e7fd0f3704094d9cf56e5d84b6505d5ee9b9dff9"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 22.272,
+        "peakResidentKiB": 4818024,
+        "sampledPeakVirtualKiB": 10804800,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "df3061d9d187dbb32a25447319a76cc71b1a7d9ecac61da0f157cbd30ca07b72",
+        "sourceSHA256": "5fc43dc41708c54d4d4c53364218dfda01f244cb2cec21acd0d33ee71d76054b"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 1.809,
+        "peakResidentKiB": 3562452,
+        "sampledPeakVirtualKiB": 8691032,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "df3061d9d187dbb32a25447319a76cc71b1a7d9ecac61da0f157cbd30ca07b72"
+      },
+      "audits": [
+        "Math.LieGroups.E6.Audit.AuditGeckComparison"
+      ]
+    },
+    {
+      "module": "Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkYoungImages",
+      "change": "proof",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 137.873,
+        "peakResidentKiB": 6722464,
+        "sampledPeakVirtualKiB": 12856276,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "1079937679a2a4a994fe8b0491061b37e6f2af0006588e79d926e4a9a2d24067",
+        "sourceSHA256": "6d2f6f1254932d88f5dd68e878958854fb388f98ba007102ded633faba514305"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 112.818,
+        "peakResidentKiB": 5485380,
+        "sampledPeakVirtualKiB": 11807572,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "8604b7f5620c9b1132512b43eda082bf56167b9032567507ebec0b12506d3440",
+        "sourceSHA256": "df49e1a5167226a267cffbbdbfa5eab0c03989726f59d03f96301e33a60db1b7"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 1.707,
+        "peakResidentKiB": 3540532,
+        "sampledPeakVirtualKiB": 8645208,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "1079937679a2a4a994fe8b0491061b37e6f2af0006588e79d926e4a9a2d24067"
+      },
+      "audits": [
+        "Physics.StandardModel.Operators.BaryonTwo.Li.Audit.AuditLiSixQuarkSourceDerivation"
+      ]
+    },
+    {
+      "module": "Physics.StandardModel.Operators.Selection.FlavoredCyclicControls",
+      "change": "scheduling",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 3.012,
+        "peakResidentKiB": 4038340,
+        "sampledPeakVirtualKiB": 16656144,
+        "sampledPeakOSThreads": 11,
+        "fingerprint": "2eaec825aab1a0d975b9927a5d6bcfe50bc20b86a3c108f6b9357425041f58e5",
+        "sourceSHA256": "d69f328a82c9c9e97dd14740f35c25a824138fec5acb715ce27bab0b81d6654b"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 3.714,
+        "peakResidentKiB": 4016312,
+        "sampledPeakVirtualKiB": 10233656,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "390fc1ddb415082422a91d3e1d6febebb72717ce525c5eef4c230d32a7d053e4",
+        "sourceSHA256": "8bec090726c575a44549858f296fb984488fa8625142383a32b56e35ef5620d8"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 2.009,
+        "peakResidentKiB": 3957348,
+        "sampledPeakVirtualKiB": 9103100,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "390fc1ddb415082422a91d3e1d6febebb72717ce525c5eef4c230d32a7d053e4"
+      },
+      "audits": [
+        "Physics.StandardModel.Operators.Selection.Audit.AuditFlavoredCyclicSelection"
+      ]
+    },
+    {
+      "module": "Physics.FieldTheory.Jets.Higgs.QuarticFour.HiggsQuarticFourInternalUpper",
+      "change": "scheduling",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 4.114,
+        "peakResidentKiB": 3912728,
+        "sampledPeakVirtualKiB": 15414504,
+        "sampledPeakOSThreads": 10,
+        "fingerprint": "9dbc9c1fdb4da3736564c7f3b5a474871cb4396850cc5697d83dac181f90ac6d",
+        "sourceSHA256": "b4e426d995089e436c36c63bd591ba1ee46beb5fb9918a4418e9669466566850"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 4.815,
+        "peakResidentKiB": 3880528,
+        "sampledPeakVirtualKiB": 10040460,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "90b85c9477c94b4f03786401b1654233d37f99015a902b26f7c3332c465f58ef",
+        "sourceSHA256": "633027d52777116024adaa60d42c8383a4067c844d22c476e801513917fee8c6"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 1.707,
+        "peakResidentKiB": 3826756,
+        "sampledPeakVirtualKiB": 8909860,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "90b85c9477c94b4f03786401b1654233d37f99015a902b26f7c3332c465f58ef"
+      },
+      "audits": [
+        "Physics.FieldTheory.Jets.Higgs.QuarticFour.Audit.AuditHiggsQuarticFourCompleteness"
+      ]
+    },
+    {
+      "module": "GUT.E6.Minuscule.SU5LieImage",
+      "change": "proof",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 37.422,
+        "peakResidentKiB": 8593060,
+        "sampledPeakVirtualKiB": 14815304,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "dc70e577e693f8050758ea67bfdefb04256e4e38240518200d37cad9b3f01681",
+        "sourceSHA256": "d679c688feee7240cc852ed1166bd7710d8641995a245e84e6e6016fa8e62961"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 34.909,
+        "peakResidentKiB": 5255280,
+        "sampledPeakVirtualKiB": 11669192,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "f1a5bfdf48ba24dec4fbae194298a8ab7610a7ddf532e8a829df952687ce5f4d",
+        "sourceSHA256": "ee455a592001a51f76e82934fdeed551b546f0325497061076dda0bd27041bf1"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 2.109,
+        "peakResidentKiB": 4325904,
+        "sampledPeakVirtualKiB": 9555404,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "dc70e577e693f8050758ea67bfdefb04256e4e38240518200d37cad9b3f01681"
+      },
+      "audits": [
+        "GUT.E6.Audit.AuditSU5Inclusion"
+      ]
+    },
+    {
+      "module": "GUT.SU5.SelectionRules.InvariantMassNormalForm",
+      "change": "scheduling",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 10.635,
+        "peakResidentKiB": 4044716,
+        "sampledPeakVirtualKiB": 16598580,
+        "sampledPeakOSThreads": 11,
+        "fingerprint": "78a01ae1b937bb7723fe880c1efc7d99d9fa2c2b9988aa3b3eceaf339ffa3ee2",
+        "sourceSHA256": "84d5d522b70f75661723fe1dfb6be75797305098d6908c4369b4e5b4411dbdb0"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 17.053,
+        "peakResidentKiB": 4031312,
+        "sampledPeakVirtualKiB": 10175896,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "a13739ef24c7d838092efc07d8daf14c1e6238b35b9449a6ddec8aae57933eef",
+        "sourceSHA256": "4f4d0c00c6073f1ad078d9d71ee44d9a322739bf5e32114fa491815dd23392a3"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 2.009,
+        "peakResidentKiB": 3960840,
+        "sampledPeakVirtualKiB": 9045536,
+        "sampledPeakOSThreads": 4,
+        "fingerprint": "78a01ae1b937bb7723fe880c1efc7d99d9fa2c2b9988aa3b3eceaf339ffa3ee2"
+      },
+      "audits": [
+        "GUT.SU5.Audit.AuditInvariantMassNormalForm"
+      ]
+    },
+    {
+      "module": "GUT.SU5.Branching.ActualHyperchargeProfiles",
+      "change": "scheduling",
+      "original": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 5.62,
+        "peakResidentKiB": 4239904,
+        "sampledPeakVirtualKiB": 16614240,
+        "sampledPeakOSThreads": 11,
+        "fingerprint": "eae9dd8ef8cf69c9518de576ad7007f5c4597f133e7ad1f01b169c11d2c42c45",
+        "sourceSHA256": "2cf884aae3b85262916c0f0d0754f382302143875d784de3887d843fd1a6b3a7"
+      },
+      "final": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 6.623,
+        "peakResidentKiB": 4215920,
+        "sampledPeakVirtualKiB": 10191624,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "b635c15073e66c92f229768519a9f98be41ccd053f598888ba2f8488c705c939",
+        "sourceSHA256": "7dfab21342552a253f805b6cded0ddfaacadc8fbdb06a7228fc1e2faed83cb0f"
+      },
+      "importOnly": {
+        "status": "success",
+        "exit": 0,
+        "timeout": false,
+        "seconds": 2.009,
+        "peakResidentKiB": 3971728,
+        "sampledPeakVirtualKiB": 10191560,
+        "sampledPeakOSThreads": 5,
+        "fingerprint": "eae9dd8ef8cf69c9518de576ad7007f5c4597f133e7ad1f01b169c11d2c42c45"
+      },
+      "audits": [
+        "GUT.SU5.Audit.AuditActualFullFamily"
+      ]
+    }
+  ]
+}

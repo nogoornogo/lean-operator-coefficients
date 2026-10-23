@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.ContinuousWeylFamilyModel
 import GUT.SU6.SelectionRules.Models.ContinuousWeylFullMass
 
+open Physics
+
 /-!
 # A nonlinear source for the existing nonzero fifteen-mode mass
 

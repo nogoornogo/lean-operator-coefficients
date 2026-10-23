@@ -1,6 +1,8 @@
 import GUT.SU6.Adapters.StandardSMExterior
 import GUT.SU6.Branching.StandardSMTorus
 
+open Physics
+
 open Math
 
 /-!

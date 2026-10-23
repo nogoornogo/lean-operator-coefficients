@@ -43,11 +43,11 @@ theorem quotientBarFive_continuous : Continuous quotientBarFive :=
 theorem quotientTen_continuous : Continuous quotientTen :=
   UnitaryMatter.ten_continuous.comp quotientHom_isEmbedding.continuous
 
-theorem quotientFive_unitary : TauCeti.ContRepresentation.IsUnitary quotientFive :=
+theorem quotientFive_unitary : ContRepresentation.IsUnitary quotientFive :=
   UnitaryMatter.fundamental_unitary.restrict quotientHom
-theorem quotientBarFive_unitary : TauCeti.ContRepresentation.IsUnitary quotientBarFive :=
+theorem quotientBarFive_unitary : ContRepresentation.IsUnitary quotientBarFive :=
   UnitaryMatter.antifundamental_unitary.restrict quotientHom
-theorem quotientTen_unitary : TauCeti.ContRepresentation.IsUnitary quotientTen :=
+theorem quotientTen_unitary : ContRepresentation.IsUnitary quotientTen :=
   UnitaryMatter.ten_unitary.restrict quotientHom
 
 def quotientFiveEquiv : Representation.Equiv quotientFive.toRepresentation QuotientDescent.five :=

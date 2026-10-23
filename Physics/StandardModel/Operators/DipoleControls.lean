@@ -1,61 +1,39 @@
+import Physics.StandardModel.Operators.Dipole.DipoleControls
 import Physics.StandardModel.Operators.DipoleFlavorSelection
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Dipole.DipoleControls instead." (since := "source-api-v1")
 
-/-! Exact two-flavor controls. These are algebraic samples, not a UV model
-or a matching calculation. -/
-namespace GUT.DipoleControls
-set_option autoImplicit false
-noncomputable section
-open Representation TwoComponentTensorUniqueness
+compatibility_declarations [
+  GUT.DipoleControls.Flavor => Physics.DipoleControls.Flavor,
+  GUT.DipoleControls.allowed_not_realized_by_zero => Physics.DipoleControls.allowed_not_realized_by_zero,
+  GUT.DipoleControls.bridge => Physics.DipoleControls.bridge,
+  GUT.DipoleControls.bridge.eq_1 => Physics.DipoleControls.bridge.eq_1,
+  GUT.DipoleControls.bridge_selected => Physics.DipoleControls.bridge_selected,
+  GUT.DipoleControls.diagonal_selected => Physics.DipoleControls.diagonal_selected,
+  GUT.DipoleControls.electron => Physics.DipoleControls.electron,
+  GUT.DipoleControls.electron.eq_1 => Physics.DipoleControls.electron.eq_1,
+  GUT.DipoleControls.flavor => Physics.DipoleControls.flavor,
+  GUT.DipoleControls.generation => Physics.DipoleControls.generation,
+  GUT.DipoleControls.generation_nonzero_iff => Physics.DipoleControls.generation_nonzero_iff,
+  GUT.DipoleControls.generation_not_additive => Physics.DipoleControls.generation_not_additive,
+  GUT.DipoleControls.generation_selected => Physics.DipoleControls.generation_selected,
+  GUT.DipoleControls.mu => Physics.DipoleControls.mu,
+  GUT.DipoleControls.mu.eq_1 => Physics.DipoleControls.mu.eq_1
+]
 
-abbrev Flavor := Fin 2 → ℂ
-def flavor : Representation ℂ Unit Flavor := Representation.trivial ℂ Unit Flavor
-def mu : Flavor := basis2 1
-def electron : Module.Dual ℂ Flavor := (Pi.basisFun ℂ (Fin 2)).coord 0
-
-def bridge : IntertwiningMap flavor flavor where
-  toLinearMap := ((Pi.basisFun ℂ (Fin 2)).coord 1).smulRight (basis2 0)
-  isIntertwining' _ := rfl
-
-@[simp] theorem bridge_selected : electron (bridge mu) = 1 := by
-  simp [electron, bridge, mu, basis2, Module.Basis.coord_apply]
-
-@[simp] theorem diagonal_selected : electron (IntertwiningMap.id flavor mu) = 0 := by
-  simp [electron, mu, basis2, Module.Basis.coord_apply]
-
-def generation (z : ℂ) : DipoleFlavorSelection.Coefficients flavor flavor :=
-  (DipoleSMCoefficient.equiv flavor flavor).symm (z^2 • bridge, 0)
-
-@[simp] theorem generation_selected (z : ℂ) :
-    DipoleFlavorSelection.selector flavor flavor mu electron (generation z) = (z^2,0) := by
-  change (electron (((DipoleSMCoefficient.equiv flavor flavor)
-    ((DipoleSMCoefficient.equiv flavor flavor).symm (z^2 • bridge, 0))).1 mu),
-    electron (((DipoleSMCoefficient.equiv flavor flavor)
-    ((DipoleSMCoefficient.equiv flavor flavor).symm (z^2 • bridge, 0))).2 mu)) = _
-  simp
-
-theorem generation_nonzero_iff (z : ℂ) :
-    DipoleFlavorSelection.selector flavor flavor mu electron (generation z) ≠ 0 ↔ z ≠ 0 := by
-  rw [generation_selected]
-  simp
-
-theorem generation_not_additive : generation (1+1) ≠ generation 1 + generation 1 := by
-  intro h
-  have he := congrArg (DipoleFlavorSelection.selector flavor flavor mu electron) h
-  rw [map_add, generation_selected, generation_selected] at he
-  have hfirst := congrArg Prod.fst he
-  norm_num at hfirst
-
-theorem allowed_not_realized_by_zero :
-    (∃ c : DipoleFlavorSelection.Coefficients flavor flavor,
-      DipoleFlavorSelection.selector flavor flavor mu electron c ≠ 0) ∧
-    ¬ ∃ x : Unit, DipoleFlavorSelection.selector flavor flavor mu electron
-      ((fun _ => 0) x) ≠ 0 := by
-  constructor
-  · exact DipoleFlavorSelection.allowed_of_bridge flavor flavor mu electron bridge
-      (by rw [bridge_selected]; exact one_ne_zero)
-  · simp
-
-end
-end GUT.DipoleControls
+assert_compatible GUT.DipoleControls.Flavor => Physics.DipoleControls.Flavor
+assert_compatible GUT.DipoleControls.allowed_not_realized_by_zero => Physics.DipoleControls.allowed_not_realized_by_zero
+assert_compatible GUT.DipoleControls.bridge => Physics.DipoleControls.bridge
+assert_compatible GUT.DipoleControls.bridge.eq_1 => Physics.DipoleControls.bridge.eq_1
+assert_compatible GUT.DipoleControls.bridge_selected => Physics.DipoleControls.bridge_selected
+assert_compatible GUT.DipoleControls.diagonal_selected => Physics.DipoleControls.diagonal_selected
+assert_compatible GUT.DipoleControls.electron => Physics.DipoleControls.electron
+assert_compatible GUT.DipoleControls.electron.eq_1 => Physics.DipoleControls.electron.eq_1
+assert_compatible GUT.DipoleControls.flavor => Physics.DipoleControls.flavor
+assert_compatible GUT.DipoleControls.generation => Physics.DipoleControls.generation
+assert_compatible GUT.DipoleControls.generation_nonzero_iff => Physics.DipoleControls.generation_nonzero_iff
+assert_compatible GUT.DipoleControls.generation_not_additive => Physics.DipoleControls.generation_not_additive
+assert_compatible GUT.DipoleControls.generation_selected => Physics.DipoleControls.generation_selected
+assert_compatible GUT.DipoleControls.mu => Physics.DipoleControls.mu
+assert_compatible GUT.DipoleControls.mu.eq_1 => Physics.DipoleControls.mu.eq_1

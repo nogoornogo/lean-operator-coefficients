@@ -1,7 +1,9 @@
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylNonzeroMass
 import GUT.SU6.Adapters.AbelianCharacterBasis
-import Physics.FieldTheory.Mass.HyperbolicBasisMass
+import Physics.FieldTheory.Mass.Algebra.HyperbolicBasisMass
 import GUT.SU6.SelectionRules.StandardBranch.WeylZeroModeSupport
+
+open Physics
 
 open Math
 

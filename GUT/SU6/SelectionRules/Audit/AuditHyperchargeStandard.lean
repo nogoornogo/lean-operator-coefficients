@@ -4,6 +4,8 @@ import GUT.SU6.Characters.FifthMomentHypercharge
 import GUT.SU6.SelectionRules.StandardBranch.StandardBranchProtonObstruction
 import GUT.SU6.Branching.StandardSU5Orbit
 
+open Physics
+
 open Math
 
 /-!
@@ -52,7 +54,7 @@ claim the remaining actual-character-to-normalized-weight-source bridge.
 #print axioms Math.StandardSU5Orbit.coeff_permute_eq
 #print axioms Math.StandardSU5Orbit.ten_coefficients_equal
 #print axioms Math.StandardSU5Orbit.barFive_coefficients_equal
-#print axioms GUT.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_su5OrbitCompatible
+#print axioms Physics.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_su5OrbitCompatible
 #print axioms GUT.StandardBranchProtonObstruction.protonSecond_eq_weakAnomaly_sub_colorAnomaly
 #print axioms GUT.StandardBranchProtonObstruction.protonFirst_eq_anomaly_combination
 #print axioms GUT.StandardBranchProtonObstruction.proton_functionals_eq_zero_of_anomaly_free

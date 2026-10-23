@@ -1,4 +1,4 @@
-import Math.RepresentationTheory.ExteriorSquareBlock
+import Math.RepresentationTheory.Exterior.ExteriorSquareBlock
 import GUT.SU5.Matching.AdjointMass
 
 open Math

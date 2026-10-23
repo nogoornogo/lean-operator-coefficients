@@ -2,7 +2,7 @@
 
 ## Result
 
-[GradedWeinbergComparison](../../../../../Physics/StandardModel/Operators/GradedWeinbergComparison.lean)
+[GradedWeinbergComparison](../../../../../Physics/StandardModel/Operators/Weinberg/GradedWeinbergComparison.lean)
 identifies the independently defined actual SM Weinberg sector with the
 constructed residual quotient Hom at mixed degree `(2,2)`:
 
@@ -45,7 +45,7 @@ physical equivalence while avoiding costly kernel reduction.
 
 ## Verification
 
-The [persistent audit](../../../../../Physics/StandardModel/Operators/Audit/AuditGradedWeinbergComparison.lean)
+The [persistent audit](../../../../../Physics/StandardModel/Operators/Weinberg/Audit/AuditGradedWeinbergComparison.lean)
 checks the interface, pure formula, both comparisons/inverses, nonzero criteria,
 one-generation control and definition equation transitively. Only `propext`,
 `Classical.choice` and `Quot.sound` are permitted. Commands and compatibility

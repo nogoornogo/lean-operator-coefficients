@@ -48,7 +48,7 @@ end Math.E6.Audit
 
 run_cmd do
   let declarations := [
-    ``Math.LieNormalizerLocalLog.logOneAdd_apply_mem,
+    ``Math.LieNormalizerLocalLog.log_one_add_apply_mem,
     ``Math.LieNormalizerLocalLog.eventually_invariant_of_exp_invariant,
     ``Math.LieNormalizerLocalLog.eventually_normalizes_of_exp_conjugate_mem,
     ``Math.SpecialUnitaryLocalLog.exp_star_eq_exp_neg_of_unitary,

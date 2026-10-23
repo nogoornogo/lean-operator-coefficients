@@ -1,7 +1,9 @@
 import GUT.SU6.Adapters.StandardScalarBlock
-import Math.RepresentationTheory.ScalarEigencharacter
-import Physics.StandardModel.Operators.NeutralQqueExterior
+import Math.RepresentationTheory.Constructions.ScalarEigencharacter
+import Physics.StandardModel.Operators.BaryonOne.Qque.NeutralQqueExterior
 import Math.RepresentationTheory.Decomposition.RepresentationConjugation
+
+open Physics
 
 /-! Fixed-placement scalar/block residual actions, allowing projective
 pointwise factors. No homomorphic SU(6) lift is supplied. -/

@@ -1,4 +1,4 @@
-import Math.RepresentationTheory.ExteriorSquareCoordinates
+import Math.RepresentationTheory.Exterior.ExteriorSquareCoordinates
 import Mathlib.Data.ZMod.Basic
 
 open Math

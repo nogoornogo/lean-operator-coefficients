@@ -1,36 +1,25 @@
+import Physics.StandardModel.Operators.Weinberg.LiWeinbergConvention
 import Physics.StandardModel.Operators.WeinbergResidualHom
+import Math.Lean.Compatibility
 
-/-! Normalized local interpretation of Li v2, page 38, Out[7]. -/
-namespace GUT.LiWeinbergConvention
-set_option autoImplicit false
-noncomputable section
-open SMEpsilonTensor
+deprecated_module "Use Physics.StandardModel.Operators.Weinberg.LiWeinbergConvention instead." (since := "source-api-v1")
 
-def paperLocal (x y h : Weak) (s t : WeylSpinor.Space) : ℂ :=
-  eps2 x h * eps2 y h * eps2 s t
+compatibility_declarations [
+  GUT.LiWeinbergConvention.diagonal_local => Physics.LiWeinbergConvention.diagonal_local,
+  GUT.LiWeinbergConvention.higgs_exchange => Physics.LiWeinbergConvention.higgs_exchange,
+  GUT.LiWeinbergConvention.lepton_exchange => Physics.LiWeinbergConvention.lepton_exchange,
+  GUT.LiWeinbergConvention.mixed_probe => Physics.LiWeinbergConvention.mixed_probe,
+  GUT.LiWeinbergConvention.paperLocal => Physics.LiWeinbergConvention.paperLocal,
+  GUT.LiWeinbergConvention.paperLocal.eq_1 => Physics.LiWeinbergConvention.paperLocal.eq_1,
+  GUT.LiWeinbergConvention.polarizedLocal => Physics.LiWeinbergConvention.polarizedLocal,
+  GUT.LiWeinbergConvention.polarizedLocal.eq_1 => Physics.LiWeinbergConvention.polarizedLocal.eq_1
+]
 
-def polarizedLocal (x y : Weak) (h : Fin 2 → Weak)
-    (s t : WeylSpinor.Space) : ℂ :=
-  (eps2 x (h 0) * eps2 y (h 1) + eps2 x (h 1) * eps2 y (h 0)) / 2 * eps2 s t
-
-theorem diagonal_local (x y h : Weak) (s t : WeylSpinor.Space) :
-    polarizedLocal x y ![h,h] s t = paperLocal x y h s t := by
-  simp [polarizedLocal, paperLocal]
-
-theorem lepton_exchange (x y : Weak) (h : Fin 2 → Weak)
-    (s t : WeylSpinor.Space) :
-    polarizedLocal y x h t s = -polarizedLocal x y h s t := by
-  simp only [polarizedLocal, eps2]
-  ring
-
-theorem higgs_exchange (x y h₀ h₁ : Weak) (s t : WeylSpinor.Space) :
-    polarizedLocal x y ![h₁,h₀] s t = polarizedLocal x y ![h₀,h₁] s t := by
-  simp only [polarizedLocal, Matrix.cons_val_zero, Matrix.cons_val_one]
-  ring
-
-theorem mixed_probe : polarizedLocal (weakBasis 0) (weakBasis 1)
-    ![weakBasis 0,weakBasis 1] (weakBasis 0) (weakBasis 1) = -(1 / 2 : ℂ) := by
-  norm_num [polarizedLocal, eps2, weakBasis]
-
-end
-end GUT.LiWeinbergConvention
+assert_compatible GUT.LiWeinbergConvention.diagonal_local => Physics.LiWeinbergConvention.diagonal_local
+assert_compatible GUT.LiWeinbergConvention.higgs_exchange => Physics.LiWeinbergConvention.higgs_exchange
+assert_compatible GUT.LiWeinbergConvention.lepton_exchange => Physics.LiWeinbergConvention.lepton_exchange
+assert_compatible GUT.LiWeinbergConvention.mixed_probe => Physics.LiWeinbergConvention.mixed_probe
+assert_compatible GUT.LiWeinbergConvention.paperLocal => Physics.LiWeinbergConvention.paperLocal
+assert_compatible GUT.LiWeinbergConvention.paperLocal.eq_1 => Physics.LiWeinbergConvention.paperLocal.eq_1
+assert_compatible GUT.LiWeinbergConvention.polarizedLocal => Physics.LiWeinbergConvention.polarizedLocal
+assert_compatible GUT.LiWeinbergConvention.polarizedLocal.eq_1 => Physics.LiWeinbergConvention.polarizedLocal.eq_1

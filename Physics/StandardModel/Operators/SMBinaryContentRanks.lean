@@ -1,77 +1,35 @@
+import Physics.StandardModel.Operators.Support.Coordinates.SMBinaryContentRanks
 import Math.RepresentationTheory.BinaryPatternExterior
 import Math.RepresentationTheory.PatternMultiplicityEquiv
 import Physics.StandardModel.Operators.SMConstantContentRanks
+import Math.Lean.Compatibility
 
-/-! Exact source and carrier dimensions for any two distinct SM species. -/
-namespace GUT.SMBinaryContentRanks
-set_option autoImplicit false
-noncomputable section
-open Math Representation
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Support.Coordinates.SMBinaryContentRanks instead." (since := "source-api-v1")
 
-abbrev pattern := BinaryPatternExterior.pattern (S := DeltaLOneSignedInput.Species)
-def columns (s t : DeltaLOneSignedInput.Species) (n k m : ℕ) :=
-  (SMConstantContentRanks.dimension s).choose n * (SMConstantContentRanks.dimension t).choose k * (m+1)
+compatibility_declarations [
+  GUT.SMBinaryContentRanks.carrier_dimension => Physics.SMBinaryContentRanks.carrier_dimension,
+  GUT.SMBinaryContentRanks.charge => Physics.SMBinaryContentRanks.charge,
+  GUT.SMBinaryContentRanks.charged_rank => Physics.SMBinaryContentRanks.charged_rank,
+  GUT.SMBinaryContentRanks.columns => Physics.SMBinaryContentRanks.columns,
+  GUT.SMBinaryContentRanks.columns.eq_1 => Physics.SMBinaryContentRanks.columns.eq_1,
+  GUT.SMBinaryContentRanks.fieldFinite => Physics.SMBinaryContentRanks.fieldFinite,
+  GUT.SMBinaryContentRanks.odd_rank => Physics.SMBinaryContentRanks.odd_rank,
+  GUT.SMBinaryContentRanks.pattern => Physics.SMBinaryContentRanks.pattern,
+  GUT.SMBinaryContentRanks.rank_add_nullity => Physics.SMBinaryContentRanks.rank_add_nullity,
+  GUT.SMBinaryContentRanks.reordered_source_dimension => Physics.SMBinaryContentRanks.reordered_source_dimension,
+  GUT.SMBinaryContentRanks.sourceEquiv => Physics.SMBinaryContentRanks.sourceEquiv,
+  GUT.SMBinaryContentRanks.source_dimension => Physics.SMBinaryContentRanks.source_dimension
+]
 
-variable {H : Type*} [Group H]
-  (flavor : ∀ s, Representation ℂ H (ThreeGenerationFermionBound.Flavor s))
-  (s t : DeltaLOneSignedInput.Species) (n k m : ℕ) (delta : ℤ)
-
-local instance fieldFinite (a : DeltaLOneSignedInput.Species) : FiniteDimensional ℂ
-    (DeltaLOneSignedFields.Field (F := ThreeGenerationFermionBound.Flavor) a) := by
-  fin_cases a <;> dsimp [DeltaLOneSignedFields.Field, ThreeGenerationFermionBound.Flavor,
-    DeltaLOneSignedFields.GaugeCarrier] <;> infer_instance
-
-/-- The full supplied gauge, Weyl and residual action is preserved. -/
-def sourceEquiv (hst : s ≠ t) :=
-  BinaryPatternExterior.equiv (DeltaLOneSignedFields.field flavor) s t n k hst
-
-theorem source_dimension (hst : s ≠ t) : Module.finrank ℂ
-    (PatternExteriorSource.Source (DeltaLOneSignedFields.field flavor) (pattern s t n k)) =
-    (SMConstantContentRanks.dimension s).choose n * (SMConstantContentRanks.dimension t).choose k := by
-  rw [BinaryPatternExterior.dimension (DeltaLOneSignedFields.field flavor) s t n k hst,
-    ThreeGenerationFermionBound.species_dimension, ThreeGenerationFermionBound.species_dimension]
-  rfl
-
-theorem carrier_dimension (hst : s ≠ t) :
-    Module.finrank ℂ (SMFullLocalKernel.Carrier flavor (pattern s t n k) m) = columns s t n k m := by
-  change Module.finrank ℂ (_ ⊗[ℂ] Sym[ℂ]^m WeakDoubletScalars.Doublet) = _
-  rw [Module.finrank_tensorProduct, source_dimension flavor s t n k hst, SymmetricPower.finrank_eq]
-  simp [WeakDoubletScalars.Doublet, Nat.multichoose_two, columns]
-
-theorem charge : SMContentWeakBound.hypercharge (pattern s t n k) =
-    (n : ℤ) * DeltaLOneSignedInput.hypercharge s + (k : ℤ) * DeltaLOneSignedInput.hypercharge t := by
-  simp [SMContentWeakBound.hypercharge, pattern, BinaryPatternExterior.pattern, Fin.sum_univ_add]
-
-theorem rank_add_nullity (hst : s ≠ t) :
-    Module.finrank ℂ (LinearMap.range (SMFullLocalKernel.constraints flavor (pattern s t n k) m delta)) +
-      Module.finrank ℂ (SMFullLocalKernel.Kernel flavor (pattern s t n k) m delta) = columns s t n k m := by
-  have h := LinearMap.finrank_range_add_finrank_ker
-    (SMFullLocalKernel.constraints flavor (pattern s t n k) m delta)
-  simpa only [SMFullLocalKernel.Kernel, Module.finrank_fintype_fun_eq_card, Fintype.card_fin,
-    carrier_dimension flavor s t n k m hst] using h
-
-theorem charged_rank (hst : s ≠ t)
-    (hc : (n : ℤ) * DeltaLOneSignedInput.hypercharge s +
-      (k : ℤ) * DeltaLOneSignedInput.hypercharge t + 3*delta ≠ 0) :
-    Module.finrank ℂ (LinearMap.range (SMFullLocalKernel.constraints flavor (pattern s t n k) m delta)) =
-      columns s t n k m := by
-  have h := SMChargedKernelRank.full_rank flavor (pattern s t n k) m delta (by rwa [charge])
-  simpa only [Fintype.card_fin, carrier_dimension flavor s t n k m hst] using h
-
-theorem odd_rank (hst : s ≠ t) (hn : (n+k) % 2 ≠ 0) :
-    Module.finrank ℂ (LinearMap.range (SMFullLocalKernel.constraints flavor (pattern s t n k) m delta)) =
-      columns s t n k m :=
-  (SMParityKernelRank.full_rank flavor (pattern s t n k) m delta hn).trans
-    (carrier_dimension flavor s t n k m hst)
-
-theorem reordered_source_dimension (hst : s ≠ t) (p : Fin (n+k) → DeltaLOneSignedInput.Species)
-    (hc : ∀ a, (Finset.univ.filter (fun i => p i = a)).card =
-      (Finset.univ.filter (fun i => pattern s t n k i = a)).card) :
-    Module.finrank ℂ (PatternExteriorSource.Source (DeltaLOneSignedFields.field flavor) p) =
-      (SMConstantContentRanks.dimension s).choose n * (SMConstantContentRanks.dimension t).choose k :=
-  (PatternMultiplicityEquiv.equiv (DeltaLOneSignedFields.field flavor) p (pattern s t n k) hc).finrank_eq.trans
-    (source_dimension flavor s t n k hst)
-
-end
-end GUT.SMBinaryContentRanks
+assert_compatible GUT.SMBinaryContentRanks.carrier_dimension => Physics.SMBinaryContentRanks.carrier_dimension
+assert_compatible GUT.SMBinaryContentRanks.charge => Physics.SMBinaryContentRanks.charge
+assert_compatible GUT.SMBinaryContentRanks.charged_rank => Physics.SMBinaryContentRanks.charged_rank
+assert_compatible GUT.SMBinaryContentRanks.columns => Physics.SMBinaryContentRanks.columns
+assert_compatible GUT.SMBinaryContentRanks.columns.eq_1 => Physics.SMBinaryContentRanks.columns.eq_1
+assert_compatible GUT.SMBinaryContentRanks.fieldFinite => Physics.SMBinaryContentRanks.fieldFinite
+assert_compatible GUT.SMBinaryContentRanks.odd_rank => Physics.SMBinaryContentRanks.odd_rank
+assert_compatible GUT.SMBinaryContentRanks.pattern => Physics.SMBinaryContentRanks.pattern
+assert_compatible GUT.SMBinaryContentRanks.rank_add_nullity => Physics.SMBinaryContentRanks.rank_add_nullity
+assert_compatible GUT.SMBinaryContentRanks.reordered_source_dimension => Physics.SMBinaryContentRanks.reordered_source_dimension
+assert_compatible GUT.SMBinaryContentRanks.sourceEquiv => Physics.SMBinaryContentRanks.sourceEquiv
+assert_compatible GUT.SMBinaryContentRanks.source_dimension => Physics.SMBinaryContentRanks.source_dimension

@@ -1,97 +1,80 @@
-import Mathlib.Basic.Complex.Basic
-import Mathlib.LinearAlgebra.BilinearForm.Properties
-import Mathlib.RepresentationTheory.Basic
+import Physics.FieldTheory.Mass.Algebra.InvariantMassData
+import Math.Lean.Compatibility
 
-/-!
-# Algebraic mass and vacuum data
+deprecated_module "Use Physics.FieldTheory.Mass.Algebra.InvariantMassData instead." (since := "source-api-v1")
 
-These primitives retain their original declaration names. They need no
-ultraviolet group, topology, inner product, or finite-dimensionality.
--/
+compatibility_declarations [
+  GUT.DiracYukawaMass.InvariantVacuum => Physics.DiracYukawaMass.InvariantVacuum,
+  GUT.DiracYukawaMass.InvariantVacuum.casesOn => Physics.DiracYukawaMass.InvariantVacuum.casesOn,
+  GUT.DiracYukawaMass.InvariantVacuum.ctorIdx => Physics.DiracYukawaMass.InvariantVacuum.ctorIdx,
+  GUT.DiracYukawaMass.InvariantVacuum.fixed' => Physics.DiracYukawaMass.InvariantVacuum.fixed',
+  GUT.DiracYukawaMass.InvariantVacuum.mk => Physics.DiracYukawaMass.InvariantVacuum.mk,
+  GUT.DiracYukawaMass.InvariantVacuum.mk.inj => Physics.DiracYukawaMass.InvariantVacuum.mk.inj,
+  GUT.DiracYukawaMass.InvariantVacuum.mk.injEq => Physics.DiracYukawaMass.InvariantVacuum.mk.injEq,
+  GUT.DiracYukawaMass.InvariantVacuum.mk.noConfusion => Physics.DiracYukawaMass.InvariantVacuum.mk.noConfusion,
+  GUT.DiracYukawaMass.InvariantVacuum.mk.sizeOf_spec => Physics.DiracYukawaMass.InvariantVacuum.mk.sizeOf_spec,
+  GUT.DiracYukawaMass.InvariantVacuum.noConfusion => Physics.DiracYukawaMass.InvariantVacuum.noConfusion,
+  GUT.DiracYukawaMass.InvariantVacuum.noConfusionType => Physics.DiracYukawaMass.InvariantVacuum.noConfusionType,
+  GUT.DiracYukawaMass.InvariantVacuum.rec => Physics.DiracYukawaMass.InvariantVacuum.rec,
+  GUT.DiracYukawaMass.InvariantVacuum.recOn => Physics.DiracYukawaMass.InvariantVacuum.recOn,
+  GUT.DiracYukawaMass.InvariantVacuum.restrict => Physics.DiracYukawaMass.InvariantVacuum.restrict,
+  GUT.DiracYukawaMass.InvariantVacuum.value => Physics.DiracYukawaMass.InvariantVacuum.value,
+  GUT.DiracYukawaMass.InvariantVacuum.zero => Physics.DiracYukawaMass.InvariantVacuum.zero,
+  GUT.InvariantWeylMass.SymmetricMass => Physics.InvariantWeylMass.SymmetricMass,
+  GUT.InvariantWeylMass.SymmetricMass.casesOn => Physics.InvariantWeylMass.SymmetricMass.casesOn,
+  GUT.InvariantWeylMass.SymmetricMass.ctorIdx => Physics.InvariantWeylMass.SymmetricMass.ctorIdx,
+  GUT.InvariantWeylMass.SymmetricMass.ext => Physics.InvariantWeylMass.SymmetricMass.ext,
+  GUT.InvariantWeylMass.SymmetricMass.ext_iff => Physics.InvariantWeylMass.SymmetricMass.ext_iff,
+  GUT.InvariantWeylMass.SymmetricMass.form => Physics.InvariantWeylMass.SymmetricMass.form,
+  GUT.InvariantWeylMass.SymmetricMass.invariant => Physics.InvariantWeylMass.SymmetricMass.invariant,
+  GUT.InvariantWeylMass.SymmetricMass.mk => Physics.InvariantWeylMass.SymmetricMass.mk,
+  GUT.InvariantWeylMass.SymmetricMass.mk.inj => Physics.InvariantWeylMass.SymmetricMass.mk.inj,
+  GUT.InvariantWeylMass.SymmetricMass.mk.injEq => Physics.InvariantWeylMass.SymmetricMass.mk.injEq,
+  GUT.InvariantWeylMass.SymmetricMass.mk.noConfusion => Physics.InvariantWeylMass.SymmetricMass.mk.noConfusion,
+  GUT.InvariantWeylMass.SymmetricMass.mk.sizeOf_spec => Physics.InvariantWeylMass.SymmetricMass.mk.sizeOf_spec,
+  GUT.InvariantWeylMass.SymmetricMass.noConfusion => Physics.InvariantWeylMass.SymmetricMass.noConfusion,
+  GUT.InvariantWeylMass.SymmetricMass.noConfusionType => Physics.InvariantWeylMass.SymmetricMass.noConfusionType,
+  GUT.InvariantWeylMass.SymmetricMass.rec => Physics.InvariantWeylMass.SymmetricMass.rec,
+  GUT.InvariantWeylMass.SymmetricMass.recOn => Physics.InvariantWeylMass.SymmetricMass.recOn,
+  GUT.InvariantWeylMass.SymmetricMass.restrict => Physics.InvariantWeylMass.SymmetricMass.restrict,
+  GUT.InvariantWeylMass.SymmetricMass.symmetric => Physics.InvariantWeylMass.SymmetricMass.symmetric,
+  GUT.InvariantWeylMass.SymmetricMass.zero => Physics.InvariantWeylMass.SymmetricMass.zero,
+  GUT.WeylYukawaMass.vacuumStabilizer => Physics.WeylYukawaMass.vacuumStabilizer
+]
 
-set_option autoImplicit false
-
-namespace GUT
-
-namespace InvariantWeylMass
-
-variable {G V : Type*} [Group G] [AddCommGroup V] [Module ℂ V]
-
-/-- A two-component mass coefficient invariant under the full unbroken group.
-The symmetry here is complex bilinear, not Hermitian. -/
-structure SymmetricMass (rho : Representation ℂ G V) where
-  form : LinearMap.BilinForm ℂ V
-  symmetric : form.IsSymm
-  invariant : ∀ g x y, form (rho g x) (rho g y) = form x y
-
-namespace SymmetricMass
-
-variable {rho : Representation ℂ G V}
-
-@[ext] theorem ext {B C : SymmetricMass rho} (h : B.form = C.form) : B = C := by
-  cases B
-  cases C
-  cases h
-  rfl
-
-/-- The zero mass coefficient remains admissible; rank is not assumed. -/
-def zero (rho : Representation ℂ G V) : SymmetricMass rho where
-  form := 0
-  symmetric := LinearMap.BilinForm.isSymm_zero
-  invariant := by intros; rfl
-
-def restrict {K : Type*} [Group K] (B : SymmetricMass rho) (f : K →* G) :
-    SymmetricMass (rho.comp f) where
-  form := B.form
-  symmetric := B.symmetric
-  invariant k := B.invariant (f k)
-
-end SymmetricMass
-end InvariantWeylMass
-
-namespace DiracYukawaMass
-
-variable {G S : Type*} [Group G] [AddCommGroup S] [Module ℂ S]
-variable {rhoS : Representation ℂ G S}
-
-/-- A vacuum expectation value fixed by the unbroken group. -/
-structure InvariantVacuum (rhoS : Representation ℂ G S) where
-  value : S
-  fixed' : ∀ g, rhoS g value = value
-
-namespace InvariantVacuum
-
-/-- The zero vacuum is fixed by every linear action. -/
-def zero : InvariantVacuum rhoS where
-  value := 0
-  fixed' := by intro g; simp
-
-def restrict {K : Type*} [Group K] (v : InvariantVacuum rhoS) (f : K →* G) :
-    InvariantVacuum (rhoS.comp f) := ⟨v.value, fun k => v.fixed' (f k)⟩
-
-end InvariantVacuum
-end DiracYukawaMass
-
-namespace WeylYukawaMass
-
-variable {G S : Type*} [Group G] [AddCommGroup S] [Module ℂ S]
-
-def vacuumStabilizer (rhoS : Representation ℂ G S) (v : S) : Subgroup G where
-  carrier := {g | rhoS g v = v}
-  one_mem' := by simp
-  mul_mem' := by
-    intro a b ha hb
-    change rhoS a v = v at ha
-    change rhoS b v = v at hb
-    change rhoS (a * b) v = v
-    simpa only [map_mul, Module.End.mul_apply, hb] using ha
-  inv_mem' := by
-    intro g hg
-    change rhoS g v = v at hg
-    change rhoS g⁻¹ v = v
-    have he := congrArg (rhoS g⁻¹) hg
-    simpa only [← Module.End.mul_apply, ← map_mul, inv_mul_cancel, map_one,
-      Module.End.one_apply] using he.symm
-
-end WeylYukawaMass
-end GUT
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum => Physics.DiracYukawaMass.InvariantVacuum
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.casesOn => Physics.DiracYukawaMass.InvariantVacuum.casesOn
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.ctorIdx => Physics.DiracYukawaMass.InvariantVacuum.ctorIdx
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.fixed' => Physics.DiracYukawaMass.InvariantVacuum.fixed'
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.mk => Physics.DiracYukawaMass.InvariantVacuum.mk
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.mk.inj => Physics.DiracYukawaMass.InvariantVacuum.mk.inj
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.mk.injEq => Physics.DiracYukawaMass.InvariantVacuum.mk.injEq
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.mk.noConfusion => Physics.DiracYukawaMass.InvariantVacuum.mk.noConfusion
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.mk.sizeOf_spec => Physics.DiracYukawaMass.InvariantVacuum.mk.sizeOf_spec
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.noConfusion => Physics.DiracYukawaMass.InvariantVacuum.noConfusion
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.noConfusionType => Physics.DiracYukawaMass.InvariantVacuum.noConfusionType
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.rec => Physics.DiracYukawaMass.InvariantVacuum.rec
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.recOn => Physics.DiracYukawaMass.InvariantVacuum.recOn
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.restrict => Physics.DiracYukawaMass.InvariantVacuum.restrict
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.value => Physics.DiracYukawaMass.InvariantVacuum.value
+assert_compatible GUT.DiracYukawaMass.InvariantVacuum.zero => Physics.DiracYukawaMass.InvariantVacuum.zero
+assert_compatible GUT.InvariantWeylMass.SymmetricMass => Physics.InvariantWeylMass.SymmetricMass
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.casesOn => Physics.InvariantWeylMass.SymmetricMass.casesOn
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.ctorIdx => Physics.InvariantWeylMass.SymmetricMass.ctorIdx
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.ext => Physics.InvariantWeylMass.SymmetricMass.ext
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.ext_iff => Physics.InvariantWeylMass.SymmetricMass.ext_iff
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.form => Physics.InvariantWeylMass.SymmetricMass.form
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.invariant => Physics.InvariantWeylMass.SymmetricMass.invariant
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.mk => Physics.InvariantWeylMass.SymmetricMass.mk
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.mk.inj => Physics.InvariantWeylMass.SymmetricMass.mk.inj
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.mk.injEq => Physics.InvariantWeylMass.SymmetricMass.mk.injEq
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.mk.noConfusion => Physics.InvariantWeylMass.SymmetricMass.mk.noConfusion
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.mk.sizeOf_spec => Physics.InvariantWeylMass.SymmetricMass.mk.sizeOf_spec
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.noConfusion => Physics.InvariantWeylMass.SymmetricMass.noConfusion
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.noConfusionType => Physics.InvariantWeylMass.SymmetricMass.noConfusionType
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.rec => Physics.InvariantWeylMass.SymmetricMass.rec
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.recOn => Physics.InvariantWeylMass.SymmetricMass.recOn
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.restrict => Physics.InvariantWeylMass.SymmetricMass.restrict
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.symmetric => Physics.InvariantWeylMass.SymmetricMass.symmetric
+assert_compatible GUT.InvariantWeylMass.SymmetricMass.zero => Physics.InvariantWeylMass.SymmetricMass.zero
+assert_compatible GUT.WeylYukawaMass.vacuumStabilizer => Physics.WeylYukawaMass.vacuumStabilizer

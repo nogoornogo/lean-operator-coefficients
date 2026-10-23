@@ -58,9 +58,9 @@ theorem simplyConnected_of_pi1_eq_one {X : Type*} [TopologicalSpace X]
   refine simply_connected_iff_loops_nullhomotopic.mpr ⟨inferInstance, ?_⟩
   intro x p
   let e := FundamentalGroup.fundamentalGroupMulEquivOfPathConnected x x₀
-  have he : (Path.Homotopic.Quotient.mk p : FundamentalGroup X x) =
-      Path.Homotopic.Quotient.mk (Path.refl x) :=
-    e.injective ((h _).trans (h _).symm)
-  exact Quotient.eq.mp he
+  have he : FundamentalGroup.fromPath (Path.Homotopic.Quotient.mk p) = 1 :=
+    e.injective ((h _).trans (map_one e).symm)
+  have hp := congrArg FundamentalGroup.toPath he
+  exact Quotient.eq.mp hp
 
 end Math.Topology

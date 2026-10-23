@@ -1,6 +1,8 @@
 import GUT.SU5.Branching.Unitary
-import Physics.StandardModel.Spectrum.GaugeTorusTrace
+import Physics.StandardModel.Spectrum.Representations.GaugeTorusTrace
 import GUT.SU5.Embeddings.PhysicalTorus
+
+open Physics
 
 open Math Math.SU5
 
@@ -10,6 +12,8 @@ torus. The full-group branching equivalences supply the character formulas. -/
 set_option autoImplicit false
 
 namespace GUT.SU5.TorusMatterCharacter
+open Physics.SU5.TorusMatterCharacter
+open Physics.SU5
 
 noncomputable section
 

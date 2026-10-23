@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def existing_templates():
-    text = (ROOT/'Physics/StandardModel/Operators/SMLeptonChargeWitnesses.lean').read_text()
+    text = (ROOT/'Physics/StandardModel/Operators/Support/Lepton/SMLeptonChargeWitnesses.lean').read_text()
     result = []
     for sign, a, n in re.findall(r'def w3_([np])(\d+)_pattern \(i : Fin (\d+)\)', text):
         tag = 'w3_'+sign+a

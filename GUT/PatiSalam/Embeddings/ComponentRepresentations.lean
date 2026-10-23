@@ -1,6 +1,8 @@
 import GUT.PatiSalam.Embeddings.StandardModel
 import GUT.PatiSalam.Matching.ComponentAdmission
 
+open Physics
+
 /-! Genuine PS tensor representations and their SM component inclusions. -/
 namespace GUT.PatiSalam.ComponentRepresentations
 set_option autoImplicit false

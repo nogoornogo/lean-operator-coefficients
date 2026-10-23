@@ -1,56 +1,32 @@
+import Physics.StandardModel.Operators.Weinberg.WeinbergMajorana
 import Physics.StandardModel.Operators.WeinbergResidualHom
 import Physics.FieldTheory.Mass.InvariantMassData
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Weinberg.WeinbergMajorana instead." (since := "source-api-v1")
 
-/-! Specified-VEV evaluation of regrouped Weinberg coefficients.
-Only the residual group acts on the resulting flavor mass. No vacuum selection
-or nonzero matching coefficient is inferred. -/
-namespace GUT.WeinbergMajorana
-set_option autoImplicit false
-noncomputable section
-open Representation SMEpsilonTensor WeinbergResidualHom
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.WeinbergMajorana.MassCoefficients => Physics.WeinbergMajorana.MassCoefficients,
+  GUT.WeinbergMajorana.evaluate => Physics.WeinbergMajorana.evaluate,
+  GUT.WeinbergMajorana.evaluate.eq_1 => Physics.WeinbergMajorana.evaluate.eq_1,
+  GUT.WeinbergMajorana.evaluate_nonzero_iff => Physics.WeinbergMajorana.evaluate_nonzero_iff,
+  GUT.WeinbergMajorana.evaluate_zero => Physics.WeinbergMajorana.evaluate_zero,
+  GUT.WeinbergMajorana.evaluationEquiv => Physics.WeinbergMajorana.evaluationEquiv,
+  GUT.WeinbergMajorana.evaluationEquiv_apply => Physics.WeinbergMajorana.evaluationEquiv_apply,
+  GUT.WeinbergMajorana.evaluation_formula => Physics.WeinbergMajorana.evaluation_formula,
+  GUT.WeinbergMajorana.mass => Physics.WeinbergMajorana.mass,
+  GUT.WeinbergMajorana.vacuum => Physics.WeinbergMajorana.vacuum,
+  GUT.WeinbergMajorana.vacuum.eq_1 => Physics.WeinbergMajorana.vacuum.eq_1
+]
 
-variable {R F : Type*} [Group R] [AddCommGroup F] [Module ℂ F]
-  (a : Representation ℂ R F)
-
-abbrev MassCoefficients := TensorSquareMultilinear.symmetricIntertwiners a
-  (Representation.trivial ℂ R ℂ)
-
-def evaluate (v : ℂ) : sector a →ₗ[ℂ] MassCoefficients a :=
-  v ^ 2 • (symmetricEquiv a).toLinearMap
-
-def mass (v : ℂ) (f : sector a) : InvariantWeylMass.SymmetricMass a where
-  form := TensorProduct.curry (evaluate a v f).val.toLinearMap
-  symmetric := ⟨fun u w => ((evaluate a v f).property u w).symm⟩
-  invariant r u w := IntertwiningMap.isIntertwining _ _ (evaluate a v f).val r (u ⊗ₜ[ℂ] w)
-
-/-- The standard neutral Higgs direction; this is supplied, not dynamically derived. -/
-def vacuum (v : ℂ) : Weak := v • weakBasis 1
-
-theorem evaluation_formula (v : ℂ) (f : sector a) (u w : F) :
-    f.val (input (weakBasis 0) (weakBasis 0) ![vacuum v,vacuum v]
-      (weakBasis 0) (weakBasis 1) u w) = (mass a v f).form u w := by
-  rw [reconstruction, WeinbergWeakInvariant.diagonal_apply]
-  change eps2 (weakBasis 0) (vacuum v) * eps2 (weakBasis 0) (vacuum v) *
-    eps2 (weakBasis 0) (weakBasis 1) * factorEquiv a f.val (u ⊗ₜ[ℂ] w) =
-      v ^ 2 * factorEquiv a f.val (u ⊗ₜ[ℂ] w)
-  simp [vacuum, pow_two]
-
-def evaluationEquiv (v : ℂ) (hv : v ≠ 0) : sector a ≃ₗ[ℂ] MassCoefficients a :=
-  (symmetricEquiv a).trans (LinearEquiv.smulOfNeZero ℂ (MassCoefficients a)
-    (v ^ 2) (pow_ne_zero _ hv))
-
-@[simp] theorem evaluationEquiv_apply (v : ℂ) (hv : v ≠ 0) (f : sector a) :
-    evaluationEquiv a v hv f = evaluate a v f := rfl
-
-theorem evaluate_nonzero_iff (v : ℂ) (hv : v ≠ 0) (f : sector a) :
-    evaluate a v f ≠ 0 ↔ f ≠ 0 :=
-  not_congr (evaluationEquiv a v hv).map_eq_zero_iff
-
-@[simp] theorem evaluate_zero (f : sector a) : evaluate a 0 f = 0 := by
-  simp [evaluate]
-
-end
-end GUT.WeinbergMajorana
+assert_compatible GUT.WeinbergMajorana.MassCoefficients => Physics.WeinbergMajorana.MassCoefficients
+assert_compatible GUT.WeinbergMajorana.evaluate => Physics.WeinbergMajorana.evaluate
+assert_compatible GUT.WeinbergMajorana.evaluate.eq_1 => Physics.WeinbergMajorana.evaluate.eq_1
+assert_compatible GUT.WeinbergMajorana.evaluate_nonzero_iff => Physics.WeinbergMajorana.evaluate_nonzero_iff
+assert_compatible GUT.WeinbergMajorana.evaluate_zero => Physics.WeinbergMajorana.evaluate_zero
+assert_compatible GUT.WeinbergMajorana.evaluationEquiv => Physics.WeinbergMajorana.evaluationEquiv
+assert_compatible GUT.WeinbergMajorana.evaluationEquiv_apply => Physics.WeinbergMajorana.evaluationEquiv_apply
+assert_compatible GUT.WeinbergMajorana.evaluation_formula => Physics.WeinbergMajorana.evaluation_formula
+assert_compatible GUT.WeinbergMajorana.mass => Physics.WeinbergMajorana.mass
+assert_compatible GUT.WeinbergMajorana.vacuum => Physics.WeinbergMajorana.vacuum
+assert_compatible GUT.WeinbergMajorana.vacuum.eq_1 => Physics.WeinbergMajorana.vacuum.eq_1

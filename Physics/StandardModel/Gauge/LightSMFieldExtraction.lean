@@ -1,50 +1,47 @@
+import Physics.StandardModel.Gauge.Tensors.LightSMFieldExtraction
 import Physics.StandardModel.Gauge.StandardSMIrreducibility
-import Math.RepresentationTheory.Multiplicity.EvaluationImage
-import Math.RepresentationTheory.Decomposition.ExternalTensorDual
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Gauge.Tensors.LightSMFieldExtraction instead." (since := "source-api-v1")
 
-/-! Actual SM particle subspaces, extracted by evaluation and dual splitting.
-The ambient representation may contain other species or vectorlike matter. -/
+compatibility_declarations [
+  GUT.LightSMFieldExtraction.Fields => Physics.LightSMFieldExtraction.Fields,
+  GUT.LightSMFieldExtraction.Fields.E => Physics.LightSMFieldExtraction.Fields.E,
+  GUT.LightSMFieldExtraction.Fields.Q => Physics.LightSMFieldExtraction.Fields.Q,
+  GUT.LightSMFieldExtraction.Fields.U => Physics.LightSMFieldExtraction.Fields.U,
+  GUT.LightSMFieldExtraction.Fields.casesOn => Physics.LightSMFieldExtraction.Fields.casesOn,
+  GUT.LightSMFieldExtraction.Fields.ctorIdx => Physics.LightSMFieldExtraction.Fields.ctorIdx,
+  GUT.LightSMFieldExtraction.Fields.electronEquiv => Physics.LightSMFieldExtraction.Fields.electronEquiv,
+  GUT.LightSMFieldExtraction.Fields.mk => Physics.LightSMFieldExtraction.Fields.mk,
+  GUT.LightSMFieldExtraction.Fields.mk.inj => Physics.LightSMFieldExtraction.Fields.mk.inj,
+  GUT.LightSMFieldExtraction.Fields.mk.injEq => Physics.LightSMFieldExtraction.Fields.mk.injEq,
+  GUT.LightSMFieldExtraction.Fields.mk.noConfusion => Physics.LightSMFieldExtraction.Fields.mk.noConfusion,
+  GUT.LightSMFieldExtraction.Fields.mk.sizeOf_spec => Physics.LightSMFieldExtraction.Fields.mk.sizeOf_spec,
+  GUT.LightSMFieldExtraction.Fields.noConfusion => Physics.LightSMFieldExtraction.Fields.noConfusion,
+  GUT.LightSMFieldExtraction.Fields.noConfusionType => Physics.LightSMFieldExtraction.Fields.noConfusionType,
+  GUT.LightSMFieldExtraction.Fields.quarkEquiv => Physics.LightSMFieldExtraction.Fields.quarkEquiv,
+  GUT.LightSMFieldExtraction.Fields.rec => Physics.LightSMFieldExtraction.Fields.rec,
+  GUT.LightSMFieldExtraction.Fields.recOn => Physics.LightSMFieldExtraction.Fields.recOn,
+  GUT.LightSMFieldExtraction.Fields.upEquiv => Physics.LightSMFieldExtraction.Fields.upEquiv,
+  GUT.LightSMFieldExtraction.nonempty_fields => Physics.LightSMFieldExtraction.nonempty_fields
+]
 
-namespace GUT.LightSMFieldExtraction
-noncomputable section
-open Representation ProductFactorization ExternalInvariantTensor
-open StandardSMGaugeTensor
-
-variable {H V : Type*} [Group H]
-  [AddCommGroup V] [Module ℂ V] [FiniteDimensional ℂ V]
-  (tau : Representation ℂ (GaugeGroup × H) V)
-
-/-- A constructed identification with actual invariant subspaces, not an
-identification with entire torus weight spaces. -/
-structure Fields where
-  Q : Subrepresentation tau
-  U : Subrepresentation tau.dual
-  E : Subrepresentation tau.dual
-  quarkEquiv : Representation.Equiv Q.toRepresentation
-    (external quark (multiplicityRepresentation tau quark))
-  upEquiv : Representation.Equiv U.toRepresentation
-    (external upRight (multiplicityRepresentation tau upRight.dual).dual)
-  electronEquiv : Representation.Equiv E.toRepresentation
-    (external electronRight (multiplicityRepresentation tau electronRight.dual).dual)
-
-theorem nonempty_fields (ht : IsSemisimpleRepresentation tau) : Nonempty (Fields tau) := by
-  let : IsIrreducible quark := StandardSMIrreducibility.quark_irreducible
-  let : IsIrreducible upRight.dual := StandardSMIrreducibility.upLeft_irreducible
-  let : IsIrreducible electronRight.dual := StandardSMIrreducibility.electronLeft_irreducible
-  obtain ⟨U, ⟨eu⟩⟩ := MultiplicityEvaluationImage.exists_dual_image tau upRight.dual ht
-  obtain ⟨E, ⟨ee⟩⟩ := MultiplicityEvaluationImage.exists_dual_image tau electronRight.dual ht
-  exact ⟨{
-    Q := MultiplicityEvaluationImage.image tau quark
-    U := U
-    E := E
-    quarkEquiv := (MultiplicityEvaluationImage.equiv tau quark).symm
-    upEquiv := eu.symm.trans
-      (ExternalTensorDual.rightModelEquiv upRight (multiplicityRepresentation tau upRight.dual))
-    electronEquiv := ee.symm.trans
-      (ExternalTensorDual.rightModelEquiv electronRight
-        (multiplicityRepresentation tau electronRight.dual)) }⟩
-
-end
-end GUT.LightSMFieldExtraction
+assert_compatible GUT.LightSMFieldExtraction.Fields => Physics.LightSMFieldExtraction.Fields
+assert_compatible GUT.LightSMFieldExtraction.Fields.E => Physics.LightSMFieldExtraction.Fields.E
+assert_compatible GUT.LightSMFieldExtraction.Fields.Q => Physics.LightSMFieldExtraction.Fields.Q
+assert_compatible GUT.LightSMFieldExtraction.Fields.U => Physics.LightSMFieldExtraction.Fields.U
+assert_compatible GUT.LightSMFieldExtraction.Fields.casesOn => Physics.LightSMFieldExtraction.Fields.casesOn
+assert_compatible GUT.LightSMFieldExtraction.Fields.ctorIdx => Physics.LightSMFieldExtraction.Fields.ctorIdx
+assert_compatible GUT.LightSMFieldExtraction.Fields.electronEquiv => Physics.LightSMFieldExtraction.Fields.electronEquiv
+assert_compatible GUT.LightSMFieldExtraction.Fields.mk => Physics.LightSMFieldExtraction.Fields.mk
+assert_compatible GUT.LightSMFieldExtraction.Fields.mk.inj => Physics.LightSMFieldExtraction.Fields.mk.inj
+assert_compatible GUT.LightSMFieldExtraction.Fields.mk.injEq => Physics.LightSMFieldExtraction.Fields.mk.injEq
+assert_compatible GUT.LightSMFieldExtraction.Fields.mk.noConfusion => Physics.LightSMFieldExtraction.Fields.mk.noConfusion
+assert_compatible GUT.LightSMFieldExtraction.Fields.mk.sizeOf_spec => Physics.LightSMFieldExtraction.Fields.mk.sizeOf_spec
+assert_compatible GUT.LightSMFieldExtraction.Fields.noConfusion => Physics.LightSMFieldExtraction.Fields.noConfusion
+assert_compatible GUT.LightSMFieldExtraction.Fields.noConfusionType => Physics.LightSMFieldExtraction.Fields.noConfusionType
+assert_compatible GUT.LightSMFieldExtraction.Fields.quarkEquiv => Physics.LightSMFieldExtraction.Fields.quarkEquiv
+assert_compatible GUT.LightSMFieldExtraction.Fields.rec => Physics.LightSMFieldExtraction.Fields.rec
+assert_compatible GUT.LightSMFieldExtraction.Fields.recOn => Physics.LightSMFieldExtraction.Fields.recOn
+assert_compatible GUT.LightSMFieldExtraction.Fields.upEquiv => Physics.LightSMFieldExtraction.Fields.upEquiv
+assert_compatible GUT.LightSMFieldExtraction.nonempty_fields => Physics.LightSMFieldExtraction.nonempty_fields

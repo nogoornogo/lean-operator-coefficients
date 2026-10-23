@@ -1,0 +1,1687 @@
+{
+  "unchangedTypes": 420,
+  "unchangedPilotTypes": 140,
+  "typeEncoding": "Lean reprStr Expr; exact before/after equality checked",
+  "entries": [
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_0_0",
+      "typeSHA256": "3d17e29eb0789c3098e4b5aca2c90f7d4dcd8231bd233d9eec34463738576bea"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_0_1",
+      "typeSHA256": "ab82506c61028bf3eaa4fb64c07569e2d78c1b53f5d3a6c213b74d150dd0d086"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_0_2",
+      "typeSHA256": "f115faa31d7fd667b5f78eff64805b9990d5ad4ab39ff092582f24c113e609ab"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_0_3",
+      "typeSHA256": "76f98eda5028ac4ed757383a4a4e766a737cffdcb6f7ebfdb60e7cd17e914faa"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_1_0",
+      "typeSHA256": "01c503d21ed63015a57498303bb56cefe680405ec864dfa79d1d7836ea234e4f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_1_1",
+      "typeSHA256": "316be97903653ac59dfa9c9d79fb71797a78f4e40f871089dbd0716a121880f5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_1_2",
+      "typeSHA256": "5ef355b281bd245b91b585449640562400d7b83a7a1df24f35f9fcd37c6a2c92"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_1_3",
+      "typeSHA256": "f7f33cc71400b064b44d8b823a364f0b364b202340b61f75d43bf703cf256f80"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_2_0",
+      "typeSHA256": "bf8feb90e277252d4483ebc3bb0ad3146f62a8cd2a18a85bfa1acdafee58d188"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_2_1",
+      "typeSHA256": "079dcfe3db33bb3ec8a03de4667485abdd21867ed5b593b8d0f187f3fa851989"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_2_2",
+      "typeSHA256": "050f5c79b8534576b18ebf9cd429c78d16c460d5fc91c6cbc177966f6e822379"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_2_3",
+      "typeSHA256": "23064806107c1a0e6e15bd5b917f911791fc35a43ee435fdefc4dc43fe015dda"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_3_0",
+      "typeSHA256": "fe8e3828c4651f5a5f1e2a5e8b795e0172aa5252b70b56a393d4b1661746bf3a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_3_1",
+      "typeSHA256": "809b15bba9a1d55603bd52efcf708259fcc7e53facbd828786e32939efea705f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_3_2",
+      "typeSHA256": "2126700b845a6746455c349aa1bcb7eec75a8ae5482ffb3193086a62e5f85d7f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_3_3",
+      "typeSHA256": "40ba2031cdc9a875a6862e3fd56cb5642d4222f945adda517eb7b380a24f5a91"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_4_0",
+      "typeSHA256": "d58ba510e1f552f71c369f5389ce42d6fe17888e2b500f02d9710618f99348b2"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_4_1",
+      "typeSHA256": "93d6ffd0884a7dead905e4feb1b01db0a15ff8af243dea8c4771936b091b365e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_4_2",
+      "typeSHA256": "c3f71e239fd627b6383c1598ad28a2f1f90d53011a4d1555747a6aa92244fa0f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_4_3",
+      "typeSHA256": "eb29a3c940747e9c10e19ebe93617d78e590304423e24f1e426cdf139a5d13be"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_5_0",
+      "typeSHA256": "d167059a4c4a4c33db2a73210d969af920f5c1a17bed3367f3929f109d9985ba"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_5_1",
+      "typeSHA256": "9f12c956be2ae300fbfd53a98af12f14142a3e6866855ee07b66be4e382b21a4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_5_2",
+      "typeSHA256": "928b944c0b91ba921550dd3348713da1d457e02d9cee346ac33c701a3b783f0a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_5_3",
+      "typeSHA256": "70a21adbbe3adc706fb3ba364ca0fcc12f647f3654e6719ab3ad55452c25dfd4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_6_0",
+      "typeSHA256": "cd6430179bc592a84ca7cc332bb52d20822371fb5f3348f3ebfd035e49444c7b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_6_1",
+      "typeSHA256": "80f9b9a0b56930860a641029d27a66c4d2a48f8bb4a312ddc1cec1d444b16857"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_6_2",
+      "typeSHA256": "5c64c65bb620cc8a5dfca1dac11f5b671e2fc30cbc47c4f39dba6056137eb06a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_6_3",
+      "typeSHA256": "efbcc54b90c80d36ff3ddd6f98612ecd8556bdb5d2b6ec415b0b3242964b638a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_7_0",
+      "typeSHA256": "6266a96fab42acc37dfbf120f52363095833165b7e307b0b3f321422036d075c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_7_1",
+      "typeSHA256": "5cd6bb179c63a5b6f9130c3ebf4b540dd093b79c46fa5c9f9c556a2607844707"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_7_2",
+      "typeSHA256": "e7026a063df079edf60e284033560bc32d5d72708d195a3e34b1c3ade11dbb60"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_7_3",
+      "typeSHA256": "d3e058fe8dedc33dca6ab68a1f89e2b611753429102e5a40266fbf8b6d586c5f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_8_0",
+      "typeSHA256": "6db7bffa76a866ab9aacdf3a3f2e3110937c753e757dba649df2cc30d38c7110"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_8_1",
+      "typeSHA256": "3a9b5861149fcff5589b58f4f5e370474e605c3a590f76dfdfc0d73364a12649"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_8_2",
+      "typeSHA256": "aee89ca4fa36e86919d93db43abf943b39d8d773e28a9f0f51bf1c4c6e00b183"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_8_3",
+      "typeSHA256": "3a8d61a4e633ba56e740801844a439baa28682dbee140d828b7e143f12abd7d0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_9_0",
+      "typeSHA256": "fdd3a6b68b3342bb81f7af79c641a8e0c66f34eca9f47244399460cef92214b1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_9_1",
+      "typeSHA256": "adfc4072ae8900fce1d8f918e3c895ae02027db1ae4597131dbe14ffda3feb98"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_9_2",
+      "typeSHA256": "15072da463c40b2323de355d105d993dcbb122279aa32322a35b5e6e3dc5a9f3"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_9_3",
+      "typeSHA256": "09dab15b764b8477348346d7b467e22e613b80a81eef6465faac6f6698107d05"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_10_0",
+      "typeSHA256": "4f6dc71160d6e18a5716f697076de1d8bfd3304f5b9529905f464e51e6482b17"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_10_1",
+      "typeSHA256": "0f903ad883a74e0efec890af7c665bf94addfa0b3e6e287be15879a5502e11d5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_10_2",
+      "typeSHA256": "ea97773bc1f953ccf57714d42deb8a7d1dd9c0470bd7c7fafb4a1002687e50de"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_10_3",
+      "typeSHA256": "cd9b9884dfdc25b3eeb59969044022219378f647bd0a0c09a9e71edd84b29039"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_11_0",
+      "typeSHA256": "5d1ea6e8a9da65821ad50fb3e863bfc0ba35514365924463db6daaad8b96b5ac"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_11_1",
+      "typeSHA256": "da041ead9999bc1a2693f9779aa841f1f1379a7ff5980420c4ff9745bb93b24a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_11_2",
+      "typeSHA256": "a00f34a56695f977b0507e6f36b3ea946b4e85ee7b9f5f4ce0f5207c09a65b21"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_11_3",
+      "typeSHA256": "7fb834c7263a2b5cefc35b172afd4e908d4a78b0b99e8b2ac6b3b8a5e4c0912b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_12_0",
+      "typeSHA256": "67aa8b6bff6cf91fbf9deb45222a297454962861e0edebb839437337d6cc2397"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_12_1",
+      "typeSHA256": "fc58710d82e559756c7440c5a50565c18aac353017bf0323b6217ff623ab022f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_12_2",
+      "typeSHA256": "02d49acc41a72117af4fbbf015cb7bd8394a9e3fcde07c06a93d82841a9caa2e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_12_3",
+      "typeSHA256": "c598a613e1a2ecee3433051030e3b0d38c17de10f2487925d159fa307f65ea67"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_13_0",
+      "typeSHA256": "2e7d3a6bb2ad1e963166529c199aafa2a33cf08f30558e2e485ef4e338b7f2d0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_13_1",
+      "typeSHA256": "33d8e414061450de4372352fcd752313da9d7b36735122e4bf6f1740efbf2b3d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_13_2",
+      "typeSHA256": "10b1c70d52e84d893cd9b1116485d065075a387f65d9c6e6ba601c7f23b747ea"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_13_3",
+      "typeSHA256": "319e6082716eda35bbc2ccb227774d0e2e7d9746f0e974fde1015071efdabb14"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_14_0",
+      "typeSHA256": "701695b6163e6c86dc0c8df7dc6159888b4c765a2fbef23d1f3e7435a87b1e89"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_14_1",
+      "typeSHA256": "902089d26f98fa9802688d9750ca6fa6e34ea2657e700e7b85bbafcc70c946e0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_14_2",
+      "typeSHA256": "381d0a6703fe5fee2c8c14023ed6a5597485e7f07b5b0b4f7c6d5693a9417656"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_14_3",
+      "typeSHA256": "deced09370196f1d82fc2a80e731c76edca4786bfbf10715265fa82c8f5ca336"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_15_0",
+      "typeSHA256": "0bec3d5e205cc5669c7332f3cdb01e53d1114ee1b389de6002f2c2b7a518e626"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_15_1",
+      "typeSHA256": "b96a1a0759694e618ff945a6dd43ce07e5b77a885f7b04c51bb854e8968da7d7"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_15_2",
+      "typeSHA256": "22b5da1a6342e6ac1a06cd67d63bcf01edc7cde1b8fe78dbc2893e365cc93735"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_15_3",
+      "typeSHA256": "0629b1615a32008312390e642daf8e33cfa537f3cca19a91cfdac56d13cd91f8"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_16_0",
+      "typeSHA256": "07a898d3a082fa8a5a63735ff8d446091ee1396ce5b18ca07d0903910e517cdd"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_16_1",
+      "typeSHA256": "f0a6bad7d18ced510318286d61b3a2e6379ca8fc03fa388f8d72fbaaf21b1bd4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_16_2",
+      "typeSHA256": "309e8ec6e5f0ca8bb2f164203778bc1070e1f9b5301e7d8504d19c0e0f116a08"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_16_3",
+      "typeSHA256": "980b117ab4314034313beba4eccd2d255232e0810c20cbccbc9645a737cad58d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_17_0",
+      "typeSHA256": "1088669caac937cc020a6b4d3cdf5d4cad015a868c3ea635e14ff0b4c86146fe"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_17_1",
+      "typeSHA256": "70db3aff1141b5723caf232450e505d3a6ed1eeb46775defac154d71d13891c0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_17_2",
+      "typeSHA256": "967ae7524a8b88e304da89348edc913810a92ed8271158b2fb74c2c73faa32aa"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_17_3",
+      "typeSHA256": "f4ae63c0da28d34bdd862048ca9b910a47230516bca19c236cfca72547a602a9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_18_0",
+      "typeSHA256": "a546d86d8e3a2970230b89e9fe8b13357daadcf1ad011d303ff9c98cfcb548dd"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_18_1",
+      "typeSHA256": "d28f6daed1a125babd34bf6492937aa6ecc4c920b1149b44cd0f9882398793bd"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_18_2",
+      "typeSHA256": "8ead14075122416ea6116bd9b42c470da84d1ade9f8435c241f5cddd8f6f3530"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_18_3",
+      "typeSHA256": "02a62ce76520f2db9a17f8010ccde7dcc9f6564069f48964a54aaf043c8a6d9a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_19_0",
+      "typeSHA256": "8267baa0b93840e838dc79db994b393905ebce609e22c4026efc21b891616488"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_19_1",
+      "typeSHA256": "fc78702b7e81e48185f38228b38756cd59e18833577956db70e0d6f39ee98642"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_19_2",
+      "typeSHA256": "2d81f10647264c3d16fa871f3f80bca46f6c4e6bcc901175f50b813e42241fbe"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_19_3",
+      "typeSHA256": "ecb421d3d39dd8c7df020717c9691c9734c84dae501461b98cabea35cf6046e1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_20_0",
+      "typeSHA256": "2e0b249f25ef031021b0f251bc0a23c987153c8b9d3aa869568f268002f6e8e0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_20_1",
+      "typeSHA256": "d7e02a237585159efd5840cb41be0e4144965defe981fc23b5f2bb2c8f072236"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_20_2",
+      "typeSHA256": "160151a4e32dce18dfc7afbf487003f8d56be393b7572cca6ed26ad7879097b1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_20_3",
+      "typeSHA256": "0fdd9a3bdbf7fda10309d77f7a626be2378794c388846e521bb126e024031989"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_21_0",
+      "typeSHA256": "4ba81d0cce3ef769b1386184e892d46c8acd4ceb188460a90a623b884c5687f3"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_21_1",
+      "typeSHA256": "78cde9b6f0d9335f45a111ccb328afc18d33a908cac7f312878c06bd8a98d81f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_21_2",
+      "typeSHA256": "c32e9fa738e2d8b297aebe60891634111921d59ed0881e6f53e49ec84a36ddbf"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_21_3",
+      "typeSHA256": "269045427cd6fb5c1b3a0d19189f11fcf76fc939fb1256ef9984cebdab174c0d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_22_0",
+      "typeSHA256": "15e054c1f06f5700167f87215f8d98c1f5d08589d32768bc4be3b6b2310a9422"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_22_1",
+      "typeSHA256": "d86d99256ebcc4150de2fdcdfdfa0cefb34fe253fb468aea8ce5d9145f6c7963"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_22_2",
+      "typeSHA256": "fa1cb21144ce9563276d32111c6564182637bb6afff22369032a2d624144a467"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_22_3",
+      "typeSHA256": "7e2d2743753a13cfab29fc921aa5a3eb0c96887a95435fcc45b35a1c2334d192"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_23_0",
+      "typeSHA256": "4344b93f993d8460a76811140030b34eecdf87d0f3e53b9c03cc0efc86becc35"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_23_1",
+      "typeSHA256": "c528f1f757672bf0f973299ffbff7c2d715a751865b68b2db156364bfdb72730"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_23_2",
+      "typeSHA256": "a32737994e78cf6f89918aea3777c4b653870dc071d346257ebf8c5f6cd2ca30"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_23_3",
+      "typeSHA256": "86bbe29b1431f96a30b5ea4b9ee5a1160e786c75abac6edd6423f9e0821e7a8b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_24_0",
+      "typeSHA256": "871f80aa374055d33449c6399f7a94c134209db5f5efa68efce597a1cdd37c54"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_24_1",
+      "typeSHA256": "00d17b2cd94af1aa4157d822de127a3d9d3f66efebe0eb291d1b84c46bdedfa5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_24_2",
+      "typeSHA256": "fcebf237567853600e379c9e90801518d8d46bc7ba10171b4681719f1c8f511f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_24_3",
+      "typeSHA256": "ea701c2de2245b97e70640c704fd371ca3ab4ada176f31faed27aa1827cf9c8d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_25_0",
+      "typeSHA256": "0b5ef3cf1c0787885f0a5cfa49968df7d5d1330d1634b4ca3c7eb633802736f4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_25_1",
+      "typeSHA256": "46efa2b6e3de45c494d840f893e42de9614e3293383d3b83781ada73703ef86b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_25_2",
+      "typeSHA256": "a0ce858df1e3afdfcd0f1e88c79f2e9cfc9bf31adad151db9e0544f9f7f2f2eb"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_25_3",
+      "typeSHA256": "22ccbd8b4c2312512b561b46f4acf3a149ef6aa79c5dfe9981af71d863a1765e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_26_0",
+      "typeSHA256": "d4b8513a145294d942956c746388861b75b386935a471766da95c3cda71fc6b4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_26_1",
+      "typeSHA256": "51dc25dd080eb802beff468b01270745db110be711915b1b6ce4a080f15048ad"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_26_2",
+      "typeSHA256": "55ddd9c0ab9e4334d5d6fffd90293f273a58d95710a45213cffb54aa461319e9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_26_3",
+      "typeSHA256": "bb954c3f04bd0dda42037d74bec7bc32bf7a26eeadfdc4b37c12e30ffb0ca69c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_27_0",
+      "typeSHA256": "79b741ed0728b6abdec60559e2ea623f4adeecb7526b14cb0831a91bdcd417e7"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_27_1",
+      "typeSHA256": "5ee18d19bac6a16e2d51455c73a238e047305c57adfda53490785a36d5e96057"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_27_2",
+      "typeSHA256": "160b71a07d6398928a510373a1c26eff4ef70667b3db789514b36fa3d66c16dc"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_27_3",
+      "typeSHA256": "dcc7cc04806f45f29bf1a6061c0e400ce7eed5b76bf7d3c91751a1618397e00f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_28_0",
+      "typeSHA256": "49545b3bbba58fbfaa0e77bca751c047b36101c5a86a41eb25d0a50a44fba0d6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_28_1",
+      "typeSHA256": "1781ede43d75ee4279ce8c10f0399d434f00e5934e14d29a1eac08538f33a715"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_28_2",
+      "typeSHA256": "e1386e2f125f722142794472540bb92441dff4f7e3c615390759a52e78a7f161"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_28_3",
+      "typeSHA256": "3d9ea279949b59169df6b86cbfb842137b412ad5c8eb8bdc425295f5a44c4b47"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_29_0",
+      "typeSHA256": "0a03a32bddc6b900c3c70476d651beed5f69fd32596978fe2e0bfe425f4bccff"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_29_1",
+      "typeSHA256": "f36ab2ec4f9df4386f1aafa62f8be791371840427f37066762434df516126e2c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_29_2",
+      "typeSHA256": "e5cc2adbc5f90ed34038b8ff725f71744bf1fb293a3d5387d5a708a798bdf326"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_29_3",
+      "typeSHA256": "befc09daf7a188b3234f1b7cd8c129f2ba104d234b112b203b67bbc4fb754a5a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_30_0",
+      "typeSHA256": "f6cb162a618c4af7a4d1b5af3ff420cd47c10385e07af39ec6dd318f6324b370"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_30_1",
+      "typeSHA256": "0b2550a165b0274b636eea082d00364241e50ba4ecf1a54de546f716d86faf20"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_30_2",
+      "typeSHA256": "46dc88e32a1d918efe629651105c0377954df00e043479d36585bdb1b3328775"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_30_3",
+      "typeSHA256": "096b1ac88e30d5f8ca1a9e284f770af5a4de661d12eec5dbc33af65cfd559212"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_31_0",
+      "typeSHA256": "2085813498a3fbbe9dd8296f7716b96707eedd71ade44a637673d1a2b6491cf2"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_31_1",
+      "typeSHA256": "8e795339b7aa8a567c07c508c3cf2015e5da3778c1a42f05bebf32ec37487296"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_31_2",
+      "typeSHA256": "f1414c367ac4b45f3d43278dfff7c503fceadefe31072468509647330d23a3cf"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_31_3",
+      "typeSHA256": "0fe5ab47ffa6a8dbeec5ff9cdc73ea8c6be3f2ff06a1dfbc490491b420b09a9e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_32_0",
+      "typeSHA256": "300dd8af474fc875b9f9bbafa2ca771cec143f9bf93c6672f7b91b66b988f668"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_32_1",
+      "typeSHA256": "7a1a987fb2c25185e98e86b2cf28dde31f1cae67c62301030352ce0cf4e666d5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_32_2",
+      "typeSHA256": "532fa1d8c2781abb2fc9a21d7d4c0e0550629e2b7d6e08b69d299ff4d0f5a3c8"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_32_3",
+      "typeSHA256": "39a7769b8fbab2cd331ec44808fbbca0993cd1d6cccc03defc936de6dd9aa6d9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_33_0",
+      "typeSHA256": "a8adcf42e2fdc181ea61432d180caca40c584687ffc1761c3085f3dad495eb16"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_33_1",
+      "typeSHA256": "3c69b4334dc2c63593ba152b335e70816b650974b9484dcedaee94477482deb1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_33_2",
+      "typeSHA256": "8329d52683c9ec7cf53426ac33ca6ebb9327871ee68248475c75501b07676f1f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_33_3",
+      "typeSHA256": "034b4e8f68de48e3e855c234d15e5d0abc7246a4e37fbc976b8b4293c994b333"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_34_0",
+      "typeSHA256": "ed9e6365b8485388f7fa5ba343bdada380436ac6065122915f18c581bc1667f5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_34_1",
+      "typeSHA256": "f71ea3d06f8758ed5d43b85b035af89eb0446b1fd19f4bacd3f6f7df970d700a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_34_2",
+      "typeSHA256": "b53402e24e45d04487ab32f4315bb6efd104532f1b0a3f55dacdcaeac8c96ad9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments0_34_3",
+      "typeSHA256": "574edb98f9ecda72223c68cd304909e5575fe36bbe15d27b7f3a4a1db10bfbf6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_0_0",
+      "typeSHA256": "3b4ce891ae25ca4f712b32aa2f5c61c5d82963b1256f8d96853217b5d460040a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_0_1",
+      "typeSHA256": "b0af435ccb2275de8cee8e83d61545fab4b1f26f07ed427abe77407adba6456d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_0_2",
+      "typeSHA256": "ab58707c1e2580fcfb7ce801cdc39d61015c01f018595334fa62f131dfaa08cd"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_0_3",
+      "typeSHA256": "62f9dca643f8266913b61da0d5f9359eaa314499c8107c1b58ddb4d90b4ba98f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_1_0",
+      "typeSHA256": "b18ce61938338a6575c8c1fdcac8c8c128622a6b793e5badeb82940b4fdacf3d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_1_1",
+      "typeSHA256": "02361c4ba9a230047b7d5b72a7136748b0c5221985ab411949175f32b0aa2bfc"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_1_2",
+      "typeSHA256": "6e0b629f12046f4178777a60b20ee83486ebd7c0885224f5856985c9d7ac69bb"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_1_3",
+      "typeSHA256": "43e270346eaee9972dfa908e6843963f4788ebf809b4955b37f6bc9a2e459672"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_2_0",
+      "typeSHA256": "019880bdfdd22cd822ad64eab9b3162a6bcdfbfdca28e6df0a5b4f48fc71f2ec"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_2_1",
+      "typeSHA256": "0e9af186c19d9350f75f8866fe1be059c4cc1b36286ed87967606496c01fc22b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_2_2",
+      "typeSHA256": "a9b37c329b0fa8ae3548a6b180dcd1e77b0e41851f50df7dc3b3fc84a1546e20"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_2_3",
+      "typeSHA256": "3ec8abeae555bd0cb7e27b1a54ca5bc0fcfaa4a37a86e4aa750c934e03633395"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_3_0",
+      "typeSHA256": "9bca0495238080f73503abb7017ed36db7b076b4cb5504d0fe3f39380ad58805"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_3_1",
+      "typeSHA256": "8f02bbd5c62955c6a6494c5d22d78e7f72234f53a28edee46ee936520c9ff8f1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_3_2",
+      "typeSHA256": "e8425c01fce96fd0734a3eb5a3769672193e372d24ce76f94e67a43bc42160c9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_3_3",
+      "typeSHA256": "a400d2e7d8dafc6e360e15c3a05b1f75143664b587ed5523bc69248a354d243a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_4_0",
+      "typeSHA256": "1b3ef47a664cb07a504208b3b26ba96f00456fe1ee33c69c31a0a2990b90d874"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_4_1",
+      "typeSHA256": "f0d218e275e920561ea4a998a6abb48d644ffb5659459a05945e22e004721f09"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_4_2",
+      "typeSHA256": "6b63111de9fa65323938076c267370eb82327cc7f30f6185a91f3faa83742350"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_4_3",
+      "typeSHA256": "4145129ba419b39694e1dec314ad0c380111ef41d7dfad9895ffde3eb916ecc9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_5_0",
+      "typeSHA256": "c024cc357c33669b998925401edf535c92fad02219fd3906691e26aaa523c741"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_5_1",
+      "typeSHA256": "603a582ae4224dc5bba25b9d58fe807a9ae5d51527ae81d684a4b30e92e7ec1d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_5_2",
+      "typeSHA256": "8a5c7dc2b92fe86819bacf4006e0f2fb3b61f545158d20a75b9a3ffdd6338387"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_5_3",
+      "typeSHA256": "c0e4efef9780eb98844efd7d65e3b7b0843ce78c19ebe2b57d8acc8de07d6ccb"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_6_0",
+      "typeSHA256": "1a1a0de0f016d5280ad522675a45cd4e4953e923562a3bca57ebdef5ca912e31"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_6_1",
+      "typeSHA256": "b159de005f4c36ecd1fee29c4739310c2811eee1caf33e40516659527bd1c92d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_6_2",
+      "typeSHA256": "64adcaad9f7c6b9bb0c259c4a0654a3e48bbb97659d872b62cb4c3befee233f6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_6_3",
+      "typeSHA256": "fbb64475842426795477348cf88c904e51963bd52ec2a85b46510f86051f2b7b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_7_0",
+      "typeSHA256": "9a18e566ed237cbc779d86fe92d469f248bccef42e1b2be4dd722ca3f7a82984"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_7_1",
+      "typeSHA256": "654cd3827e057a065f8e5292999578e0ecf9b0e50de5c450eb615f825f40e66d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_7_2",
+      "typeSHA256": "9a7cba89fc5bce64ffbe4ffa25ad87581f229ea957bbaa3a23a8f9121c850dd4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_7_3",
+      "typeSHA256": "7511f8b74e9e02b51eb01bf8296717f001520e59d23a1861fee633a68a5615f3"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_8_0",
+      "typeSHA256": "22678bdc323ceca747f2da0aae7a56c9a0554dd70f7711d936d0dc4da95db670"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_8_1",
+      "typeSHA256": "252e66ac2579e610a82491646390a6bd24f29c34bd501d89865deec1352e2554"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_8_2",
+      "typeSHA256": "0b745e2d5da140c20fb9929f7f66b93ab8f379f9779487bdf99a3f66dbbbbb65"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_8_3",
+      "typeSHA256": "aeb095b684919f5146c73d53969415ef1d5a947b8dfffc0cbbea83c591555b69"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_9_0",
+      "typeSHA256": "fd42d930265195522c693294e186a3d859c31c4665d257b9f95fab01ea9ac642"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_9_1",
+      "typeSHA256": "7986b6f4dca09ed6ab20384927ed808e3dbde769f47aa3bf1d21572154962e28"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_9_2",
+      "typeSHA256": "be4903c9bd93ee7e2d97aa6ba297cf130f3c7eb79d75fb4005bc6db8a09806ed"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_9_3",
+      "typeSHA256": "590ab1067742824b2338714a141a7b253e401a827c2b4f99f61efbec85afc285"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_10_0",
+      "typeSHA256": "be8a8d8baa0fa707ee65c8befdd24f9d77931c03197fd79c58de79f86eeba43d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_10_1",
+      "typeSHA256": "148b6a920fa92668ccbfdce45173dc45e69850945413cb3e8ea9bc691293ab22"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_10_2",
+      "typeSHA256": "7001c0ad9a43cdc726bf366bcdd52d19153497cc06c558bdab1913722a6aa5f5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_10_3",
+      "typeSHA256": "0876a8a0f1bdd53978bd33fbb8273cf32a60b7bca702fe135577dca5b8b5041b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_11_0",
+      "typeSHA256": "32d63e8224b803875919a3d6d28225c0c326ac3417d670804f4208cadee25968"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_11_1",
+      "typeSHA256": "5d8b88d0fcd9b899dd7d7b10a8c3aed6d0f8773e51c598b04ba672bf40c39bab"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_11_2",
+      "typeSHA256": "e99be5d1a67894e3ca183267ede2f5462ec46bf2bfa7ed7871cea2eb2bd570ee"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_11_3",
+      "typeSHA256": "310a5187c392407e4aa211bd269a6efb768fbc54e4a229c362804653f05d69bd"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_12_0",
+      "typeSHA256": "874f68b2d591ef9420f5445945e20aa7aa4d1f3271d41211cf18279dbce86309"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_12_1",
+      "typeSHA256": "be81478ebb069b061bacb36d35e4f67ab930db4de72d695cfd92fa519b039fde"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_12_2",
+      "typeSHA256": "096d2533e65e998f43878e9b374e74fb3f72016fcee43bcc6edda675197b02c1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_12_3",
+      "typeSHA256": "3813255a1aa2206e893ab7adce20963043a1f13206c30ea2fbb83680865c633d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_13_0",
+      "typeSHA256": "915dcb43b739c5eb2909cf002fa5eed71cfbcac912e4e888ce862a379f2f2342"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_13_1",
+      "typeSHA256": "ba6a681da08879e490a7813ac5f45476ec0628362ee747703f402ad63b5dd51c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_13_2",
+      "typeSHA256": "1b8a5c1d300d4f478a73273e331fc031b0b9ccc60cb9946c09395c7d8f664fc7"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_13_3",
+      "typeSHA256": "f8c7591e8973d8d867d5ae393d43f0c958728598d6e9c5662223abab4cbc66dd"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_14_0",
+      "typeSHA256": "f428b4599e19d3a9b1380f921dae02737c9582804e02f3ef6d949565bbe83ea6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_14_1",
+      "typeSHA256": "8ab01ed6acd08eea6c5cd913b7305ca4396f5309d247922831f73a4cddf71cb4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_14_2",
+      "typeSHA256": "7bc0dfec245200605e4a4aa18b0a7d5bd2f2c7fe68c499bb1c00344c94ec8b7d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_14_3",
+      "typeSHA256": "b83480cc179e8d57b756f1daa1255c51add2d78dc18bc45f4038f97d8cc137c1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_15_0",
+      "typeSHA256": "1acce0e8c6c433199ed6082b6a797ccb536adb51e1cbfabf8be6f0227fd6f040"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_15_1",
+      "typeSHA256": "44c2c0b6229b0afd9fa63378432a4cf0d04b1a5f714695a9b14b076e619db7ce"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_15_2",
+      "typeSHA256": "72fbf1fa36043ad2739788a0ec072882c0c062933f296c33ad4fb92f68a464f5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_15_3",
+      "typeSHA256": "1992e7b01cb6d1ead5d5fc36bbd9e744bf2a6b3a72d734d1a199feb56a7dd293"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_16_0",
+      "typeSHA256": "8492e19b1fcc8ecdddae64d94a2c068a22883eb304156682f6b94008e1a2ab84"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_16_1",
+      "typeSHA256": "6399443b674664d4a87ce671e91b73dae38673cddedba2132b9afd8b33b65b19"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_16_2",
+      "typeSHA256": "505a344c4ab9f1513a4485adfc54535a14b054bb79f581df7823c03c592bb484"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_16_3",
+      "typeSHA256": "cbdb750ddd990e8affcf00956dd1cc3d88ab7f4c26fe84b90ab7b188b7527021"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_17_0",
+      "typeSHA256": "5b82b7bc09443725172a8a5beda972dbbcd007b5bc21f42086628f6f43c305e7"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_17_1",
+      "typeSHA256": "19b2aeb2bb560830846c20fc3c43e96339ee3ecccb1ed9be74d101a1f6ab704a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_17_2",
+      "typeSHA256": "0166fe227c1a67c6ad007c4806302160beeab4af88e562909ec596bc25a99693"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_17_3",
+      "typeSHA256": "1d1d99a1f0810ad51cbb2b415d36f719724e90ff2d25ee570cd4ddc0135901fe"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_18_0",
+      "typeSHA256": "315c8d23d3f946497ae81aca21e655eeb20863ff3a1c51f29f371a52eeda05d2"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_18_1",
+      "typeSHA256": "820531fdc585ab816b9ad3cecdf07ee9728f9810e1b69108f9669484a4a3d88c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_18_2",
+      "typeSHA256": "b62c7a693f55300c799aa253d95b1b39e1e093bfd91f3b6b33e3ddc591f974ac"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_18_3",
+      "typeSHA256": "a7d03efcd1aa892e9c1c97adb7022e58ba84d26cef892916ddbb1ccae308e310"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_19_0",
+      "typeSHA256": "f0d9bbada689ff1bd697d561f813bd4907a744213bb3e5550b6230b65d2b2f66"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_19_1",
+      "typeSHA256": "ec7dbe967b875532d89b9a6a869d084948705beeddee55505c2780cda4347b2b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_19_2",
+      "typeSHA256": "41d3c13da516a8d930c38d00eeec521d1fb178089b0058f8d69e0d17e6920f59"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_19_3",
+      "typeSHA256": "7e448343bd11c1502b915ee0676ed87f17d3932f8bdf4963a604adbf218a1a22"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_20_0",
+      "typeSHA256": "62a01a1265a314db68a08b8890a307637f65482847cd664066a2c3f254d2c470"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_20_1",
+      "typeSHA256": "bbc87f474a4485437ef429f34b9cc42f05bc0ee22ec7d08537c368dde13778c6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_20_2",
+      "typeSHA256": "b0af7a8b54feef4ed169dd9ecad4bf1e08cd3c7d5e79fe489591bc97e0b2282b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_20_3",
+      "typeSHA256": "c725bf917bfaa3aace3196e92d74e6530c33989ce38ebfb7bde31c5c39cefeac"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_21_0",
+      "typeSHA256": "f65a50423b27b95f2ea12e334e6d7045272d16251b8e37bba427962f35d4d7be"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_21_1",
+      "typeSHA256": "17002adcc90c1a088f95630cb32feff9836dd02f789ba08d66b8d915d2e2a4e3"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_21_2",
+      "typeSHA256": "f12e07397964a3980d6c277085635e03ca838431d0fd53cbe13de28190c6837b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_21_3",
+      "typeSHA256": "41baf011319a43c0d34097301222f8ed57a8c315bc5e61bf40077bc9a0ce534f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_22_0",
+      "typeSHA256": "826417e6ad5a830ca8c7eeca27c3276f2e31b8070a5a0e4579eecbc97a744d9e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_22_1",
+      "typeSHA256": "dabf36135b89e465bbd0911a31f44e31a98571fe89c6e0ad0820c155495d2276"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_22_2",
+      "typeSHA256": "e48152d39584c177cbf33551c1af41efc84ce6c739f74a7cc0b0ebb3b47a2567"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_22_3",
+      "typeSHA256": "26ade89120cf17a8ef59bab7971611b77be9e069b63a65be6fdfb9a83ee16b42"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_23_0",
+      "typeSHA256": "b3e1a7819514499367077d2cc126010342196eaa7cd61c52ff1c1239a3643fa6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_23_1",
+      "typeSHA256": "aaacb4240868b8310b9fcf9d5e48a0678ab06e9cee1e28c668fa69b32262280c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_23_2",
+      "typeSHA256": "72d9525828d29355457d582b78d8a02314ab502ce0a8c83ba5c15c95e33acd3a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_23_3",
+      "typeSHA256": "ec31009b37135a82ada4a1f2667b5d004c304ac9a34f75d39b421ef0173d5b90"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_24_0",
+      "typeSHA256": "886c8382f53e3122e38fae93c58cee452a6689a39cba2570025f46f99a4fad28"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_24_1",
+      "typeSHA256": "c527397ca5f2125d495fb490629c16d486bb996d57f125b4d221ee1bbca7a97c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_24_2",
+      "typeSHA256": "722440b6533ac50985cc38e0b52c193d54764535fa839b067f5246981e6104f4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_24_3",
+      "typeSHA256": "d1ff2168ba4e2add6d6569cba74882dc1791df72c368319659859ad842111977"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_25_0",
+      "typeSHA256": "b804c1704a987aef92fde820ef7964e5db116e074a63c3a6d78a173bac0e7b49"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_25_1",
+      "typeSHA256": "921bd361457cb92a540a6368a622c32b8aabdfdd005b64003a160ab50a85f156"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_25_2",
+      "typeSHA256": "c9f186e502fbdb7f2d66e38b66c2f8c38490f42a49691dcc2f560d8bd89eb962"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_25_3",
+      "typeSHA256": "23e7fd57b017b591ed097fc028afe854203da51cf5809d57ca794b044aaa0b90"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_26_0",
+      "typeSHA256": "034f83f24ce6cd335f9d76d663fb7a7fd9d35dae408da1b4c82a866197b41869"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_26_1",
+      "typeSHA256": "56b8f10642fd01a045e7d3698aef7f66e554d17d0cc6bcf4059006d2ec9876a2"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_26_2",
+      "typeSHA256": "779e37c6c374402b6ba95b3048c45dff7d4c5c99b19307575cd44ee39708f439"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_26_3",
+      "typeSHA256": "c088dde2f036ef5029a26183a6d1f89832611eabcbdc2512f41a24cd68999bb9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_27_0",
+      "typeSHA256": "627fa4370e0b4b5d80d2796bcf2c2b5f44b551eac674576b313f7cb2f3ee2a28"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_27_1",
+      "typeSHA256": "5d3f0203f7da1517d2adca6c2da9989f143a631b471508091bf1f80d1fcf11fa"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_27_2",
+      "typeSHA256": "fcbd71a81f0a652a85c67683acc503364f5abd40899b46799a4b401b6e067010"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_27_3",
+      "typeSHA256": "a7cbf1b23de84b231b79bbf54075cd3c294683b6d98ac8c7b2222bf3535d6a95"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_28_0",
+      "typeSHA256": "d09612cd3721800ea9f98fc4e9f577c155ea48340f4bc52293eaeebeefdfb81c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_28_1",
+      "typeSHA256": "72ff682000c964426239b7edb9709144b4cdb24a9c53eea4f6222d9b98df7dfc"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_28_2",
+      "typeSHA256": "d747287f954e57f89620dc83478c2388799ac36ec2487c8dc2e028d5e44fa69d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_28_3",
+      "typeSHA256": "8f82d980c0264ee90e2f76a5bac54aa8c2159e024258b8dcbd9f63ba8f2933e4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_29_0",
+      "typeSHA256": "3856d06e341aad36dc0ee27afd50491aec17ea0037187e1cec6291907da61056"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_29_1",
+      "typeSHA256": "09ac61c314a4ebd6b34033e7f38c2549b2bb6ee45357095f76d57724a6011437"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_29_2",
+      "typeSHA256": "3b111b2735dde792c450618efe3635d98ffd302ffa656ef3458b42dc7867fd3b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_29_3",
+      "typeSHA256": "fc7bfdc7b3dadbe61f4a22eac7f2c077d751255cec5eff1f270d24863e1d0a51"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_30_0",
+      "typeSHA256": "98956e2d33c61e295027948ffd1c3474c60b348f48b28a027413a610ded04aa2"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_30_1",
+      "typeSHA256": "95ba0a77fd73101c8914314ad13bb0818d260792cb1d77bbb61ecec39b330426"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_30_2",
+      "typeSHA256": "8f98d86dfcb62e6141151e28fee668c27f79f0163f44988c1303e5a43fa53dfd"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_30_3",
+      "typeSHA256": "0a15278b74a843555953594b3da5d6c65bda98d02c6c4c45e6ea5eea40a90697"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_31_0",
+      "typeSHA256": "dcbe1217739ccd25e30178dd70f4cf3e431e2210e58b6709ce9a9c31a11eab50"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_31_1",
+      "typeSHA256": "4672cbf22d2d2bcefc39b4f3515af7933e39433c0f960a1c3e45ae562e35679e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_31_2",
+      "typeSHA256": "fb3722ca26c20d4635a6dadb67059a824916036bcc099ab0db1fe5ae352908c6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_31_3",
+      "typeSHA256": "af7af33f7867ee7200ef0339e50e2e4b37994b57fb9a4d9c8647e0df203fb5a5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_32_0",
+      "typeSHA256": "edd940b62ae62a1d4926dfca1409623d019def7ce8da8516dcb2350d8cd232f5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_32_1",
+      "typeSHA256": "fdd99807e1020cddafb55d097f4b462e60137b224c64085c274b4b8f8ae63044"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_32_2",
+      "typeSHA256": "49c1f96417d0898dba498b86111a32c3be154b43a48e71e53411eb8413ea352b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_32_3",
+      "typeSHA256": "85e5a97743a5ed9342bff70833f24561030534211787e2a513211aa8972a3b2d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_33_0",
+      "typeSHA256": "1efd2104ad958ce5e487c8411bd2a6b9f8b2bcabfd2622bd8264e3a85781f45b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_33_1",
+      "typeSHA256": "351cf5277012baa36b5c0b072e2c90bd34dbab51107d90cb6d9b961e96b5ec39"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_33_2",
+      "typeSHA256": "38e688f97d75cd25641de8e9640f495b60c664753fe300f03009dca451cc2590"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_33_3",
+      "typeSHA256": "6b6493f445c23881fc26d0ca3333e3f29f066ca89cebec45fe6f193ef675ae7c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_34_0",
+      "typeSHA256": "5f8e557926353377296f2b9736f7332843fbce40343617a8d7cb221c0ec5ec94"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_34_1",
+      "typeSHA256": "2adb922fadc3d82036ddab399594110b97a4f21b3b5754b992c2f50dde4276f9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_34_2",
+      "typeSHA256": "1b7c819f196a06f5ca810e68be4d46533ae6dbe17c770ae3cac79d7d15e360c2"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments1_34_3",
+      "typeSHA256": "378d9424fe6e78beb7cede0cf9b96a6abcc2844e9b490e5c04e72f24dfa78e05"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_0_0",
+      "typeSHA256": "8fb7c8bfd2529eb0d26c5e8b1b7dfd9cc5ea1a03d35c5ed9212d51d60cdf8f42"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_0_1",
+      "typeSHA256": "220634d4a252b42a747b408ff33441cc87b5cf481a237d04c071473282271a14"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_0_2",
+      "typeSHA256": "4a47279bd0529b534b4f4a7b20dfbf0846c6b3c8fc14be98f25e70abdb3eb1d7"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_0_3",
+      "typeSHA256": "d628fab85a1b783936bd70aa4cc417450427ea08cef72ccd3c7107595935b07b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_1_0",
+      "typeSHA256": "65383ba4a54ed09e2037ca0d2fea766854cba10800093ab342e019ab72f83741"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_1_1",
+      "typeSHA256": "1d65b73838e227fbe481a81a0761aceeb721488ea8894f394ba3c4f69bc1fd39"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_1_2",
+      "typeSHA256": "49d8735b0d55ca1ae1e556d1667e2697b7976a7876f41e53ce9d82a81382c194"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_1_3",
+      "typeSHA256": "6ee0cef1a998807aef289fe5b85a0f758ce2a55f0eb49ec1ba4e9d6e0b1e42ca"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_2_0",
+      "typeSHA256": "03dc2ccce20a6e6f5b22c7d1aaa8d687527a853255eb13e26b5370444b6ee4c8"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_2_1",
+      "typeSHA256": "1520d0737473a467b4bfe9940ef5f1f68603000f67b2e608a0775bedbe902eb4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_2_2",
+      "typeSHA256": "ad89cae982d6a7b0d09719defbd36011657cf8b5d7ae70ca14f05b94c2317707"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_2_3",
+      "typeSHA256": "c2c0afb73e6cb3ad24a56005d35bfbde0f3597f8c6d37d4dd7bae0b99534a7fb"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_3_0",
+      "typeSHA256": "bef1a6e3c61dfd985f0485fb40bca8d6214ce30b23e7a483597df8f1520c37c0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_3_1",
+      "typeSHA256": "af2c039ef50d31883879066d752da6a1874fef493982e4177d0bce6469b9c9a5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_3_2",
+      "typeSHA256": "aed3afd8dcfb538ccdb8092711278dd226025573fba13410b7034c320e0b8988"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_3_3",
+      "typeSHA256": "abfc7088506f1c0bce810faf8314e78072322e9bc90b36c1e9c3868826eed4b0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_4_0",
+      "typeSHA256": "0c8c71e4f3b3dae46e00f20efbc09a86905c78acd92c6a0e10906700c051fe55"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_4_1",
+      "typeSHA256": "e10915bcd59962d9c70e60e2db30814ea15195add96fcacbfcd8f40a6af1651d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_4_2",
+      "typeSHA256": "ef9712c1e3a46f52628c1883fe86c110464b4b4dbf26605c054a3c17f74cbead"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_4_3",
+      "typeSHA256": "c6073aef906e8935b6d09342b7fcd009bbadb65291a28f80970b98a41aec32b9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_5_0",
+      "typeSHA256": "3a4c51ccca8bbc7998d061b9a72353362e1f15d98eab690b28e50a4bc62e1583"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_5_1",
+      "typeSHA256": "5bafcb4aa068267af925807b32874e39f4bf264921c4073e6a4207d5ae6d11db"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_5_2",
+      "typeSHA256": "0aa9bc7f3e96f54d1d27c121834d05e8488d72abdfa4bd445a6bb17ca88610ff"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_5_3",
+      "typeSHA256": "516e36d05e5c71117245a1ba200810acd65a469a6d458dd9a10c35b94ce9d15a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_6_0",
+      "typeSHA256": "a2215ad4fea870450839e9c820dc098fcdf1f05ff8997fd3fa952b3da31e8207"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_6_1",
+      "typeSHA256": "0d35d93d94271b979a9b24be6ed0a27f30b4eba03564034c92106fa155668b62"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_6_2",
+      "typeSHA256": "4821de47c4fc711652d5603150be341048e9aa8d125d3d231da3fbf099c41073"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_6_3",
+      "typeSHA256": "ba7967e4ded741e53bc89621b8df8abe504dca8e748f475648d12856fb56ee7a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_7_0",
+      "typeSHA256": "4872b52dec6ed373ae279dc2f25c656e1ac427f602aec9ed5a45c44454582acc"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_7_1",
+      "typeSHA256": "e78160152e7463f490cdc73b29e9e9254cb74535f558e3d8103548d58bfbbf8c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_7_2",
+      "typeSHA256": "ab002dc6b974bec47f7ede8197f26fa78ac42a2cb5ef0836fd0cc57f3ba9db01"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_7_3",
+      "typeSHA256": "9393c18ec5581d3c196c27ac1cd20cfa1991fb46817ca7887a9efae9d89b858e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_8_0",
+      "typeSHA256": "ddf665a132571a9b56aefc20ad80039c28bc69fa6beb0b897615ce3d419aca44"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_8_1",
+      "typeSHA256": "5ffe3c8428d7049de68f46888de8bf988d4eaea5139c8e12d9f928e348fb4195"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_8_2",
+      "typeSHA256": "0cf993c0173f28902a66a0e96a42b282695db436ca948cb1990743527aedd084"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_8_3",
+      "typeSHA256": "8242fff4a89b975da591b8fc4b4d905fd033d9af6235c1f8ae02027bf41cf2a3"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_9_0",
+      "typeSHA256": "2799ba938a51c65c1196840913a98c8532ef8cbfa9057451fa9fb2f40994a10e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_9_1",
+      "typeSHA256": "cae4ae54dbb335024c1e41e032932d53fd3eaf4a6839e26ca9865c433a9697df"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_9_2",
+      "typeSHA256": "fd1bfc4043e4857734f112ccbd5f385ed35761c5da582ccf627684f5a74e83f2"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_9_3",
+      "typeSHA256": "f926a23f7124cf3d17dfc7a33871f0e2f592564f6693f1d7a62ddd46b8ea8824"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_10_0",
+      "typeSHA256": "a1bbe1fd237e4ef31ff9c5665e9d3e5dcaa5c58a65083704c38c73a0765bf46c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_10_1",
+      "typeSHA256": "7aafacb1000768ef52ec9a383b4b6712d4497a2c1028aa791f6283d040c64246"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_10_2",
+      "typeSHA256": "aab7b55c6679c6712b448fd9a084e0855e3c53d31db3a0710a25ac557b2d81a5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_10_3",
+      "typeSHA256": "a30cc910e81b7a7348eabe9b17d020a6b255fc2b9ecd472d1279e7929fe9c7ad"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_11_0",
+      "typeSHA256": "e4f6adfb3cfeb52ce7ee1733b7e1e81f803c6caaa73c4b15e55476ccc3c97392"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_11_1",
+      "typeSHA256": "60347c41d712bc8ce66326ee2dc01faa34f938ad80de89565ae97b1e08dbd0fc"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_11_2",
+      "typeSHA256": "37f0165fbea94e73bc28fa60c15aaeae00c97fbf26391987103deda008c3cee0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_11_3",
+      "typeSHA256": "5551dbe4e8d5f9a393dc64e5ff4e74fd82db3e1c28931983a4917713b225e4b0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_12_0",
+      "typeSHA256": "3d5961f5695ccbdac46e0fe7a08eb9ffbd287c55dde1bb34b204e7ff3d7c5071"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_12_1",
+      "typeSHA256": "b9d64fe60e065a728d22103d9905763b31177313bb8c1022a351e7baa069bfb5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_12_2",
+      "typeSHA256": "cc59e4ad797ca291a7eecd868593f8533363be210562bd46847bdd29955e3db0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_12_3",
+      "typeSHA256": "984b9448d02f102781137cbc5135baf8264bfb1803233a60125273ddb87ce944"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_13_0",
+      "typeSHA256": "28e1e460445d785a3f508b11a49e27e2fd7be164df0e197150c7f0b26593bc3e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_13_1",
+      "typeSHA256": "860eff302ac0ec4a2ff70092b80f45c6dcfe092c58fc1759dd183c636d99b6d5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_13_2",
+      "typeSHA256": "b4f5dbe01cf72d9563a167001b9134d33cddae6d9e6d21649c0acd3f1d5e3e7d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_13_3",
+      "typeSHA256": "2fb3c2ec511d547bd51178df1cae7ab7c85f8a4ea4e138c9177f36e0730d3519"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_14_0",
+      "typeSHA256": "89e3475fa2aabd0f3706f1bb9bac4966627c7323ac4e2a02ed83bbcea04b2795"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_14_1",
+      "typeSHA256": "768dac38383b85c2397db4671229c30147386d8a81294d54479b86a22f0d428c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_14_2",
+      "typeSHA256": "48ae0999616cb7676a6464111443101eaa63a96a76704272ec33ef7e412e6684"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_14_3",
+      "typeSHA256": "360aa8f96724d05613c3ad779100f3afbc7a3766995e4b9a4cb1978a43326ddd"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_15_0",
+      "typeSHA256": "49d87c8a014c0302a4576ebabf412cf5e756f35601dcfaae22ec472c4e86043b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_15_1",
+      "typeSHA256": "2442c73855ee3df705ad85ac25b280a9a7698294a30730dd3cb9de2d9eb46057"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_15_2",
+      "typeSHA256": "b7ac682a57c6a71c4cf248adc236cb652eb5da7fcf3966a5cb295944e7154574"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_15_3",
+      "typeSHA256": "14e8df4d08d816516185e332c997547e5dfb4785403864774bf9982f9046c333"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_16_0",
+      "typeSHA256": "09e3e1afc2750d115bd69504bc7f18a435cefa57dc97589975709dba859fc4a6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_16_1",
+      "typeSHA256": "24f13352b979a68890987ff1d9cddb1e5a0ca97adcd3d4211180149efe36cd15"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_16_2",
+      "typeSHA256": "9b3745d82d4d439adbcbdbab7b94d051b7cccc8f96ed40adcfc98909090d687f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_16_3",
+      "typeSHA256": "6c86d50c7f8fbc31df1d117db92f66b907bdf42bc01f8b6d72b0e8bf987c4cdb"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_17_0",
+      "typeSHA256": "ca0022a9d35e5d8476fb6f2c012974d4b67900b91e12b8928c1d39189458d40e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_17_1",
+      "typeSHA256": "e9e8263b019ee3450eb6bf15ba7a87b2d2576c500c1905c131e0ca14fd641e36"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_17_2",
+      "typeSHA256": "d35130f72344ed87534b69c31aeb6ecd060cbfa25f29dd33870f4e538e4e94b7"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_17_3",
+      "typeSHA256": "4192830163df0fc70056c4672f0c8fbcd5191a9a18fe5393c2ec801702418d41"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_18_0",
+      "typeSHA256": "96f5bdc66bde9ec2196069287f7ef483210b7a2ab34e6f5320228bc3a7d9583d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_18_1",
+      "typeSHA256": "a317e499edb327cf1059b5c35261fd340cc46d3a630c6f0b47572e71e867220c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_18_2",
+      "typeSHA256": "8214d9c02e4248d39dad7b033e8df7b3d21d437e88ef4bedffbe2c9c2bcfd059"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_18_3",
+      "typeSHA256": "5bb96b8860f96347904b33ff69f7453054deb44c0cb640d9f541e64d1840a7a7"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_19_0",
+      "typeSHA256": "2e4b2ffb9ad455d1dadc38855d98bedd18fc4d9f79e8b5bbfa91a4a6d0a5861d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_19_1",
+      "typeSHA256": "dd1b2874870178eac0e91c03cf69026045b6e7e2f10c52c0e4e3d2facfe08d0c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_19_2",
+      "typeSHA256": "e7415f7e40beb4b9ca10cc2a5114fe89fdcac53ddd06d93812174cc942b340b5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_19_3",
+      "typeSHA256": "945a14aadf520160a4a357e6904dd3f9497ea97534118b136bd596c2484d4b96"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_20_0",
+      "typeSHA256": "3b80b127fdf3c7f0f4998cd6a87446e2133fbf6f43f103c0df0bb515aa2bdcd0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_20_1",
+      "typeSHA256": "1d85e37eee4de62b6e3541052479815fd7e6cc537221ceee52d863d583cdeaef"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_20_2",
+      "typeSHA256": "7282a82e5d78b448c9a1df7af951289729018e6ca31ca09f469f360f442361a1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_20_3",
+      "typeSHA256": "ac5178387e67247af3f208b63a4e821ea6841c719eef6cbe63e06bbcd72de8d9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_21_0",
+      "typeSHA256": "c66a6ea6c00b5fee312eb2461740856405ccb0a41fc68e55fbdd7489845b61dc"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_21_1",
+      "typeSHA256": "afafcd5ac52c0e8db1a8d063e4eb7531fe0cae11221e6cfe37c871869c5a67e5"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_21_2",
+      "typeSHA256": "104106d554102739576764a65bc37c38e17eb16efa50d6760d28262c2f272ed4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_21_3",
+      "typeSHA256": "94abe9840ee697b1a3ffefaf7662ec916c48afc3a786e417cc2002b258850663"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_22_0",
+      "typeSHA256": "ba5194324d23399a260cc30dc86d230d66de791277912bccc64c1769ae86d25a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_22_1",
+      "typeSHA256": "57658c0d9256738cc7e188139af95b98e1b2f198b0e092abcba5e978d1df700f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_22_2",
+      "typeSHA256": "811ab990b88f2a9d7ba96821e594f3d02ef2684d3445accb1d081d22fadf2449"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_22_3",
+      "typeSHA256": "e268a1f65ac52e08eb8231da73592f0c5e1a4f9ab2c3be640187f9cda55a63ad"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_23_0",
+      "typeSHA256": "8e1fac781ce9d8df1f81cad84db35f50279b4c9d5ecbce0bb159eeab1e62e5c6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_23_1",
+      "typeSHA256": "0d92d41d300282cedcf4c64bcebf25fc52678985b8cb71a6852eda9ae85e9a88"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_23_2",
+      "typeSHA256": "71e4c045cfcedbaad6369cee5d563c611ab9426b383656048d5602bc18fcbda4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_23_3",
+      "typeSHA256": "390953588134763770f83700b71201d5ea225f54b1272a85f6227e33cfb167d6"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_24_0",
+      "typeSHA256": "f603de36bca1e41df15d7bbb65bec4ec668a9481782e4be33c3170025e6b8bd1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_24_1",
+      "typeSHA256": "6e4d134957b08354858247dbf6676d881ca232832ce46f791b9a9e26cc82f00d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_24_2",
+      "typeSHA256": "8ba4af576a8b5bd1b07f3c592751135913eccf2b9d2779b2edc2934fcadd233b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_24_3",
+      "typeSHA256": "95e476796fa08b1eff94ff38cddf9dfdbbf85920c7077cf5a33daf4a497a83e9"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_25_0",
+      "typeSHA256": "a3ef78d5f1a7f3dc2c96972b034e424d60a1384ef72d2368d99f8fa5d2fed05a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_25_1",
+      "typeSHA256": "9e99923e3362eaf286e806bb9dc2d11b75da1e81b20aa45ba2dfa2d3833dd247"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_25_2",
+      "typeSHA256": "5b323b8024ec5b2c92accd39aecd15c3a6de3a08a091f344d365cfd101c3273a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_25_3",
+      "typeSHA256": "6f7d3d1cd8db599b8884d441a2750041f769b9691e89a5778ca50da1e509bcfc"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_26_0",
+      "typeSHA256": "f90d19f63ba2752391c52cf9bf8af40aeb557b7e0f3f092c2da54a01e8b2ae0f"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_26_1",
+      "typeSHA256": "3ed23c9fe67c16421b298ec9cc8221526f6fcf525f2561298c9d58d38fa3e232"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_26_2",
+      "typeSHA256": "171453d5a5fc66a5b9178b44c9e843fd316e8f89d282b4f2ca45492e1077876d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_26_3",
+      "typeSHA256": "d0bedb90b97fbb70acc000a503d2c609f12242a38857c88f7a6a20a64e7b5131"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_27_0",
+      "typeSHA256": "134dc0eb15db0650e1aecfca5298a78aa187185c15257e43b0c89414c0e22fc3"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_27_1",
+      "typeSHA256": "975017359a4ebf7b30fa04529de741bc4c1b46a3ccf0d4dc2e5117d1799a18ce"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_27_2",
+      "typeSHA256": "456fb0a6e376693cb5cd92a5d6ff7cf9373ed06cb6c5376b966fea4b3b5dd22e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_27_3",
+      "typeSHA256": "0fc6f68b652f25f1beb1011bf688fb3e91943537077458d00216224ca41d1806"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_28_0",
+      "typeSHA256": "74612f8930e39c478ac7744d2bc9e6babe5ca31719ad28fad95282173cffd045"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_28_1",
+      "typeSHA256": "b2bda07feed228f00559d05b1925d39fc7bacbcb8d1b01588a8a2b12b746391a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_28_2",
+      "typeSHA256": "be20d8d220074846e1f27ef4c8b3a5da29cec475a4811c3922bb32d9a1f331ac"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_28_3",
+      "typeSHA256": "4ca1185ed1a3e83b241f610df094eacf1cc64861509ff93322f71f35d9521d16"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_29_0",
+      "typeSHA256": "7412a9e784beb81ed95507048358e659393faeca7f2e5465b39f09bf7ecf498e"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_29_1",
+      "typeSHA256": "e4548dcebcb712dab02b740da8b5a24ec9fa5d0370ad3eedabdd9d5686d5122b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_29_2",
+      "typeSHA256": "66cca7f4097ade338a9231c311b5a2bd08988f706770f728904744812455e18a"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_29_3",
+      "typeSHA256": "8f97767e6e7fe58d49d4c4cdc52d2d1ae25d0911ea491cf125f40066e8729114"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_30_0",
+      "typeSHA256": "a124700f72d046275d17d3d6564a1f585e20a64e8c0e6a9eb7715934369f57b0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_30_1",
+      "typeSHA256": "0e10506b5ba5266d177e568696e4143f1573a2d18b8c25205215f756a8ecabd4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_30_2",
+      "typeSHA256": "adfc20cf8f2f66c67cfad52381c49758ca20b41b35066b0c29244b3e54dc0d73"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_30_3",
+      "typeSHA256": "8ee98f34a662da38642bc2b1fe4567fb6e0a4eabfdd4dfe90e6c2f70c9ed41aa"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_31_0",
+      "typeSHA256": "57a69f3efcaa37bfdcf7ce0dc0382af1d3758d99ee3b8011c91463cb2cad3380"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_31_1",
+      "typeSHA256": "f2528bcd59992d1346c1d3e414be84d846c6ab0b6d141d1beddf6de4407030a4"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_31_2",
+      "typeSHA256": "91f18aa6a24fa27829167f02ccc890f0f70d22bab05ea1768acb4e2c964870bc"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_31_3",
+      "typeSHA256": "19605d23fc5aba5d5bdf7ccf9f369f42fb33507b856253f451f5cedeec9c74df"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_32_0",
+      "typeSHA256": "d86c4ea94c09f6405e1f46e245307a395c3842560d1367d466303503f3e274d0"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_32_1",
+      "typeSHA256": "bbd164a4dad04ca4b0acea5057043fc634090b92d7f90efc0fc9f3dec41b22a1"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_32_2",
+      "typeSHA256": "0a537d4bf113fdb5c018acd8659fcadf675545ae74089ffbed200d7592691253"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_32_3",
+      "typeSHA256": "f2fb222759aa79e2097c0a3c51564e754501e751b2f377d5ecf932d3f7403f73"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_33_0",
+      "typeSHA256": "63c8d1ef82a2408a76863589fd9f77fcb41aec270fba72b4d0ced08f77840057"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_33_1",
+      "typeSHA256": "cf466d2d1c52c6fa2f870b46bf41543b3e24939755ab10c5679016bc70f1092d"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_33_2",
+      "typeSHA256": "fbaec6a130e75f091b8bb0aef2cd23955b8a696a41a5da92ce4e2c363202c21c"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_33_3",
+      "typeSHA256": "9307f9acd56938a9bb5cbad8dc25e520a3361f74db96f941b55c85b346b4fa53"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_34_0",
+      "typeSHA256": "b88453e6dcf07383b7e3c188989692c5bda5c53e1436af2e5333125e70c5178b"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_34_1",
+      "typeSHA256": "e014e1beaa95c77516248cf1bea6769d49913dcb770a4dc5119e056a0ab6d3ec"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_34_2",
+      "typeSHA256": "6f8d7f47a4bb7a7e2e7bc8b1528bc033ded7a1e7731fff8242f61409dae8b2ee"
+    },
+    {
+      "name": "Math.HiggsFourWaveCubature.moments2_34_3",
+      "typeSHA256": "380c8c410f6c39d108a4da0dbc491607a7eb34d9b075b19b6c669053bf70dbad"
+    }
+  ]
+}

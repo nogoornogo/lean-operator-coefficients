@@ -1,53 +1,30 @@
+import Physics.FieldTheory.Spinor.Weyl.WeylSpinor
 import Physics.StandardModel.Gauge.SMEpsilonTensor
 import Math.RepresentationTheory.ExternalInvariantTensor
-import Mathlib.LinearAlgebra.Matrix.SpecialLinearGroup
+import Math.Lean.Compatibility
 
-/-! Algebraic Weyl spinors for SL(2,C). The right action is entrywise
-conjugation, not conjugate transpose. No covering-space classification is used. -/
+deprecated_module "Use Physics.FieldTheory.Spinor.Weyl.WeylSpinor instead." (since := "source-api-v1")
 
-namespace GUT.WeylSpinor
-set_option autoImplicit false
-noncomputable section
-open Representation SMEpsilonTensor
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.WeylSpinor.Group => Physics.WeylSpinor.Group,
+  GUT.WeylSpinor.Space => Physics.WeylSpinor.Space,
+  GUT.WeylSpinor.conjugate => Physics.WeylSpinor.conjugate,
+  GUT.WeylSpinor.epsilonLeft => Physics.WeylSpinor.epsilonLeft,
+  GUT.WeylSpinor.epsilonRight => Physics.WeylSpinor.epsilonRight,
+  GUT.WeylSpinor.four => Physics.WeylSpinor.four,
+  GUT.WeylSpinor.four_apply => Physics.WeylSpinor.four_apply,
+  GUT.WeylSpinor.left => Physics.WeylSpinor.left,
+  GUT.WeylSpinor.right => Physics.WeylSpinor.right,
+  GUT.WeylSpinor.right_apply => Physics.WeylSpinor.right_apply
+]
 
-abbrev Group := Matrix.SpecialLinearGroup (Fin 2) ℂ
-abbrev Space := Fin 2 → ℂ
-
-def left : Representation ℂ Group Space where
-  toFun g := Matrix.toLin' (g : Matrix (Fin 2) (Fin 2) ℂ)
-  map_one' := Matrix.toLin'_one
-  map_mul' _ _ := Matrix.toLin'_mul _ _
-
-def conjugate : Group →* Group := Matrix.SpecialLinearGroup.map Complex.conjAe.toRingHom
-def right : Representation ℂ Group Space := left.comp conjugate
-
-def epsilonLeft : IntertwiningMap (left.tprod left) (Representation.trivial ℂ Group ℂ) where
-  toLinearMap := weakTensor
-  isIntertwining' g := by
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro x
-    apply LinearMap.ext; intro y
-    exact eps2_invariant _ g.property x y
-
-def epsilonRight : IntertwiningMap (right.tprod right) (Representation.trivial ℂ Group ℂ) where
-  toLinearMap := weakTensor
-  isIntertwining' g := by
-    apply TensorProduct.ext
-    apply LinearMap.ext; intro x
-    apply LinearMap.ext; intro y
-    exact eps2_invariant _ (conjugate g).property x y
-
-def four : IntertwiningMap ((left.tprod left).tprod (right.tprod right))
-    (Representation.trivial ℂ Group ℂ) :=
-  (Representation.TensorProduct.lid ℂ (Representation.trivial ℂ Group ℂ)).toIntertwiningMap.comp
-    (epsilonLeft.tensor epsilonRight)
-
-@[simp] theorem four_apply (s t u v : Space) :
-    four ((s ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] (u ⊗ₜ[ℂ] v)) = eps2 s t * eps2 u v := rfl
-
-theorem right_apply (g : Group) (x : Space) :
-    right g x = ((g : Matrix (Fin 2) (Fin 2) ℂ).map star).mulVec x := rfl
-
-end
-end GUT.WeylSpinor
+assert_compatible GUT.WeylSpinor.Group => Physics.WeylSpinor.Group
+assert_compatible GUT.WeylSpinor.Space => Physics.WeylSpinor.Space
+assert_compatible GUT.WeylSpinor.conjugate => Physics.WeylSpinor.conjugate
+assert_compatible GUT.WeylSpinor.epsilonLeft => Physics.WeylSpinor.epsilonLeft
+assert_compatible GUT.WeylSpinor.epsilonRight => Physics.WeylSpinor.epsilonRight
+assert_compatible GUT.WeylSpinor.four => Physics.WeylSpinor.four
+assert_compatible GUT.WeylSpinor.four_apply => Physics.WeylSpinor.four_apply
+assert_compatible GUT.WeylSpinor.left => Physics.WeylSpinor.left
+assert_compatible GUT.WeylSpinor.right => Physics.WeylSpinor.right
+assert_compatible GUT.WeylSpinor.right_apply => Physics.WeylSpinor.right_apply

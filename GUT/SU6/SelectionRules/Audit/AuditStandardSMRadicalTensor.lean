@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardSMRadicalTensor
 import GUT.SU6.SelectionRules.Audit.AuditStandardSMGaugeTensor
 
+open Physics
+
 open Math
 
 /-! Persistent full-gauge mass/radical audit. The benchmark is constructed

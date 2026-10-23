@@ -1,6 +1,8 @@
 import GUT.E6.Minuscule.SU5Character
 import GUT.Common.StandardChain.StandardChain
 
+open Physics
+
 open Math
 
 /-!
@@ -19,7 +21,7 @@ namespace GUT.E6.MinusculeBenchmark
 open Math.E6
 noncomputable section
 
-open Minuscule Minuscule.SU5Coordinates GUT.SU5
+open Minuscule Minuscule.SU5Coordinates GUT.SU5 Physics.SU5
 open InvariantWeylMass FiniteAbelianChargeSectors StandardAbelianCharge
 open StandardSMCharacterTarget StandardWeylDualTarget
 

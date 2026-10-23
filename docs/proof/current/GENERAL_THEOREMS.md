@@ -1,8 +1,9 @@
 # General theorems
 
-These are general algebraic results for supplied field representations and
-symmetry actions. They concern derivative-free coefficients, rather than an
-enumeration of all EFT operators. See the [result guide](RESULTS_AND_SCOPE.md).
+These are algebraic results for supplied field representations and symmetry
+actions. The general mixed coefficient theorem is derivative-free; a separate
+scalar jet foundation adds formal IBP descent. Neither supplies an enumeration
+of all EFT operators. See the [result guide](RESULTS_AND_SCOPE.md).
 
 ## Coefficient-space decomposition
 
@@ -30,6 +31,17 @@ and [Henning et al., JHEP 10 (2017) 199](https://arxiv.org/abs/1706.08520v1).
 Their on-shell/EOM/IBP frameworks are not the coefficient quotient above.
 [AutoEFT, Harlander–Schaaf (2024)](https://arxiv.org/abs/2309.15783v2) is related
 software, with no output comparison or formal certification here.
+
+## Scalar jets and formal IBP
+
+The [scalar jet theorem](core/Math/SCALAR_JET_IBP.md) constructs ordinary
+commuting total derivatives, joint field/derivative grades and the actual
+divergence relation range. Fixed grades are finite-dimensional for finite
+component/direction types. Coefficients annihilating divergences descend
+bijectively to residual Hom on the quotient, with a local-invariance wrapper
+for commuting component-permutation actions. A complete quadratic example
+has quotient dimension one. Mixed Bose/Fermi integration, spacetime symmetry,
+EOM and analytic integrated-action equality remain separate boundaries.
 
 ## Symmetry extension and restriction
 
@@ -76,6 +88,14 @@ and [core dossier index](core/README.md). General friendship and generic
 spurion saturation remain at their recorded feasibility boundary.
 
 ## Mathematical background and further reading
+
+The [finite-group spurion evaluation theorem](core/Math/FINITE_GROUP_SPURION_EVALUATION.md)
+proves that polynomial covariants evaluate onto the actual stabilizer's fixed
+space at every value, for finite groups and finite-dimensional complex
+representations. Total spurion degree at most the orbit size minus one
+(hence at most the group order minus one) suffices. Its dual consumer recovers
+every residual invariant coefficient within the same bound. This is separate
+from the general-group feasibility boundary and from EFT mass dimension.
 
 - [Mac Lane, *Categories for the Working Mathematician*, second edition](https://link.springer.com/book/10.1007/978-1-4757-4721-8): universal constructions and adjoints provide background language for quotient/Hom descent; no particular Lean theorem is attributed to the book.
 - [Fulton–Harris, *Representation Theory: A First Course*](https://link.springer.com/book/10.1007/978-1-4612-0979-9): symmetric-group representations and Weyl's construction provide tensor-statistics background.

@@ -1,7 +1,9 @@
-import Physics.StandardModel.Spectrum.ChargeResolved
+import Physics.StandardModel.Spectrum.Charges.ChargeResolved
 import GUT.SU6.Characters.AmbientCharacterBridge
 import GUT.SU6.SelectionRules.StandardBranch.StandardBranchProtonObstruction
 import GUT.SU6.Branching.StandardSU5Orbit
+
+open Physics
 
 open Math
 
@@ -16,6 +18,7 @@ open scoped BigOperators
 
 namespace GUT
 namespace StandardAbelianCharge
+open Physics.StandardAbelianCharge
 
 open StandardSU5Orbit
 

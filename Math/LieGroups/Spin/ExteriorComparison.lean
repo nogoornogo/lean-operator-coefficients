@@ -1,5 +1,5 @@
 import Math.LieGroups.Spin.CliffordCovariance
-import Math.LinearAlgebra.PolarizedExteriorAction
+import Math.LinearAlgebra.Exterior.PolarizedExteriorAction
 
 /-! Compare the actual SU(5) lift and the exterior action on Clifford
 generators. This does not discard the scalar ambiguity between implementers. -/

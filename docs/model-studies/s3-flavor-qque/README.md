@@ -46,7 +46,7 @@ established. This result does not classify all B1 sectors or residual groups,
 and does not supply the full ten-species signed-field bridge.
 
 Read the [proof dossier](../../proof/current/applications/Physics/EXPLICIT_SM_RESIDUAL_TENSOR.md#s3-sample-passing-bijective-flavor-map-gates)
-and [Lean source](../../../Physics/StandardModel/Operators/S3YukawaCompatibleQque.lean)
+and [Lean source](../../../Physics/StandardModel/Operators/BaryonOne/Qque/S3YukawaCompatibleQque.lean)
 for the precise certificates. The [topic](../../topics/s3-yukawa-compatible-qque/README.md)
 retains the plan and stopping decision; its [verification record](../../topics/s3-yukawa-compatible-qque/verification.md)
 records builds, strict transitive axiom audits and the exact finite supplement.

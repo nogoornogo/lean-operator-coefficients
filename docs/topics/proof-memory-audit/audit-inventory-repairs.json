@@ -1,0 +1,18 @@
+[
+  {
+    "kind": "compiler-helper-count-reconciliation",
+    "audit": "Physics/FieldTheory/Jets/Higgs/QuarticFour/Audit/AuditHiggsQuarticFourCompleteness.lean",
+    "prefixes": [
+      "Physics.HiggsQuarticFourInternalUpper"
+    ],
+    "baselineCount": 305,
+    "rebuiltCount": 285,
+    "removedCount": 45,
+    "addedCount": 25,
+    "removedSHA256": "2f1e67c01872cbb388be3dff7a9783b6e78ab0afba0a91ac342f4efd000b7a23",
+    "addedSHA256": "279d8405df0b9dded21316dfddf704afa89b764f41631554a3f092908f17d5cc",
+    "messageCount": 16,
+    "messageIndex": 4,
+    "reason": "Sequential elaboration shares and renumbers compiler proof helpers. All five affected source-declared parents are retained, protected names are unchanged, and all 16 namespace inventories retain their original strict transitive axiom predicates. Only the fifth message count changes."
+  }
+]

@@ -1,5 +1,7 @@
-import Math.RepresentationTheory.ExteriorSquareBlock
+import Math.RepresentationTheory.Exterior.ExteriorSquareBlock
 import GUT.SU5.Matching.HeavyCurrents
+
+open Physics
 
 open Math
 

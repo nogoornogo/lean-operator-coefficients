@@ -1,0 +1,29 @@
+[
+  {
+    "kind": "bounded-proof-resource-repair",
+    "originalModule": "Physics.StandardModel.Operators.DeltaBTwoContractionRelations",
+    "canonical": "Physics/StandardModel/Operators/BaryonTwo/Coefficients/DeltaBTwoContractionRelations.lean",
+    "definitions": "Physics/StandardModel/Operators/BaryonTwo/Coefficients/DeltaBTwoContractionRelations/Basic.lean",
+    "theorem": "Physics.DeltaBTwoContractionRelations.fierz_blockAlternation",
+    "statement": "theorem fierz_blockAlternation\n    (u : Fin 2 → Color × Spin) (d : Fin 4 → Color × Spin) :\n    blockAlternation valueO2 u d - blockAlternation valueO1 u d =\n      3 * blockAlternation valueO3 u d",
+    "proof": "existing independent two-coordinate Fierz equality evaluated on arbitrary pure color/spin inputs",
+    "guards": "unchanged 16 GiB, 540 seconds, two threads; original theorem options retained",
+    "strictAudit": "Physics.StandardModel.Operators.BaryonTwo.Coefficients.Audit.AuditDeltaBTwoContractionRelations",
+    "replayTemplate": "tools/layout/source-api-repairs.py",
+    "baselinePrefixLines": 156,
+    "baselineStatementLines": [
+      159,
+      162
+    ],
+    "generatedEquationOwners": {
+      "Physics.DeltaBTwoContractionRelations.blockAlternation.eq_1": "Physics.StandardModel.Operators.DeltaBTwoContractionRelations",
+      "Physics.DeltaBTwoContractionRelations.orderedO1Value.eq_1": "Physics.StandardModel.Operators.BaryonTwo.Coefficients.SixQuarkConventionalBasis",
+      "Physics.DeltaBTwoContractionRelations.orderedO2Value.eq_1": "Physics.StandardModel.Operators.BaryonTwo.Coefficients.SixQuarkConventionalBasis",
+      "Physics.DeltaBTwoContractionRelations.orderedO3Value.eq_1": "Physics.StandardModel.Operators.BaryonTwo.Coefficients.SixQuarkConventionalBasis",
+      "Physics.DeltaBTwoContractionRelations.valueO1.eq_1": "Physics.StandardModel.Operators.DeltaBTwoContractionRelations",
+      "Physics.DeltaBTwoContractionRelations.valueO2.eq_1": "Physics.StandardModel.Operators.DeltaBTwoContractionRelations",
+      "Physics.DeltaBTwoContractionRelations.valueO3.eq_1": "Physics.StandardModel.Operators.DeltaBTwoContractionRelations"
+    },
+    "generatedEquationNote": "Equation theorems are materialized on first demand after the definition split; retain all registered names, exact type/value checks and strict axiom checks"
+  }
+]

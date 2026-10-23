@@ -10,10 +10,10 @@ baryon-number signs are included. `reconstruct_extract` and `extract_reconstruct
 prove both inverses. `forbidden_iff` and `nonzero_iff` give necessary-and-sufficient
 total prohibition and existential allowance criteria.
 
-Sources: [whole-space equivalence](../../../../../Physics/StandardModel/Operators/BnvSevenCompleteness.lean),
-[signed dimension-six classification](../../../../../Physics/StandardModel/Operators/BnvSixResidualCompleteness.lean),
-[signed dimension-seven classification](../../../../../Physics/StandardModel/Operators/BnvSevenSignedCoordinates.lean),
-[strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditBnvSevenCompleteness.lean).
+Sources: [whole-space equivalence](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/BnvSevenCompleteness.lean),
+[signed dimension-six classification](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/BnvSixResidualCompleteness.lean),
+[signed dimension-seven classification](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/BnvSevenSignedCoordinates.lean),
+[strict audit](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/Audit/AuditBnvSevenCompleteness.lean).
 
 ## Inputs And Citation Role
 
@@ -40,7 +40,7 @@ is two-sided and includes out-of-bound zero entries.
 
 The scalar-free degree splits into lepton degrees +1 and -1, classified by
 DUQL/QQUE/QQQL/DUUE and opposite-species factors. The
-[signed field transport](../../../../../Physics/StandardModel/Operators/BnvSignedFieldTransport.lean)
+[signed field transport](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/BnvSignedFieldTransport.lean)
 reindexes independent multiplicities and transforms the gauge/Weyl group action.
 It does not assume a semilinear involution on all model fields.
 
@@ -50,14 +50,14 @@ typed field regrouping and statistics descent identify the factors with
 residual tensor Hom submodules constrained by actual identical-field exchanges.
 These are not free coordinates with exchange conditions omitted.
 
-The [actual-field adapter](../../../../../Physics/StandardModel/Operators/BnvSevenModelInterface.lean)
+The [actual-field adapter](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/BnvSevenModelInterface.lean)
 constructs `sectorEquiv`, `boundedEquiv` and `residualEquiv` from species-preserving
 equivariant fermion and scalar identifications. No coefficient-level completeness
 premise is required. The dictionary must preserve species and engineering weights.
 
 ## Controls
 
-[Finite cyclic controls](../../../../../Physics/StandardModel/Operators/BnvSevenControls.lean)
+[Finite cyclic controls](../../../../../Physics/StandardModel/Operators/BaryonOne/Inputs/BnvSevenControls.lean)
 use Z/2 with one-dimensional multiplicities and residual-neutral scalars.
 Quark parity forbids the entire bound-seven BNV space, using actual group
 invariance and the derived odd quark count. With all charges neutral,
@@ -76,7 +76,7 @@ Reproducible checks, run from the repository root with the pinned Lean/Lake
 toolchain on PATH:
 
 ```sh
-lake build Physics.StandardModel.Operators.Audit.AuditBnvSevenCompleteness
+lake build Physics.StandardModel.Operators.BaryonOne.Inputs.Audit.AuditBnvSevenCompleteness
 lake build
 node tools/layout/check-layout.mjs
 node tools/docs/check-links.mjs

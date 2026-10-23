@@ -1,6 +1,8 @@
-import Physics.StandardModel.Spectrum.SMChiralIndex
+import Physics.StandardModel.Spectrum.Representations.SMChiralIndex
 import GUT.SU6.SelectionRules.Models.StandardPhysicalSpectrumBridge
-import Physics.FieldTheory.Mass.InvariantWeylMass
+import Physics.FieldTheory.Mass.Algebra.InvariantWeylMass
+
+open Physics
 
 open Math
 
@@ -16,6 +18,7 @@ This does not reconstruct self-dual sectors or the signed Dirac index.
 set_option autoImplicit false
 
 namespace GUT.StandardWeylDualTarget
+open Physics.StandardWeylDualTarget
 
 noncomputable section
 

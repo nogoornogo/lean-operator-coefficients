@@ -1,5 +1,5 @@
-import Math.RepresentationTheory.ProhibitionPatterns
-import Math.LinearAlgebra.MixedSelectionRequests
+import Math.RepresentationTheory.Protection.ProhibitionPatterns
+import Math.LinearAlgebra.Selection.MixedSelectionRequests
 
 namespace GUT.SU6CyclicPatternSearch
 set_option autoImplicit false

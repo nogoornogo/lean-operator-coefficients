@@ -1,5 +1,5 @@
 import Math.RepresentationTheory.Characters.CompactWeylExtraction
-import Math.LinearAlgebra.SelectionCriteria
+import Math.LinearAlgebra.Selection.SelectionCriteria
 import Mathlib.RepresentationTheory.Irreducible
 import TauCeti.RepresentationTheory.Continuous.LinHom
 
@@ -25,7 +25,7 @@ def model : Representation ℂ K (V →L[ℂ] W) :=
 omit [CompactSpace K] [MeasurableSpace K] [BorelSpace K] in
 theorem character (hr : IsJointlyContinuous rho) (hs : IsJointlyContinuous sigma) (g : K) :
     (model rho sigma).character g = rho.character g⁻¹ * sigma.character g := by
-  simpa only [model, TauCeti.ContRepresentation.coe_character,
+  simpa only [model, ContRepresentation.coe_character,
     CompactHomDimension.asContinuous_toRepresentation] using
     (ContRepresentation.character_linHom (CompactHomDimension.asContinuous rho)
       (CompactHomDimension.asContinuous sigma)

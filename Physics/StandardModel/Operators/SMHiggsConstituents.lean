@@ -1,65 +1,28 @@
+import Physics.StandardModel.Operators.Support.Coordinates.SMHiggsConstituents
 import Math.RepresentationTheory.TwistedSU2ClebschGordan
 import Physics.StandardModel.Operators.NeutralHiggsPowers
+import Math.Lean.Compatibility
 
-/-! Actual Higgs tensor constituents on the full SM gauge/Weyl/residual group. -/
-namespace GUT.SMHiggsConstituents
-set_option autoImplicit false
-noncomputable section
-open Math Representation StandardSMGaugeTensor
-open scoped TensorProduct
-variable {H : Type*} [Group H]
+deprecated_module "Use Physics.StandardModel.Operators.Support.Coordinates.SMHiggsConstituents instead." (since := "source-api-v1")
 
-def weakProjection : NeutralHiggsPowers.G H →* WeakDoubletScalars.Group where
-  toFun g := g.1.1.2.1
-  map_one' := rfl
-  map_mul' _ _ := rfl
+compatibility_declarations [
+  GUT.SMHiggsConstituents.Bosons => Physics.SMHiggsConstituents.Bosons,
+  GUT.SMHiggsConstituents.character => Physics.SMHiggsConstituents.character,
+  GUT.SMHiggsConstituents.character_apply => Physics.SMHiggsConstituents.character_apply,
+  GUT.SMHiggsConstituents.common_charge => Physics.SMHiggsConstituents.common_charge,
+  GUT.SMHiggsConstituents.equivalence => Physics.SMHiggsConstituents.equivalence,
+  GUT.SMHiggsConstituents.higgsEquiv => Physics.SMHiggsConstituents.higgsEquiv,
+  GUT.SMHiggsConstituents.higgs_eq => Physics.SMHiggsConstituents.higgs_eq,
+  GUT.SMHiggsConstituents.hyperProjection => Physics.SMHiggsConstituents.hyperProjection,
+  GUT.SMHiggsConstituents.weakProjection => Physics.SMHiggsConstituents.weakProjection
+]
 
-def hyperProjection : NeutralHiggsPowers.G H →* Circle where
-  toFun g := g.1.1.2.2
-  map_one' := rfl
-  map_mul' _ _ := rfl
-
-def character : NeutralHiggsPowers.G H →* ℂˣ :=
-  Circle.toUnits.comp ((zpowGroupHom (3 : ℤ)).comp hyperProjection)
-
-@[simp] theorem character_apply (g : NeutralHiggsPowers.G H) :
-    (character g : ℂ) = phase 3 g.1.1 := rfl
-
-def higgsEquiv : Representation.Equiv (NeutralHiggsPowers.higgs (H := H))
-    (TwistedSU2ClebschGordan.higgs (weakProjection (H := H)) character) where
-  toLinearEquiv := .refl ℂ _
-  isIntertwining' g := by
-    apply LinearMap.ext
-    intro v
-    change phase 3 g.1.1 • Matrix.toLin' (g.1.1.2.1 : Matrix (Fin 2) (Fin 2) ℂ) v =
-      (character g : ℂ) • (g.1.1.2.1 : Matrix (Fin 2) (Fin 2) ℂ).mulVec v
-    rw [character_apply]
-    rfl
-
-theorem higgs_eq : NeutralHiggsPowers.higgs (H := H) =
-    TwistedSU2ClebschGordan.higgs (weakProjection (H := H)) character := by
-  apply MonoidHom.ext
-  intro g
-  apply LinearMap.ext
-  intro v
-  exact higgsEquiv.toIntertwiningMap.isIntertwining _ _ g v
-
-abbrev Bosons (h d : ℕ) := ((NeutralHiggsPowers.higgs (H := H)).symmetricPower h).tprod
-  ((NeutralHiggsPowers.higgs (H := H)).dual.symmetricPower d)
-
-def equivalence (h d : ℕ) : Representation.Equiv (Bosons (H := H) h d)
-    (FiniteBlockHom.action (TwistedSU2ClebschGordan.summand (weakProjection (H := H)) character h d)) :=
-  by
-    unfold Bosons
-    rw [higgs_eq]
-    generalize hj : weakProjection (H := H) = j
-    generalize hc : character (H := H) = χ
-    exact TwistedSU2ClebschGordan.equivalence (Γ := NeutralHiggsPowers.G H) j χ h d
-
-@[simp] theorem common_charge (h d : ℕ) (g : NeutralHiggsPowers.G H) :
-    (TwistedSU2ClebschGordan.charge (character (H := H)) h d g : ℂ) =
-      phase 3 g.1.1 ^ h * phase 3 g.1.1 ^ (-(d : ℤ)) := by
-  simp [TwistedSU2ClebschGordan.charge,character_apply,zpow_neg]
-
-end
-end GUT.SMHiggsConstituents
+assert_compatible GUT.SMHiggsConstituents.Bosons => Physics.SMHiggsConstituents.Bosons
+assert_compatible GUT.SMHiggsConstituents.character => Physics.SMHiggsConstituents.character
+assert_compatible GUT.SMHiggsConstituents.character_apply => Physics.SMHiggsConstituents.character_apply
+assert_compatible GUT.SMHiggsConstituents.common_charge => Physics.SMHiggsConstituents.common_charge
+assert_compatible GUT.SMHiggsConstituents.equivalence => Physics.SMHiggsConstituents.equivalence
+assert_compatible GUT.SMHiggsConstituents.higgsEquiv => Physics.SMHiggsConstituents.higgsEquiv
+assert_compatible GUT.SMHiggsConstituents.higgs_eq => Physics.SMHiggsConstituents.higgs_eq
+assert_compatible GUT.SMHiggsConstituents.hyperProjection => Physics.SMHiggsConstituents.hyperProjection
+assert_compatible GUT.SMHiggsConstituents.weakProjection => Physics.SMHiggsConstituents.weakProjection

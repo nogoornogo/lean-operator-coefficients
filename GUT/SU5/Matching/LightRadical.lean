@@ -1,6 +1,8 @@
 import GUT.SU5.SelectionRules.GeorgiGlashowSource
 import GUT.SU5.Matching.MediatorMatching
 
+open Physics
+
 open Math
 
 /-! Actual currents on the existing zero-mass radical. The same ten-space

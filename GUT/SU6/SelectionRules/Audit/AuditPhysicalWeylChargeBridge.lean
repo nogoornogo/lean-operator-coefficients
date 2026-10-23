@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.StandardBranch.PhysicalWeylChargeBridge
 
+open Physics
+
 /-! Persistent audit of the odd-moment and charge-resolved dual-index route. -/
 
 set_option autoImplicit false

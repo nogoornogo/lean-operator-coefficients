@@ -1,6 +1,8 @@
-import Physics.StandardModel.Operators.CyclicResidualSelection
-import Physics.StandardModel.Operators.QqueSpinorExterior
-import Physics.StandardModel.Operators.FlavoredCyclicCoordinates
+import Physics.StandardModel.Operators.Selection.CyclicResidualSelection
+import Physics.StandardModel.Operators.BaryonOne.Qque.QqueSpinorExterior
+import Physics.StandardModel.Operators.Selection.FlavoredCyclicCoordinates
+
+open Physics
 
 /-! Bounded model controls on explicitly supplied broken-phase dictionaries.
 No UV branching, mass classification, VEV stabilizer or matching is assumed proved. -/

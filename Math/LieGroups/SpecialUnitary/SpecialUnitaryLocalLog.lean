@@ -1,5 +1,5 @@
 import Math.LieGroups.SpecialUnitary.SpecialUnitaryExponentialCriterion
-import TauCeti.Analysis.Normed.Algebra.LogOneAdd.Inverse
+import TauCeti.Analysis.Normed.Algebra.Logarithm.Inverse
 
 /-!
 # Local exponential criterion for skew-Hermitian traceless matrices
@@ -31,25 +31,27 @@ theorem exp_star_eq_exp_neg_of_unitary (X : Matrix n n ℂ)
 
 theorem eventually_skew_of_exp_unitary :
     ∀ᶠ X : Matrix n n ℂ in 𝓝 0, exp X ∈ Matrix.unitaryGroup n ℂ → Xᴴ = -X := by
+  let : NormedAlgebra ℚ (Matrix n n ℂ) := NormedAlgebra.restrictScalars ℚ ℂ _
   have hs : Tendsto (star : Matrix n n ℂ → Matrix n n ℂ) (𝓝 0) (𝓝 0) := by
     simpa using continuous_star.tendsto (0 : Matrix n n ℂ)
   have hn : Tendsto (fun X : Matrix n n ℂ => -X) (𝓝 0) (𝓝 0) := by
     simpa using continuous_neg.tendsto (0 : Matrix n n ℂ)
-  filter_upwards [hs.eventually (eventually_logOneAdd_exp_sub_one ℝ (Matrix n n ℂ)),
-    hn.eventually (eventually_logOneAdd_exp_sub_one ℝ (Matrix n n ℂ))] with X hs hn hX
+  filter_upwards [hs.eventually (eventually_log_exp (Matrix n n ℂ)),
+    hn.eventually (eventually_log_exp (Matrix n n ℂ))] with X hs hn hX
   change star X = -X
   rw [← hs, exp_star_eq_exp_neg_of_unitary X hX, hn]
 
 theorem eventually_trace_zero_of_exp_special :
     ∀ᶠ X : Matrix n n ℂ in 𝓝 0,
       exp X ∈ Matrix.specialUnitaryGroup n ℂ → Matrix.trace X = 0 := by
+  let : NormedAlgebra ℚ ℂ := NormedAlgebra.restrictScalars ℚ ℝ _
   have ht : Tendsto (Matrix.trace : Matrix n n ℂ → ℂ) (𝓝 0) (𝓝 0) := by
     simpa using continuous_id.matrix_trace.tendsto (0 : Matrix n n ℂ)
-  filter_upwards [ht.eventually (eventually_logOneAdd_exp_sub_one ℝ ℂ)] with X hlog hX
+  filter_upwards [ht.eventually (eventually_log_exp ℂ)] with X hlog hX
   have he : exp (Matrix.trace X) = 1 := by
     rw [← Complex.exp_eq_exp_ℂ, ← MatrixDeterminantExponential.det_exp]
     exact hX.2
-  rw [he, sub_self, logOneAdd_zero] at hlog
+  rw [he, NormedSpace.log_one] at hlog
   exact hlog.symm
 
 theorem eventually_exp_mem_iff :

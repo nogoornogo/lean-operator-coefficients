@@ -3,6 +3,8 @@ import GUT.Common.StandardChain.StandardChain
 import GUT.SU5.Branching.ProfileEvaluation
 import Math.RepresentationTheory.Multiplicity.ExplicitMultiplicityTrace
 
+open Physics
+
 open Math
 
 /-! Actual product-group action on the existing retained generation model.
@@ -12,6 +14,7 @@ no replacement by scalar characters on the original field space is assumed. -/
 set_option autoImplicit false
 
 namespace GUT.SU5.RetainedChainSource
+open Physics.SU5
 
 noncomputable section
 
@@ -141,12 +144,12 @@ theorem zero_radical_character (g : TorusCharacter.CombinedGroup H) :
   exact torus_character R g
 
 theorem zero_radical_spectrum :
-    AbelianMassSpectrum.radicalSpectrum (SymmetricMass.zero (restrict (joint R)))
+    Physics.AbelianMassSpectrum.radicalSpectrum (SymmetricMass.zero (restrict (joint R)))
         (TorusMassSource.restricted_unitary (joint R) (joint_unitary R)) =
       TorusCharacter.lift (target (ChargeProfiles.profiles R)) := by
   apply AbelianActualSpectrum.eval_injective
   intro g
-  rw [AbelianMassSpectrum.radicalSpectrum_eval, TorusCharacter.eval_lift]
+  rw [Physics.AbelianMassSpectrum.radicalSpectrum_eval, TorusCharacter.eval_lift]
   exact zero_radical_character R g
 
 /-- Exact full-spectrum compatibility, stronger than equality of the dual

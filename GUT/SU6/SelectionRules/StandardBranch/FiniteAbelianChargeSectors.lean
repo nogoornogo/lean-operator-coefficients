@@ -1,8 +1,10 @@
-import Physics.StandardModel.Operators.AbelianProtonCharacter
+import Physics.StandardModel.Operators.Selection.AbelianProtonCharacter
 import GUT.SU6.Characters.ContinuousUnitaryWeightDecomposition
 import Math.RepresentationTheory.Decomposition.FiniteSemisimpleDecomposition
 import GUT.SU6.SelectionRules.StandardBranch.StandardPhysicalSource
 import Mathlib.Algebra.DirectSum.LinearMap
+
+open Physics
 
 open Math
 
@@ -22,6 +24,7 @@ character.  The full character eigenspace is the correct source sector.
 
 namespace GUT
 namespace FiniteAbelianChargeSectors
+open Physics.FiniteAbelianChargeSectors
 open Math.FiniteAbelianChargeSectors
 
 open CompactEmbeddingClassification ContinuousRepresentationScope

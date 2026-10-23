@@ -1,6 +1,8 @@
 import GUT.E6.Minuscule.UnitaryRepresentation
 import GUT.SU5.Branching.TorusMatterCharacter
 
+open Physics
+
 /-! Actual SU(5) character of the compact candidate's 27 and cancellation
 of the vectorlike five/bar-five pair in its dual index. -/
 
@@ -11,7 +13,7 @@ namespace GUT.E6.Minuscule
 open Math.E6.Minuscule Math.E6
 noncomputable section
 
-open GUT.SU5 SU5Coordinates TorusMatterCharacter
+open GUT.SU5 Physics.SU5 SU5Coordinates TorusMatterCharacter
 
 def dualPairEquiv : Representation.Equiv dualPairRepresentation
     (Matter.antifundamental.prod Matter.antifundamental) :=

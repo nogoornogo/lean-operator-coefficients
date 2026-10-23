@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.PhysicalWeylMassSource
 
+open Physics
+
 open Math
 
 /-! Scalar residual actions and the trace of their full character refinement. -/

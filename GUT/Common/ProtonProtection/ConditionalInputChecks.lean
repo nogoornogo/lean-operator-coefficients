@@ -1,8 +1,10 @@
-import Physics.StandardModel.Operators.SMB1ExactMinima
-import Physics.StandardModel.Operators.SixQuarkFullSeed
-import Physics.StandardModel.Operators.WeinbergFullSeed
+import Physics.StandardModel.Operators.Support.Dimension.SMB1ExactMinima
+import Physics.StandardModel.Operators.BaryonTwo.Coefficients.SixQuarkFullSeed
+import Physics.StandardModel.Operators.Weinberg.WeinbergFullSeed
 import GUT.Common.ProtonProtection.ModelControls
-import Physics.StandardModel.Operators.BgwZ6Selection
+import Physics.StandardModel.Operators.Selection.BgwZ6Selection
+
+open Physics
 
 /-! Conditional consumers on declared three-generation SM/Higgs dictionaries.
 No UV-to-light-field, VEV-stabilizer or matching premise is discharged here. -/

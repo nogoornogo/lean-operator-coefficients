@@ -1,140 +1,56 @@
+import Physics.StandardModel.Operators.BaryonOne.OtherFamilies.LiDuueCertificate
 import Physics.StandardModel.Operators.LiDuueConvention
 import Math.RepresentationTheory.InvariantFunctionalCoordinates
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.OtherFamilies.LiDuueCertificate instead." (since := "source-api-v1")
 
-namespace GUT.LiDuueCertificate
-set_option autoImplicit false
-noncomputable section
-open Representation ExternalInvariantTensor DuueOrderedCompleteness SMEpsilonTensor
-open scoped TensorProduct
-variable {H U D E : Type*} [Group H] [AddCommGroup U] [Module ℂ U]
-  [AddCommGroup D] [Module ℂ D] [AddCommGroup E] [Module ℂ E]
-  (u : Representation ℂ H U) (d : Representation ℂ H D) (e : Representation ℂ H E)
-local instance : AddCommGroup ((Color ⊗[ℂ] WeylSpinor.Space) ⊗[ℂ] U) :=
-  Module.addCommMonoidToAddCommGroup ℂ
-local instance : AddCommGroup ((Color ⊗[ℂ] WeylSpinor.Space) ⊗[ℂ] D) :=
-  Module.addCommMonoidToAddCommGroup ℂ
-local instance : AddCommGroup ((ℂ ⊗[ℂ] WeylSpinor.Space) ⊗[ℂ] E) :=
-  Module.addCommMonoidToAddCommGroup ℂ
+compatibility_declarations [
+  GUT.DuueResidualCompleteness.complete.eq_1 => Physics.DuueResidualCompleteness.complete.eq_1,
+  GUT.LiDuueCertificate.candidate => Physics.LiDuueCertificate.candidate,
+  GUT.LiDuueCertificate.candidate_eq => Physics.LiDuueCertificate.candidate_eq,
+  GUT.LiDuueCertificate.candidate_extract => Physics.LiDuueCertificate.candidate_extract,
+  GUT.LiDuueCertificate.extract_candidate => Physics.LiDuueCertificate.extract_candidate,
+  GUT.LiDuueCertificate.finiteEquiv => Physics.LiDuueCertificate.finiteEquiv,
+  GUT.LiDuueCertificate.finite_inverse_is_candidate => Physics.LiDuueCertificate.finite_inverse_is_candidate,
+  GUT.LiDuueCertificate.flavorBasis => Physics.LiDuueCertificate.flavorBasis,
+  GUT.LiDuueCertificate.flavorBasis_independent => Physics.LiDuueCertificate.flavorBasis_independent,
+  GUT.LiDuueCertificate.flavorBasis_is_candidate => Physics.LiDuueCertificate.flavorBasis_is_candidate,
+  GUT.LiDuueCertificate.flavorBasis_spans => Physics.LiDuueCertificate.flavorBasis_spans,
+  GUT.LiDuueCertificate.flavorEquiv => Physics.LiDuueCertificate.flavorEquiv,
+  GUT.LiDuueCertificate.flavor_finrank => Physics.LiDuueCertificate.flavor_finrank,
+  GUT.LiDuueCertificate.instAddCommGroupTensorProductComplexColorSpace => Physics.LiDuueCertificate.instAddCommGroupTensorProductComplexColorSpace,
+  GUT.LiDuueCertificate.instAddCommGroupTensorProductComplexColorSpace_1 => Physics.LiDuueCertificate.instAddCommGroupTensorProductComplexColorSpace_1,
+  GUT.LiDuueCertificate.instAddCommGroupTensorProductComplexSpace => Physics.LiDuueCertificate.instAddCommGroupTensorProductComplexSpace,
+  GUT.LiDuueCertificate.ordered => Physics.LiDuueCertificate.ordered,
+  GUT.LiDuueCertificate.ordered.eq_1 => Physics.LiDuueCertificate.ordered.eq_1,
+  GUT.LiDuueCertificate.ordered_apply => Physics.LiDuueCertificate.ordered_apply,
+  GUT.LiDuueCertificate.restriction_candidate => Physics.LiDuueCertificate.restriction_candidate,
+  GUT.LiDuueCertificate.seedCoordinates => Physics.LiDuueCertificate.seedCoordinates,
+  GUT.LiDuueCertificate.seedCoordinates.eq_1 => Physics.LiDuueCertificate.seedCoordinates.eq_1,
+  GUT.LiDuueCertificate.tensorBasis => Physics.LiDuueCertificate.tensorBasis
+]
 
-def seedCoordinates (k : Residual u d e) : Fin 2 → Residual u d e :=
-  ![LiDuueConvention.alternatingSource u d e k,
-    LiDuueConvention.symmetricSource u d e k]
-def ordered (k : Residual u d e) := (homEquiv u d e).symm (seedCoordinates u d e k)
-
-theorem ordered_apply (k : Residual u d e) (a b c : Color) (z : ℂ)
-    (s t v w : WeylSpinor.Space) (x y : U) (h : D) (j : E) :
-    ordered u d e k
-      ((((a ⊗ₜ[ℂ] s) ⊗ₜ[ℂ] x) ⊗ₜ[ℂ] ((b ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] y)) ⊗ₜ[ℂ]
-        (((c ⊗ₜ[ℂ] v) ⊗ₜ[ℂ] h) ⊗ₜ[ℂ] ((z ⊗ₜ[ℂ] w) ⊗ₜ[ℂ] j))) =
-      z * (LiDuueConvention.paperSymmetric c a b v w s t *
-        LiDuueConvention.symmetricSource u d e k ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (h ⊗ₜ[ℂ] j)) +
-        LiDuueConvention.paperAlternating c a b v w s t *
-        LiDuueConvention.alternatingSource u d e k ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (h ⊗ₜ[ℂ] j))) := by
-  rw [ordered, assemble_apply, LiDuueConvention.reorder_symmetric,
-    LiDuueConvention.reorder_alternating]
-  simp only [seedCoordinates, Matrix.cons_val_zero, Matrix.cons_val_one]
-  ring
-
-def candidate (k : Residual u d e) : DuueExchange.Sector u d e :=
-  ⟨FourSlotAlternation.coefficient (external upSpin u) (external downSpin d)
-    (external electronSpin e) (ordered u d e k),
-    FourSlotSpeciesDegree.coefficient_hasDegree _ _ _ _⟩
-
-theorem restriction_candidate (k : Residual u d e) :
-    FourSlotRestrictionLift.restriction (external upSpin u) (external downSpin d)
-      (external electronSpin e) (candidate u d e k).val =
-    (homEquiv u d e).symm (DuueResidualCompleteness.complete u d e k).val := by
-  apply IntertwiningMap.ext
-  repeat first | apply TensorProduct.ext | apply LinearMap.ext; intro
-  rename_i a s x b t y c v h z w j
-  let X := ((a ⊗ₜ[ℂ] s) ⊗ₜ[ℂ] x)
-  let Y := ((b ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] y)
-  let Z := ((c ⊗ₜ[ℂ] v) ⊗ₜ[ℂ] h)
-  let W := ((z ⊗ₜ[ℂ] w) ⊗ₜ[ℂ] j)
-  change FourSlotRestrictionLift.linearRestriction _ _ _ (candidate u d e k).val
-    ((X ⊗ₜ[ℂ] Y) ⊗ₜ[ℂ] (Z ⊗ₜ[ℂ] W)) =
-      (homEquiv u d e).symm (DuueResidualCompleteness.complete u d e k).val
-        ((X ⊗ₜ[ℂ] Y) ⊗ₜ[ℂ] (Z ⊗ₜ[ℂ] W))
-  rw [FourSlotRestrictionLift.linearRestriction_apply]
-  change FourSlotAlternation.coefficient _ _ _ (ordered u d e k)
-    (exteriorPower.ιMulti ℂ 4 (FourSlotAlternation.slots X Y Z W)) = _
-  erw [FourSlotAlternation.coefficient_slots]
-  change (homEquiv u d e).symm (seedCoordinates u d e k)
-    ((X ⊗ₜ[ℂ] Y) ⊗ₜ[ℂ] (Z ⊗ₜ[ℂ] W)) -
-    (homEquiv u d e).symm (seedCoordinates u d e k)
-    ((Y ⊗ₜ[ℂ] X) ⊗ₜ[ℂ] (Z ⊗ₜ[ℂ] W)) = _
-  dsimp only [X,Y,Z,W]
-  rw [assemble_apply, assemble_apply, assemble_apply]
-  have hc : eps3 b a c = -eps3 a b c := by unfold eps3; ring
-  rw [hc]
-  simp only [seedCoordinates, Matrix.cons_val_zero, Matrix.cons_val_one,
-    DuueResidualCompleteness.complete]
-  have hh := LiDuueConvention.local_reconstruction u d e k x y h j s t v w
-  dsimp only at hh
-  have hh' := congrArg (fun r : ℂ => eps3 a b c * z * r) hh
-  simp only [DuueResidualCompleteness.swap_apply] at hh'
-  change _ = eps3 a b c * z *
-    (FourDoubletInvariant.eps s t * FourDoubletInvariant.eps v w * k _ +
-      FourDoubletInvariant.eps s v * FourDoubletInvariant.eps t w *
-        (-k ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (h ⊗ₜ[ℂ] j)) -
-          k ((y ⊗ₜ[ℂ] x) ⊗ₜ[ℂ] (h ⊗ₜ[ℂ] j))))
-  linear_combination hh'
-
-theorem candidate_eq (k : Residual u d e) :
-    candidate u d e k = (DuueResidualCompleteness.homEquiv u d e).symm k := by
-  apply (DuueResidualCompleteness.homEquiv u d e).injective
-  rw [LinearEquiv.apply_symm_apply]
-  change (homEquiv u d e
-    (FourSlotRestrictionLift.restriction _ _ _ (candidate u d e k).val)) 0 = k
-  rw [restriction_candidate, LinearEquiv.apply_symm_apply]
-  rfl
-
-theorem extract_candidate (k : Residual u d e) :
-    DuueResidualCompleteness.homEquiv u d e (candidate u d e k) = k := by
-  rw [candidate_eq, LinearEquiv.apply_symm_apply]
-theorem candidate_extract (f : DuueExchange.Sector u d e) :
-    candidate u d e (DuueResidualCompleteness.homEquiv u d e f) = f := by
-  rw [candidate_eq, LinearEquiv.symm_apply_apply]
-
-variable {I J K : Type*} [Fintype I] [Fintype J] [Fintype K]
-  (bU : Module.Basis I ℂ U) (bD : Module.Basis J ℂ D) (bE : Module.Basis K ℂ E)
-def tensorBasis := (bU.tensorProduct bU).tensorProduct (bD.tensorProduct bE)
-def finiteEquiv := (DuueResidualCompleteness.homEquiv u d e).trans
-  (InvariantFunctionalCoordinates.equiv (flavor u d e) (tensorBasis bU bD bE))
-
-def flavorEquiv (hr : ∀ g, flavor u d e g = 1) :
-    DuueExchange.Sector u d e ≃ₗ[ℂ] ((I × I) × (J × K) → ℂ) :=
-  (DuueResidualCompleteness.homEquiv u d e).trans
-    (InvariantFunctionalCoordinates.unrestrictedEquiv _ (tensorBasis bU bD bE) hr)
-def flavorBasis (hr : ∀ g, flavor u d e g = 1) :=
-  Module.Basis.ofEquivFun (flavorEquiv u d e bU bD bE hr)
-
-theorem flavorBasis_independent (hr : ∀ g, flavor u d e g = 1) :
-    LinearIndependent ℂ (flavorBasis u d e bU bD bE hr) :=
-  (flavorBasis u d e bU bD bE hr).linearIndependent
-theorem flavorBasis_spans (hr : ∀ g, flavor u d e g = 1) :
-    Submodule.span ℂ (Set.range (flavorBasis u d e bU bD bE hr)) = ⊤ :=
-  (flavorBasis u d e bU bD bE hr).span_eq
-theorem flavorBasis_is_candidate (hr : ∀ g, flavor u d e g = 1)
-    (i : (I × I) × (J × K)) :
-    candidate u d e (DuueResidualCompleteness.homEquiv u d e
-      (flavorBasis u d e bU bD bE hr i)) =
-      flavorBasis u d e bU bD bE hr i := candidate_extract _ _ _ _
-
-include bU bD bE in
-theorem flavor_finrank (hr : ∀ g, flavor u d e g = 1) :
-    Module.finrank ℂ (DuueExchange.Sector u d e) =
-      Fintype.card I * Fintype.card I * (Fintype.card J * Fintype.card K) := by
-  rw [(flavorEquiv u d e bU bD bE hr).finrank_eq]
-  simp
-
-omit [Fintype I] [Fintype J] [Fintype K] in
-theorem finite_inverse_is_candidate
-    (c : InvariantFunctionalCoordinates.space (flavor u d e) (tensorBasis bU bD bE)) :
-    (finiteEquiv u d e bU bD bE).symm c =
-      candidate u d e ((InvariantFunctionalCoordinates.equiv _ _).symm c) := by
-  rw [candidate_eq]; rfl
-end
-end GUT.LiDuueCertificate
+assert_compatible GUT.DuueResidualCompleteness.complete.eq_1 => Physics.DuueResidualCompleteness.complete.eq_1
+assert_compatible GUT.LiDuueCertificate.candidate => Physics.LiDuueCertificate.candidate
+assert_compatible GUT.LiDuueCertificate.candidate_eq => Physics.LiDuueCertificate.candidate_eq
+assert_compatible GUT.LiDuueCertificate.candidate_extract => Physics.LiDuueCertificate.candidate_extract
+assert_compatible GUT.LiDuueCertificate.extract_candidate => Physics.LiDuueCertificate.extract_candidate
+assert_compatible GUT.LiDuueCertificate.finiteEquiv => Physics.LiDuueCertificate.finiteEquiv
+assert_compatible GUT.LiDuueCertificate.finite_inverse_is_candidate => Physics.LiDuueCertificate.finite_inverse_is_candidate
+assert_compatible GUT.LiDuueCertificate.flavorBasis => Physics.LiDuueCertificate.flavorBasis
+assert_compatible GUT.LiDuueCertificate.flavorBasis_independent => Physics.LiDuueCertificate.flavorBasis_independent
+assert_compatible GUT.LiDuueCertificate.flavorBasis_is_candidate => Physics.LiDuueCertificate.flavorBasis_is_candidate
+assert_compatible GUT.LiDuueCertificate.flavorBasis_spans => Physics.LiDuueCertificate.flavorBasis_spans
+assert_compatible GUT.LiDuueCertificate.flavorEquiv => Physics.LiDuueCertificate.flavorEquiv
+assert_compatible GUT.LiDuueCertificate.flavor_finrank => Physics.LiDuueCertificate.flavor_finrank
+assert_compatible GUT.LiDuueCertificate.instAddCommGroupTensorProductComplexColorSpace => Physics.LiDuueCertificate.instAddCommGroupTensorProductComplexColorSpace
+assert_compatible GUT.LiDuueCertificate.instAddCommGroupTensorProductComplexColorSpace_1 => Physics.LiDuueCertificate.instAddCommGroupTensorProductComplexColorSpace_1
+assert_compatible GUT.LiDuueCertificate.instAddCommGroupTensorProductComplexSpace => Physics.LiDuueCertificate.instAddCommGroupTensorProductComplexSpace
+assert_compatible GUT.LiDuueCertificate.ordered => Physics.LiDuueCertificate.ordered
+assert_compatible GUT.LiDuueCertificate.ordered.eq_1 => Physics.LiDuueCertificate.ordered.eq_1
+assert_compatible GUT.LiDuueCertificate.ordered_apply => Physics.LiDuueCertificate.ordered_apply
+assert_compatible GUT.LiDuueCertificate.restriction_candidate => Physics.LiDuueCertificate.restriction_candidate
+assert_compatible GUT.LiDuueCertificate.seedCoordinates => Physics.LiDuueCertificate.seedCoordinates
+assert_compatible GUT.LiDuueCertificate.seedCoordinates.eq_1 => Physics.LiDuueCertificate.seedCoordinates.eq_1
+assert_compatible GUT.LiDuueCertificate.tensorBasis => Physics.LiDuueCertificate.tensorBasis

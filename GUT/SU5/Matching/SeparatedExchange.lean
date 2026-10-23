@@ -1,5 +1,7 @@
 import GUT.SU5.Matching.InheritedExchange
-import Physics.StandardModel.Operators.SeparatedMediatorQque
+import Physics.StandardModel.Operators.BaryonOne.Qque.SeparatedMediatorQque
+
+open Physics
 
 open Math
 

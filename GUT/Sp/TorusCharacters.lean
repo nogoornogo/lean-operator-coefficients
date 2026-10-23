@@ -1,5 +1,7 @@
 import Math.LieGroups.Symplectic.Torus
-import Physics.FieldTheory.Mass.SelfDualMassIndex
+import Physics.FieldTheory.Mass.Spectrum.SelfDualMassIndex
+
+open Physics
 
 open Math
 

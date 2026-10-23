@@ -1,36 +1,20 @@
+import Physics.StandardModel.Spectrum.Representations.DualIndexAmbiguity
 import Physics.StandardModel.Spectrum.HyperchargeReversalProbe
 import Math.RepresentationTheory.DualIndexCompatibility
+import Math.Lean.Compatibility
 
-/-! Actual SM gauge spectra with equal dual indices but different charged
-content. This does not construct a UV SU(6) mass or vacuum model. -/
-namespace GUT.SMDualIndexAmbiguity
-set_option autoImplicit false
-noncomputable section
-open Representation
+deprecated_module "Use Physics.StandardModel.Spectrum.Representations.DualIndexAmbiguity instead." (since := "source-api-v1")
 
-/-- One SM generation plus an SM generation and its dual. -/
-abbrev enlargedGeneration := Math.DualIndexCompatibility.withVectorlike ExactSMSpectrum.generation
+compatibility_declarations [
+  GUT.SMDualIndexAmbiguity.enlargedGeneration => Physics.SMDualIndexAmbiguity.enlargedGeneration,
+  GUT.SMDualIndexAmbiguity.enlarged_character_one => Physics.SMDualIndexAmbiguity.enlarged_character_one,
+  GUT.SMDualIndexAmbiguity.equal_dual_index => Physics.SMDualIndexAmbiguity.equal_dual_index,
+  GUT.SMDualIndexAmbiguity.generation_character_one => Physics.SMDualIndexAmbiguity.generation_character_one,
+  GUT.SMDualIndexAmbiguity.not_equiv => Physics.SMDualIndexAmbiguity.not_equiv
+]
 
-theorem equal_dual_index (g : StandardSMGaugeTensor.GaugeGroup) :
-    enlargedGeneration.character g - enlargedGeneration.dual.character g =
-      ExactSMSpectrum.generation.character g - ExactSMSpectrum.generation.dual.character g :=
-  Math.DualIndexCompatibility.withVectorlike_dual_index _ g
-
-theorem generation_character_one : ExactSMSpectrum.generation.character 1 = 15 := by
-  simp
-
-theorem enlarged_character_one : enlargedGeneration.character 1 = 45 := by
-  simp only [enlargedGeneration, Math.DualIndexCompatibility.withVectorlike,
-    char_prod, char_dual, inv_one]
-  norm_num
-
-/-- A positive one-generation dual index does not determine the full charged
-SM representation: the exhibited pair has the same index and dimension 45. -/
-theorem not_equiv : ¬ Nonempty (Representation.Equiv ExactSMSpectrum.generation
-    enlargedGeneration) := by
-  rintro ⟨e⟩
-  have he := congrFun (char_iso e) 1
-  rw [generation_character_one, enlarged_character_one] at he
-  norm_num at he
-end
-end GUT.SMDualIndexAmbiguity
+assert_compatible GUT.SMDualIndexAmbiguity.enlargedGeneration => Physics.SMDualIndexAmbiguity.enlargedGeneration
+assert_compatible GUT.SMDualIndexAmbiguity.enlarged_character_one => Physics.SMDualIndexAmbiguity.enlarged_character_one
+assert_compatible GUT.SMDualIndexAmbiguity.equal_dual_index => Physics.SMDualIndexAmbiguity.equal_dual_index
+assert_compatible GUT.SMDualIndexAmbiguity.generation_character_one => Physics.SMDualIndexAmbiguity.generation_character_one
+assert_compatible GUT.SMDualIndexAmbiguity.not_equiv => Physics.SMDualIndexAmbiguity.not_equiv

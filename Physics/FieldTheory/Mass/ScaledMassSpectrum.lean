@@ -1,55 +1,29 @@
+import Physics.FieldTheory.Mass.Spectrum.ScaledMassSpectrum
 import Physics.FieldTheory.Mass.InvariantWeylMass
+import Math.Lean.Compatibility
 
-/-! Exact zero-mode representation of a scalar multiple of a symmetric mass. -/
-set_option autoImplicit false
-namespace GUT.ScaledMassSpectrum
-noncomputable section
-open InvariantWeylMass Representation
-variable {G V : Type*} [Group G] [AddCommGroup V] [Module ℂ V]
-  {rho : Representation ℂ G V} (B : SymmetricMass rho) (c : ℂ)
+deprecated_module "Use Physics.FieldTheory.Mass.Spectrum.ScaledMassSpectrum instead." (since := "source-api-v1")
 
-def mass : SymmetricMass rho where
-  form := c • B.form
-  symmetric := B.symmetric.smul c
-  invariant g x y := by
-    change c * B.form (rho g x) (rho g y) = c * B.form x y
-    rw [B.invariant]
+compatibility_declarations [
+  GUT.ScaledMassSpectrum.form_nonzero => Physics.ScaledMassSpectrum.form_nonzero,
+  GUT.ScaledMassSpectrum.mass => Physics.ScaledMassSpectrum.mass,
+  GUT.ScaledMassSpectrum.mass.eq_1 => Physics.ScaledMassSpectrum.mass.eq_1,
+  GUT.ScaledMassSpectrum.mass_apply => Physics.ScaledMassSpectrum.mass_apply,
+  GUT.ScaledMassSpectrum.mem_radical_iff => Physics.ScaledMassSpectrum.mem_radical_iff,
+  GUT.ScaledMassSpectrum.one_mass => Physics.ScaledMassSpectrum.one_mass,
+  GUT.ScaledMassSpectrum.radicalEquiv => Physics.ScaledMassSpectrum.radicalEquiv,
+  GUT.ScaledMassSpectrum.radical_character => Physics.ScaledMassSpectrum.radical_character,
+  GUT.ScaledMassSpectrum.radical_finrank => Physics.ScaledMassSpectrum.radical_finrank,
+  GUT.ScaledMassSpectrum.zero_mass => Physics.ScaledMassSpectrum.zero_mass
+]
 
-theorem mass_apply (x y : V) : (mass B c).form x y = c * B.form x y := rfl
-
-theorem zero_mass : mass B 0 = SymmetricMass.zero rho := by
-  apply SymmetricMass.ext
-  simp [mass, SymmetricMass.zero]
-
-theorem one_mass : mass B 1 = B := by
-  apply SymmetricMass.ext
-  simp [mass]
-
-theorem form_nonzero (hc : c ≠ 0) (hB : B.form ≠ 0) : (mass B c).form ≠ 0 :=
-  smul_ne_zero hc hB
-
-theorem mem_radical_iff (hc : c ≠ 0) (x : V) :
-    x ∈ (mass B c).radical.toSubmodule ↔ x ∈ B.radical.toSubmodule := by
-  simp only [SymmetricMass.mem_radical, mass_apply, mul_eq_zero, hc, false_or]
-
-def radicalEquiv (hc : c ≠ 0) :
-    Representation.Equiv (mass B c).radical.toRepresentation B.radical.toRepresentation where
-  toLinearEquiv :=
-    { toFun := fun x => ⟨x.val, (mem_radical_iff B c hc x.val).mp x.property⟩
-      invFun := fun x => ⟨x.val, (mem_radical_iff B c hc x.val).mpr x.property⟩
-      left_inv := fun _ => rfl
-      right_inv := fun _ => rfl
-      map_add' := fun _ _ => rfl
-      map_smul' := fun _ _ => rfl }
-  isIntertwining' _ := rfl
-
-theorem radical_finrank [FiniteDimensional ℂ V] (hc : c ≠ 0) :
-    Module.finrank ℂ (mass B c).radical.toSubmodule = Module.finrank ℂ B.radical.toSubmodule :=
-  (radicalEquiv B c hc).toLinearEquiv.finrank_eq
-
-theorem radical_character [FiniteDimensional ℂ V] (hc : c ≠ 0) (g : G) :
-    (mass B c).radical.toRepresentation.character g = B.radical.toRepresentation.character g :=
-  congrFun (Representation.char_iso (radicalEquiv B c hc)) g
-
-end
-end GUT.ScaledMassSpectrum
+assert_compatible GUT.ScaledMassSpectrum.form_nonzero => Physics.ScaledMassSpectrum.form_nonzero
+assert_compatible GUT.ScaledMassSpectrum.mass => Physics.ScaledMassSpectrum.mass
+assert_compatible GUT.ScaledMassSpectrum.mass.eq_1 => Physics.ScaledMassSpectrum.mass.eq_1
+assert_compatible GUT.ScaledMassSpectrum.mass_apply => Physics.ScaledMassSpectrum.mass_apply
+assert_compatible GUT.ScaledMassSpectrum.mem_radical_iff => Physics.ScaledMassSpectrum.mem_radical_iff
+assert_compatible GUT.ScaledMassSpectrum.one_mass => Physics.ScaledMassSpectrum.one_mass
+assert_compatible GUT.ScaledMassSpectrum.radicalEquiv => Physics.ScaledMassSpectrum.radicalEquiv
+assert_compatible GUT.ScaledMassSpectrum.radical_character => Physics.ScaledMassSpectrum.radical_character
+assert_compatible GUT.ScaledMassSpectrum.radical_finrank => Physics.ScaledMassSpectrum.radical_finrank
+assert_compatible GUT.ScaledMassSpectrum.zero_mass => Physics.ScaledMassSpectrum.zero_mass

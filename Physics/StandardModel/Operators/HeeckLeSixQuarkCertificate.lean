@@ -1,64 +1,33 @@
+import Physics.StandardModel.Operators.BaryonTwo.HeeckLe.HeeckLeSixQuarkCertificate
 import Physics.StandardModel.Operators.HeeckLeSixQuarkConvention
-import Mathlib.LinearAlgebra.Matrix.ToLin
+import Math.Lean.Compatibility
 
-/-! An exact rational change-of-basis certificate for 25 selected orbit vectors.
-The two literal sources and their words construct the forward matrix. The
-inverse is derived by quotient/pair reconstruction and five scalar equations. -/
-namespace GUT.HeeckLeSixQuarkCertificate
-set_option autoImplicit false
-noncomputable section
-open SixQuarkInvariant SixQuarkSpeciesQuotient
-open Matrix
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.HeeckLe.HeeckLeSixQuarkCertificate instead." (since := "source-api-v1")
 
-def basisMatrix : Matrix (Fin 25) (Fin 25) ℂ := basisRational.map (Rat.castHom ℂ)
-def inverseMatrix : Matrix (Fin 25) (Fin 25) ℂ := inverseRational.map (Rat.castHom ℂ)
+compatibility_declarations [
+  GUT.HeeckLeSixQuarkCertificate.assemble_extract => Physics.HeeckLeSixQuarkCertificate.assemble_extract,
+  GUT.HeeckLeSixQuarkCertificate.basisMatrix => Physics.HeeckLeSixQuarkCertificate.basisMatrix,
+  GUT.HeeckLeSixQuarkCertificate.basisMatrix.eq_1 => Physics.HeeckLeSixQuarkCertificate.basisMatrix.eq_1,
+  GUT.HeeckLeSixQuarkCertificate.coordinateEquiv => Physics.HeeckLeSixQuarkCertificate.coordinateEquiv,
+  GUT.HeeckLeSixQuarkCertificate.extract_assemble => Physics.HeeckLeSixQuarkCertificate.extract_assemble,
+  GUT.HeeckLeSixQuarkCertificate.flatten => Physics.HeeckLeSixQuarkCertificate.flatten,
+  GUT.HeeckLeSixQuarkCertificate.inverseMatrix => Physics.HeeckLeSixQuarkCertificate.inverseMatrix,
+  GUT.HeeckLeSixQuarkCertificate.inverseMatrix.eq_1 => Physics.HeeckLeSixQuarkCertificate.inverseMatrix.eq_1,
+  GUT.HeeckLeSixQuarkCertificate.left_inverse => Physics.HeeckLeSixQuarkCertificate.left_inverse,
+  GUT.HeeckLeSixQuarkCertificate.matrixEquiv => Physics.HeeckLeSixQuarkCertificate.matrixEquiv,
+  GUT.HeeckLeSixQuarkCertificate.orbitArray_agrees => Physics.HeeckLeSixQuarkCertificate.orbitArray_agrees,
+  GUT.HeeckLeSixQuarkCertificate.right_inverse => Physics.HeeckLeSixQuarkCertificate.right_inverse
+]
 
-theorem left_inverse : inverseMatrix * basisMatrix = 1 := by
-  rw [basisMatrix, inverseMatrix, ← Matrix.map_mul, rational_left_inverse]
-  simp
-theorem right_inverse : basisMatrix * inverseMatrix = 1 := by
-  rw [basisMatrix, inverseMatrix, ← Matrix.map_mul, rational_right_inverse]
-  simp
-
-def matrixEquiv : (Fin 25 → ℂ) ≃ₗ[ℂ] (Fin 25 → ℂ) :=
-  { basisMatrix.mulVecLin with
-    invFun := inverseMatrix.mulVec
-    left_inv := by
-      intro v
-      change inverseMatrix *ᵥ (basisMatrix *ᵥ v) = v
-      rw [Matrix.mulVec_mulVec, left_inverse, Matrix.one_mulVec]
-    right_inv := by
-      intro v
-      change basisMatrix *ᵥ (inverseMatrix *ᵥ v) = v
-      rw [Matrix.mulVec_mulVec, right_inverse, Matrix.one_mulVec] }
-
-def flatten : (Fin 5 → Fin 5 → ℂ) ≃ₗ[ℂ] (Fin 25 → ℂ) where
-  toFun c i := c ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25).symm i).1
-    ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25).symm i).2
-  invFun v p q := v ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25) (p,q))
-  left_inv c := by ext p q; simp
-  right_inv v := by ext i; simp
-  map_add' _ _ := rfl
-  map_smul' _ _ := rfl
-
-theorem orbitArray_agrees (i j : Fin 25) :
-    flatten (orbitArray j) i = basisMatrix i j := by
-  have he := congrArg (fun x : ℚ => (x : ℂ)) (orbitR_agrees i j)
-  change orbitArray j ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25).symm i).1
-      ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25).symm i).2 = (basisRational i j : ℂ)
-  unfold orbitArray seedCoordinates
-  rw [LiSixQuarkCertificate.wordR_cast]
-  exact he
-
-/-- Assembly from orbit coordinates into the independent color/Weyl coordinates. -/
-def coordinateEquiv : (Fin 25 → ℂ) ≃ₗ[ℂ] (Fin 5 → Fin 5 → ℂ) :=
-  matrixEquiv.trans flatten.symm
-
-theorem assemble_extract (c : Fin 5 → Fin 5 → ℂ) :
-    coordinateEquiv (coordinateEquiv.symm c) = c := coordinateEquiv.apply_symm_apply c
-
-theorem extract_assemble (v : Fin 25 → ℂ) :
-    coordinateEquiv.symm (coordinateEquiv v) = v := coordinateEquiv.symm_apply_apply v
-
-end
-end GUT.HeeckLeSixQuarkCertificate
+assert_compatible GUT.HeeckLeSixQuarkCertificate.assemble_extract => Physics.HeeckLeSixQuarkCertificate.assemble_extract
+assert_compatible GUT.HeeckLeSixQuarkCertificate.basisMatrix => Physics.HeeckLeSixQuarkCertificate.basisMatrix
+assert_compatible GUT.HeeckLeSixQuarkCertificate.basisMatrix.eq_1 => Physics.HeeckLeSixQuarkCertificate.basisMatrix.eq_1
+assert_compatible GUT.HeeckLeSixQuarkCertificate.coordinateEquiv => Physics.HeeckLeSixQuarkCertificate.coordinateEquiv
+assert_compatible GUT.HeeckLeSixQuarkCertificate.extract_assemble => Physics.HeeckLeSixQuarkCertificate.extract_assemble
+assert_compatible GUT.HeeckLeSixQuarkCertificate.flatten => Physics.HeeckLeSixQuarkCertificate.flatten
+assert_compatible GUT.HeeckLeSixQuarkCertificate.inverseMatrix => Physics.HeeckLeSixQuarkCertificate.inverseMatrix
+assert_compatible GUT.HeeckLeSixQuarkCertificate.inverseMatrix.eq_1 => Physics.HeeckLeSixQuarkCertificate.inverseMatrix.eq_1
+assert_compatible GUT.HeeckLeSixQuarkCertificate.left_inverse => Physics.HeeckLeSixQuarkCertificate.left_inverse
+assert_compatible GUT.HeeckLeSixQuarkCertificate.matrixEquiv => Physics.HeeckLeSixQuarkCertificate.matrixEquiv
+assert_compatible GUT.HeeckLeSixQuarkCertificate.orbitArray_agrees => Physics.HeeckLeSixQuarkCertificate.orbitArray_agrees
+assert_compatible GUT.HeeckLeSixQuarkCertificate.right_inverse => Physics.HeeckLeSixQuarkCertificate.right_inverse

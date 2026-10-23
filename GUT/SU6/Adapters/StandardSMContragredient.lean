@@ -1,5 +1,7 @@
 import GUT.SU6.Branching.StandardSMGroup
-import Physics.StandardModel.Gauge.WeakContragredient
+import Physics.StandardModel.Gauge.Tensors.WeakContragredient
+
+open Physics
 
 open Math
 
@@ -14,6 +16,7 @@ not an inference from torus characters.
 set_option autoImplicit false
 
 namespace GUT.StandardSMContragredient
+open Physics.StandardSMContragredient
 
 noncomputable section
 

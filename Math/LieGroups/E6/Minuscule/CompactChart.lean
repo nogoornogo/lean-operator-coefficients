@@ -61,17 +61,15 @@ def compactChartLog (g : compactIdentityComponent) : compactMatrixLieAlgebra :=
 
 /-- Ambient extension used only to compute coordinate changes. -/
 def compactLogExtension (A : Matrix27) : compactMatrixLieAlgebra :=
-  realFormProjection (logOneAdd ℝ Matrix27 (A - 1))
+  realFormProjection (NormedSpace.log A)
 
 theorem compactChartLog_eq_extension (g : compactIdentityComponent) :
     compactChartLog g = compactLogExtension (g.val.val : Matrix27) := rfl
 
 theorem analyticAt_compactLogExtension (A : Matrix27)
-    (hA : AnalyticAt ℝ (logOneAdd ℝ Matrix27) (A - 1)) :
+    (hA : AnalyticAt ℝ (NormedSpace.log : Matrix27 → Matrix27) A) :
     AnalyticAt ℝ compactLogExtension A := by
-  have hs : AnalyticAt ℝ (fun B : Matrix27 => B - 1) A :=
-    analyticAt_id.sub analyticAt_const
-  exact (realFormProjection.analyticAt _).comp (hA.comp (f := fun B => B - 1) hs)
+  exact (realFormProjection.analyticAt _).comp hA
 
 @[simp] theorem compactChartLog_one : compactChartLog 1 = 0 := by
   simp [compactChartLog, compactLocalLog]
@@ -85,26 +83,26 @@ theorem eventually_compactChartLog_coe :
 
 theorem eventually_compactChartLog_continuousAt :
     ∀ᶠ g : compactIdentityComponent in 𝓝 1, ContinuousAt compactChartLog g := by
-  have hc : Continuous (fun g : compactIdentityComponent => (g.val.val : Matrix27) - 1) :=
-    (continuous_subtype_val.comp (continuous_subtype_val.comp continuous_subtype_val)).sub
-      continuous_const
-  have ht : Tendsto (fun g : compactIdentityComponent => (g.val.val : Matrix27) - 1)
-      (𝓝 1) (𝓝 0) := by simpa using hc.tendsto 1
-  filter_upwards [ht.eventually (analyticAt_logOneAdd ℝ Matrix27).eventually_continuousAt]
+  have hc : Continuous (fun g : compactIdentityComponent => (g.val.val : Matrix27)) :=
+    continuous_subtype_val.comp (continuous_subtype_val.comp continuous_subtype_val)
+  have ht : Tendsto (fun g : compactIdentityComponent => (g.val.val : Matrix27))
+      (𝓝 1) (𝓝 1) := by simpa using hc.tendsto 1
+  filter_upwards [ht.eventually (analyticAt_log_one ℝ Matrix27).eventually_continuousAt]
     with g hg
   have hlog : ContinuousAt (fun z : compactIdentityComponent =>
-      logOneAdd ℝ Matrix27 ((z.val.val : Matrix27) - 1)) g :=
-    ContinuousAt.comp (f := fun z : compactIdentityComponent => (z.val.val : Matrix27) - 1)
+      (NormedSpace.log : Matrix27 → Matrix27) (z.val.val : Matrix27)) g :=
+    ContinuousAt.comp (f := fun z : compactIdentityComponent => (z.val.val : Matrix27))
       hg hc.continuousAt
   exact realFormProjection.continuous.continuousAt.comp hlog
 
 theorem eventually_compactChartLog_compactExp :
     ∀ᶠ X : compactMatrixLieAlgebra in 𝓝 0, compactChartLog (compactExp X) = X := by
+  let : NormedAlgebra ℚ Matrix27 := NormedAlgebra.restrictScalars ℚ ℂ _
   have ht : Tendsto (fun X : compactMatrixLieAlgebra => (X : Matrix27)) (𝓝 0) (𝓝 0) :=
     continuous_subtype_val.tendsto 0
-  filter_upwards [ht.eventually (eventually_logOneAdd_exp_sub_one ℝ Matrix27)] with X hX
-  change realFormProjection (logOneAdd ℝ Matrix27
-    (((compactExp X).val.val : Matrix27) - 1)) = X
+  filter_upwards [ht.eventually (eventually_log_exp Matrix27)] with X hX
+  change realFormProjection ((NormedSpace.log : Matrix27 → Matrix27)
+    ((compactExp X).val.val : Matrix27)) = X
   rw [compactExp_coe, hX, realFormProjection_apply]
 
 theorem eventually_compactExp_compactChartLog :
@@ -119,24 +117,23 @@ theorem eventually_compactExp_compactChartLog :
 
 theorem eventually_analyticAt_compactMatrixLog :
     ∀ᶠ g : compactIdentityComponent in 𝓝 1,
-      AnalyticAt ℝ (logOneAdd ℝ Matrix27) ((g.val.val : Matrix27) - 1) := by
-  have hc : Continuous (fun g : compactIdentityComponent => (g.val.val : Matrix27) - 1) :=
-    (continuous_subtype_val.comp (continuous_subtype_val.comp continuous_subtype_val)).sub
-      continuous_const
-  have ht : Tendsto (fun g : compactIdentityComponent => (g.val.val : Matrix27) - 1)
-      (𝓝 1) (𝓝 0) := by simpa using hc.tendsto 1
-  exact ht.eventually (analyticAt_logOneAdd ℝ Matrix27).eventually_analyticAt
+      AnalyticAt ℝ (NormedSpace.log : Matrix27 → Matrix27) (g.val.val : Matrix27) := by
+  have hc : Continuous (fun g : compactIdentityComponent => (g.val.val : Matrix27)) :=
+    continuous_subtype_val.comp (continuous_subtype_val.comp continuous_subtype_val)
+  have ht : Tendsto (fun g : compactIdentityComponent => (g.val.val : Matrix27))
+      (𝓝 1) (𝓝 1) := by simpa using hc.tendsto 1
+  exact ht.eventually (analyticAt_log_one ℝ Matrix27).eventually_analyticAt
 
 theorem exists_compactExpChart :
     ∃ e : OpenPartialHomeomorph compactMatrixLieAlgebra compactIdentityComponent,
       (∀ X, e X = compactExp X) ∧ (∀ g, e.symm g = compactChartLog g) ∧
         0 ∈ e.source ∧ 1 ∈ e.target ∧
         ∀ g ∈ e.target, (compactChartLog g : Matrix27) = compactLocalLog g.val ∧
-          AnalyticAt ℝ (logOneAdd ℝ Matrix27) ((g.val.val : Matrix27) - 1) := by
+          AnalyticAt ℝ (NormedSpace.log : Matrix27 → Matrix27) (g.val.val : Matrix27) := by
   obtain ⟨e, he, hi, hs, ht, _, hb⟩ :=
     LocalInverseChart.exists_chart_within compactExp compactChartLog 0 1 Set.univ
     {g | (compactChartLog g : Matrix27) = compactLocalLog g.val ∧
-      AnalyticAt ℝ (logOneAdd ℝ Matrix27) ((g.val.val : Matrix27) - 1)}
+      AnalyticAt ℝ (NormedSpace.log : Matrix27 → Matrix27) (g.val.val : Matrix27)}
     Filter.univ_mem (eventually_compactChartLog_coe.and eventually_analyticAt_compactMatrixLog)
     compactExp_zero
     (Eventually.of_forall fun _ => compactExp_continuous.continuousAt)
@@ -167,7 +164,7 @@ theorem compactExpChart_symm_coe (g : compactIdentityComponent) (hg : g ∈ comp
 
 theorem analyticAt_logOn_compactExpChart_target (g : compactIdentityComponent)
     (hg : g ∈ compactExpChart.target) :
-    AnalyticAt ℝ (logOneAdd ℝ Matrix27) ((g.val.val : Matrix27) - 1) :=
+    AnalyticAt ℝ (NormedSpace.log : Matrix27 → Matrix27) (g.val.val : Matrix27) :=
   ((Classical.choose_spec exists_compactExpChart).2.2.2.2 g hg).2
 
 end

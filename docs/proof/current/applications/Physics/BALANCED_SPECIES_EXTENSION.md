@@ -85,8 +85,8 @@ They do require proof when applying the theorem to a model.
 ### Sources
 
 - [Algebraic cancellation](../../../../../Math/RepresentationTheory/Multiplicity/BalancedMultiplicityExtension.lean)
-- [Actual species and positive support](../../../../../Physics/StandardModel/Spectrum/BalancedSpeciesExtension.lean)
-- [Actual exterior endpoint](../../../../../Physics/StandardModel/Operators/BalancedSpeciesQque.lean)
+- [Actual species and positive support](../../../../../Physics/StandardModel/Spectrum/Representations/BalancedSpeciesExtension.lean)
+- [Actual exterior endpoint](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/BalancedSpeciesQque.lean)
 - [Plan and verification](../../../../topics/balanced-species-extension/README.md)
 
 Reference roles: linked Lean files are implementation or audit evidence; linked repository documents provide supplementary context, not external theorem premises. Any literature input is identified explicitly below or in the linked boundary dossier. Recorded build and audit outcomes are historical checkpoints; this documentation revision did not rerun Lean.

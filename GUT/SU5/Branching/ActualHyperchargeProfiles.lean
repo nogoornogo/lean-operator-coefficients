@@ -1,7 +1,10 @@
 import GUT.SU5.Branching.CyclicHypercharge
-import Math.LinearAlgebra.ExteriorEigenbasisTrace
-import Math.LinearAlgebra.EigenbasisTrace
+import Math.LinearAlgebra.Exterior.ExteriorEigenbasisTrace
+import Math.LinearAlgebra.Constructions.EigenbasisTrace
 import Mathlib.Data.Sum.Order
+
+-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.
+set_option Elab.async false
 
 namespace GUT.SU5.ActualHyperchargeProfiles
 set_option autoImplicit false

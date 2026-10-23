@@ -74,19 +74,19 @@ in the original proof; no third conjugator is inferred.
 
 The general core is in Physics and imports no GUT application modules:
 
-- [ConjugationSource](../../../../../Physics/StandardModel/Spectrum/ConjugationSource.lean):
+- [ConjugationSource](../../../../../Physics/StandardModel/Spectrum/Representations/ConjugationSource.lean):
   `TwoConjugations` and the retained `ThreeConjugations.toTwo` adapter.
-- [TwoConjugationQque](../../../../../Physics/StandardModel/Spectrum/TwoConjugationQque.lean):
+- [TwoConjugationQque](../../../../../Physics/StandardModel/Spectrum/Representations/TwoConjugationQque.lean):
   the current two-witness full-support pair and obstruction; also a Q-only
   operator-local qque endpoint.
-- [ConjugationDualIndex](../../../../../Physics/StandardModel/Spectrum/ConjugationDualIndex.lean):
+- [ConjugationDualIndex](../../../../../Physics/StandardModel/Spectrum/Representations/ConjugationDualIndex.lean):
   `coeff_permute` derives actual dual-index invariance without a target.
-- [ConjugationPartialTarget](../../../../../Physics/StandardModel/Spectrum/ConjugationPartialTarget.lean):
-  `GUT.ConjugationPartialTarget.HasPartialTarget`, `exists_actual_signature_pair`
+- [ConjugationPartialTarget](../../../../../Physics/StandardModel/Spectrum/Representations/ConjugationPartialTarget.lean):
+  `Physics.ConjugationPartialTarget.HasPartialTarget`, `exists_actual_signature_pair`
   and `selection_rule_obstruction`; `of_full_target` recovers the old input.
-- [RestrictedConjugationMassSource](../../../../../Physics/StandardModel/Spectrum/RestrictedConjugationMassSource.lean):
+- [RestrictedConjugationMassSource](../../../../../Physics/StandardModel/Spectrum/Mass/RestrictedConjugationMassSource.lean):
   the actual spectrum and retained full-target endpoint.
-- [ConjugationMassSource](../../../../../Physics/StandardModel/Spectrum/ConjugationMassSource.lean):
+- [ConjugationMassSource](../../../../../Physics/StandardModel/Spectrum/Mass/ConjugationMassSource.lean):
   the retained ambient-unitary/common-total API wraps the weakened core;
   `spectrum_eq_restricted` identifies the actual resolved radical spectra.
 
@@ -136,7 +136,7 @@ recovers the endpoints for both algebraic and continuous model interfaces,
 including an actual 15-dimensional finite-residual benchmark. Existing
 SU(N)/Spin/candidate applications do not need new model assumptions.
 
-[ConjugationTrialityObstruction](../../../../../Physics/StandardModel/Spectrum/ConjugationTrialityObstruction.lean)
+[ConjugationTrialityObstruction](../../../../../Physics/StandardModel/Spectrum/Charges/ConjugationTrialityObstruction.lean)
 shows that no ambient extension matching the actual 45-dimensional triality
 source character can satisfy all three conjugations. Thus the earlier
 [group-free counterexample](../../../../topics/group-independent-assumptions/spectrum-bridge.md)

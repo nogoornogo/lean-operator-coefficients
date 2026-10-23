@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.StandardBranch.WeylZeroModeSupport
 
+open Physics
+
 /-!
 # Explicitly conjugated operators for negative generation index
 

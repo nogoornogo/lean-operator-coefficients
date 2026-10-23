@@ -1,6 +1,6 @@
 import Math.RepresentationTheory.Unitary.ContinuousConstructions
 import GUT.SU6.Representations.ContinuousSU6Unitarization
-import Math.LinearAlgebra.FiniteBasisHilbertization
+import Math.LinearAlgebra.Constructions.FiniteBasisHilbertization
 import Mathlib.Analysis.InnerProductSpace.TensorProduct
 import Mathlib.LinearAlgebra.Dual.Basis
 

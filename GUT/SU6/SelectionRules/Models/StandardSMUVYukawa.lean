@@ -1,6 +1,8 @@
 import GUT.SU6.Yukawa.UnitarySymmetricScalar
 import GUT.SU6.SelectionRules.Models.StandardSMOrdinaryMass
 
+open Physics
+
 /-!
 # A full-SU(6) scalar completion of the 15-mode benchmark
 

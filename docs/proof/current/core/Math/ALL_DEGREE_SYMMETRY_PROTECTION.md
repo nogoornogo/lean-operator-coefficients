@@ -30,11 +30,13 @@ Flavor claims require a supplied flavor action or selector; one LFV example
 cannot stand for all flavor changes.
 
 Polynomial covariant evaluation lands in the fixed space of the actual
-stabilizer. Surjectivity is proved for trivial targets and the nonzero scalar
-weight-one example. General generic-stabilizer occurrence and saturation
+stabilizer. The original examples cover trivial targets and the nonzero scalar
+weight-one example. The separate [finite-group theorem](FINITE_GROUP_SPURION_EVALUATION.md)
+proves surjectivity for finite-dimensional complex representations at every value.
+General generic-stabilizer occurrence and saturation
 remain at the documented [feasibility stop](../../../../topics/all-degree-symmetry-protection/feasibility.md).
 
-The persistent [audit](../../../../../Math/RepresentationTheory/Audit/AuditSymmetryProtection.lean)
+The persistent [audit](../../../../../Math/RepresentationTheory/Protection/Audit/AuditSymmetryProtection.lean)
 checks layer ownership and 46 declarations transitively against only
 `propext`, `Classical.choice`, and `Quot.sound`. No literature theorem is an
 implicit axiom. No derivatives, EOM/IBP, UV generation or rates are covered.

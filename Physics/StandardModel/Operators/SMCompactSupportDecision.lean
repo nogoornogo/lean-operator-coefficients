@@ -1,62 +1,30 @@
+import Physics.StandardModel.Operators.Support.Decomposition.SMCompactSupportDecision
 import Math.RepresentationTheory.CompactGenerationOccupations
 import Physics.StandardModel.Operators.SMJointHiggsSupport
+import Math.Lean.Compatibility
 
-/-! Opt-in finite decisions preserving the existing structural support predicates.
-No global instance replaces the default enumeration. -/
-namespace GUT.SMCompactSupportDecision
-set_option autoImplicit false
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Support.Decomposition.SMCompactSupportDecision instead." (since := "source-api-v1")
 
-local instance su2Decision (w : SU2TensorWordSupport.Word) :
-    Decidable (SU2TensorWordSupport.Supports w) := by
-  unfold SU2TensorWordSupport.Supports
-  infer_instance
-local instance ownerEq : (w : ColorTensorTree.Shape) → DecidableEq (ColorTensorTree.Leaf w)
-  | .leaf _ _ => inferInstanceAs (DecidableEq Unit)
-  | .tensor l r => by
-    letI := ownerEq l
-    letI := ownerEq r
-    exact inferInstanceAs (DecidableEq (ColorTensorTree.Leaf l ⊕ ColorTensorTree.Leaf r))
-local instance positiveDecision (w : ColorTensorTree.Shape) (k : Nat)
-    (h : ColorTensorTree.positive w = ColorTensorTree.negative w + 3*k)
-    (s : Equiv.Perm (Fin (ColorTensorTree.negative w + 3*k))) :
-    Decidable (ColorTreeDiagrams.PositiveValid w k h s) := by
-  unfold ColorTreeDiagrams.PositiveValid Function.Injective
-  infer_instance
-local instance negativeDecision (w : ColorTensorTree.Shape) (k : Nat)
-    (h : ColorTensorTree.negative w = ColorTensorTree.positive w + 3*k)
-    (s : Equiv.Perm (Fin (ColorTensorTree.positive w + 3*k))) :
-    Decidable (ColorTreeDiagrams.NegativeValid w k h s) := by
-  unfold ColorTreeDiagrams.NegativeValid Function.Injective
-  infer_instance
-local instance diagramDecision (t : ColorFlagTree.Tree) : Decidable (ColorTreeSupport.DiagramSupport t) := by
-  unfold ColorTreeSupport.DiagramSupport
-  infer_instance
-noncomputable local instance colorDecision (w : RestrictedColorWordSupport.Word) :
-    Decidable (RestrictedColorWordSupport.Supports w) := by
-  unfold RestrictedColorWordSupport.Supports
-  infer_instance
-noncomputable local instance jointDecision (w : JointColorSpinWord.Word) : Decidable (JointColorSpinWord.Supports w) := by
-  unfold JointColorSpinWord.Supports
-  infer_instance
-noncomputable local instance expressionDecision (e : JointSourceExpression.Expr) : Decidable (JointSourceExpression.Supports e) := by
-  unfold JointSourceExpression.Supports
-  infer_instance
+compatibility_declarations [
+  GUT.SMCompactSupportDecision.colorDecision => Physics.SMCompactSupportDecision.colorDecision,
+  GUT.SMCompactSupportDecision.contentDecision => Physics.SMCompactSupportDecision.contentDecision,
+  GUT.SMCompactSupportDecision.diagramDecision => Physics.SMCompactSupportDecision.diagramDecision,
+  GUT.SMCompactSupportDecision.expressionDecision => Physics.SMCompactSupportDecision.expressionDecision,
+  GUT.SMCompactSupportDecision.higgsDecision => Physics.SMCompactSupportDecision.higgsDecision,
+  GUT.SMCompactSupportDecision.jointDecision => Physics.SMCompactSupportDecision.jointDecision,
+  GUT.SMCompactSupportDecision.negativeDecision => Physics.SMCompactSupportDecision.negativeDecision,
+  GUT.SMCompactSupportDecision.ownerEq => Physics.SMCompactSupportDecision.ownerEq,
+  GUT.SMCompactSupportDecision.positiveDecision => Physics.SMCompactSupportDecision.positiveDecision,
+  GUT.SMCompactSupportDecision.su2Decision => Physics.SMCompactSupportDecision.su2Decision
+]
 
-/-- Same support proposition, with compact enumeration selected at every leaf. -/
-@[instance_reducible]
-noncomputable def contentDecision (c : DeltaLOneSignedInput.Species → ℕ) (m : ℕ) :
-    Decidable (SMJointContentSupport.Supports c m) := by
-  letI := Math.CompactGenerationOccupations.choiceFintype (SMJointContentSupport.tree c)
-  unfold SMJointContentSupport.Supports JointContentPresentation.Supports
-  infer_instance
-attribute [local instance] contentDecision
-
-/-- Opt-in closed-kernel decision. Noncomputable presentation dependencies remain. -/
-@[instance_reducible]
-noncomputable def higgsDecision {n : ℕ} (p : Fin n → DeltaLOneSignedInput.Species) (h d : ℕ) :
-    Decidable (SMJointHiggsSupport.HiggsSupport p h d) := by
-  unfold SMJointHiggsSupport.HiggsSupport BoundedHiggsSupport.Admissible
-  infer_instance
-
-end GUT.SMCompactSupportDecision
+assert_compatible GUT.SMCompactSupportDecision.colorDecision => Physics.SMCompactSupportDecision.colorDecision
+assert_compatible GUT.SMCompactSupportDecision.contentDecision => Physics.SMCompactSupportDecision.contentDecision
+assert_compatible GUT.SMCompactSupportDecision.diagramDecision => Physics.SMCompactSupportDecision.diagramDecision
+assert_compatible GUT.SMCompactSupportDecision.expressionDecision => Physics.SMCompactSupportDecision.expressionDecision
+assert_compatible GUT.SMCompactSupportDecision.higgsDecision => Physics.SMCompactSupportDecision.higgsDecision
+assert_compatible GUT.SMCompactSupportDecision.jointDecision => Physics.SMCompactSupportDecision.jointDecision
+assert_compatible GUT.SMCompactSupportDecision.negativeDecision => Physics.SMCompactSupportDecision.negativeDecision
+assert_compatible GUT.SMCompactSupportDecision.ownerEq => Physics.SMCompactSupportDecision.ownerEq
+assert_compatible GUT.SMCompactSupportDecision.positiveDecision => Physics.SMCompactSupportDecision.positiveDecision
+assert_compatible GUT.SMCompactSupportDecision.su2Decision => Physics.SMCompactSupportDecision.su2Decision

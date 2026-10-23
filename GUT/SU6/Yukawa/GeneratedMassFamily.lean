@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVYukawa
-import Physics.FieldTheory.Yukawa.YukawaClassification
-import Physics.FieldTheory.Mass.ScaledMassSpectrum
+import Physics.FieldTheory.Yukawa.Mass.YukawaClassification
+import Physics.FieldTheory.Mass.Spectrum.ScaledMassSpectrum
+
+open Physics
 
 /-! An actual full-SU(6) Yukawa family, evaluated before its exact radical
 is identified. The scalar multiplet is the existing nonminimal one. -/

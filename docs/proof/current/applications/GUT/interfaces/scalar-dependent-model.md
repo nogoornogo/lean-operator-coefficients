@@ -43,8 +43,8 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
 
 ### Generic Realization API
 
-In `GUT.WeylMassFamily`,
-[WeylMassPolynomial](../../../../../../Physics/FieldTheory/Yukawa/WeylMassPolynomial.lean) provides:
+In `Physics.WeylMassFamily`,
+[WeylMassPolynomial](../../../../../../Physics/FieldTheory/Yukawa/Mass/WeylMassPolynomial.lean) provides:
 
 - `MultilinearCoupling.powerOfMass`: an actual finite coefficient with
   neutral scalar slots, proved symmetric and equivariant.
@@ -115,7 +115,7 @@ constructed faithful finite action.
 ### Verification
 
 ```sh
-lake build Physics.FieldTheory.Yukawa.Audit.AuditMultilinearWeylMass GUT.SU6.SelectionRules.Audit.AuditWeylMassFamilyModel
+lake build Physics.FieldTheory.Yukawa.Mass.Audit.AuditMultilinearWeylMass GUT.SU6.SelectionRules.Audit.AuditWeylMassFamilyModel
 lake build
 ```
 

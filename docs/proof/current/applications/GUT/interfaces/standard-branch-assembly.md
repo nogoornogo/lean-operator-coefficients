@@ -55,7 +55,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
   - audit a nonsplit rational shear extension and retain the two-torsion
     zero-mode counterexample. See [the exact-character dossier](../../../inputs/Math/CHARACTER_EXACT.md).
 
-- `GUT.WeylYukawaMass`, `ContinuousWeylYukawaModel`, and `WeylYukawaBenchmark`
+- `Physics.WeylYukawaMass`, `ContinuousWeylYukawaModel`, and `WeylYukawaBenchmark`
   - derive symmetric masses from scalar-linear invariant Yukawa couplings,
     bare masses, and invariant VEVs, also after restricting to a vacuum
     stabilizer of an arbitrary (possibly non-Abelian) group;
@@ -107,7 +107,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
     signature with inverse residual character and signed baryon number -1;
     its audit checks the nonzero-index disjunction and both-orientation obstruction;
   - do not recover the full spectrum or change the general-hypercharge scoped theorem.
-- `GUT.InvariantLineMass` and `ConcreteWeylNonzeroMass`
+- `Physics.InvariantLineMass` and `ConcreteWeylNonzeroMass`
   - construct an invariant complex-bilinear symmetric rank-one mass using
     a nonzero invariant vector in the canonical `15 + 2 bar6` fields;
   - prove mass nonzero, generation one, and radical dimension 26;
@@ -151,7 +151,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
     and Weyl invariance but keeps the UV field/source identification explicit;
   - `AuditStandardWeylDualTarget` checks standard axioms and `ZMod 2`
     specializations. Full build passes in 4160 jobs. The model scope is unchanged.
-- `GUT.InvariantWeylMass` and `WeylMassTwoTorsion`
+- `Physics.InvariantWeylMass` and `WeylMassTwoTorsion`
   - construct the invariant radical of an arbitrary symmetric bilinear mass,
     the nondegenerate quotient form, and its equivariant self-duality;
   - prove dual chiral-character conservation for finite-dimensional unitary
@@ -184,7 +184,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
     `(-2,3)`, independently of the matter-spectrum assumption;
   - have persistent axiom audits; the full build passes in 4154 jobs with
     only standard axioms for the new audited declarations.
-- `GUT.DiracWeylConvention`
+- `Physics.DiracWeylConvention`
   - constructs the symmetric bilinear on `V x W*` from a Dirac intertwiner,
     proves full-group invariance, and identifies its invariant radical;
   - identifies annihilator representations with the dual of an invariant
@@ -352,7 +352,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
     lift or a continuous-anomaly premise;
   - constructs a positive supported invariant-operator witness and does not
     infer a nonzero Wilson coefficient or amplitude.
-- `GUT.StandardModelLocalOperator`
+- `Physics.StandardModelLocalOperator`
   - defines the physical `qque` and `duql` four-fermion signatures and checks
     their integral gauge, Lorentz, hypercharge, dimension, baryon-number, and
     lepton-number data;
@@ -434,7 +434,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
     normalized character;
   - turn one local exact-SM coefficient certificate into both the hypercharge character rigidity pair
     classification and the standard charge-orbit bridge coefficient spectrum used by Abelian proton-operator neutrality.
-- `GUT.DiracYukawaMass`
+- `Physics.DiracYukawaMass`
   - defines invariant bare Dirac masses, equivariant scalar-dependent Yukawa
     maps, and invariant vacuum expectation values for finite-dimensional
     representations of the unbroken group;
@@ -458,8 +458,8 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
   - audit all exposed bridge and endpoint declarations with dependencies only
     on `propext`, `Classical.choice`, and `Quot.sound`.
 
-- `GUT.SMEpsilonTensor`, `GUT.StandardSMGaugeTensor`,
-  `GUT.StandardSMResidualTensor`, and `GUT.AuditStandardSMGaugeTensor`
+- `Physics.SMEpsilonTensor`, `Physics.StandardSMGaugeTensor`,
+  `GUT.StandardSMResidualTensor`, and `Physics.AuditStandardSMGaugeTensor`
   - realize the color/weak determinants as tensor-product linear maps;
   - construct ordered `qque` and `duql` tensors on standard field spaces,
     prove full covering-gauge invariance, and exhibit values equal to one;
@@ -490,7 +490,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
     the following milestone supplies the exterior square and UV direct product.
 
 - `GUT.StandardSMExterior`, `GUT.StandardSMUVFields`,
-  `GUT.EquivariantWeylMassTransport`, `GUT.StandardSMUVMass`,
+  `Physics.EquivariantWeylMassTransport`, `GUT.StandardSMUVMass`,
   and `GUT.AuditStandardSMUVMass`
   - construct exterior branching by an alternating map and prove its
     surjectivity, bijectivity, and full-group intertwining;
@@ -516,7 +516,7 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
   - this is a neutral-residual existence construction, not an identification
     of an independently specified natural full action or the older mass.
 
-- `GUT.SymmetricScalarYukawa`, `GUT.ContinuousSymmetricScalar`,
+- `Physics.SymmetricScalarYukawa`, `Physics.ContinuousSymmetricScalar`,
   `GUT.UnitarySymmetricScalar`, `GUT.StandardSMUVYukawa`,
   and `GUT.AuditStandardSMUVYukawa`
   - construct symmetric bilinear-form scalars and the full-group-invariant

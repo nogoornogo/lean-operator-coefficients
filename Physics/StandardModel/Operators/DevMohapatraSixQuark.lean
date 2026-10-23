@@ -1,139 +1,100 @@
+import Physics.StandardModel.Operators.BaryonTwo.DevMohapatra.DevMohapatraSixQuark
 import Physics.StandardModel.Operators.DevMohapatraParity
 import Physics.StandardModel.Operators.SixQuarkFlavorOneGeneration
+import Math.Lean.Compatibility
 
-/-! Actual two-flavor coefficient witness; not a matching certificate for source Eq.(4). -/
-namespace GUT.DevMohapatraSixQuark
-set_option autoImplicit false
-noncomputable section
-open Math Representation SixQuarkInvariant SixQuarkSpeciesQuotient
-open SixQuarkFlavorCoordinates SixQuarkFlavorResidualHom
-open scoped TensorProduct
-abbrev F := Fin 2 → ℂ
-abbrev H := DevMohapatraParity.H
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.DevMohapatra.DevMohapatraSixQuark instead." (since := "source-api-v1")
 
-def residual : Representation ℂ H F := DevMohapatraParity.copies (1,0)
-abbrev Sector := SixQuarkFlavorResidualHom.Coefficients (fun _ : Fin 6 => residual)
+compatibility_declarations [
+  GUT.DevMohapatraSixQuark.F => Physics.DevMohapatraSixQuark.F,
+  GUT.DevMohapatraSixQuark.H => Physics.DevMohapatraSixQuark.H,
+  GUT.DevMohapatraSixQuark.Sector => Physics.DevMohapatraSixQuark.Sector,
+  GUT.DevMohapatraSixQuark.Target => Physics.DevMohapatraSixQuark.Target,
+  GUT.DevMohapatraSixQuark.Target.bOne => Physics.DevMohapatraSixQuark.Target.bOne,
+  GUT.DevMohapatraSixQuark.Target.bOne.elim => Physics.DevMohapatraSixQuark.Target.bOne.elim,
+  GUT.DevMohapatraSixQuark.Target.bOne.sizeOf_spec => Physics.DevMohapatraSixQuark.Target.bOne.sizeOf_spec,
+  GUT.DevMohapatraSixQuark.Target.casesOn => Physics.DevMohapatraSixQuark.Target.casesOn,
+  GUT.DevMohapatraSixQuark.Target.ctorElim => Physics.DevMohapatraSixQuark.Target.ctorElim,
+  GUT.DevMohapatraSixQuark.Target.ctorElimType => Physics.DevMohapatraSixQuark.Target.ctorElimType,
+  GUT.DevMohapatraSixQuark.Target.ctorIdx => Physics.DevMohapatraSixQuark.Target.ctorIdx,
+  GUT.DevMohapatraSixQuark.Target.llhh => Physics.DevMohapatraSixQuark.Target.llhh,
+  GUT.DevMohapatraSixQuark.Target.llhh.elim => Physics.DevMohapatraSixQuark.Target.llhh.elim,
+  GUT.DevMohapatraSixQuark.Target.llhh.sizeOf_spec => Physics.DevMohapatraSixQuark.Target.llhh.sizeOf_spec,
+  GUT.DevMohapatraSixQuark.Target.noConfusion => Physics.DevMohapatraSixQuark.Target.noConfusion,
+  GUT.DevMohapatraSixQuark.Target.noConfusionType => Physics.DevMohapatraSixQuark.Target.noConfusionType,
+  GUT.DevMohapatraSixQuark.Target.ofNat => Physics.DevMohapatraSixQuark.Target.ofNat,
+  GUT.DevMohapatraSixQuark.Target.ofNat_ctorIdx => Physics.DevMohapatraSixQuark.Target.ofNat_ctorIdx,
+  GUT.DevMohapatraSixQuark.Target.rec => Physics.DevMohapatraSixQuark.Target.rec,
+  GUT.DevMohapatraSixQuark.Target.recOn => Physics.DevMohapatraSixQuark.Target.recOn,
+  GUT.DevMohapatraSixQuark.Target.sixQuark => Physics.DevMohapatraSixQuark.Target.sixQuark,
+  GUT.DevMohapatraSixQuark.Target.sixQuark.elim => Physics.DevMohapatraSixQuark.Target.sixQuark.elim,
+  GUT.DevMohapatraSixQuark.Target.sixQuark.sizeOf_spec => Physics.DevMohapatraSixQuark.Target.sixQuark.sizeOf_spec,
+  GUT.DevMohapatraSixQuark.allowed => Physics.DevMohapatraSixQuark.allowed,
+  GUT.DevMohapatraSixQuark.domain => Physics.DevMohapatraSixQuark.domain,
+  GUT.DevMohapatraSixQuark.instDecidableEqTarget => Physics.DevMohapatraSixQuark.instDecidableEqTarget,
+  GUT.DevMohapatraSixQuark.instZeroDomain => Physics.DevMohapatraSixQuark.instZeroDomain,
+  GUT.DevMohapatraSixQuark.labels => Physics.DevMohapatraSixQuark.labels,
+  GUT.DevMohapatraSixQuark.labels.eq_1 => Physics.DevMohapatraSixQuark.labels.eq_1,
+  GUT.DevMohapatraSixQuark.liftCoefficient => Physics.DevMohapatraSixQuark.liftCoefficient,
+  GUT.DevMohapatraSixQuark.lift_selected => Physics.DevMohapatraSixQuark.lift_selected,
+  GUT.DevMohapatraSixQuark.phase => Physics.DevMohapatraSixQuark.phase,
+  GUT.DevMohapatraSixQuark.phase.eq_1 => Physics.DevMohapatraSixQuark.phase.eq_1,
+  GUT.DevMohapatraSixQuark.phase_six => Physics.DevMohapatraSixQuark.phase_six,
+  GUT.DevMohapatraSixQuark.project => Physics.DevMohapatraSixQuark.project,
+  GUT.DevMohapatraSixQuark.project.eq_1 => Physics.DevMohapatraSixQuark.project.eq_1,
+  GUT.DevMohapatraSixQuark.project_natural => Physics.DevMohapatraSixQuark.project_natural,
+  GUT.DevMohapatraSixQuark.project_pure => Physics.DevMohapatraSixQuark.project_pure,
+  GUT.DevMohapatraSixQuark.project_residual => Physics.DevMohapatraSixQuark.project_residual,
+  GUT.DevMohapatraSixQuark.request => Physics.DevMohapatraSixQuark.request,
+  GUT.DevMohapatraSixQuark.residual => Physics.DevMohapatraSixQuark.residual,
+  GUT.DevMohapatraSixQuark.residual.eq_1 => Physics.DevMohapatraSixQuark.residual.eq_1,
+  GUT.DevMohapatraSixQuark.satisfies => Physics.DevMohapatraSixQuark.satisfies,
+  GUT.DevMohapatraSixQuark.selected_nonzero => Physics.DevMohapatraSixQuark.selected_nonzero,
+  GUT.SixQuarkSpeciesQuotient.coefficientProbeEquiv.eq_1 => Physics.SixQuarkSpeciesQuotient.coefficientProbeEquiv.eq_1
+]
 
-def project : Quark ⊗[ℂ] F →ₗ[ℂ] Quark :=
-  (TensorProduct.rid ℂ Quark).toLinearMap.comp
-    (TensorProduct.map LinearMap.id ((LinearMap.proj (R := ℂ) (φ := fun _ : Fin 2 => ℂ) 0) + (LinearMap.proj (R := ℂ) (φ := fun _ : Fin 2 => ℂ) 1)))
-
-@[simp] theorem project_pure (q : Quark) (t : F) : project (q ⊗ₜ[ℂ] t) = (t 0 + t 1) • q := by
-  simp [project]
-
-theorem project_natural (a : Quark →ₗ[ℂ] Quark) (v : Quark ⊗[ℂ] F) :
-    project (TensorProduct.map a LinearMap.id v) = a (project v) := by
-  have he : project.comp (TensorProduct.map a LinearMap.id) = a.comp project := by
-    apply TensorProduct.ext'
-    intro q t
-    simp
-  exact LinearMap.congr_fun he v
-
-def phase (g : H) : ℂ := DevMohapatraParity.chi g (1,0)
-
-theorem phase_six (g : H) : phase g ^ 6 = 1 := by
-  have h : phase g ^ 2 = 1 := by
-    rw [pow_two]
-    unfold phase DevMohapatraParity.chi
-    change MixedChargeSelection.cyclicCharacter g (1 : ZMod 2) *
-      MixedChargeSelection.cyclicCharacter g (1 : ZMod 2) = 1
-    rw [← (MixedChargeSelection.cyclicCharacter g).map_add_eq_mul]
-    change MixedChargeSelection.cyclicCharacter g (0 : ZMod 2) = 1
-    exact (MixedChargeSelection.cyclicCharacter g).map_zero_eq_one
-  calc
-    _ = (phase g ^ 2) ^ 3 := by ring
-    _ = 1 := by rw [h]; norm_num
-
-theorem project_residual (g : H) (v : Quark ⊗[ℂ] F) :
-    project (TensorProduct.map LinearMap.id (residual g) v) = phase g • project v := by
-  have he : project.comp (TensorProduct.map LinearMap.id (residual g)) =
-      phase g • project := by
-    apply TensorProduct.ext'
-    intro q t
-    simp [residual, DevMohapatraParity.copies, phase, smul_smul, mul_add]
-  exact LinearMap.congr_fun he v
-
-def liftCoefficient (b : admissible) : Sector := by
-  refine ⟨b.val.compLinearMap (fun _ => project), ⟨?_, ?_⟩, ?_, ?_⟩
-  · intro g v
-    change b.val (fun i => project (TensorProduct.map (colorAction g) LinearMap.id (v i))) = _
-    simp_rw [project_natural]
-    exact b.property.1.1 g _
-  · intro g v
-    change b.val (fun i => project (TensorProduct.map (spinAction g) LinearMap.id (v i))) = _
-    simp_rw [project_natural]
-    exact b.property.1.2 g _
-  · intro g v
-    change b.val (fun i => project (TensorProduct.map LinearMap.id (residual g) (v i))) = _
-    simp_rw [project_residual]
-    rw [b.val.map_smul_univ]
-    simp [phase_six]
-  · intro p hp v
-    exact b.property.2 p hp (fun i => project (v i))
-
-/-- Up slots 0,2 use flavor 0; down slots 1,4 use 0 and slots 3,5 use 1. -/
-def labels : Fin 6 → Fin 2 := ![0,0,0,1,0,1]
-
-theorem lift_selected (b : admissible) (q : Fin 6 → Quark) :
-    (liftCoefficient b).val (fun i => q i ⊗ₜ[ℂ] Pi.single (labels i) 1) = b.val q := by
-  change b.val (fun i => project (q i ⊗ₜ[ℂ] Pi.single (labels i) 1)) = b.val q
-  congr 1
-  funext i
-  rw [project_pure]
-  fin_cases i <;> simp [labels]
-
-theorem selected_nonzero : ∃ f : Sector, ∃ q : Fin 6 → Quark,
-    f.val (fun i => q i ⊗ₜ[ℂ] Pi.single (labels i) 1) ≠ 0 := by
-  let b := coefficientProbeEquiv.symm (fun _ => (1 : ℂ))
-  have hb : b ≠ 0 := by
-    intro h
-    have he := congrArg coefficientProbeEquiv h
-    simpa [b, coefficientProbeEquiv] using congrFun he 0
-  have hv : ∃ q, b.val q ≠ 0 := by
-    by_contra hn
-    apply hb
-    apply Subtype.ext
-    apply MultilinearMap.ext
-    intro q
-    simpa using (not_exists.mp hn q)
-  obtain ⟨q,hq⟩ := hv
-  exact ⟨liftCoefficient b, q, by rwa [lift_selected]⟩
-
-theorem allowed : SelectionCriteria.Allowed Sector := by
-  obtain ⟨f,q,h⟩ := selected_nonzero
-  exact ⟨f, fun hz => h (by rw [hz]; rfl)⟩
-end
-end GUT.DevMohapatraSixQuark
-
-namespace GUT.DevMohapatraSixQuark
-set_option autoImplicit false
-noncomputable section
-open Math MixedSelectionRequests
-inductive Target where
-  | bOne | sixQuark | llhh
-  deriving DecidableEq
-
-def domain : Target → Type
-  | .bOne => ∀ n m : ℕ, ComposableBLSupport.Input
-      (DevMohapatraParity.flavor (F := fun _ => ℂ))
-      (DevMohapatraParity.scalarFlavor (S := fun _ => ℂ))
-      (fun q => q.1.natAbs = 3) n m
-  | .sixQuark => Sector
-  | .llhh => DevMohapatraParity.LLHH
-
-instance (t : Target) : Zero (domain t) := by
-  cases t <;> unfold domain <;> infer_instance
-
-def request : Request Target := ⟨{t | t = .bOne}, {t | t = .sixQuark ∨ t = .llhh}⟩
-
-theorem satisfies : Satisfies domain request := by
-  constructor
-  · intro t ht; change t = .bOne at ht; subst t
-    intro f; funext n m
-    exact DevMohapatraParity.all_bOne_forbidden n m (f n m)
-  · intro t ht
-    rcases ht with rfl | rfl
-    · exact allowed
-    · exact DevMohapatraParity.llhh_allowed
-end
-end GUT.DevMohapatraSixQuark
+assert_compatible GUT.DevMohapatraSixQuark.F => Physics.DevMohapatraSixQuark.F
+assert_compatible GUT.DevMohapatraSixQuark.H => Physics.DevMohapatraSixQuark.H
+assert_compatible GUT.DevMohapatraSixQuark.Sector => Physics.DevMohapatraSixQuark.Sector
+assert_compatible GUT.DevMohapatraSixQuark.Target => Physics.DevMohapatraSixQuark.Target
+assert_compatible GUT.DevMohapatraSixQuark.Target.bOne => Physics.DevMohapatraSixQuark.Target.bOne
+assert_compatible GUT.DevMohapatraSixQuark.Target.bOne.elim => Physics.DevMohapatraSixQuark.Target.bOne.elim
+assert_compatible GUT.DevMohapatraSixQuark.Target.bOne.sizeOf_spec => Physics.DevMohapatraSixQuark.Target.bOne.sizeOf_spec
+assert_compatible GUT.DevMohapatraSixQuark.Target.casesOn => Physics.DevMohapatraSixQuark.Target.casesOn
+assert_compatible GUT.DevMohapatraSixQuark.Target.ctorElim => Physics.DevMohapatraSixQuark.Target.ctorElim
+assert_compatible GUT.DevMohapatraSixQuark.Target.ctorElimType => Physics.DevMohapatraSixQuark.Target.ctorElimType
+assert_compatible GUT.DevMohapatraSixQuark.Target.ctorIdx => Physics.DevMohapatraSixQuark.Target.ctorIdx
+assert_compatible GUT.DevMohapatraSixQuark.Target.llhh => Physics.DevMohapatraSixQuark.Target.llhh
+assert_compatible GUT.DevMohapatraSixQuark.Target.llhh.elim => Physics.DevMohapatraSixQuark.Target.llhh.elim
+assert_compatible GUT.DevMohapatraSixQuark.Target.llhh.sizeOf_spec => Physics.DevMohapatraSixQuark.Target.llhh.sizeOf_spec
+assert_compatible GUT.DevMohapatraSixQuark.Target.noConfusion => Physics.DevMohapatraSixQuark.Target.noConfusion
+assert_compatible GUT.DevMohapatraSixQuark.Target.noConfusionType => Physics.DevMohapatraSixQuark.Target.noConfusionType
+assert_compatible GUT.DevMohapatraSixQuark.Target.ofNat => Physics.DevMohapatraSixQuark.Target.ofNat
+assert_compatible GUT.DevMohapatraSixQuark.Target.ofNat_ctorIdx => Physics.DevMohapatraSixQuark.Target.ofNat_ctorIdx
+assert_compatible GUT.DevMohapatraSixQuark.Target.rec => Physics.DevMohapatraSixQuark.Target.rec
+assert_compatible GUT.DevMohapatraSixQuark.Target.recOn => Physics.DevMohapatraSixQuark.Target.recOn
+assert_compatible GUT.DevMohapatraSixQuark.Target.sixQuark => Physics.DevMohapatraSixQuark.Target.sixQuark
+assert_compatible GUT.DevMohapatraSixQuark.Target.sixQuark.elim => Physics.DevMohapatraSixQuark.Target.sixQuark.elim
+assert_compatible GUT.DevMohapatraSixQuark.Target.sixQuark.sizeOf_spec => Physics.DevMohapatraSixQuark.Target.sixQuark.sizeOf_spec
+assert_compatible GUT.DevMohapatraSixQuark.allowed => Physics.DevMohapatraSixQuark.allowed
+assert_compatible GUT.DevMohapatraSixQuark.domain => Physics.DevMohapatraSixQuark.domain
+assert_compatible GUT.DevMohapatraSixQuark.instDecidableEqTarget => Physics.DevMohapatraSixQuark.instDecidableEqTarget
+assert_compatible GUT.DevMohapatraSixQuark.instZeroDomain => Physics.DevMohapatraSixQuark.instZeroDomain
+assert_compatible GUT.DevMohapatraSixQuark.labels => Physics.DevMohapatraSixQuark.labels
+assert_compatible GUT.DevMohapatraSixQuark.labels.eq_1 => Physics.DevMohapatraSixQuark.labels.eq_1
+assert_compatible GUT.DevMohapatraSixQuark.liftCoefficient => Physics.DevMohapatraSixQuark.liftCoefficient
+assert_compatible GUT.DevMohapatraSixQuark.lift_selected => Physics.DevMohapatraSixQuark.lift_selected
+assert_compatible GUT.DevMohapatraSixQuark.phase => Physics.DevMohapatraSixQuark.phase
+assert_compatible GUT.DevMohapatraSixQuark.phase.eq_1 => Physics.DevMohapatraSixQuark.phase.eq_1
+assert_compatible GUT.DevMohapatraSixQuark.phase_six => Physics.DevMohapatraSixQuark.phase_six
+assert_compatible GUT.DevMohapatraSixQuark.project => Physics.DevMohapatraSixQuark.project
+assert_compatible GUT.DevMohapatraSixQuark.project.eq_1 => Physics.DevMohapatraSixQuark.project.eq_1
+assert_compatible GUT.DevMohapatraSixQuark.project_natural => Physics.DevMohapatraSixQuark.project_natural
+assert_compatible GUT.DevMohapatraSixQuark.project_pure => Physics.DevMohapatraSixQuark.project_pure
+assert_compatible GUT.DevMohapatraSixQuark.project_residual => Physics.DevMohapatraSixQuark.project_residual
+assert_compatible GUT.DevMohapatraSixQuark.request => Physics.DevMohapatraSixQuark.request
+assert_compatible GUT.DevMohapatraSixQuark.residual => Physics.DevMohapatraSixQuark.residual
+assert_compatible GUT.DevMohapatraSixQuark.residual.eq_1 => Physics.DevMohapatraSixQuark.residual.eq_1
+assert_compatible GUT.DevMohapatraSixQuark.satisfies => Physics.DevMohapatraSixQuark.satisfies
+assert_compatible GUT.DevMohapatraSixQuark.selected_nonzero => Physics.DevMohapatraSixQuark.selected_nonzero
+assert_compatible GUT.SixQuarkSpeciesQuotient.coefficientProbeEquiv.eq_1 => Physics.SixQuarkSpeciesQuotient.coefficientProbeEquiv.eq_1

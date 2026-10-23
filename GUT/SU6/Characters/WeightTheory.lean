@@ -1,4 +1,4 @@
-import Math.LinearAlgebra.EigenbasisTrace
+import Math.LinearAlgebra.Constructions.EigenbasisTrace
 import GUT.SU6.Characters.VirtualRestriction
 
 open Math

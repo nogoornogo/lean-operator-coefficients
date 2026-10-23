@@ -1,4 +1,4 @@
-import Math.LinearAlgebra.DiagonalCentralizer
+import Math.LinearAlgebra.Constructions.DiagonalCentralizer
 import Mathlib.LinearAlgebra.UnitaryGroup
 
 /-! Exact group stabilizers of prescribed adjoint matrices. No minimization

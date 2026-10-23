@@ -1,5 +1,5 @@
 import Math.RepresentationTheory.Characters.CompactHomDimension
-import Math.LinearAlgebra.SelectionCriteria
+import Math.LinearAlgebra.Selection.SelectionCriteria
 
 /-! Compact continuous Hom support is symmetric, without evaluating a character integral. -/
 namespace Math.CompactHomSupport

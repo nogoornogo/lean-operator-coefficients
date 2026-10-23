@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardPhysicalSource
 import GUT.SU6.Branching.StandardU5Group
 
+open Physics
+
 /-!
 # The common central circle in the standard U(5) branch
 

@@ -1,12 +1,17 @@
 import GUT.SU5.SelectionRules.MatrixTenMass
-import Physics.FieldTheory.Mass.BipartiteNormalForm
-import Physics.StandardModel.Gauge.StandardSMIrreducibility
+import Physics.FieldTheory.Mass.Algebra.BipartiteNormalForm
+import Physics.StandardModel.Gauge.Tensors.StandardSMIrreducibility
 import Mathlib.Analysis.SpecialFunctions.Complex.Circle
 import Math.RepresentationTheory.Decomposition.Schur
-import Physics.StandardModel.Operators.PhysicalQqueEndpoint
+import Physics.StandardModel.Operators.BaryonOne.Qque.PhysicalQqueEndpoint
+
+open Physics
 
 /-! Actual SU(5) matter forbids same-side mass blocks under SM invariance.
 An arbitrary invariant symmetric mass therefore has a derived Dirac form. -/
+-- Elaborate proofs sequentially to avoid blocked worker stacks.
+set_option Elab.async false
+
 namespace GUT.SU5.InvariantMassNormalForm
 set_option autoImplicit false
 noncomputable section

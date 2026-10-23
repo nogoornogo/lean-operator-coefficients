@@ -1,0 +1,2007 @@
+[
+  {
+    "canonical": "Math/RepresentationTheory/Tensors/SixSlotRestrictionLift.lean",
+    "baselineSource": "Math/RepresentationTheory/SixSlotRestrictionLift.lean",
+    "reason": "The curried tensor evaluations are definitionally equal. Reflexivity avoids broad simplifier expansion of six nested bundled maps.",
+    "changes": [
+      {
+        "declaration": "Math.SixSlotRestrictionLift.linearRestriction_apply",
+        "statement": "theorem linearRestriction_apply (f : coefficients a b)\n    (u₁ u₂ : A) (d₁ d₂ d₃ d₄ : B) :\n    linearRestriction a b f ((((u₁ ⊗ₜ[ℂ] d₁) ⊗ₜ[ℂ] (u₂ ⊗ₜ[ℂ] d₂)) ⊗ₜ[ℂ]\n      (d₃ ⊗ₜ[ℂ] d₄))) =\n      f (exteriorPower.ιMulti ℂ 6 (slots u₁ u₂ d₁ d₂ d₃ d₄)) := by",
+        "before": "  simp [linearRestriction, lastPair, firstTwoPairs, secondPair, firstPair,\n    restrictedCurry, restrictTailSix, precomposeHead, currySix, curryFive,\n    curryFour, curryThree, curryTwo, curryOne, evalEmpty, evaluation, slots]\n  congr 2",
+        "after": "  rfl",
+        "baselineProofLines": [
+          125,
+          128
+        ]
+      },
+      {
+        "declaration": "Math.SixSlotRestrictionLift.ordered_restriction",
+        "statement": "theorem ordered_restriction (f : coefficients a b) (v : Fin 6 → Fields A B) :\n    ordered (linearRestriction a b f) v = evaluation a b f (patternProject v) := by",
+        "before": "  simp [ordered, linearRestriction, lastPair, firstTwoPairs, secondPair, firstPair,\n    restrictedCurry, restrictTailSix, precomposeHead, currySix, curryFive,\n    curryFour, curryThree, curryTwo, curryOne, evalEmpty, patternProject]\n  congr 1",
+        "after": "  rfl",
+        "baselineProofLines": [
+          192,
+          195
+        ]
+      }
+    ],
+    "audits": [
+      "Math.RepresentationTheory.Tensors.Audit.AuditSixSlotRestrictionLift"
+    ]
+  },
+  {
+    "canonical": "Physics/StandardModel/Gauge/Tensors/SixColorInvariant.lean",
+    "baselineSource": "Physics/StandardModel/Gauge/SixColorInvariant.lean",
+    "reason": "Use the existing trilinear epsilon map and scalar-linearity lemmas inside multilinearity proofs, retaining the same six-slot evaluation function and coefficient type.",
+    "changes": [
+      {
+        "declaration": "Physics.SixColorInvariant.pairing",
+        "statement": "def pairing (p : Fin 5) : Coefficient :=\n  MultilinearMap.mk' (pairingValue p)",
+        "before": "    fin_cases p <;> fin_cases i <;>\n      simp [pairingValue, Function.update, eps3, Fin.ext_iff] <;> ring",
+        "after": "    have h1 (x y z w : Color) : eps3 (x + y) z w = eps3 x z w + eps3 y z w := by\n      change eps3Trilin (x + y) z w = eps3Trilin x z w + eps3Trilin y z w\n      simp only [map_add, LinearMap.add_apply]\n    have h2 (x y z w : Color) : eps3 x (y + z) w = eps3 x y w + eps3 x z w := by\n      change eps3Trilin x (y + z) w = eps3Trilin x y w + eps3Trilin x z w\n      simp only [map_add, LinearMap.add_apply]\n    have h3 (x y z w : Color) : eps3 x y (z + w) = eps3 x y z + eps3 x y w := by\n      exact map_add (eps3Trilin x y) z w\n    fin_cases p <;> fin_cases i <;>\n      simp [pairingValue, Function.update, Fin.ext_iff, h1, h2, h3, mul_add, add_mul]",
+        "baselineProofLines": [
+          468,
+          469
+        ]
+      },
+      {
+        "declaration": "Physics.SixColorInvariant.pairing",
+        "statement": "def pairing (p : Fin 5) : Coefficient :=\n  MultilinearMap.mk' (pairingValue p)",
+        "before": "simp [pairingValue, Function.update, eps3, smul_eq_mul, Fin.ext_iff]",
+        "after": "simp [pairingValue, Function.update, smul_eq_mul, Fin.ext_iff]",
+        "baselineProofLines": [
+          472,
+          472
+        ]
+      }
+    ],
+    "audits": [
+      "Physics.StandardModel.Gauge.Tensors.Audit.AuditSixColorInvariant"
+    ]
+  },
+  {
+    "canonical": "Math/RepresentationTheory/Content/SixSlotSpeciesSum.lean",
+    "baselineSource": "Math/RepresentationTheory/SixSlotSpeciesSum.lean",
+    "reason": "Fresh compilation used 15.29 GiB virtual address space with 11 observed OS threads; serialize elaboration without changing the finite kernel decisions.",
+    "changes": [],
+    "execution": {
+      "marker": "namespace Math.SixSlotSpeciesSum\n",
+      "insertion": "-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.\nset_option Elab.async false\n\n"
+    },
+    "audits": [
+      "Math.RepresentationTheory.Content.Audit.AuditSixSlotSpeciesSum"
+    ]
+  },
+  {
+    "canonical": "Math/LieGroups/E6/Minuscule/D5Blocks.lean",
+    "baselineSource": "Math/LieGroups/E6/Minuscule/D5Blocks.lean",
+    "reason": "Fresh compilation failed to create an elaboration thread at 15.95 GiB virtual address space with 12 observed OS threads; preserve all proof bodies and limits.",
+    "changes": [],
+    "execution": {
+      "marker": "namespace Math.E6.Minuscule\n",
+      "insertion": "-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.\nset_option Elab.async false\n\n"
+    },
+    "audits": [
+      "Math.LieGroups.E6.Audit.AuditMinusculeCompact"
+    ]
+  },
+  {
+    "canonical": "Math/LieGroups/E6/Minuscule/LieCertificateChecks.lean",
+    "baselineSource": "Math/LieGroups/E6/Minuscule/LieCertificateChecks.lean",
+    "reason": "Preserve finite matrix certificates and theorem statements. Sequential elaboration removes thread-reservation failures; splitting six universal kernel computations by their first finite index reduces the completed-proof resident peak from 6.36 to 3.76 GiB.",
+    "changes": [
+      {
+        "declaration": "Math.E6.Minuscule.LieChecks.e6_actual_generators",
+        "statement": "theorem e6_actual_generators (i : Fin 12) : eval (e6Generators i) = e6GeneratorInt i := by",
+        "before": "  decide +kernel +revert",
+        "after": "  fin_cases i <;> decide +kernel +revert",
+        "baselineProofLines": [
+          32,
+          32
+        ]
+      },
+      {
+        "declaration": "Math.E6.Minuscule.LieChecks.d5_actual_generators",
+        "statement": "theorem d5_actual_generators (i : Fin 10) : eval (d5Generators i) = d5GeneratorInt i := by",
+        "before": "  decide +kernel +revert",
+        "after": "  fin_cases i <;> decide +kernel +revert",
+        "baselineProofLines": [
+          35,
+          35
+        ]
+      },
+      {
+        "declaration": "Math.E6.Minuscule.LieChecks.e6_closure_checked",
+        "statement": "theorem e6_closure_checked (i : Fin 12) (j : Fin 78) :\n    checkEq (bracket (e6Generators i) (e6Basis j))\n      (combination e6Basis (e6Closure i j)) = true := by",
+        "before": "  decide +kernel +revert",
+        "after": "  fin_cases i <;> decide +kernel +revert",
+        "baselineProofLines": [
+          59,
+          59
+        ]
+      },
+      {
+        "declaration": "Math.E6.Minuscule.LieChecks.d5_closure_checked",
+        "statement": "theorem d5_closure_checked (i : Fin 10) (j : Fin 45) :\n    checkEq (bracket (d5Generators i) (d5Basis j))\n      (combination d5Basis (d5Closure i j)) = true := by",
+        "before": "  decide +kernel +revert",
+        "after": "  fin_cases i <;> decide +kernel +revert",
+        "baselineProofLines": [
+          64,
+          64
+        ]
+      },
+      {
+        "declaration": "Math.E6.Minuscule.LieChecks.e6_pairing_checked",
+        "statement": "theorem e6_pairing_checked (i j : Fin 78) :\n    pairing (e6Dual i) (e6Basis j) = if i = j then e6Scale i else 0 := by",
+        "before": "  decide +kernel +revert",
+        "after": "  fin_cases i <;> decide +kernel +revert",
+        "baselineProofLines": [
+          71,
+          71
+        ]
+      },
+      {
+        "declaration": "Math.E6.Minuscule.LieChecks.d5_pairing_checked",
+        "statement": "theorem d5_pairing_checked (i j : Fin 45) :\n    pairing (d5Dual i) (d5Basis j) = if i = j then d5Scale i else 0 := by",
+        "before": "  decide +kernel +revert",
+        "after": "  fin_cases i <;> decide +kernel +revert",
+        "baselineProofLines": [
+          75,
+          75
+        ]
+      }
+    ],
+    "execution": {
+      "marker": "namespace Math.E6.Minuscule.LieChecks\n",
+      "insertion": "-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.\nset_option Elab.async false\n\n"
+    },
+    "audits": [
+      "Math.LieGroups.E6.Audit.AuditMatrixLieAlgebra"
+    ]
+  },
+  {
+    "canonical": "Math/LieGroups/E6/Minuscule/MatrixLieBasis.lean",
+    "baselineSource": "Math/LieGroups/E6/Minuscule/MatrixLieBasis.lean",
+    "reason": "Fresh compilation succeeded but reached 15.49 GiB virtual address space; sequential elaboration separates the finite Cartan checks without changing their proofs or limits.",
+    "changes": [],
+    "execution": {
+      "marker": "namespace Math.E6.Minuscule\n",
+      "insertion": "-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.\nset_option Elab.async false\n\n"
+    },
+    "audits": [
+      "Math.LieGroups.E6.Audit.AuditGeckComparison"
+    ]
+  },
+  {
+    "canonical": "Physics/StandardModel/Operators/BaryonTwo/Li/LiSixQuarkYoungImages.lean",
+    "baselineSource": "Physics/StandardModel/Operators/LiSixQuarkYoungImages.lean",
+    "reason": "Normalize scalar zeros and cancellation after coordinate expansion, before ring reflection. Keep all profile definitions and the 196 existing declaration types unchanged, including the common characteristic-zero hypotheses.",
+    "changes": [
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry00",
+        "statement": "private theorem image0_entry00 (c : Arr (K := K)) :\n    young reducedAction 0 c 0 0 = profile0 c 0 0 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          143,
+          148
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry01",
+        "statement": "private theorem image0_entry01 (c : Arr (K := K)) :\n    young reducedAction 0 c 0 1 = profile0 c 0 1 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          152,
+          157
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry02",
+        "statement": "private theorem image0_entry02 (c : Arr (K := K)) :\n    young reducedAction 0 c 0 2 = profile0 c 0 2 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          161,
+          166
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry03",
+        "statement": "private theorem image0_entry03 (c : Arr (K := K)) :\n    young reducedAction 0 c 0 3 = profile0 c 0 3 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          170,
+          175
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry04",
+        "statement": "private theorem image0_entry04 (c : Arr (K := K)) :\n    young reducedAction 0 c 0 4 = profile0 c 0 4 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          179,
+          184
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry10",
+        "statement": "private theorem image0_entry10 (c : Arr (K := K)) :\n    young reducedAction 0 c 1 0 = profile0 c 1 0 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          188,
+          193
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry11",
+        "statement": "private theorem image0_entry11 (c : Arr (K := K)) :\n    young reducedAction 0 c 1 1 = profile0 c 1 1 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          197,
+          202
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry12",
+        "statement": "private theorem image0_entry12 (c : Arr (K := K)) :\n    young reducedAction 0 c 1 2 = profile0 c 1 2 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          206,
+          211
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry13",
+        "statement": "private theorem image0_entry13 (c : Arr (K := K)) :\n    young reducedAction 0 c 1 3 = profile0 c 1 3 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, sub_self, mul_zero, one_mul]",
+        "baselineProofLines": [
+          215,
+          220
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry14",
+        "statement": "private theorem image0_entry14 (c : Arr (K := K)) :\n    young reducedAction 0 c 1 4 = profile0 c 1 4 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          224,
+          229
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry20",
+        "statement": "private theorem image0_entry20 (c : Arr (K := K)) :\n    young reducedAction 0 c 2 0 = profile0 c 2 0 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          233,
+          238
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry21",
+        "statement": "private theorem image0_entry21 (c : Arr (K := K)) :\n    young reducedAction 0 c 2 1 = profile0 c 2 1 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          242,
+          247
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry22",
+        "statement": "private theorem image0_entry22 (c : Arr (K := K)) :\n    young reducedAction 0 c 2 2 = profile0 c 2 2 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          251,
+          256
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry23",
+        "statement": "private theorem image0_entry23 (c : Arr (K := K)) :\n    young reducedAction 0 c 2 3 = profile0 c 2 3 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          260,
+          265
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry24",
+        "statement": "private theorem image0_entry24 (c : Arr (K := K)) :\n    young reducedAction 0 c 2 4 = profile0 c 2 4 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          269,
+          274
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry30",
+        "statement": "private theorem image0_entry30 (c : Arr (K := K)) :\n    young reducedAction 0 c 3 0 = profile0 c 3 0 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          278,
+          283
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry31",
+        "statement": "private theorem image0_entry31 (c : Arr (K := K)) :\n    young reducedAction 0 c 3 1 = profile0 c 3 1 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          287,
+          292
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry32",
+        "statement": "private theorem image0_entry32 (c : Arr (K := K)) :\n    young reducedAction 0 c 3 2 = profile0 c 3 2 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          296,
+          301
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry33",
+        "statement": "private theorem image0_entry33 (c : Arr (K := K)) :\n    young reducedAction 0 c 3 3 = profile0 c 3 3 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          305,
+          310
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry34",
+        "statement": "private theorem image0_entry34 (c : Arr (K := K)) :\n    young reducedAction 0 c 3 4 = profile0 c 3 4 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          314,
+          319
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry40",
+        "statement": "private theorem image0_entry40 (c : Arr (K := K)) :\n    young reducedAction 0 c 4 0 = profile0 c 4 0 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val, sub_self, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          323,
+          328
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry41",
+        "statement": "private theorem image0_entry41 (c : Arr (K := K)) :\n    young reducedAction 0 c 4 1 = profile0 c 4 1 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          332,
+          337
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry42",
+        "statement": "private theorem image0_entry42 (c : Arr (K := K)) :\n    young reducedAction 0 c 4 2 = profile0 c 4 2 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          341,
+          346
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry43",
+        "statement": "private theorem image0_entry43 (c : Arr (K := K)) :\n    young reducedAction 0 c 4 3 = profile0 c 4 3 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          350,
+          355
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image0_entry44",
+        "statement": "private theorem image0_entry44 (c : Arr (K := K)) :\n    young reducedAction 0 c 4 4 = profile0 c 4 4 := by",
+        "before": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young0_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile0, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          359,
+          364
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry00",
+        "statement": "private theorem image2_entry00 (c : Arr (K := K)) :\n    young reducedAction 2 c 0 0 = profile2 c 0 0 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          368,
+          373
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry01",
+        "statement": "private theorem image2_entry01 (c : Arr (K := K)) :\n    young reducedAction 2 c 0 1 = profile2 c 0 1 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          377,
+          382
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry02",
+        "statement": "private theorem image2_entry02 (c : Arr (K := K)) :\n    young reducedAction 2 c 0 2 = profile2 c 0 2 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          386,
+          391
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry03",
+        "statement": "private theorem image2_entry03 (c : Arr (K := K)) :\n    young reducedAction 2 c 0 3 = profile2 c 0 3 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          395,
+          400
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry04",
+        "statement": "private theorem image2_entry04 (c : Arr (K := K)) :\n    young reducedAction 2 c 0 4 = profile2 c 0 4 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          404,
+          409
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry10",
+        "statement": "private theorem image2_entry10 (c : Arr (K := K)) :\n    young reducedAction 2 c 1 0 = profile2 c 1 0 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          413,
+          418
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry11",
+        "statement": "private theorem image2_entry11 (c : Arr (K := K)) :\n    young reducedAction 2 c 1 1 = profile2 c 1 1 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          422,
+          427
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry12",
+        "statement": "private theorem image2_entry12 (c : Arr (K := K)) :\n    young reducedAction 2 c 1 2 = profile2 c 1 2 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          431,
+          436
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry13",
+        "statement": "private theorem image2_entry13 (c : Arr (K := K)) :\n    young reducedAction 2 c 1 3 = profile2 c 1 3 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, sub_self, mul_zero, one_mul]",
+        "baselineProofLines": [
+          440,
+          445
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry14",
+        "statement": "private theorem image2_entry14 (c : Arr (K := K)) :\n    young reducedAction 2 c 1 4 = profile2 c 1 4 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          449,
+          454
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry20",
+        "statement": "private theorem image2_entry20 (c : Arr (K := K)) :\n    young reducedAction 2 c 2 0 = profile2 c 2 0 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          458,
+          463
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry21",
+        "statement": "private theorem image2_entry21 (c : Arr (K := K)) :\n    young reducedAction 2 c 2 1 = profile2 c 2 1 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          467,
+          472
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry22",
+        "statement": "private theorem image2_entry22 (c : Arr (K := K)) :\n    young reducedAction 2 c 2 2 = profile2 c 2 2 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          476,
+          481
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry23",
+        "statement": "private theorem image2_entry23 (c : Arr (K := K)) :\n    young reducedAction 2 c 2 3 = profile2 c 2 3 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          485,
+          490
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry24",
+        "statement": "private theorem image2_entry24 (c : Arr (K := K)) :\n    young reducedAction 2 c 2 4 = profile2 c 2 4 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          494,
+          499
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry30",
+        "statement": "private theorem image2_entry30 (c : Arr (K := K)) :\n    young reducedAction 2 c 3 0 = profile2 c 3 0 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          503,
+          508
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry31",
+        "statement": "private theorem image2_entry31 (c : Arr (K := K)) :\n    young reducedAction 2 c 3 1 = profile2 c 3 1 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          512,
+          517
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry32",
+        "statement": "private theorem image2_entry32 (c : Arr (K := K)) :\n    young reducedAction 2 c 3 2 = profile2 c 3 2 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          521,
+          526
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry33",
+        "statement": "private theorem image2_entry33 (c : Arr (K := K)) :\n    young reducedAction 2 c 3 3 = profile2 c 3 3 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          530,
+          535
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry34",
+        "statement": "private theorem image2_entry34 (c : Arr (K := K)) :\n    young reducedAction 2 c 3 4 = profile2 c 3 4 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          539,
+          544
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry40",
+        "statement": "private theorem image2_entry40 (c : Arr (K := K)) :\n    young reducedAction 2 c 4 0 = profile2 c 4 0 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val, zero_add, sub_self, add_neg_cancel, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          548,
+          553
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry41",
+        "statement": "private theorem image2_entry41 (c : Arr (K := K)) :\n    young reducedAction 2 c 4 1 = profile2 c 4 1 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          557,
+          562
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry42",
+        "statement": "private theorem image2_entry42 (c : Arr (K := K)) :\n    young reducedAction 2 c 4 2 = profile2 c 4 2 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          566,
+          571
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry43",
+        "statement": "private theorem image2_entry43 (c : Arr (K := K)) :\n    young reducedAction 2 c 4 3 = profile2 c 4 3 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          575,
+          580
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image2_entry44",
+        "statement": "private theorem image2_entry44 (c : Arr (K := K)) :\n    young reducedAction 2 c 4 4 = profile2 c 4 4 := by",
+        "before": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young2_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile2, Matrix.cons_val, add_zero, sub_self, add_neg_cancel, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          584,
+          589
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry00",
+        "statement": "private theorem image4_entry00 (c : Arr (K := K)) :\n    young reducedAction 4 c 0 0 = profile4 c 0 0 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          593,
+          598
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry01",
+        "statement": "private theorem image4_entry01 (c : Arr (K := K)) :\n    young reducedAction 4 c 0 1 = profile4 c 0 1 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          602,
+          607
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry02",
+        "statement": "private theorem image4_entry02 (c : Arr (K := K)) :\n    young reducedAction 4 c 0 2 = profile4 c 0 2 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          611,
+          616
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry03",
+        "statement": "private theorem image4_entry03 (c : Arr (K := K)) :\n    young reducedAction 4 c 0 3 = profile4 c 0 3 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          620,
+          625
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry04",
+        "statement": "private theorem image4_entry04 (c : Arr (K := K)) :\n    young reducedAction 4 c 0 4 = profile4 c 0 4 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          629,
+          634
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry10",
+        "statement": "private theorem image4_entry10 (c : Arr (K := K)) :\n    young reducedAction 4 c 1 0 = profile4 c 1 0 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          638,
+          643
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry11",
+        "statement": "private theorem image4_entry11 (c : Arr (K := K)) :\n    young reducedAction 4 c 1 1 = profile4 c 1 1 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          647,
+          652
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry12",
+        "statement": "private theorem image4_entry12 (c : Arr (K := K)) :\n    young reducedAction 4 c 1 2 = profile4 c 1 2 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          656,
+          661
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry13",
+        "statement": "private theorem image4_entry13 (c : Arr (K := K)) :\n    young reducedAction 4 c 1 3 = profile4 c 1 3 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          665,
+          670
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry14",
+        "statement": "private theorem image4_entry14 (c : Arr (K := K)) :\n    young reducedAction 4 c 1 4 = profile4 c 1 4 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          674,
+          679
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry20",
+        "statement": "private theorem image4_entry20 (c : Arr (K := K)) :\n    young reducedAction 4 c 2 0 = profile4 c 2 0 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          683,
+          688
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry21",
+        "statement": "private theorem image4_entry21 (c : Arr (K := K)) :\n    young reducedAction 4 c 2 1 = profile4 c 2 1 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          692,
+          697
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry22",
+        "statement": "private theorem image4_entry22 (c : Arr (K := K)) :\n    young reducedAction 4 c 2 2 = profile4 c 2 2 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          701,
+          706
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry23",
+        "statement": "private theorem image4_entry23 (c : Arr (K := K)) :\n    young reducedAction 4 c 2 3 = profile4 c 2 3 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          710,
+          715
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry24",
+        "statement": "private theorem image4_entry24 (c : Arr (K := K)) :\n    young reducedAction 4 c 2 4 = profile4 c 2 4 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          719,
+          724
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry30",
+        "statement": "private theorem image4_entry30 (c : Arr (K := K)) :\n    young reducedAction 4 c 3 0 = profile4 c 3 0 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          728,
+          733
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry31",
+        "statement": "private theorem image4_entry31 (c : Arr (K := K)) :\n    young reducedAction 4 c 3 1 = profile4 c 3 1 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          737,
+          742
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry32",
+        "statement": "private theorem image4_entry32 (c : Arr (K := K)) :\n    young reducedAction 4 c 3 2 = profile4 c 3 2 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          746,
+          751
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry33",
+        "statement": "private theorem image4_entry33 (c : Arr (K := K)) :\n    young reducedAction 4 c 3 3 = profile4 c 3 3 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          755,
+          760
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry34",
+        "statement": "private theorem image4_entry34 (c : Arr (K := K)) :\n    young reducedAction 4 c 3 4 = profile4 c 3 4 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          764,
+          769
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry40",
+        "statement": "private theorem image4_entry40 (c : Arr (K := K)) :\n    young reducedAction 4 c 4 0 = profile4 c 4 0 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          773,
+          778
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry41",
+        "statement": "private theorem image4_entry41 (c : Arr (K := K)) :\n    young reducedAction 4 c 4 1 = profile4 c 4 1 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          782,
+          787
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry42",
+        "statement": "private theorem image4_entry42 (c : Arr (K := K)) :\n    young reducedAction 4 c 4 2 = profile4 c 4 2 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          791,
+          796
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry43",
+        "statement": "private theorem image4_entry43 (c : Arr (K := K)) :\n    young reducedAction 4 c 4 3 = profile4 c 4 3 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          800,
+          805
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image4_entry44",
+        "statement": "private theorem image4_entry44 (c : Arr (K := K)) :\n    young reducedAction 4 c 4 4 = profile4 c 4 4 := by",
+        "before": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young4_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile4, Matrix.cons_val, zero_add, sub_self, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          809,
+          814
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry00",
+        "statement": "private theorem image6_entry00 (c : Arr (K := K)) :\n    young reducedAction 6 c 0 0 = profile6 c 0 0 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          818,
+          823
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry01",
+        "statement": "private theorem image6_entry01 (c : Arr (K := K)) :\n    young reducedAction 6 c 0 1 = profile6 c 0 1 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          827,
+          832
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry02",
+        "statement": "private theorem image6_entry02 (c : Arr (K := K)) :\n    young reducedAction 6 c 0 2 = profile6 c 0 2 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          836,
+          841
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry03",
+        "statement": "private theorem image6_entry03 (c : Arr (K := K)) :\n    young reducedAction 6 c 0 3 = profile6 c 0 3 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          845,
+          850
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry04",
+        "statement": "private theorem image6_entry04 (c : Arr (K := K)) :\n    young reducedAction 6 c 0 4 = profile6 c 0 4 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          854,
+          859
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry10",
+        "statement": "private theorem image6_entry10 (c : Arr (K := K)) :\n    young reducedAction 6 c 1 0 = profile6 c 1 0 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          863,
+          868
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry11",
+        "statement": "private theorem image6_entry11 (c : Arr (K := K)) :\n    young reducedAction 6 c 1 1 = profile6 c 1 1 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          872,
+          877
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry12",
+        "statement": "private theorem image6_entry12 (c : Arr (K := K)) :\n    young reducedAction 6 c 1 2 = profile6 c 1 2 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          881,
+          886
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry13",
+        "statement": "private theorem image6_entry13 (c : Arr (K := K)) :\n    young reducedAction 6 c 1 3 = profile6 c 1 3 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          890,
+          895
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry14",
+        "statement": "private theorem image6_entry14 (c : Arr (K := K)) :\n    young reducedAction 6 c 1 4 = profile6 c 1 4 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          899,
+          904
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry20",
+        "statement": "private theorem image6_entry20 (c : Arr (K := K)) :\n    young reducedAction 6 c 2 0 = profile6 c 2 0 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          908,
+          913
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry21",
+        "statement": "private theorem image6_entry21 (c : Arr (K := K)) :\n    young reducedAction 6 c 2 1 = profile6 c 2 1 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          917,
+          922
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry22",
+        "statement": "private theorem image6_entry22 (c : Arr (K := K)) :\n    young reducedAction 6 c 2 2 = profile6 c 2 2 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          926,
+          931
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry23",
+        "statement": "private theorem image6_entry23 (c : Arr (K := K)) :\n    young reducedAction 6 c 2 3 = profile6 c 2 3 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          935,
+          940
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry24",
+        "statement": "private theorem image6_entry24 (c : Arr (K := K)) :\n    young reducedAction 6 c 2 4 = profile6 c 2 4 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          944,
+          949
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry30",
+        "statement": "private theorem image6_entry30 (c : Arr (K := K)) :\n    young reducedAction 6 c 3 0 = profile6 c 3 0 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          953,
+          958
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry31",
+        "statement": "private theorem image6_entry31 (c : Arr (K := K)) :\n    young reducedAction 6 c 3 1 = profile6 c 3 1 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          962,
+          967
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry32",
+        "statement": "private theorem image6_entry32 (c : Arr (K := K)) :\n    young reducedAction 6 c 3 2 = profile6 c 3 2 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          971,
+          976
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry33",
+        "statement": "private theorem image6_entry33 (c : Arr (K := K)) :\n    young reducedAction 6 c 3 3 = profile6 c 3 3 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          980,
+          985
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry34",
+        "statement": "private theorem image6_entry34 (c : Arr (K := K)) :\n    young reducedAction 6 c 3 4 = profile6 c 3 4 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          989,
+          994
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry40",
+        "statement": "private theorem image6_entry40 (c : Arr (K := K)) :\n    young reducedAction 6 c 4 0 = profile6 c 4 0 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          998,
+          1003
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry41",
+        "statement": "private theorem image6_entry41 (c : Arr (K := K)) :\n    young reducedAction 6 c 4 1 = profile6 c 4 1 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1007,
+          1012
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry42",
+        "statement": "private theorem image6_entry42 (c : Arr (K := K)) :\n    young reducedAction 6 c 4 2 = profile6 c 4 2 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1016,
+          1021
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry43",
+        "statement": "private theorem image6_entry43 (c : Arr (K := K)) :\n    young reducedAction 6 c 4 3 = profile6 c 4 3 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1025,
+          1030
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image6_entry44",
+        "statement": "private theorem image6_entry44 (c : Arr (K := K)) :\n    young reducedAction 6 c 4 4 = profile6 c 4 4 := by",
+        "before": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young6_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile6, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1034,
+          1039
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry00",
+        "statement": "private theorem image7_entry00 (c : Arr (K := K)) :\n    young reducedAction 7 c 0 0 = profile7 c 0 0 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, zero_sub, add_neg_cancel, neg_zero, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1043,
+          1048
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry01",
+        "statement": "private theorem image7_entry01 (c : Arr (K := K)) :\n    young reducedAction 7 c 0 1 = profile7 c 0 1 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, zero_add, zero_sub, add_neg_cancel, neg_zero, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1052,
+          1057
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry02",
+        "statement": "private theorem image7_entry02 (c : Arr (K := K)) :\n    young reducedAction 7 c 0 2 = profile7 c 0 2 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1061,
+          1066
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry03",
+        "statement": "private theorem image7_entry03 (c : Arr (K := K)) :\n    young reducedAction 7 c 0 3 = profile7 c 0 3 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1070,
+          1075
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry04",
+        "statement": "private theorem image7_entry04 (c : Arr (K := K)) :\n    young reducedAction 7 c 0 4 = profile7 c 0 4 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1079,
+          1084
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry10",
+        "statement": "private theorem image7_entry10 (c : Arr (K := K)) :\n    young reducedAction 7 c 1 0 = profile7 c 1 0 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, zero_sub, add_neg_cancel, neg_zero, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1088,
+          1093
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry11",
+        "statement": "private theorem image7_entry11 (c : Arr (K := K)) :\n    young reducedAction 7 c 1 1 = profile7 c 1 1 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, zero_sub, add_neg_cancel, neg_zero, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1097,
+          1102
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry12",
+        "statement": "private theorem image7_entry12 (c : Arr (K := K)) :\n    young reducedAction 7 c 1 2 = profile7 c 1 2 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1106,
+          1111
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry13",
+        "statement": "private theorem image7_entry13 (c : Arr (K := K)) :\n    young reducedAction 7 c 1 3 = profile7 c 1 3 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1115,
+          1120
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry14",
+        "statement": "private theorem image7_entry14 (c : Arr (K := K)) :\n    young reducedAction 7 c 1 4 = profile7 c 1 4 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1124,
+          1129
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry20",
+        "statement": "private theorem image7_entry20 (c : Arr (K := K)) :\n    young reducedAction 7 c 2 0 = profile7 c 2 0 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1133,
+          1138
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry21",
+        "statement": "private theorem image7_entry21 (c : Arr (K := K)) :\n    young reducedAction 7 c 2 1 = profile7 c 2 1 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1142,
+          1147
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry22",
+        "statement": "private theorem image7_entry22 (c : Arr (K := K)) :\n    young reducedAction 7 c 2 2 = profile7 c 2 2 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1151,
+          1156
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry23",
+        "statement": "private theorem image7_entry23 (c : Arr (K := K)) :\n    young reducedAction 7 c 2 3 = profile7 c 2 3 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1160,
+          1165
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry24",
+        "statement": "private theorem image7_entry24 (c : Arr (K := K)) :\n    young reducedAction 7 c 2 4 = profile7 c 2 4 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1169,
+          1174
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry30",
+        "statement": "private theorem image7_entry30 (c : Arr (K := K)) :\n    young reducedAction 7 c 3 0 = profile7 c 3 0 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1178,
+          1183
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry31",
+        "statement": "private theorem image7_entry31 (c : Arr (K := K)) :\n    young reducedAction 7 c 3 1 = profile7 c 3 1 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1187,
+          1192
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry32",
+        "statement": "private theorem image7_entry32 (c : Arr (K := K)) :\n    young reducedAction 7 c 3 2 = profile7 c 3 2 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1196,
+          1201
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry33",
+        "statement": "private theorem image7_entry33 (c : Arr (K := K)) :\n    young reducedAction 7 c 3 3 = profile7 c 3 3 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1205,
+          1210
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry34",
+        "statement": "private theorem image7_entry34 (c : Arr (K := K)) :\n    young reducedAction 7 c 3 4 = profile7 c 3 4 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1214,
+          1219
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry40",
+        "statement": "private theorem image7_entry40 (c : Arr (K := K)) :\n    young reducedAction 7 c 4 0 = profile7 c 4 0 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1223,
+          1228
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry41",
+        "statement": "private theorem image7_entry41 (c : Arr (K := K)) :\n    young reducedAction 7 c 4 1 = profile7 c 4 1 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1232,
+          1237
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry42",
+        "statement": "private theorem image7_entry42 (c : Arr (K := K)) :\n    young reducedAction 7 c 4 2 = profile7 c 4 2 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, add_zero, sub_zero, sub_self, neg_zero, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1241,
+          1246
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry43",
+        "statement": "private theorem image7_entry43 (c : Arr (K := K)) :\n    young reducedAction 7 c 4 3 = profile7 c 4 3 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1250,
+          1255
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image7_entry44",
+        "statement": "private theorem image7_entry44 (c : Arr (K := K)) :\n    young reducedAction 7 c 4 4 = profile7 c 4 4 := by",
+        "before": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young7_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile7, Matrix.cons_val, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1259,
+          1264
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry00",
+        "statement": "private theorem image9_entry00 (c : Arr (K := K)) :\n    young reducedAction 9 c 0 0 = profile9 c 0 0 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1268,
+          1273
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry01",
+        "statement": "private theorem image9_entry01 (c : Arr (K := K)) :\n    young reducedAction 9 c 0 1 = profile9 c 0 1 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1277,
+          1282
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry02",
+        "statement": "private theorem image9_entry02 (c : Arr (K := K)) :\n    young reducedAction 9 c 0 2 = profile9 c 0 2 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1286,
+          1291
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry03",
+        "statement": "private theorem image9_entry03 (c : Arr (K := K)) :\n    young reducedAction 9 c 0 3 = profile9 c 0 3 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1295,
+          1300
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry04",
+        "statement": "private theorem image9_entry04 (c : Arr (K := K)) :\n    young reducedAction 9 c 0 4 = profile9 c 0 4 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1304,
+          1309
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry10",
+        "statement": "private theorem image9_entry10 (c : Arr (K := K)) :\n    young reducedAction 9 c 1 0 = profile9 c 1 0 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1313,
+          1318
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry11",
+        "statement": "private theorem image9_entry11 (c : Arr (K := K)) :\n    young reducedAction 9 c 1 1 = profile9 c 1 1 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1322,
+          1327
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry12",
+        "statement": "private theorem image9_entry12 (c : Arr (K := K)) :\n    young reducedAction 9 c 1 2 = profile9 c 1 2 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1331,
+          1336
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry13",
+        "statement": "private theorem image9_entry13 (c : Arr (K := K)) :\n    young reducedAction 9 c 1 3 = profile9 c 1 3 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1340,
+          1345
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry14",
+        "statement": "private theorem image9_entry14 (c : Arr (K := K)) :\n    young reducedAction 9 c 1 4 = profile9 c 1 4 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1349,
+          1354
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry20",
+        "statement": "private theorem image9_entry20 (c : Arr (K := K)) :\n    young reducedAction 9 c 2 0 = profile9 c 2 0 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1358,
+          1363
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry21",
+        "statement": "private theorem image9_entry21 (c : Arr (K := K)) :\n    young reducedAction 9 c 2 1 = profile9 c 2 1 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1367,
+          1372
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry22",
+        "statement": "private theorem image9_entry22 (c : Arr (K := K)) :\n    young reducedAction 9 c 2 2 = profile9 c 2 2 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1376,
+          1381
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry23",
+        "statement": "private theorem image9_entry23 (c : Arr (K := K)) :\n    young reducedAction 9 c 2 3 = profile9 c 2 3 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1385,
+          1390
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry24",
+        "statement": "private theorem image9_entry24 (c : Arr (K := K)) :\n    young reducedAction 9 c 2 4 = profile9 c 2 4 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1394,
+          1399
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry30",
+        "statement": "private theorem image9_entry30 (c : Arr (K := K)) :\n    young reducedAction 9 c 3 0 = profile9 c 3 0 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1403,
+          1408
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry31",
+        "statement": "private theorem image9_entry31 (c : Arr (K := K)) :\n    young reducedAction 9 c 3 1 = profile9 c 3 1 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1412,
+          1417
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry32",
+        "statement": "private theorem image9_entry32 (c : Arr (K := K)) :\n    young reducedAction 9 c 3 2 = profile9 c 3 2 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1421,
+          1426
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry33",
+        "statement": "private theorem image9_entry33 (c : Arr (K := K)) :\n    young reducedAction 9 c 3 3 = profile9 c 3 3 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1430,
+          1435
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry34",
+        "statement": "private theorem image9_entry34 (c : Arr (K := K)) :\n    young reducedAction 9 c 3 4 = profile9 c 3 4 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1439,
+          1444
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry40",
+        "statement": "private theorem image9_entry40 (c : Arr (K := K)) :\n    young reducedAction 9 c 4 0 = profile9 c 4 0 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1448,
+          1453
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry41",
+        "statement": "private theorem image9_entry41 (c : Arr (K := K)) :\n    young reducedAction 9 c 4 1 = profile9 c 4 1 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1457,
+          1462
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry42",
+        "statement": "private theorem image9_entry42 (c : Arr (K := K)) :\n    young reducedAction 9 c 4 2 = profile9 c 4 2 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1466,
+          1471
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry43",
+        "statement": "private theorem image9_entry43 (c : Arr (K := K)) :\n    young reducedAction 9 c 4 3 = profile9 c 4 3 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1475,
+          1480
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image9_entry44",
+        "statement": "private theorem image9_entry44 (c : Arr (K := K)) :\n    young reducedAction 9 c 4 4 = profile9 c 4 4 := by",
+        "before": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young9_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile9, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1484,
+          1489
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry00",
+        "statement": "private theorem image10_entry00 (c : Arr (K := K)) :\n    young reducedAction 10 c 0 0 = profile10 c 0 0 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1493,
+          1498
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry01",
+        "statement": "private theorem image10_entry01 (c : Arr (K := K)) :\n    young reducedAction 10 c 0 1 = profile10 c 0 1 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1502,
+          1507
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry02",
+        "statement": "private theorem image10_entry02 (c : Arr (K := K)) :\n    young reducedAction 10 c 0 2 = profile10 c 0 2 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1511,
+          1516
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry03",
+        "statement": "private theorem image10_entry03 (c : Arr (K := K)) :\n    young reducedAction 10 c 0 3 = profile10 c 0 3 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1520,
+          1525
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry04",
+        "statement": "private theorem image10_entry04 (c : Arr (K := K)) :\n    young reducedAction 10 c 0 4 = profile10 c 0 4 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1529,
+          1534
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry10",
+        "statement": "private theorem image10_entry10 (c : Arr (K := K)) :\n    young reducedAction 10 c 1 0 = profile10 c 1 0 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, zero_add, add_neg_cancel, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1538,
+          1543
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry11",
+        "statement": "private theorem image10_entry11 (c : Arr (K := K)) :\n    young reducedAction 10 c 1 1 = profile10 c 1 1 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1547,
+          1552
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry12",
+        "statement": "private theorem image10_entry12 (c : Arr (K := K)) :\n    young reducedAction 10 c 1 2 = profile10 c 1 2 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1556,
+          1561
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry13",
+        "statement": "private theorem image10_entry13 (c : Arr (K := K)) :\n    young reducedAction 10 c 1 3 = profile10 c 1 3 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1565,
+          1570
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry14",
+        "statement": "private theorem image10_entry14 (c : Arr (K := K)) :\n    young reducedAction 10 c 1 4 = profile10 c 1 4 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1574,
+          1579
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry20",
+        "statement": "private theorem image10_entry20 (c : Arr (K := K)) :\n    young reducedAction 10 c 2 0 = profile10 c 2 0 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1583,
+          1588
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry21",
+        "statement": "private theorem image10_entry21 (c : Arr (K := K)) :\n    young reducedAction 10 c 2 1 = profile10 c 2 1 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1592,
+          1597
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry22",
+        "statement": "private theorem image10_entry22 (c : Arr (K := K)) :\n    young reducedAction 10 c 2 2 = profile10 c 2 2 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1601,
+          1606
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry23",
+        "statement": "private theorem image10_entry23 (c : Arr (K := K)) :\n    young reducedAction 10 c 2 3 = profile10 c 2 3 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1610,
+          1615
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry24",
+        "statement": "private theorem image10_entry24 (c : Arr (K := K)) :\n    young reducedAction 10 c 2 4 = profile10 c 2 4 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1619,
+          1624
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry30",
+        "statement": "private theorem image10_entry30 (c : Arr (K := K)) :\n    young reducedAction 10 c 3 0 = profile10 c 3 0 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1628,
+          1633
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry31",
+        "statement": "private theorem image10_entry31 (c : Arr (K := K)) :\n    young reducedAction 10 c 3 1 = profile10 c 3 1 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1637,
+          1642
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry32",
+        "statement": "private theorem image10_entry32 (c : Arr (K := K)) :\n    young reducedAction 10 c 3 2 = profile10 c 3 2 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1646,
+          1651
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry33",
+        "statement": "private theorem image10_entry33 (c : Arr (K := K)) :\n    young reducedAction 10 c 3 3 = profile10 c 3 3 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1655,
+          1660
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry34",
+        "statement": "private theorem image10_entry34 (c : Arr (K := K)) :\n    young reducedAction 10 c 3 4 = profile10 c 3 4 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, zero_add, add_neg_cancel, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1664,
+          1669
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry40",
+        "statement": "private theorem image10_entry40 (c : Arr (K := K)) :\n    young reducedAction 10 c 4 0 = profile10 c 4 0 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1673,
+          1678
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry41",
+        "statement": "private theorem image10_entry41 (c : Arr (K := K)) :\n    young reducedAction 10 c 4 1 = profile10 c 4 1 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val, add_zero, sub_self, neg_zero, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1682,
+          1687
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry42",
+        "statement": "private theorem image10_entry42 (c : Arr (K := K)) :\n    young reducedAction 10 c 4 2 = profile10 c 4 2 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1691,
+          1696
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry43",
+        "statement": "private theorem image10_entry43 (c : Arr (K := K)) :\n    young reducedAction 10 c 4 3 = profile10 c 4 3 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, add_neg_cancel, neg_neg, mul_zero, one_mul]",
+        "baselineProofLines": [
+          1700,
+          1705
+        ]
+      },
+      {
+        "declaration": "Physics.LiSixQuarkYoungImages.image10_entry44",
+        "statement": "private theorem image10_entry44 (c : Arr (K := K)) :\n    young reducedAction 10 c 4 4 = profile10 c 4 4 := by",
+        "before": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val]\n  all_goals ring",
+        "after": "  rw [young10_apply]\n  simp only [Pi.smul_apply, smul_eq_mul, Pi.sub_apply, Pi.add_apply,\n    reducedAction_apply, colorReduced, spinReduced, Matrix.cons_val_zero,\n    Matrix.cons_val_one, Matrix.cons_val]\n  simp only [profile10, Matrix.cons_val, neg_neg, one_mul]\n  all_goals ring",
+        "baselineProofLines": [
+          1709,
+          1714
+        ]
+      }
+    ],
+    "audits": [
+      "Physics.StandardModel.Operators.BaryonTwo.Li.Audit.AuditLiSixQuarkSourceDerivation"
+    ]
+  },
+  {
+    "canonical": "Physics/StandardModel/Operators/Selection/FlavoredCyclicControls.lean",
+    "baselineSource": "Physics/StandardModel/Operators/FlavoredCyclicControls.lean",
+    "reason": "Fresh finite-flavor controls reached 15.88 GiB virtual address space despite only 3.85 GiB resident; serialize their unchanged kernel decisions and proof limits.",
+    "changes": [],
+    "execution": {
+      "marker": "namespace Physics.FlavoredCyclicControls\n",
+      "insertion": "-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.\nset_option Elab.async false\n\n"
+    },
+    "audits": [
+      "Physics.StandardModel.Operators.Selection.Audit.AuditFlavoredCyclicSelection"
+    ]
+  },
+  {
+    "canonical": "Physics/FieldTheory/Jets/Higgs/QuarticFour/HiggsQuarticFourInternalUpper.lean",
+    "baselineSource": "Physics/FieldTheory/Jets/HiggsQuarticFourInternalUpper.lean",
+    "reason": "Fresh internal Higgs constraints reached 14.70 GiB virtual address space; serialize the unchanged finite phase/discharger checks without altering statements, proof bodies or limits.",
+    "changes": [],
+    "execution": {
+      "marker": "namespace Physics.HiggsQuarticFourInternalUpper\n",
+      "insertion": "-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.\nset_option Elab.async false\n\n"
+    },
+    "audits": [
+      "Physics.FieldTheory.Jets.Higgs.QuarticFour.Audit.AuditHiggsQuarticFourCompleteness"
+    ]
+  },
+  {
+    "canonical": "GUT/E6/Minuscule/SU5LieImage.lean",
+    "baselineSource": "GUT/E6/Minuscule/SU5LieImage.lean",
+    "reason": "Split the universal 25-matrix kernel computation into separate finite cases, preserving the exact integer coefficients, equality statement and proof limits. This reduces the fresh resident peak from 8.19 to 5.01 GiB.",
+    "changes": [
+      {
+        "declaration": "GUT.E6.Minuscule.SU5Coordinates.elementary_comparison",
+        "statement": "theorem elementary_comparison (i j : Fin 5) (a b : Index) :\n    sign a * eval (combination e6Basis (elementaryCoefficients i j))\n      (coordinate a) (coordinate b) * sign b = blockMatrix (elementaryInt i j) a b := by",
+        "before": "  revert i j a b\n  dsimp only [blockMatrix, wedgeMatrix, elementaryInt]\n  decide +kernel",
+        "after": "  fin_cases i <;> fin_cases j <;>\n    revert a b <;>\n    dsimp only [blockMatrix, wedgeMatrix, elementaryInt] <;>\n    decide +kernel",
+        "baselineProofLines": [
+          35,
+          37
+        ]
+      }
+    ],
+    "audits": [
+      "GUT.E6.Audit.AuditSU5Inclusion"
+    ]
+  },
+  {
+    "canonical": "GUT/SU5/SelectionRules/InvariantMassNormalForm.lean",
+    "baselineSource": "GUT/SU5/SelectionRules/InvariantMassNormalForm.lean",
+    "reason": "Fresh compilation reserved 15.83 GiB virtual address space with 11 observed OS threads; sequential elaboration preserves all proof bodies and resource limits.",
+    "changes": [],
+    "execution": {
+      "marker": "namespace GUT.SU5.InvariantMassNormalForm\n",
+      "insertion": "-- Elaborate proofs sequentially to avoid blocked worker stacks.\nset_option Elab.async false\n\n"
+    },
+    "audits": [
+      "GUT.SU5.Audit.AuditInvariantMassNormalForm"
+    ]
+  },
+  {
+    "canonical": "GUT/SU5/Branching/ActualHyperchargeProfiles.lean",
+    "baselineSource": "GUT/SU5/Branching/ActualHyperchargeProfiles.lean",
+    "reason": "Fresh compilation reserved 15.84 GiB virtual address space with 11 observed OS threads. Sequential elaboration preserves the finite coefficient decisions, character arguments and all resource limits.",
+    "changes": [],
+    "execution": {
+      "marker": "namespace GUT.SU5.ActualHyperchargeProfiles\n",
+      "insertion": "-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.\nset_option Elab.async false\n\n"
+    },
+    "audits": [
+      "GUT.SU5.Audit.AuditActualFullFamily"
+    ]
+  }
+]

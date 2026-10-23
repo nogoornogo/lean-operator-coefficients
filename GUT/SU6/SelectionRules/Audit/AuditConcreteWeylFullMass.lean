@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylFullMass
 
+open Physics
+
 /-!
 # Audit: exact SM radical on the original all-left-handed matter
 

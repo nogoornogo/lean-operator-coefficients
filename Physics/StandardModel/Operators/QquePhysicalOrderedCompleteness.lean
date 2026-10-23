@@ -1,80 +1,50 @@
+import Physics.StandardModel.Operators.BaryonOne.Qque.QquePhysicalOrderedCompleteness
 import Physics.StandardModel.Gauge.QqueGaugeUniqueness
 import Physics.FieldTheory.Spinor.WeylSpinorUniqueness
 import Math.RepresentationTheory.NormalizedInvariantFactor
 import Math.RepresentationTheory.InvariantCoefficientTransport
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.Qque.QquePhysicalOrderedCompleteness instead." (since := "source-api-v1")
 
-/-! The qque ordered invariant space in the shared `(gauge × spin) × residual`
-convention. Multiplicities are arbitrary carriers, not implicitly duals. -/
-namespace GUT.QquePhysicalOrderedCompleteness
-set_option autoImplicit false
-noncomputable section
-open Representation ExternalInvariantTensor StandardSMGaugeTensor SMEpsilonTensor
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.QquePhysicalOrderedCompleteness.Coefficient => Physics.QquePhysicalOrderedCompleteness.Coefficient,
+  GUT.QquePhysicalOrderedCompleteness.Residual => Physics.QquePhysicalOrderedCompleteness.Residual,
+  GUT.QquePhysicalOrderedCompleteness.assemble_apply => Physics.QquePhysicalOrderedCompleteness.assemble_apply,
+  GUT.QquePhysicalOrderedCompleteness.electronSpin => Physics.QquePhysicalOrderedCompleteness.electronSpin,
+  GUT.QquePhysicalOrderedCompleteness.fields => Physics.QquePhysicalOrderedCompleteness.fields,
+  GUT.QquePhysicalOrderedCompleteness.flavor => Physics.QquePhysicalOrderedCompleteness.flavor,
+  GUT.QquePhysicalOrderedCompleteness.homEquiv => Physics.QquePhysicalOrderedCompleteness.homEquiv,
+  GUT.QquePhysicalOrderedCompleteness.localContraction => Physics.QquePhysicalOrderedCompleteness.localContraction,
+  GUT.QquePhysicalOrderedCompleteness.localRegroup => Physics.QquePhysicalOrderedCompleteness.localRegroup,
+  GUT.QquePhysicalOrderedCompleteness.localRepresentation => Physics.QquePhysicalOrderedCompleteness.localRepresentation,
+  GUT.QquePhysicalOrderedCompleteness.localWitness => Physics.QquePhysicalOrderedCompleteness.localWitness,
+  GUT.QquePhysicalOrderedCompleteness.local_normalized => Physics.QquePhysicalOrderedCompleteness.local_normalized,
+  GUT.QquePhysicalOrderedCompleteness.local_unique => Physics.QquePhysicalOrderedCompleteness.local_unique,
+  GUT.QquePhysicalOrderedCompleteness.quarkSpin => Physics.QquePhysicalOrderedCompleteness.quarkSpin,
+  GUT.QquePhysicalOrderedCompleteness.regroup => Physics.QquePhysicalOrderedCompleteness.regroup,
+  GUT.QquePhysicalOrderedCompleteness.spin => Physics.QquePhysicalOrderedCompleteness.spin,
+  GUT.QquePhysicalOrderedCompleteness.spinWitness => Physics.QquePhysicalOrderedCompleteness.spinWitness,
+  GUT.QquePhysicalOrderedCompleteness.spinWitness.eq_1 => Physics.QquePhysicalOrderedCompleteness.spinWitness.eq_1,
+  GUT.QquePhysicalOrderedCompleteness.upSpin => Physics.QquePhysicalOrderedCompleteness.upSpin
+]
 
-def spin := (WeylSpinor.left.tprod WeylSpinor.left).tprod
-  (WeylSpinor.right.tprod WeylSpinor.right)
-def spinWitness := (weakBasis 0 ⊗ₜ[ℂ] weakBasis 1) ⊗ₜ[ℂ]
-  (weakBasis 0 ⊗ₜ[ℂ] weakBasis 1)
-def localRepresentation := external qqueRepresentation spin
-def localContraction := coefficient qqueIntertwiner WeylSpinor.four
-def localWitness := qqueWitness ⊗ₜ[ℂ] spinWitness
-
-theorem local_normalized : localContraction localWitness = 1 := by
-  change qque qqueWitness * WeylSpinor.four spinWitness = 1
-  rw [qque_witness]
-  norm_num [spinWitness, WeylSpinor.four, WeylSpinor.epsilonLeft,
-    WeylSpinor.epsilonRight, eps2, weakBasis]
-
-theorem local_unique (f : IntertwiningMap localRepresentation
-    (Representation.trivial ℂ (GaugeGroup × WeylSpinor.Group) ℂ)) :
-    f = f localWitness • localContraction :=
-  NormalizedInvariantFactor.product_unique _ _ _ _ _ _
-    QqueGaugeUniqueness.eq_smul_qque WeylSpinorUniqueness.eq_smul_four f
-
-def quarkSpin := external quark WeylSpinor.left
-def upSpin := external upRight WeylSpinor.right
-def electronSpin := external electronRight WeylSpinor.right
-def localRegroup : Representation.Equiv
-    ((quarkSpin.tprod quarkSpin).tprod (upSpin.tprod electronSpin)) localRepresentation :=
-  regroupFour quark quark upRight electronRight
-    WeylSpinor.left WeylSpinor.left WeylSpinor.right WeylSpinor.right
-
-variable {R Q U E : Type*} [Group R]
-  [AddCommGroup Q] [Module ℂ Q] [AddCommGroup U] [Module ℂ U]
-  [AddCommGroup E] [Module ℂ E]
-  (q : Representation ℂ R Q) (u : Representation ℂ R U) (e : Representation ℂ R E)
-
-abbrev flavor := (q.tprod q).tprod (u.tprod e)
-def fields := ((external quarkSpin q).tprod (external quarkSpin q)).tprod
-  ((external upSpin u).tprod (external electronSpin e))
-abbrev Coefficient := IntertwiningMap (fields q u e)
-  (Representation.trivial ℂ ((GaugeGroup × WeylSpinor.Group) × R) ℂ)
-abbrev Residual := IntertwiningMap (flavor q u e) (Representation.trivial ℂ R ℂ)
-
-def regroup : Representation.Equiv (fields q u e)
-    (external localRepresentation (flavor q u e)) :=
-  (regroupFour quarkSpin quarkSpin upSpin electronSpin q q u e).trans
-    (externalEquiv localRegroup (Representation.Equiv.refl _))
-
-def homEquiv : Coefficient q u e ≃ₗ[ℂ] Residual q u e :=
-  (InvariantCoefficientTransport.alongEquiv (regroup q u e)).trans
-    (NormalizedInvariantFactor.equiv localRepresentation (flavor q u e)
-      localContraction localWitness local_normalized local_unique)
-
-theorem assemble_apply (k : Residual q u e) (a b c : Color) (v w : Weak)
-    (s t h j : WeylSpinor.Space) (x y : Q) (z : U) (r : E) (m : ℂ) :
-    (homEquiv q u e).symm k
-      (((((a ⊗ₜ[ℂ] v) ⊗ₜ[ℂ] s) ⊗ₜ[ℂ] x) ⊗ₜ[ℂ]
-        (((b ⊗ₜ[ℂ] w) ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] y)) ⊗ₜ[ℂ]
-        (((c ⊗ₜ[ℂ] h) ⊗ₜ[ℂ] z) ⊗ₜ[ℂ] ((m ⊗ₜ[ℂ] j) ⊗ₜ[ℂ] r))) =
-      eps3 a b c * eps2 v w * m * (eps2 s t * eps2 h j) *
-        k ((x ⊗ₜ[ℂ] y) ⊗ₜ[ℂ] (z ⊗ₜ[ℂ] r)) := by
-  change qque (((a ⊗ₜ[ℂ] v) ⊗ₜ[ℂ] (b ⊗ₜ[ℂ] w)) ⊗ₜ[ℂ] (c ⊗ₜ[ℂ] m)) *
-    WeylSpinor.four ((s ⊗ₜ[ℂ] t) ⊗ₜ[ℂ] (h ⊗ₜ[ℂ] j)) * k _ = _
-  rw [qque_tmul]
-  rfl
-
-end
-end GUT.QquePhysicalOrderedCompleteness
+assert_compatible GUT.QquePhysicalOrderedCompleteness.Coefficient => Physics.QquePhysicalOrderedCompleteness.Coefficient
+assert_compatible GUT.QquePhysicalOrderedCompleteness.Residual => Physics.QquePhysicalOrderedCompleteness.Residual
+assert_compatible GUT.QquePhysicalOrderedCompleteness.assemble_apply => Physics.QquePhysicalOrderedCompleteness.assemble_apply
+assert_compatible GUT.QquePhysicalOrderedCompleteness.electronSpin => Physics.QquePhysicalOrderedCompleteness.electronSpin
+assert_compatible GUT.QquePhysicalOrderedCompleteness.fields => Physics.QquePhysicalOrderedCompleteness.fields
+assert_compatible GUT.QquePhysicalOrderedCompleteness.flavor => Physics.QquePhysicalOrderedCompleteness.flavor
+assert_compatible GUT.QquePhysicalOrderedCompleteness.homEquiv => Physics.QquePhysicalOrderedCompleteness.homEquiv
+assert_compatible GUT.QquePhysicalOrderedCompleteness.localContraction => Physics.QquePhysicalOrderedCompleteness.localContraction
+assert_compatible GUT.QquePhysicalOrderedCompleteness.localRegroup => Physics.QquePhysicalOrderedCompleteness.localRegroup
+assert_compatible GUT.QquePhysicalOrderedCompleteness.localRepresentation => Physics.QquePhysicalOrderedCompleteness.localRepresentation
+assert_compatible GUT.QquePhysicalOrderedCompleteness.localWitness => Physics.QquePhysicalOrderedCompleteness.localWitness
+assert_compatible GUT.QquePhysicalOrderedCompleteness.local_normalized => Physics.QquePhysicalOrderedCompleteness.local_normalized
+assert_compatible GUT.QquePhysicalOrderedCompleteness.local_unique => Physics.QquePhysicalOrderedCompleteness.local_unique
+assert_compatible GUT.QquePhysicalOrderedCompleteness.quarkSpin => Physics.QquePhysicalOrderedCompleteness.quarkSpin
+assert_compatible GUT.QquePhysicalOrderedCompleteness.regroup => Physics.QquePhysicalOrderedCompleteness.regroup
+assert_compatible GUT.QquePhysicalOrderedCompleteness.spin => Physics.QquePhysicalOrderedCompleteness.spin
+assert_compatible GUT.QquePhysicalOrderedCompleteness.spinWitness => Physics.QquePhysicalOrderedCompleteness.spinWitness
+assert_compatible GUT.QquePhysicalOrderedCompleteness.spinWitness.eq_1 => Physics.QquePhysicalOrderedCompleteness.spinWitness.eq_1
+assert_compatible GUT.QquePhysicalOrderedCompleteness.upSpin => Physics.QquePhysicalOrderedCompleteness.upSpin

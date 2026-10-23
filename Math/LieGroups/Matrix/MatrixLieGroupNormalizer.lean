@@ -64,6 +64,7 @@ theorem mem_subgroup (g : Special (n := n)) : g ∈ subgroup L ↔
 theorem isClosed_subgroup : IsClosed (subgroup L : Set (Special (n := n))) := by
   have hL : IsClosed (L : Set (Matrix n n ℂ)) := L.toSubmodule.closed_of_finiteDimensional
   change IsClosed {g | (∀ X ∈ L, conjugate g X ∈ L) ∧ (∀ X ∈ L, conjugate g⁻¹ X ∈ L)}
+  rw [Set.ofPred_and]
   apply IsClosed.inter
   · change IsClosed {g : Special | ∀ X ∈ L, conjugate g X ∈ L}
     simp only [Set.ofPred_forall]

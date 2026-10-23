@@ -1,7 +1,9 @@
 import GUT.SU5.Representations.WedgeKernelProjection
 import GUT.SU5.Branching.FortyHyperchargeExclusion
-import Physics.StandardModel.Gauge.HyperchargeTensorTransport
-import Physics.StandardModel.Gauge.SMGaugeConjugation
+import Physics.StandardModel.Gauge.Charges.HyperchargeTensorTransport
+import Physics.StandardModel.Gauge.Tensors.SMGaugeConjugation
+
+open Physics
 
 namespace GUT.SU5.FortySelectedCopies
 set_option autoImplicit false

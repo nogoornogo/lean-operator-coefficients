@@ -1,5 +1,7 @@
-import Math.RepresentationTheory.ExteriorSquareTransport
+import Math.RepresentationTheory.Exterior.ExteriorSquareTransport
 import GUT.SUN.Matching.ExteriorCurrents
+
+open Physics
 
 open Math
 

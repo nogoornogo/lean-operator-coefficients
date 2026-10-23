@@ -1,6 +1,8 @@
 import GUT.SU5.SelectionRules.GeorgiGlashowSource
-import Physics.StandardModel.Spectrum.ExactSMAutomaticPositive
-import Physics.StandardModel.Operators.AutomaticSpeciesQque
+import Physics.StandardModel.Spectrum.Representations.ExactSMAutomaticPositive
+import Physics.StandardModel.Operators.BaryonOne.Qque.AutomaticSpeciesQque
+
+open Physics
 
 open Math
 

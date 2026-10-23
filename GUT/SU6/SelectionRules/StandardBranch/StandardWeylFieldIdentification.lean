@@ -18,7 +18,7 @@ noncomputable section
 
 open StandardWeylMassSource PhysicalMassSpectrumBridge PhysicalChargeResolvedBridge
 open PhysicalChargedCharacterBridge StandardPhysicalCharacterBridge
-open StandardPhysicalSource UnitaryVirtualRealization
+open StandardPhysicalSource Physics.UnitaryVirtualRealization
 open StandardBlockGaugeCancellation (OrdinaryAbelianSource)
 
 variable {H : Type*} [CommGroup H]

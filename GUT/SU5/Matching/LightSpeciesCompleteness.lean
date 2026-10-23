@@ -1,6 +1,8 @@
 import GUT.SU5.Matching.LightSpeciesExchange
-import Physics.StandardModel.Operators.MediatorFullLightCertificate
+import Physics.StandardModel.Operators.Selection.MediatorFullLightCertificate
 import Lean.LibrarySuggestions.Basic
+
+open Physics
 
 /-! The generated exchange, rather than an independently chosen allowed
 coefficient, in the complete actual light-species sector and residual Hom. -/

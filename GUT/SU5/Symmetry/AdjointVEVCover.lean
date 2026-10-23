@@ -3,6 +3,8 @@ import GUT.SU5.Embeddings.StandardModelQuotient
 import Mathlib.Analysis.SpecialFunctions.Complex.Circle
 import Mathlib.Analysis.CStarAlgebra.Basic
 
+open Physics
+
 /-! The SM cover is onto the exact specified adjoint stabilizer. -/
 namespace GUT.SU5.AdjointVEVStabilizer
 set_option autoImplicit false

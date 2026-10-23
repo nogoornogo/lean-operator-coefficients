@@ -1,7 +1,9 @@
 import GUT.SU5.SelectionRules.MatterSource
 import GUT.SU5.Embeddings.PhysicalTorus
 import GUT.Common.StandardChain.ConjugationAdapter
-import Physics.StandardModel.Operators.ExactSMSpectrumQque
+import Physics.StandardModel.Operators.BaryonOne.Qque.ExactSMSpectrumQque
+
+open Physics
 
 open Math
 
@@ -10,6 +12,7 @@ centralizer action. Zero mass is a pre-electroweak benchmark, not a claim
 about a dynamically selected vacuum or Yukawa couplings. -/
 
 namespace GUT.SU5.GeorgiGlashowSource
+open Physics.SU5
 set_option autoImplicit false
 noncomputable section
 open Representation MatterSource StandardModelEmbedding InvariantWeylMass

@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVFields
-import Physics.StandardModel.Operators.NonabelianQqueSamples
+import Physics.StandardModel.Operators.BaryonOne.Qque.NonabelianQqueSamples
+
+open Physics
 
 /-! Explicit non-Abelian flavor factors on the actual 15 + 2 bar6 carrier.
 Restriction is certified; no mass or VEV realization is claimed. -/

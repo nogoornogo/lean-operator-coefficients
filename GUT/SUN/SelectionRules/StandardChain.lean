@@ -1,6 +1,8 @@
 import Math.LieGroups.SpecialUnitary.Block
 import GUT.Common.StandardChain.StandardChain
 
+open Physics
+
 open Math
 
 /-! The common selection-rule theorem along the standard SU(5) block in

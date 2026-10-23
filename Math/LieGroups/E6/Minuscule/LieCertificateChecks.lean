@@ -14,6 +14,9 @@ set_option autoImplicit false
 set_option maxRecDepth 16000
 set_option maxHeartbeats 4000000
 
+-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.
+set_option Elab.async false
+
 namespace Math.E6.Minuscule.LieChecks
 
 open SparseMatrixCertificate MatrixLieCertificate LieData TauCeti.E6Minuscule
@@ -30,10 +33,10 @@ def d5GeneratorInt : Fin 10 → Matrix (Fin 27) (Fin 27) ℤ :=
     loweringMatrix (d5Node 4)]
 
 theorem e6_actual_generators (i : Fin 12) : eval (e6Generators i) = e6GeneratorInt i := by
-  decide +kernel +revert
+  fin_cases i <;> decide +kernel +revert
 
 theorem d5_actual_generators (i : Fin 10) : eval (d5Generators i) = d5GeneratorInt i := by
-  decide +kernel +revert
+  fin_cases i <;> decide +kernel +revert
 
 def e6GeneratorIndex (i : Fin 12) : Fin 78 := ⟨i.val, by omega⟩
 def d5GeneratorIndex (i : Fin 10) : Fin 45 := ⟨i.val, by omega⟩
@@ -57,22 +60,22 @@ theorem d5_provenance_checked (i : Fin 45) :
 theorem e6_closure_checked (i : Fin 12) (j : Fin 78) :
     checkEq (bracket (e6Generators i) (e6Basis j))
       (combination e6Basis (e6Closure i j)) = true := by
-  decide +kernel +revert
+  fin_cases i <;> decide +kernel +revert
 
 theorem d5_closure_checked (i : Fin 10) (j : Fin 45) :
     checkEq (bracket (d5Generators i) (d5Basis j))
       (combination d5Basis (d5Closure i j)) = true := by
-  decide +kernel +revert
+  fin_cases i <;> decide +kernel +revert
 
 theorem e6_scale_nonzero (i : Fin 78) : e6Scale i ≠ 0 := by decide +kernel +revert
 theorem d5_scale_nonzero (i : Fin 45) : d5Scale i ≠ 0 := by decide +kernel +revert
 
 theorem e6_pairing_checked (i j : Fin 78) :
     pairing (e6Dual i) (e6Basis j) = if i = j then e6Scale i else 0 := by
-  decide +kernel +revert
+  fin_cases i <;> decide +kernel +revert
 
 theorem d5_pairing_checked (i j : Fin 45) :
     pairing (d5Dual i) (d5Basis j) = if i = j then d5Scale i else 0 := by
-  decide +kernel +revert
+  fin_cases i <;> decide +kernel +revert
 
 end Math.E6.Minuscule.LieChecks

@@ -1,130 +1,94 @@
-import Mathlib.Algebra.Star.Module
-import Mathlib.Tactic
+import Physics.FieldTheory.Mass.Spectrum.ChiralActionConvention
+import Math.Lean.Compatibility
 
-/-! Explicit chiral mass and canonical time-kinetic conventions in a
-noncommutative star algebra. Differentiated odd components and the total
- derivative are formal inputs; no boundary-value calculus is inferred. -/
-namespace GUT.ChiralActionConvention
-set_option autoImplicit false
-noncomputable section
-variable {R : Type*} [Ring R] [StarRing R] [Algebra ℂ R] [StarModule ℂ R]
+deprecated_module "Use Physics.FieldTheory.Mass.Spectrum.ChiralActionConvention instead." (since := "source-api-v1")
 
-def bracket (s n : Fin 2 → R) : R := s 0*n 1-s 1*n 0
+compatibility_declarations [
+  GUT.ChiralActionConvention.barredLR => Physics.ChiralActionConvention.barredLR,
+  GUT.ChiralActionConvention.barredLR.eq_1 => Physics.ChiralActionConvention.barredLR.eq_1,
+  GUT.ChiralActionConvention.barred_lr => Physics.ChiralActionConvention.barred_lr,
+  GUT.ChiralActionConvention.bracket => Physics.ChiralActionConvention.bracket,
+  GUT.ChiralActionConvention.bracket.eq_1 => Physics.ChiralActionConvention.bracket.eq_1,
+  GUT.ChiralActionConvention.canonical_norm_form => Physics.ChiralActionConvention.canonical_norm_form,
+  GUT.ChiralActionConvention.conjugate_vertex => Physics.ChiralActionConvention.conjugate_vertex,
+  GUT.ChiralActionConvention.diracBarProduct => Physics.ChiralActionConvention.diracBarProduct,
+  GUT.ChiralActionConvention.diracBarProduct.eq_1 => Physics.ChiralActionConvention.diracBarProduct.eq_1,
+  GUT.ChiralActionConvention.dirac_bar_product => Physics.ChiralActionConvention.dirac_bar_product,
+  GUT.ChiralActionConvention.flipMatrix => Physics.ChiralActionConvention.flipMatrix,
+  GUT.ChiralActionConvention.flipMatrix.eq_1 => Physics.ChiralActionConvention.flipMatrix.eq_1,
+  GUT.ChiralActionConvention.flip_space => Physics.ChiralActionConvention.flip_space,
+  GUT.ChiralActionConvention.flip_time => Physics.ChiralActionConvention.flip_time,
+  GUT.ChiralActionConvention.gammaZero => Physics.ChiralActionConvention.gammaZero,
+  GUT.ChiralActionConvention.gammaZero.eq_1 => Physics.ChiralActionConvention.gammaZero.eq_1,
+  GUT.ChiralActionConvention.kineticLeft => Physics.ChiralActionConvention.kineticLeft,
+  GUT.ChiralActionConvention.kineticLeft.eq_1 => Physics.ChiralActionConvention.kineticLeft.eq_1,
+  GUT.ChiralActionConvention.kineticMatrix => Physics.ChiralActionConvention.kineticMatrix,
+  GUT.ChiralActionConvention.kineticMatrix.eq_1 => Physics.ChiralActionConvention.kineticMatrix.eq_1,
+  GUT.ChiralActionConvention.kineticRight => Physics.ChiralActionConvention.kineticRight,
+  GUT.ChiralActionConvention.kineticRight.eq_1 => Physics.ChiralActionConvention.kineticRight.eq_1,
+  GUT.ChiralActionConvention.kinetic_matrix_mod_derivative => Physics.ChiralActionConvention.kinetic_matrix_mod_derivative,
+  GUT.ChiralActionConvention.kinetic_mod_derivative => Physics.ChiralActionConvention.kinetic_mod_derivative,
+  GUT.ChiralActionConvention.leftDirac => Physics.ChiralActionConvention.leftDirac,
+  GUT.ChiralActionConvention.leftDirac.eq_1 => Physics.ChiralActionConvention.leftDirac.eq_1,
+  GUT.ChiralActionConvention.majoranaBarRight => Physics.ChiralActionConvention.majoranaBarRight,
+  GUT.ChiralActionConvention.majoranaBarRight.eq_1 => Physics.ChiralActionConvention.majoranaBarRight.eq_1,
+  GUT.ChiralActionConvention.majoranaDirac => Physics.ChiralActionConvention.majoranaDirac,
+  GUT.ChiralActionConvention.majoranaDirac.eq_1 => Physics.ChiralActionConvention.majoranaDirac.eq_1,
+  GUT.ChiralActionConvention.majorana_bar_right => Physics.ChiralActionConvention.majorana_bar_right,
+  GUT.ChiralActionConvention.majorana_kinetic => Physics.ChiralActionConvention.majorana_kinetic,
+  GUT.ChiralActionConvention.matrixDerivative => Physics.ChiralActionConvention.matrixDerivative,
+  GUT.ChiralActionConvention.matrixDerivative.eq_1 => Physics.ChiralActionConvention.matrixDerivative.eq_1,
+  GUT.ChiralActionConvention.pauli => Physics.ChiralActionConvention.pauli,
+  GUT.ChiralActionConvention.pauli.eq_1 => Physics.ChiralActionConvention.pauli.eq_1,
+  GUT.ChiralActionConvention.rightConj => Physics.ChiralActionConvention.rightConj,
+  GUT.ChiralActionConvention.rightConj.eq_1 => Physics.ChiralActionConvention.rightConj.eq_1,
+  GUT.ChiralActionConvention.rightDirac => Physics.ChiralActionConvention.rightDirac,
+  GUT.ChiralActionConvention.rightDirac.eq_1 => Physics.ChiralActionConvention.rightDirac.eq_1,
+  GUT.ChiralActionConvention.right_conj_inverse => Physics.ChiralActionConvention.right_conj_inverse,
+  GUT.ChiralActionConvention.totalDerivative => Physics.ChiralActionConvention.totalDerivative,
+  GUT.ChiralActionConvention.totalDerivative.eq_1 => Physics.ChiralActionConvention.totalDerivative.eq_1
+]
 
-def rightConj (n : Fin 2 → R) : Fin 2 → R := ![-star (n 1),star (n 0)]
-def barredLR (s n : Fin 2 → R) : R :=
-  star (s 0)*rightConj n 0 + star (s 1)*rightConj n 1
-
-def leftDirac (s : Fin 2 → R) : Fin 4 → R := ![s 0,s 1,0,0]
-def rightDirac (n : Fin 2 → R) : Fin 4 → R :=
-  ![0,0,rightConj n 0,rightConj n 1]
-def gammaZero : Matrix (Fin 4) (Fin 4) ℂ :=
-  !![0,0,1,0;0,0,0,1;1,0,0,0;0,1,0,0]
-
-def diracBarProduct (s n : Fin 2 → R) : R :=
-  ∑ a, ∑ b, gammaZero a b • (star (leftDirac s a)*rightDirac n b)
-
-omit [StarModule ℂ R] in
-theorem dirac_bar_product (s n : Fin 2 → R) : diracBarProduct s n = barredLR s n := by
-  simp [diracBarProduct, leftDirac, rightDirac, gammaZero, barredLR, Fin.sum_univ_succ]
-
-def majoranaDirac (s : Fin 2 → R) : Fin 4 → R := leftDirac s+rightDirac s
-
-def majoranaBarRight (s n : Fin 2 → R) : R :=
-  ∑ a, ∑ b, gammaZero a b • (star (majoranaDirac s a)*rightDirac n b)
-
-omit [StarModule ℂ R] in
-theorem majorana_bar_right (s n : Fin 2 → R) : majoranaBarRight s n = barredLR s n := by
-  simp [majoranaBarRight, majoranaDirac, leftDirac, rightDirac, gammaZero,
-    barredLR, Fin.sum_univ_succ]
-
-omit [Algebra ℂ R] [StarModule ℂ R] in
-theorem right_conj_inverse (n : Fin 2 → R) :
-    ![star (rightConj n 1),-star (rightConj n 0)] = n := by
-  ext i
-  fin_cases i <;> simp [rightConj]
-
-/- Reversing the order under Hermitian conjugation is essential. -/
-omit [Algebra ℂ R] [StarModule ℂ R] in
-theorem barred_lr (s n : Fin 2 → R)
-    (h0 : star (s 0)*star (n 1) = -(star (n 1)*star (s 0)))
-    (h1 : star (s 1)*star (n 0) = -(star (n 0)*star (s 1))) :
-    barredLR s n = star (bracket s n) := by
-  simp only [barredLR, rightConj, Matrix.cons_val_zero, Matrix.cons_val_one,
-    mul_neg, bracket, star_sub, star_mul]
-  rw [h0,h1]
-  abel
-
-/- The holomorphic part is the Hermitian conjugate of the displayed barred vertex. -/
-theorem conjugate_vertex (y z : ℂ) (s n : Fin 2 → R)
-    (h0 : star (s 0)*star (n 1) = -(star (n 1)*star (s 0)))
-    (h1 : star (s 1)*star (n 0) = -(star (n 0)*star (s 1))) :
-    star ((-(y*star z)) • barredLR s n) =
-      (-(star y*z)) • bracket s n := by
-  rw [barred_lr s n h0 h1]
-  simp
-
-def kineticLeft (n dn : Fin 2 → R) : R := star (n 0)*dn 0+star (n 1)*dn 1
-def kineticRight (n dn : Fin 2 → R) : R :=
-  star (rightConj n 0)*rightConj dn 0 + star (rightConj n 1)*rightConj dn 1
-/- Formal derivative of n_0*star(n_0)+n_1*star(n_1), by Leibniz. -/
-def totalDerivative (n dn : Fin 2 → R) : R :=
-  dn 0*star (n 0)+n 0*star (dn 0)+dn 1*star (n 1)+n 1*star (dn 1)
-
-omit [Algebra ℂ R] [StarModule ℂ R] in
-theorem kinetic_mod_derivative (n dn : Fin 2 → R)
-    (h0 : dn 0*star (n 0) = -(star (n 0)*dn 0))
-    (h1 : dn 1*star (n 1) = -(star (n 1)*dn 1)) :
-    kineticRight n dn = kineticLeft n dn+totalDerivative n dn := by
-  simp [kineticRight, rightConj, kineticLeft, totalDerivative, h0,h1]
-  abel
-
-/- Chiral kinetic matrix after charge conjugation and integration by parts. -/
-def flipMatrix (A : Matrix (Fin 2) (Fin 2) ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
-  !![A 1 1,-A 0 1;-A 1 0,A 0 0]
-
-def kineticMatrix (A : Matrix (Fin 2) (Fin 2) ℂ) (n dn : Fin 2 → R) : R :=
-  ∑ i, ∑ j, A i j • (star (n i)*dn j)
-
-def matrixDerivative (B : Matrix (Fin 2) (Fin 2) ℂ) (n dn : Fin 2 → R) : R :=
-  ∑ i, ∑ j, B j i • (dn i*star (n j)+n i*star (dn j))
-
-omit [StarModule ℂ R] in
-theorem kinetic_matrix_mod_derivative (A : Matrix (Fin 2) (Fin 2) ℂ)
-    (n dn : Fin 2 → R)
-    (h : ∀ i j, dn i*star (n j) = -(star (n j)*dn i)) :
-    kineticMatrix A (rightConj n) (rightConj dn) =
-      kineticMatrix (flipMatrix A) n dn+matrixDerivative (flipMatrix A) n dn := by
-  simp [kineticMatrix, matrixDerivative, flipMatrix, rightConj, Fin.sum_univ_succ, h]
-  module
-
-/- The canonical Majorana kinetic half compensates its two chiral blocks;
-there is no corresponding vertex half. -/
-omit [StarModule ℂ R] in
-theorem majorana_kinetic (A : Matrix (Fin 2) (Fin 2) ℂ) (n dn : Fin 2 → R)
-    (h : ∀ i j, dn i*star (n j) = -(star (n j)*dn i)) :
-    (1/2 : ℂ) • (kineticMatrix (flipMatrix A) n dn+
-      kineticMatrix A (rightConj n) (rightConj dn)) =
-      kineticMatrix (flipMatrix A) n dn+(1/2 : ℂ) • matrixDerivative (flipMatrix A) n dn := by
-  rw [kinetic_matrix_mod_derivative A n dn h]
-  module
-
-def pauli (i : Fin 3) : Matrix (Fin 2) (Fin 2) ℂ :=
-  ![!![0,1;1,0],!![0,-Complex.I;Complex.I,0],!![1,0;0,-1]] i
-
-theorem flip_time : flipMatrix (1 : Matrix (Fin 2) (Fin 2) ℂ) = 1 := by
-  ext i j
-  fin_cases i <;> fin_cases j <;> simp [flipMatrix]
-
-theorem flip_space (i : Fin 3) : flipMatrix (pauli i) = -pauli i := by
-  fin_cases i <;> ext a b <;> fin_cases a <;> fin_cases b <;> simp [flipMatrix, pauli]
-
-omit [Ring R] [StarRing R] [Algebra ℂ R] [StarModule ℂ R] in
-theorem canonical_norm_form (n : Fin 2 → ℂ) :
-    star (rightConj n 0)*rightConj n 0+star (rightConj n 1)*rightConj n 1 =
-      star (n 0)*n 0+star (n 1)*n 1 := by
-  simp [rightConj]
-  ring
-
-end
-end GUT.ChiralActionConvention
+assert_compatible GUT.ChiralActionConvention.barredLR => Physics.ChiralActionConvention.barredLR
+assert_compatible GUT.ChiralActionConvention.barredLR.eq_1 => Physics.ChiralActionConvention.barredLR.eq_1
+assert_compatible GUT.ChiralActionConvention.barred_lr => Physics.ChiralActionConvention.barred_lr
+assert_compatible GUT.ChiralActionConvention.bracket => Physics.ChiralActionConvention.bracket
+assert_compatible GUT.ChiralActionConvention.bracket.eq_1 => Physics.ChiralActionConvention.bracket.eq_1
+assert_compatible GUT.ChiralActionConvention.canonical_norm_form => Physics.ChiralActionConvention.canonical_norm_form
+assert_compatible GUT.ChiralActionConvention.conjugate_vertex => Physics.ChiralActionConvention.conjugate_vertex
+assert_compatible GUT.ChiralActionConvention.diracBarProduct => Physics.ChiralActionConvention.diracBarProduct
+assert_compatible GUT.ChiralActionConvention.diracBarProduct.eq_1 => Physics.ChiralActionConvention.diracBarProduct.eq_1
+assert_compatible GUT.ChiralActionConvention.dirac_bar_product => Physics.ChiralActionConvention.dirac_bar_product
+assert_compatible GUT.ChiralActionConvention.flipMatrix => Physics.ChiralActionConvention.flipMatrix
+assert_compatible GUT.ChiralActionConvention.flipMatrix.eq_1 => Physics.ChiralActionConvention.flipMatrix.eq_1
+assert_compatible GUT.ChiralActionConvention.flip_space => Physics.ChiralActionConvention.flip_space
+assert_compatible GUT.ChiralActionConvention.flip_time => Physics.ChiralActionConvention.flip_time
+assert_compatible GUT.ChiralActionConvention.gammaZero => Physics.ChiralActionConvention.gammaZero
+assert_compatible GUT.ChiralActionConvention.gammaZero.eq_1 => Physics.ChiralActionConvention.gammaZero.eq_1
+assert_compatible GUT.ChiralActionConvention.kineticLeft => Physics.ChiralActionConvention.kineticLeft
+assert_compatible GUT.ChiralActionConvention.kineticLeft.eq_1 => Physics.ChiralActionConvention.kineticLeft.eq_1
+assert_compatible GUT.ChiralActionConvention.kineticMatrix => Physics.ChiralActionConvention.kineticMatrix
+assert_compatible GUT.ChiralActionConvention.kineticMatrix.eq_1 => Physics.ChiralActionConvention.kineticMatrix.eq_1
+assert_compatible GUT.ChiralActionConvention.kineticRight => Physics.ChiralActionConvention.kineticRight
+assert_compatible GUT.ChiralActionConvention.kineticRight.eq_1 => Physics.ChiralActionConvention.kineticRight.eq_1
+assert_compatible GUT.ChiralActionConvention.kinetic_matrix_mod_derivative => Physics.ChiralActionConvention.kinetic_matrix_mod_derivative
+assert_compatible GUT.ChiralActionConvention.kinetic_mod_derivative => Physics.ChiralActionConvention.kinetic_mod_derivative
+assert_compatible GUT.ChiralActionConvention.leftDirac => Physics.ChiralActionConvention.leftDirac
+assert_compatible GUT.ChiralActionConvention.leftDirac.eq_1 => Physics.ChiralActionConvention.leftDirac.eq_1
+assert_compatible GUT.ChiralActionConvention.majoranaBarRight => Physics.ChiralActionConvention.majoranaBarRight
+assert_compatible GUT.ChiralActionConvention.majoranaBarRight.eq_1 => Physics.ChiralActionConvention.majoranaBarRight.eq_1
+assert_compatible GUT.ChiralActionConvention.majoranaDirac => Physics.ChiralActionConvention.majoranaDirac
+assert_compatible GUT.ChiralActionConvention.majoranaDirac.eq_1 => Physics.ChiralActionConvention.majoranaDirac.eq_1
+assert_compatible GUT.ChiralActionConvention.majorana_bar_right => Physics.ChiralActionConvention.majorana_bar_right
+assert_compatible GUT.ChiralActionConvention.majorana_kinetic => Physics.ChiralActionConvention.majorana_kinetic
+assert_compatible GUT.ChiralActionConvention.matrixDerivative => Physics.ChiralActionConvention.matrixDerivative
+assert_compatible GUT.ChiralActionConvention.matrixDerivative.eq_1 => Physics.ChiralActionConvention.matrixDerivative.eq_1
+assert_compatible GUT.ChiralActionConvention.pauli => Physics.ChiralActionConvention.pauli
+assert_compatible GUT.ChiralActionConvention.pauli.eq_1 => Physics.ChiralActionConvention.pauli.eq_1
+assert_compatible GUT.ChiralActionConvention.rightConj => Physics.ChiralActionConvention.rightConj
+assert_compatible GUT.ChiralActionConvention.rightConj.eq_1 => Physics.ChiralActionConvention.rightConj.eq_1
+assert_compatible GUT.ChiralActionConvention.rightDirac => Physics.ChiralActionConvention.rightDirac
+assert_compatible GUT.ChiralActionConvention.rightDirac.eq_1 => Physics.ChiralActionConvention.rightDirac.eq_1
+assert_compatible GUT.ChiralActionConvention.right_conj_inverse => Physics.ChiralActionConvention.right_conj_inverse
+assert_compatible GUT.ChiralActionConvention.totalDerivative => Physics.ChiralActionConvention.totalDerivative
+assert_compatible GUT.ChiralActionConvention.totalDerivative.eq_1 => Physics.ChiralActionConvention.totalDerivative.eq_1

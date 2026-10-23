@@ -2,6 +2,8 @@ import GUT.E6.Minuscule.SU5Inclusion
 import GUT.Common.StandardChain.StandardChain
 import Lean.Util.CollectAxioms
 
+open Physics
+
 open Math
 
 /-!

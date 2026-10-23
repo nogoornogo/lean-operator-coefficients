@@ -12,7 +12,8 @@
     "algebraic-combinatorics-mathlib": "8f9d9cff6bd728b17a24e163c9402775d9e6a365",
     "ATLAS-Physlib-mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
     "ATLAS-v1-mathlib": "8a178386ffc0f5fef0b77738bb5449d50efeea95",
-    "LeanPool-mathlib": "c55e6e786f49471c72fbddbec5415808896aec1e"
+    "LeanPool-mathlib": "c55e6e786f49471c72fbddbec5415808896aec1e",
+    "Lean-v4.35.0": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc"
   },
   "publication_dates": {
     "docs/topics/sm-support-and-lfv-decomposition/references.md": [

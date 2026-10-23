@@ -1,147 +1,85 @@
+import Physics.StandardModel.Spectrum.Representations.InverseCyclicSMRealization
 import Physics.StandardModel.Operators.InverseLeptonParitySelection
 import Physics.StandardModel.Operators.InverseCyclicSMCharges
-import Mathlib.LinearAlgebra.Dual.Basis
 import Physics.FieldTheory.Mass.ConstructedSpectatorRadical
-import Math.RepresentationTheory.Decomposition.ExternalCopyFactorization
-import Math.RepresentationTheory.Multiplicity.FiniteSpectrum
+import Math.Lean.Compatibility
 
-/-! Actual three-generation lepton-parity carriers and spectator mass. -/
-namespace GUT.InverseCyclicSMRealization
-set_option autoImplicit false
-noncomputable section
-open Math Representation StandardSMGaugeTensor ExternalInvariantTensor
-open DeltaLOneSignedInput InvariantWeylMass
-open scoped TensorProduct
-abbrev H := CyclicCharge.Group 2
-abbrev Flavor := Fin 3 → ℂ
-abbrev G := GaugeGroup × H
+deprecated_module "Use Physics.StandardModel.Spectrum.Representations.InverseCyclicSMRealization instead." (since := "source-api-v1")
 
-/-- All-left chiral species, distinct from the ten-species signed alphabet. -/
-def index : Fin 5 → Species := ![0,6,7,3,9]
-abbrev Carrier (i : Fin 5) := DeltaLOneSignedFields.GaugeCarrier (index i) ⊗[ℂ] Flavor
-instance (i : Fin 5) : AddCommGroup (Carrier i) := inferInstance
-instance (i : Fin 5) : Module ℂ (Carrier i) := inferInstance
+compatibility_declarations [
+  GUT.InvariantWeylMass.ofDirac.eq_1 => Physics.InvariantWeylMass.ofDirac.eq_1,
+  GUT.InverseCyclicSMRealization.Carrier => Physics.InverseCyclicSMRealization.Carrier,
+  GUT.InverseCyclicSMRealization.Flavor => Physics.InverseCyclicSMRealization.Flavor,
+  GUT.InverseCyclicSMRealization.G => Physics.InverseCyclicSMRealization.G,
+  GUT.InverseCyclicSMRealization.H => Physics.InverseCyclicSMRealization.H,
+  GUT.InverseCyclicSMRealization.Light => Physics.InverseCyclicSMRealization.Light,
+  GUT.InverseCyclicSMRealization.all_B1_forbidden => Physics.InverseCyclicSMRealization.all_B1_forbidden,
+  GUT.InverseCyclicSMRealization.chiral_left => Physics.InverseCyclicSMRealization.chiral_left,
+  GUT.InverseCyclicSMRealization.coefficientGroup => Physics.InverseCyclicSMRealization.coefficientGroup,
+  GUT.InverseCyclicSMRealization.coefficientGroup.eq_1 => Physics.InverseCyclicSMRealization.coefficientGroup.eq_1,
+  GUT.InverseCyclicSMRealization.coefficient_species => Physics.InverseCyclicSMRealization.coefficient_species,
+  GUT.InverseCyclicSMRealization.fermionFlavor => Physics.InverseCyclicSMRealization.fermionFlavor,
+  GUT.InverseCyclicSMRealization.flavorDualEquiv => Physics.InverseCyclicSMRealization.flavorDualEquiv,
+  GUT.InverseCyclicSMRealization.flavorDual_action => Physics.InverseCyclicSMRealization.flavorDual_action,
+  GUT.InverseCyclicSMRealization.gaugeSpecies => Physics.InverseCyclicSMRealization.gaugeSpecies,
+  GUT.InverseCyclicSMRealization.gaugeSpecies.eq_1 => Physics.InverseCyclicSMRealization.gaugeSpecies.eq_1,
+  GUT.InverseCyclicSMRealization.gauge_restriction => Physics.InverseCyclicSMRealization.gauge_restriction,
+  GUT.InverseCyclicSMRealization.higgsFlavor => Physics.InverseCyclicSMRealization.higgsFlavor,
+  GUT.InverseCyclicSMRealization.higgs_residual_neutral => Physics.InverseCyclicSMRealization.higgs_residual_neutral,
+  GUT.InverseCyclicSMRealization.index => Physics.InverseCyclicSMRealization.index,
+  GUT.InverseCyclicSMRealization.instAddCommGroupCarrier => Physics.InverseCyclicSMRealization.instAddCommGroupCarrier,
+  GUT.InverseCyclicSMRealization.instModuleComplexCarrier => Physics.InverseCyclicSMRealization.instModuleComplexCarrier,
+  GUT.InverseCyclicSMRealization.light => Physics.InverseCyclicSMRealization.light,
+  GUT.InverseCyclicSMRealization.mass => Physics.InverseCyclicSMRealization.mass,
+  GUT.InverseCyclicSMRealization.mass.eq_1 => Physics.InverseCyclicSMRealization.mass.eq_1,
+  GUT.InverseCyclicSMRealization.original => Physics.InverseCyclicSMRealization.original,
+  GUT.InverseCyclicSMRealization.physicalFieldEquiv => Physics.InverseCyclicSMRealization.physicalFieldEquiv,
+  GUT.InverseCyclicSMRealization.radicalEquiv => Physics.InverseCyclicSMRealization.radicalEquiv,
+  GUT.InverseCyclicSMRealization.selected_dictionary => Physics.InverseCyclicSMRealization.selected_dictionary,
+  GUT.InverseCyclicSMRealization.sm => Physics.InverseCyclicSMRealization.sm,
+  GUT.InverseCyclicSMRealization.species => Physics.InverseCyclicSMRealization.species,
+  GUT.InverseCyclicSMRealization.species.eq_1 => Physics.InverseCyclicSMRealization.species.eq_1,
+  GUT.InverseCyclicSMRealization.species_gauge => Physics.InverseCyclicSMRealization.species_gauge,
+  GUT.InverseCyclicSMRealization.spectator => Physics.InverseCyclicSMRealization.spectator,
+  GUT.InverseCyclicSMRealization.spectator_mass_nonzero => Physics.InverseCyclicSMRealization.spectator_mass_nonzero,
+  GUT.InverseCyclicSMRealization.threeCopies => Physics.InverseCyclicSMRealization.threeCopies,
+  GUT.LightInheritanceBoundary.pairedMass.eq_1 => Physics.LightInheritanceBoundary.pairedMass.eq_1
+]
 
-def species (i : Fin 5) : Representation ℂ G (Carrier i) :=
-  external (DeltaLOneSignedFields.gauge (index i))
-    (InverseLeptonParitySelection.copies (V := Flavor) (lepton (index i)))
-def gaugeSpecies (i : Fin 5) : Representation ℂ GaugeGroup (Carrier i) :=
-  (DeltaLOneSignedFields.gauge (index i)).tprod (trivial ℂ GaugeGroup Flavor)
-
-abbrev Light := ∀ i : Fin 5, Carrier i
-def light : Representation ℂ G Light := FiniteSpeciesExterior.representation species
-def sm : Representation ℂ GaugeGroup Light := FiniteSpeciesExterior.representation gaugeSpecies
-
-theorem species_gauge (i : Fin 5) : ProductFactorization.firstRestriction (species i) = gaugeSpecies i := by
-  apply MonoidHom.ext
-  intro g
-  apply TensorProduct.ext'
-  intro v w
-  simp [ProductFactorization.firstRestriction,species,gaugeSpecies,external,
-    InverseLeptonParitySelection.copies,Representation.tprod_apply]
-
-theorem gauge_restriction : ProductFactorization.firstRestriction light = sm := by
-  apply MonoidHom.ext
-  intro g
-  apply LinearMap.ext
-  intro v
-  funext i
-  exact LinearMap.congr_fun (congrArg (fun r => r g) (species_gauge i)) (v i)
-
-def threeCopies (i : Fin 5) : Equiv (gaugeSpecies i)
-    (FiniteSpectrum.copies 3 (DeltaLOneSignedFields.gauge (index i))) :=
-  .mk (ExternalCopyFactorization.coordinates (Pi.basisFun ℂ (Fin 3))) (by
-    intro g
-    apply TensorProduct.ext'
-    intro v w
-    funext j
-    simp [ExternalCopyFactorization.coordinates_tmul,gaugeSpecies,Representation.tprod_apply,
-      FiniteSpectrum.copies_apply])
-
-/-- A genuinely charged singlet spectator and its contragredient pair. -/
-def spectator : Representation ℂ G ℂ :=
-  (CyclicCharge.representation (1 : ZMod 2)).comp (MonoidHom.snd GaugeGroup H)
-def original := ConstructedSpectatorRadical.action light spectator
-def mass : SymmetricMass original := ConstructedSpectatorRadical.mass light spectator
-def radicalEquiv : Equiv mass.radical.toRepresentation light :=
-  ConstructedSpectatorRadical.radicalEquiv light spectator
-
-theorem spectator_mass_nonzero : mass.form ≠ 0 := by
-  intro h
-  have he := LinearMap.congr_fun (LinearMap.congr_fun h
-    ((0 : Light), ((1 : ℂ), (0 : Module.Dual ℂ ℂ))))
-    ((0 : Light), ((0 : ℂ), LinearMap.id))
-  norm_num [mass,ConstructedSpectatorRadical.mass,OrthogonalMass.prod,
-    LightInheritanceBoundary.pairedMass,ofDirac] at he
-
-/-- The coefficient alphabet uses three flavor coordinates and one Higgs
-coordinate; the conjugate species have their declared opposite actions. -/
-abbrev fermionFlavor (u : Species) := InverseLeptonParitySelection.flavor (F := fun _ => Flavor) u
-abbrev higgsFlavor (u : BnvMixedInput.ScalarSpecies) :=
-  InverseLeptonParitySelection.scalarFlavor (S := fun _ => ℂ) u
-
-theorem coefficient_species (i : Fin 5) : species i =
-    external (DeltaLOneSignedFields.gauge (index i)) (fermionFlavor (index i)) := rfl
-
-theorem all_B1_forbidden : ∀ n m,
-    ∀ f : ComposableBLSupport.Input fermionFlavor higgsFlavor InverseLeptonParitySelection.target n m, f = 0 :=
-  InverseLeptonParitySelection.all_forbidden
-def coefficientGroup : (G × WeylSpinor.Group) →*
-    ((GaugeGroup × WeylSpinor.Group) × H) where
-  toFun g := ((g.1.1,g.2),g.1.2)
-  map_one' := rfl
-  map_mul' _ _ := rfl
-
-theorem chiral_left (i : Fin 5) : DeltaLOneSignedFields.rightHanded (index i) = false := by
-  fin_cases i <;> decide +kernel
-
-/-- The actual light gauge/flavor carrier and the all-degree gauge/spin/flavor
-carrier differ only by proved tensor and group regrouping. -/
-def physicalFieldEquiv (i : Fin 5) : Equiv (external (species i) WeylSpinor.left)
-    ((DeltaLOneSignedFields.field fermionFlavor (index i)).comp coefficientGroup) :=
-  .mk
-    (((TensorProduct.assoc ℂ (DeltaLOneSignedFields.GaugeCarrier (index i)) Flavor WeylSpinor.Space).trans
-      (TensorProduct.congr (LinearEquiv.refl ℂ _) (TensorProduct.comm ℂ Flavor WeylSpinor.Space))).trans
-      (TensorProduct.assoc ℂ (DeltaLOneSignedFields.GaugeCarrier (index i)) WeylSpinor.Space Flavor).symm)
-    (by
-      intro g
-      apply TensorProduct.ext'
-      intro t u
-      induction t using TensorProduct.inductionOn with
-      | tmul v x =>
-        simp [species,external,DeltaLOneSignedFields.field,DeltaLOneSignedFields.localField,
-          FourSameWeylCompleteness.action,chiral_left,coefficientGroup,Representation.tprod_apply,
-          fermionFlavor,InverseLeptonParitySelection.flavor,InverseLeptonParitySelection.fq]
-      | add t s ht hs => simp only [map_add,TensorProduct.add_tmul,ht,hs])
-
-theorem selected_dictionary (i : Fin 5) :
-    (lepton (index i) : ZMod 2) = InverseCyclicSMCharges.chiral 0 1 i := by
-  fin_cases i <;> decide +kernel
-
-theorem higgs_residual_neutral (u : BnvMixedInput.ScalarSpecies) (g : H)
-    (x : BnvMixedInput.ScalarField (S := fun _ => ℂ) u) :
-    BnvMixedInput.scalarField higgsFlavor u (1,g) x = x := by
-  simpa [InverseLeptonParitySelection.bq,MixedChargeSelection.cyclicCharacter] using
-    InverseLeptonParitySelection.scalar_scalar (S := fun _ => ℂ) g u x
-
-theorem flavorDual_action (q : ZMod 2) (g : H) (phi : Module.Dual ℂ Flavor) :
-    (InverseLeptonParitySelection.copies (V := Flavor) q).dual g phi =
-      ZMod.stdAddChar ((-q)*g.toAdd) • phi := by
-  apply LinearMap.ext
-  intro x
-  change phi (ZMod.stdAddChar (q*(g⁻¹).toAdd) • x) = _
-  rw [map_smul]
-  simp
-
-def flavorDualEquiv (q : ZMod 2) : Equiv
-    (InverseLeptonParitySelection.copies (V := Flavor) q).dual
-    (InverseLeptonParitySelection.copies (V := Flavor) (-q)) :=
-  .mk ((Pi.basisFun ℂ (Fin 3)).dualBasis.equiv (Pi.basisFun ℂ (Fin 3)) (Equiv.refl (Fin 3))) (by
-    intro g
-    apply LinearMap.ext
-    intro phi
-    simp only [LinearMap.comp_apply]
-    rw [flavorDual_action]
-    exact map_smul _ _ _)
-end
-end GUT.InverseCyclicSMRealization
+assert_compatible GUT.InvariantWeylMass.ofDirac.eq_1 => Physics.InvariantWeylMass.ofDirac.eq_1
+assert_compatible GUT.InverseCyclicSMRealization.Carrier => Physics.InverseCyclicSMRealization.Carrier
+assert_compatible GUT.InverseCyclicSMRealization.Flavor => Physics.InverseCyclicSMRealization.Flavor
+assert_compatible GUT.InverseCyclicSMRealization.G => Physics.InverseCyclicSMRealization.G
+assert_compatible GUT.InverseCyclicSMRealization.H => Physics.InverseCyclicSMRealization.H
+assert_compatible GUT.InverseCyclicSMRealization.Light => Physics.InverseCyclicSMRealization.Light
+assert_compatible GUT.InverseCyclicSMRealization.all_B1_forbidden => Physics.InverseCyclicSMRealization.all_B1_forbidden
+assert_compatible GUT.InverseCyclicSMRealization.chiral_left => Physics.InverseCyclicSMRealization.chiral_left
+assert_compatible GUT.InverseCyclicSMRealization.coefficientGroup => Physics.InverseCyclicSMRealization.coefficientGroup
+assert_compatible GUT.InverseCyclicSMRealization.coefficientGroup.eq_1 => Physics.InverseCyclicSMRealization.coefficientGroup.eq_1
+assert_compatible GUT.InverseCyclicSMRealization.coefficient_species => Physics.InverseCyclicSMRealization.coefficient_species
+assert_compatible GUT.InverseCyclicSMRealization.fermionFlavor => Physics.InverseCyclicSMRealization.fermionFlavor
+assert_compatible GUT.InverseCyclicSMRealization.flavorDualEquiv => Physics.InverseCyclicSMRealization.flavorDualEquiv
+assert_compatible GUT.InverseCyclicSMRealization.flavorDual_action => Physics.InverseCyclicSMRealization.flavorDual_action
+assert_compatible GUT.InverseCyclicSMRealization.gaugeSpecies => Physics.InverseCyclicSMRealization.gaugeSpecies
+assert_compatible GUT.InverseCyclicSMRealization.gaugeSpecies.eq_1 => Physics.InverseCyclicSMRealization.gaugeSpecies.eq_1
+assert_compatible GUT.InverseCyclicSMRealization.gauge_restriction => Physics.InverseCyclicSMRealization.gauge_restriction
+assert_compatible GUT.InverseCyclicSMRealization.higgsFlavor => Physics.InverseCyclicSMRealization.higgsFlavor
+assert_compatible GUT.InverseCyclicSMRealization.higgs_residual_neutral => Physics.InverseCyclicSMRealization.higgs_residual_neutral
+assert_compatible GUT.InverseCyclicSMRealization.index => Physics.InverseCyclicSMRealization.index
+assert_compatible GUT.InverseCyclicSMRealization.instAddCommGroupCarrier => Physics.InverseCyclicSMRealization.instAddCommGroupCarrier
+assert_compatible GUT.InverseCyclicSMRealization.instModuleComplexCarrier => Physics.InverseCyclicSMRealization.instModuleComplexCarrier
+assert_compatible GUT.InverseCyclicSMRealization.light => Physics.InverseCyclicSMRealization.light
+assert_compatible GUT.InverseCyclicSMRealization.mass => Physics.InverseCyclicSMRealization.mass
+assert_compatible GUT.InverseCyclicSMRealization.mass.eq_1 => Physics.InverseCyclicSMRealization.mass.eq_1
+assert_compatible GUT.InverseCyclicSMRealization.original => Physics.InverseCyclicSMRealization.original
+assert_compatible GUT.InverseCyclicSMRealization.physicalFieldEquiv => Physics.InverseCyclicSMRealization.physicalFieldEquiv
+assert_compatible GUT.InverseCyclicSMRealization.radicalEquiv => Physics.InverseCyclicSMRealization.radicalEquiv
+assert_compatible GUT.InverseCyclicSMRealization.selected_dictionary => Physics.InverseCyclicSMRealization.selected_dictionary
+assert_compatible GUT.InverseCyclicSMRealization.sm => Physics.InverseCyclicSMRealization.sm
+assert_compatible GUT.InverseCyclicSMRealization.species => Physics.InverseCyclicSMRealization.species
+assert_compatible GUT.InverseCyclicSMRealization.species.eq_1 => Physics.InverseCyclicSMRealization.species.eq_1
+assert_compatible GUT.InverseCyclicSMRealization.species_gauge => Physics.InverseCyclicSMRealization.species_gauge
+assert_compatible GUT.InverseCyclicSMRealization.spectator => Physics.InverseCyclicSMRealization.spectator
+assert_compatible GUT.InverseCyclicSMRealization.spectator_mass_nonzero => Physics.InverseCyclicSMRealization.spectator_mass_nonzero
+assert_compatible GUT.InverseCyclicSMRealization.threeCopies => Physics.InverseCyclicSMRealization.threeCopies
+assert_compatible GUT.LightInheritanceBoundary.pairedMass.eq_1 => Physics.LightInheritanceBoundary.pairedMass.eq_1

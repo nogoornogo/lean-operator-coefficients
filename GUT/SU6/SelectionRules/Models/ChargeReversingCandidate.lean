@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.AutomorphismCovariantModel
-import Math.RepresentationTheory.CovariantCharacterObstruction
-import Physics.StandardModel.Spectrum.HyperchargeReversalProbe
+import Math.RepresentationTheory.Invariants.CovariantCharacterObstruction
+import Physics.StandardModel.Spectrum.Representations.HyperchargeReversalProbe
+
+open Physics
 
 /-! A charge-reversing linear residual candidate can fail already at the light
 SM-index condition. This is not a general noncommuting-symmetry no-go. -/

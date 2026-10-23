@@ -1,29 +1,20 @@
+import Physics.StandardModel.Operators.Support.Quark.SMQSixthBranching
 import Physics.StandardModel.Operators.SMQCoreBranching
 import Math.RepresentationTheory.SU3DoubleSpinSixth
+import Math.Lean.Compatibility
 
-/-! Complete actual positive-Q sixth exterior color/weak/spin branching.
-No numerical multiplicity or rank certificate is used. -/
-namespace GUT.SMQSixthBranching
-set_option autoImplicit false
-noncomputable section
-open Math Representation SMColoredCoreBranching SMQCoreBranching
-open scoped TensorProduct
-@[reducible] local instance (A B : Type*) [AddCommGroup A] [Module ℂ A]
-    [AddCommGroup B] [Module ℂ B] : AddCommGroup (A ⊗[ℂ] B) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((SU3DoubleSpinSquare.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((Module.Dual ℂ SU3DoubleSpinSquare.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
+deprecated_module "Use Physics.StandardModel.Operators.Support.Quark.SMQSixthBranching instead." (since := "source-api-v1")
 
-def positiveSixth : Representation.Equiv ((core 0).exteriorPower 6)
-    (SU3DoubleSpinSixth.positiveBranches.comp (projection false)) :=
-  (positiveEquiv.exteriorPower 6).trans
-    (SplitRepresentationProjection.restrictEquiv SU3DoubleSpinSixth.positive (projection false))
+compatibility_declarations [
+  GUT.SMQSixthBranching.instAddCommGroupTensorProductComplexColorDoublet_physics => Physics.SMQSixthBranching.instAddCommGroupTensorProductComplexColorDoublet_physics,
+  GUT.SMQSixthBranching.instAddCommGroupTensorProductComplexDualColorDoublet_physics => Physics.SMQSixthBranching.instAddCommGroupTensorProductComplexDualColorDoublet_physics,
+  GUT.SMQSixthBranching.instAddCommGroupTensorProductComplex_physics => Physics.SMQSixthBranching.instAddCommGroupTensorProductComplex_physics,
+  GUT.SMQSixthBranching.negativeSixth => Physics.SMQSixthBranching.negativeSixth,
+  GUT.SMQSixthBranching.positiveSixth => Physics.SMQSixthBranching.positiveSixth
+]
 
-def negativeSixth : Representation.Equiv ((core 5).exteriorPower 6)
-    (SU3DoubleSpinSixth.positiveBranches.dual.comp (projection true)) :=
-  (negativeEquiv.exteriorPower 6).trans
-    (SplitRepresentationProjection.restrictEquiv SU3DoubleSpinSixth.negative (projection true))
-
-end
-end GUT.SMQSixthBranching
+assert_compatible GUT.SMQSixthBranching.instAddCommGroupTensorProductComplexColorDoublet_physics => Physics.SMQSixthBranching.instAddCommGroupTensorProductComplexColorDoublet_physics
+assert_compatible GUT.SMQSixthBranching.instAddCommGroupTensorProductComplexDualColorDoublet_physics => Physics.SMQSixthBranching.instAddCommGroupTensorProductComplexDualColorDoublet_physics
+assert_compatible GUT.SMQSixthBranching.instAddCommGroupTensorProductComplex_physics => Physics.SMQSixthBranching.instAddCommGroupTensorProductComplex_physics
+assert_compatible GUT.SMQSixthBranching.negativeSixth => Physics.SMQSixthBranching.negativeSixth
+assert_compatible GUT.SMQSixthBranching.positiveSixth => Physics.SMQSixthBranching.positiveSixth

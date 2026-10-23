@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylBenchmark
 
+open Physics
+
 /-!
 # Non-vacuity audit of the standard Weyl model
 

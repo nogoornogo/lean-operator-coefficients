@@ -1,7 +1,9 @@
-import Math.RepresentationTheory.ExteriorSquareCompression
+import Math.RepresentationTheory.Exterior.ExteriorSquareCompression
 import GUT.SU6.Representations.ConcreteSU6Representations
 import GUT.SU6.Adapters.StandardSMExterior
 import GUT.SU5.Matching.HeavyCurrents
+
+open Physics
 
 open Math
 

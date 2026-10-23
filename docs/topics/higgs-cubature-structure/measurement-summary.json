@@ -1,0 +1,63 @@
+{
+  "scope": "First collinear family: the same 35 entry modules and each complete local dependency closure",
+  "ordinaryProjectArtifactsReused": 0,
+  "externalPinnedArtifactsReused": true,
+  "protocol": {
+    "pins": {
+      "lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
+      "lakefile.lean": "e707b573d5f816093b2c5aaaced8a08b10e0b1351b7aada8a0e47104c681cf94",
+      "lake-manifest.json": "6fc2faa83f19c7f820599bdd5b925a637f99470ee239b3f738c5f22bcd3831ea"
+    },
+    "lean": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+    "virtualLimitBytes": 17179869184,
+    "timeoutSeconds": 540,
+    "leanArguments": [
+      "-j2"
+    ],
+    "coreDumpsEnabled": false,
+    "ordinaryProjectCacheInherited": false
+  },
+  "fingerprintScope": "Run-specific source/setup/dependency fingerprints; not cross-checkout identities",
+  "residentMeasurement": "OS wait4 maximum RSS",
+  "virtualMeasurement": "Sampled Linux VmPeak; virtual address space, not RAM",
+  "before": {
+    "closure": {
+      "modules": 47,
+      "seconds": 417.906,
+      "peakResidentKiB": 3899072,
+      "sampledPeakVirtualKiB": 12949976
+    },
+    "entryModules": {
+      "modules": 35,
+      "seconds": 326.802,
+      "peakResidentKiB": 2749032,
+      "sampledPeakVirtualKiB": 12949976
+    },
+    "freshCompilerEvents": 47,
+    "failedEvents": 0
+  },
+  "after": {
+    "closure": {
+      "modules": 52,
+      "seconds": 174.705,
+      "peakResidentKiB": 3902508,
+      "sampledPeakVirtualKiB": 11823680
+    },
+    "entryModules": {
+      "modules": 35,
+      "seconds": 49.376,
+      "peakResidentKiB": 2584932,
+      "sampledPeakVirtualKiB": 8628068
+    },
+    "freshCompilerEvents": 52,
+    "failedEvents": 0
+  },
+  "addedStructuralDependencies": [
+    "Math.Algebra.HiggsFourWaveCubature.Structural.CollinearChecks",
+    "Math.Algebra.HiggsFourWaveCubature.Structural.CollinearData",
+    "Math.Algebra.HiggsFourWaveCubature.Structural.CollinearMoments",
+    "Math.Algebra.HiggsFourWaveCubature.Structural.CollinearSymmetry",
+    "Math.Algebra.HiggsFourWaveCubature.Structural.TensorShape"
+  ],
+  "compilerTimeReductionPercent": 58.2
+}

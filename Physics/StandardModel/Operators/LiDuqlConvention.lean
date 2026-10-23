@@ -1,25 +1,17 @@
+import Physics.StandardModel.Operators.BaryonOne.OtherFamilies.LiDuqlConvention
 import Physics.StandardModel.Operators.DuqlExteriorCompleteness
+import Math.Lean.Compatibility
 
-/-! Normalized local interpretation of Li D.37 in paper order L,Q,D,U. -/
-namespace GUT.LiDuqlConvention
-set_option autoImplicit false
-noncomputable section
-open SMEpsilonTensor
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.OtherFamilies.LiDuqlConvention instead." (since := "source-api-v1")
 
-def paperLocal (q d u : Color) (l w : Weak)
-    (sL sQ sD sU : WeylSpinor.Space) : ℂ :=
-  eps3 q d u * eps2 l w * eps2 sL sQ * eps2 sD sU
+compatibility_declarations [
+  GUT.LiDuqlConvention.fermionic_reorder => Physics.LiDuqlConvention.fermionic_reorder,
+  GUT.LiDuqlConvention.paperLocal => Physics.LiDuqlConvention.paperLocal,
+  GUT.LiDuqlConvention.paperLocal.eq_1 => Physics.LiDuqlConvention.paperLocal.eq_1,
+  GUT.LiDuqlConvention.reorder_parity => Physics.LiDuqlConvention.reorder_parity
+]
 
-/-- L,Q,D,U to D,U,Q,L is odd. The weak and left bracket reversals
-cancel each other; the remaining Fermi minus is explicit. -/
-theorem fermionic_reorder (q d u : Color) (l w : Weak)
-    (sL sQ sD sU : WeylSpinor.Space) :
-    -paperLocal q d u l w sL sQ sD sU =
-    -(eps3 d u q * eps2 w l * eps2 sD sU * eps2 sQ sL) := by
-  simp [paperLocal, eps3, eps2]; ring
-
-theorem reorder_parity :
-    Equiv.Perm.sign (Equiv.swap (0 : Fin 4) 2 * Equiv.swap 1 3 * Equiv.swap 2 3) = -1 := by
-  decide +kernel
-end
-end GUT.LiDuqlConvention
+assert_compatible GUT.LiDuqlConvention.fermionic_reorder => Physics.LiDuqlConvention.fermionic_reorder
+assert_compatible GUT.LiDuqlConvention.paperLocal => Physics.LiDuqlConvention.paperLocal
+assert_compatible GUT.LiDuqlConvention.paperLocal.eq_1 => Physics.LiDuqlConvention.paperLocal.eq_1
+assert_compatible GUT.LiDuqlConvention.reorder_parity => Physics.LiDuqlConvention.reorder_parity

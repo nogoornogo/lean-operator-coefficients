@@ -73,7 +73,7 @@ selected = [(i, w) for i, w in enumerate(points)
             and (args.chunk is None or i//4 == args.chunk)
             and not args.compose_only]
 if args.split_depth:
-    source = Path(__file__).resolve().parents[2] / 'Physics/StandardModel/Operators/SMGroupedCharacter.lean'
+    source = Path(__file__).resolve().parents[2] / 'Physics/StandardModel/Operators/Support/Coordinates/SMGroupedCharacter.lean'
     matches = dict(re.findall(r'  \| (\d+) => (\[.*\])', source.read_text()))
     weights = ast.literal_eval(matches[str(args.species)])
     sign = 1 if args.species < 5 else -1

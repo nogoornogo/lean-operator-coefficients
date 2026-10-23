@@ -2,6 +2,8 @@ import Math.Audit.ImportOrigin
 import GUT.SU5.SelectionRules.RetainedChainSource
 import GUT.SU5.Audit.AuditChargeProfiles
 
+open Physics
+
 open Math
 
 /-! Legacy generation mixing is preserved by the common-model adapter.
@@ -17,6 +19,7 @@ run_cmd do
       throwError "Retained SU(5) adapter imports SU(6): {mod}"
 
 namespace GUT.SU5.AuditRetainedChainSource
+open Physics.SU5
 
 noncomputable section
 

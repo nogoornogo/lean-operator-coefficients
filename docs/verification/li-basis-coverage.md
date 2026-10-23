@@ -41,3 +41,17 @@ flavor coefficients. Normalizations and actual-field inputs remain explicit.
 | Whole dimension-five field-content classification | Not established by the LLHH candidate certificate |
 | General amplitude/operator correspondence, derivatives, EOM/IBP | Outside these certificates; ledger maintenance does not open new foundations |
 | Physical matching, RGE and rates | Outside coefficient-space verification |
+
+## Separate C5 Derivative Current Reading
+
+The [C5 successor](../topics/weyl-higgs-current-completeness/literature-validation.md)
+checks the charged-lepton row of 2005.00008v3 Eq. (4.24) and its (4.26)
+four-component conversion against Murphy Table 5 and DHM Appendix G.1.
+The ordered density dictionary, actual global mixed-input stability and
+current invariance are proved, including both free Weyl and Higgs equations.
+The whole actual grade (2,4,1) now has a complete native scalar coefficient
+coordinate, normalized inverse, both inverse laws and complex dimension one,
+modulo all free EOM/linear IBP. This is separate from the derivative-free
+certificates above; the finite rank diagnostic is not a completeness premise.
+No interacting/general-flavor or Hermitian real count is inferred.
+See the [derivative coverage](derivative-interface-coverage.md).

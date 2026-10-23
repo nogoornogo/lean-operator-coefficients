@@ -1,5 +1,7 @@
 import GUT.SU5.SelectionRules.ScalarBlockQque
 
+open Physics
+
 /-! Independent complex mass rows on two actual tens and one dual ten.
 The common scalar residual character is preserved; the mass need only be
 SM/H invariant. Zero modes are derived, not supplied. -/

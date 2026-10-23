@@ -7,9 +7,9 @@ of invariant functionals on `Λ² Lepton ⊗ Sym² Higgs`. Its assembly and resi
 extraction are mutually inverse. This verifies the printed local interpretation,
 not the whole dimension-five SMEFT field-content classification.
 
-Sources: [conventions](../../../../../Physics/StandardModel/Operators/LiWeinbergConvention.lean),
-[certificate](../../../../../Physics/StandardModel/Operators/LiWeinbergCertificate.lean),
-[strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditLiWeinbergBasis.lean).
+Sources: [conventions](../../../../../Physics/StandardModel/Operators/Weinberg/LiWeinbergConvention.lean),
+[certificate](../../../../../Physics/StandardModel/Operators/Weinberg/LiWeinbergCertificate.lean),
+[strict audit](../../../../../Physics/StandardModel/Operators/Weinberg/Audit/AuditLiWeinbergBasis.lean).
 
 ## Inputs And Citation Role
 

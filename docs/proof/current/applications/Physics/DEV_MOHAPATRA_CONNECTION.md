@@ -8,7 +8,7 @@ full normalized matching to the source remains outside them.
 
 ## Statements and Construction
 
-[Connection source](../../../../../Physics/StandardModel/Operators/DevMohapatraConnection.lean):
+[Connection source](../../../../../Physics/StandardModel/Operators/BaryonTwo/DevMohapatra/DevMohapatraConnection.lean):
 `physical_invariant` closes the full SM-cover/Lorentz/residual action on the
 previous coefficient. Hypercharge phases cancel with charges 4,-2,4,-2,-2,-2;
 weak action is neutral, and `up_action`/`down_action` prove actual field transport.
@@ -22,7 +22,7 @@ proves -2 at a specified pure probe; `sourceExterior_invariant` proves the
 actual action invariance after descent. `weighted_nonzero_iff` handles a
 supplied scalar coefficient and does not establish its matching origin.
 
-[Physical source](../../../../../Physics/StandardModel/Operators/DevMohapatraPhysicalSource.lean):
+[Physical source](../../../../../Physics/StandardModel/Operators/BaryonTwo/DevMohapatra/DevMohapatraPhysicalSource.lean):
 `coefficient` is an actual invariant intertwiner from the sixfold exterior
 power of the physical up/down field direct sum. `evaluation` and `nonzero`
 transport the selected -2 witness. `satisfies` upgrades the mixed request
@@ -40,7 +40,7 @@ normalization dictionary. No unconditional paper prefactor discrepancy is assert
 
 ## Bounded Supplied-Action Tree-Level Derivation
 
-[Tree-level source](../../../../../Physics/StandardModel/Operators/DevMohapatraTreeLevel.lean)
+[Tree-level source](../../../../../Physics/StandardModel/Operators/BaryonTwo/DevMohapatra/DevMohapatraTreeLevel.lean)
 adds an explicit derivative-free chiral action with one N, three scalar color
 coordinates and selected u,d,s fields. `uv_after_scalar` and
 `uv_sequential_on_shell` derive the generated current-product polynomial

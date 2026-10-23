@@ -1,206 +1,66 @@
+import Physics.StandardModel.Operators.BaryonTwo.Coefficients.GradedSixQuarkComparison
 import Physics.StandardModel.Operators.DeltaBTwoFlavorBridge
 import Physics.StandardModel.Operators.DeltaBTwoFlavorOneGeneration
 import Math.RepresentationTheory.TypedMixedSeparatedHom
 import Math.LinearAlgebra.LinearEquivComparison
-import Mathlib.Tactic.IrreducibleDef
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.Coefficients.GradedSixQuarkComparison instead." (since := "source-api-v1")
 
-/-! Specified physical u²d⁴ coefficients and the degree-uniform quotient. -/
-namespace GUT.GradedSixQuarkComparison
-set_option autoImplicit false
-set_option maxRecDepth 4000
-set_option backward.isDefEq.respectTransparency false
-noncomputable section
-open Representation ExternalInvariantTensor SixQuarkInvariant SixQuarkFlavorCoordinates
-open scoped TensorProduct
-universe u
-variable {R : Type*} [Group R] (U D : Type u)
-  [AddCommGroup U] [Module ℂ U] [AddCommGroup D] [Module ℂ D]
-  (up : Representation ℂ R U) (down : Representation ℂ R D)
+compatibility_declarations [
+  GUT.GradedSixQuarkComparison.Ordered => Physics.GradedSixQuarkComparison.Ordered,
+  GUT.GradedSixQuarkComparison.Residual => Physics.GradedSixQuarkComparison.Residual,
+  GUT.GradedSixQuarkComparison.boson => Physics.GradedSixQuarkComparison.boson,
+  GUT.GradedSixQuarkComparison.comparison => Physics.GradedSixQuarkComparison.comparison,
+  GUT.GradedSixQuarkComparison.emptyEquiv => Physics.GradedSixQuarkComparison.emptyEquiv,
+  GUT.GradedSixQuarkComparison.emptyEquiv_symm_apply => Physics.GradedSixQuarkComparison.emptyEquiv_symm_apply,
+  GUT.GradedSixQuarkComparison.equiv => Physics.GradedSixQuarkComparison.equiv,
+  GUT.GradedSixQuarkComparison.equiv_def => Physics.GradedSixQuarkComparison.equiv_def,
+  GUT.GradedSixQuarkComparison.extract_reconstruct => Physics.GradedSixQuarkComparison.extract_reconstruct,
+  GUT.GradedSixQuarkComparison.extraction_commutes => Physics.GradedSixQuarkComparison.extraction_commutes,
+  GUT.GradedSixQuarkComparison.fermion => Physics.GradedSixQuarkComparison.fermion,
+  GUT.GradedSixQuarkComparison.field_apply => Physics.GradedSixQuarkComparison.field_apply,
+  GUT.GradedSixQuarkComparison.flavor => Physics.GradedSixQuarkComparison.flavor,
+  GUT.GradedSixQuarkComparison.forbidden_iff => Physics.GradedSixQuarkComparison.forbidden_iff,
+  GUT.GradedSixQuarkComparison.fromOrdered => Physics.GradedSixQuarkComparison.fromOrdered,
+  GUT.GradedSixQuarkComparison.localQuark => Physics.GradedSixQuarkComparison.localQuark,
+  GUT.GradedSixQuarkComparison.localQuark.eq_1 => Physics.GradedSixQuarkComparison.localQuark.eq_1,
+  GUT.GradedSixQuarkComparison.nonzero_iff => Physics.GradedSixQuarkComparison.nonzero_iff,
+  GUT.GradedSixQuarkComparison.oneGenerationEquiv => Physics.GradedSixQuarkComparison.oneGenerationEquiv,
+  GUT.GradedSixQuarkComparison.orderedEquiv => Physics.GradedSixQuarkComparison.orderedEquiv,
+  GUT.GradedSixQuarkComparison.pattern => Physics.GradedSixQuarkComparison.pattern,
+  GUT.GradedSixQuarkComparison.reconstruct_extract => Physics.GradedSixQuarkComparison.reconstruct_extract,
+  GUT.GradedSixQuarkComparison.reconstruction_commutes => Physics.GradedSixQuarkComparison.reconstruction_commutes,
+  GUT.GradedSixQuarkComparison.scalarFlavor => Physics.GradedSixQuarkComparison.scalarFlavor,
+  GUT.GradedSixQuarkComparison.scalarLocal => Physics.GradedSixQuarkComparison.scalarLocal,
+  GUT.GradedSixQuarkComparison.scalars => Physics.GradedSixQuarkComparison.scalars,
+  GUT.GradedSixQuarkComparison.toOrdered => Physics.GradedSixQuarkComparison.toOrdered
+]
 
-def localQuark (_b : Bool) := external
-  (if _b then StandardSMGaugeTensor.upRight else StandardSMGaugeTensor.downRight)
-  WeylSpinor.right
-def scalarLocal (_ : Unit) := trivial ℂ
-  (StandardSMGaugeTensor.GaugeGroup × WeylSpinor.Group) ℂ
-abbrev flavor := SixQuarkTypedFlavor.flavorRepresentation U D up down
-def scalarFlavor (_ : Unit) := trivial ℂ R ℂ
-abbrev pattern (i : Fin 6) : Bool := decide (i = 0 ∨ i = 2)
-def scalars (i : Fin 0) : Unit := Fin.elim0 i
-abbrev fermion := TypedMixedSeparatedHom.fieldF localQuark (flavor U D up down)
-abbrev boson := TypedMixedSeparatedHom.fieldB scalarLocal (scalarFlavor (R := R))
-abbrev Ordered := MixedPatternAssembly.orderedSpace
-  (fermion U D up down) (boson (R := R)) pattern scalars
-abbrev Residual := IntertwiningMap
-  (TypedMixedSeparatedHom.residual localQuark scalarLocal (flavor U D up down)
-    (scalarFlavor (R := R)) pattern scalars) (trivial ℂ R ℂ)
-
-theorem field_apply (g : DeltaBTwoModelInterface.SymmetryGroup R) (i : Fin 6)
-    (v : Quark ⊗[ℂ] SixQuarkTypedFlavor.SlotFlavor U D i) :
-    fermion U D up down (pattern i) ((g.1.1,g.2),g.1.2) v =
-      DeltaBTwoFlavorBridge.slotAction up down g i v := by
-  rcases g with ⟨⟨cG,r⟩,sG⟩
-  induction v using TensorProduct.inductionOn with
-  | tmul q t =>
-    induction q using TensorProduct.inductionOn with
-    | tmul c s =>
-      by_cases hi : i = 0 ∨ i = 2 <;>
-        simp [fermion, TypedMixedSeparatedHom.fieldF, TypedMixedLocalHom.fermion,
-          TypedMixedSeparatedHom.localF, TypedMixedSeparatedHom.residualF,
-          CommutingActionHom.action_apply, localQuark, flavor, pattern, hi,
-          SixQuarkTypedFlavor.slotRepresentation, DeltaBTwoFlavorBridge.slotAction,
-          DeltaBTwoFlavorBridge.charge, external, Representation.tprod_apply,
-          StandardSMGaugeTensor.upRight, StandardSMGaugeTensor.downRight,
-          StandardSMGaugeTensor.twist, colorAction, spinAction,
-          StandardSMGaugeTensor.color, TensorProduct.smul_tmul'] <;> rfl
-    | add x y hx hy => simp only [TensorProduct.add_tmul, map_add, hx, hy]
-  | add x y hx hy => simp only [map_add, hx, hy]
-
-def emptyEquiv : FlavorCoefficient (V := SixQuarkTypedFlavor.SlotFlavor U D) ≃ₗ[ℂ]
-    MixedPatternAssembly.Ordered
-      (V := fun b => Quark ⊗[ℂ] SixQuarkTypedFlavor.Flavor U D b)
-      (W := fun _ : Unit => ℂ ⊗[ℂ] ℂ) pattern scalars :=
-  (MultilinearMap.constLinearEquivOfIsEmpty ℂ ℂ
-    (fun _ : Fin 0 => ℂ ⊗[ℂ] ℂ) ℂ).multilinearMapCongrRight ℂ
-
-theorem emptyEquiv_symm_apply (k : MixedPatternAssembly.Ordered
-    (V := fun b => Quark ⊗[ℂ] SixQuarkTypedFlavor.Flavor U D b)
-    (W := fun _ : Unit => ℂ ⊗[ℂ] ℂ) pattern scalars)
-    (v : ∀ i, Quark ⊗[ℂ] SixQuarkTypedFlavor.SlotFlavor U D i)
-    (w : Fin 0 → ℂ ⊗[ℂ] ℂ) : (emptyEquiv U D).symm k v = k v w := by
-  change k v 0 = k v w
-  exact congrArg (k v) (Subsingleton.elim _ _)
-
-def toOrdered (f : SixQuarkTypedFlavor.Coefficients U D up down) : Ordered U D up down := by
-  refine ⟨emptyEquiv U D f.val, ?_, ?_, ?_⟩
-  · rintro ⟨⟨g,s⟩,r⟩ v w
-    change f.val (fun i => fermion U D up down (pattern i) ((g,s),r) (v i)) = f.val v
-    simp only [field_apply U D up down ((g,r),s)]
-    exact DeltaBTwoFlavorBridge.physical_invariant up down f.val f.property.1 f.property.2.1
-      ((g,r),s) v
-  · intro p hp w
-    apply MultilinearMap.ext
-    intro z
-    have he := (DeltaBTwoFlavorBridge.physicalEvaluation up down
-      (DeltaBTwoFlavorBridge.liftSector up down f)).map_congr_perm
-      (fun i => DeltaBTwoFlavorBridge.embedFlavor (pattern i) (w i (pattern i))) p
-    have hv : (fun i => DeltaBTwoFlavorBridge.embedFlavor (pattern i) (w i (pattern i))) ∘ p =
-        fun i => DeltaBTwoFlavorBridge.embedFlavor (pattern i) (w (p i) (pattern i)) := by
-      funext i
-      have hi := congrFun hp i
-      dsimp only [Function.comp_apply] at hi ⊢
-      rw [hi]
-    rw [hv] at he
-    have hf := DeltaBTwoFlavorBridge.restrict_lift up down f
-    change Equiv.Perm.sign p • f.val (fun i => w (p i) (pattern i)) =
-      f.val (fun i => w i (pattern i))
-    rw [← hf]
-    exact he.symm
-  · intro v p hp w; rfl
-
-def fromOrdered (k : Ordered U D up down) : SixQuarkTypedFlavor.Coefficients U D up down := by
-  let f := (emptyEquiv U D).symm k.val
-  have hinv : DeltaBTwoFlavorBridge.IsPhysicalInvariant up down f := by
-    intro g v
-    have he := k.property.1 ((g.1.1,g.2),g.1.2) v (fun i => Fin.elim0 i)
-    have hw : (fun j => boson (R := R) (scalars j) ((g.1.1,g.2),g.1.2)
-        (Fin.elim0 j)) = (fun i => Fin.elim0 i) := Subsingleton.elim _ _
-    rw [hw] at he
-    have hv : (fun i => fermion U D up down (pattern i) ((g.1.1,g.2),g.1.2) (v i)) =
-        (fun i => DeltaBTwoFlavorBridge.slotAction up down g i (v i)) := by
-      funext i; exact field_apply U D up down g i (v i)
-    rw [hv] at he
-    simpa only [f, emptyEquiv_symm_apply U D (w := fun i => Fin.elim0 i)] using he
-  refine ⟨f, ((DeltaBTwoFlavorBridge.physical_invariance_iff up down f).mp hinv).1,
-    ((DeltaBTwoFlavorBridge.physical_invariance_iff up down f).mp hinv).2, ?_⟩
-  intro g q t
-  let w : Fin 6 → ∀ b, Quark ⊗[ℂ] SixQuarkTypedFlavor.Flavor U D b :=
-    fun i => Pi.single (pattern i) (q i ⊗ₜ[ℂ] t i)
-  have hp : pattern ∘ SixQuarkSpeciesQuotient.slotSwap g = pattern := by
-    fin_cases g <;> decide
-  have he := congrArg (fun z => z (fun i => Fin.elim0 i))
-    (k.property.2.1 (SixQuarkSpeciesQuotient.slotSwap g) hp w)
-  have he' : Equiv.Perm.sign (SixQuarkSpeciesQuotient.slotSwap g) •
-      f (fun i => w (SixQuarkSpeciesQuotient.slotSwap g i) (pattern i)) =
-      f (fun i => w i (pattern i)) := by
-    change Equiv.Perm.sign (SixQuarkSpeciesQuotient.slotSwap g) •
-      k.val (fun i => w (SixQuarkSpeciesQuotient.slotSwap g i) (pattern i))
-        (fun i => Fin.elim0 i) = k.val (fun i => w i (pattern i)) (fun i => Fin.elim0 i) at he
-    simpa only [f, emptyEquiv_symm_apply U D (w := fun i => Fin.elim0 i)] using he
-  have hs : Equiv.Perm.sign (SixQuarkSpeciesQuotient.slotSwap g) = -1 := by
-    fin_cases g <;> decide
-  have hv : (fun i => w (SixQuarkSpeciesQuotient.slotSwap g i) (pattern i)) =
-      (fun i => q (SixQuarkSpeciesQuotient.slotSwap g i) ⊗ₜ[ℂ]
-        exchangeFlavor g (SixQuarkTypedFlavor.speciesExchange U D g) t i) := by
-    funext i
-    fin_cases g <;> fin_cases i <;>
-      simp [w, pattern, SixQuarkSpeciesQuotient.slotSwap, exchangeFlavor,
-        SixQuarkTypedFlavor.speciesExchange, Equiv.swap_apply_def]
-    all_goals rfl
-  have hw : (fun i => w i (pattern i)) = fun i => q i ⊗ₜ[ℂ] t i := by
-    funext i; simp [w]
-  rw [hs, hv, hw] at he'
-  simp only [Units.smul_def, Units.val_neg, Units.val_one, neg_one_smul] at he'
-  exact neg_eq_iff_eq_neg.mp he'
-
-def orderedEquiv : SixQuarkTypedFlavor.Coefficients U D up down ≃ₗ[ℂ] Ordered U D up down where
-  toFun := toOrdered U D up down
-  invFun := fromOrdered U D up down
-  left_inv f := by
-    apply Subtype.ext
-    change (emptyEquiv U D).symm ((emptyEquiv U D) f.val) = f.val
-    exact (emptyEquiv U D).symm_apply_apply f.val
-  right_inv k := by
-    apply Subtype.ext
-    change (emptyEquiv U D) ((emptyEquiv U D).symm k.val) = k.val
-    exact (emptyEquiv U D).apply_symm_apply k.val
-  map_add' f k := by apply Subtype.ext; exact (emptyEquiv U D).map_add f.val k.val
-  map_smul' z f := by apply Subtype.ext; exact (emptyEquiv U D).map_smul z f.val
-
-irreducible_def equiv : DeltaBTwoModelInterface.ModelSector up down ≃ₗ[ℂ] Residual U D up down :=
-  (DeltaBTwoFlavorBridge.sectorCoefficientEquiv up down).trans
-    ((orderedEquiv U D up down).trans (TypedMixedSeparatedHom.equiv localQuark scalarLocal
-      (flavor U D up down) (scalarFlavor (R := R)) pattern scalars))
-
-def comparison : Residual U D up down ≃ₗ[ℂ] SixQuarkTypedFlavor.StatisticsHom U D up down :=
-  LinearEquivComparison.comparison (equiv U D up down) (DeltaBTwoFlavorBridge.sectorHomEquiv up down)
-
-attribute [local irreducible] comparison
-
-theorem extraction_commutes (f : DeltaBTwoModelInterface.ModelSector up down) :
-    comparison U D up down (equiv U D up down f) =
-      DeltaBTwoFlavorBridge.sectorHomEquiv up down f := by
-  unfold comparison
-  exact LinearEquivComparison.extraction (equiv U D up down)
-    (DeltaBTwoFlavorBridge.sectorHomEquiv up down) f
-
-theorem reconstruction_commutes (q : Residual U D up down) :
-    (equiv U D up down).symm q = (DeltaBTwoFlavorBridge.sectorHomEquiv up down).symm
-      (comparison U D up down q) := by
-  unfold comparison
-  exact LinearEquivComparison.reconstruction (equiv U D up down)
-    (DeltaBTwoFlavorBridge.sectorHomEquiv up down) q
-
-theorem reconstruct_extract (f : DeltaBTwoModelInterface.ModelSector up down) :
-    (equiv U D up down).symm (equiv U D up down f) = f :=
-  (equiv U D up down).symm_apply_apply f
-theorem extract_reconstruct (q : Residual U D up down) :
-    equiv U D up down ((equiv U D up down).symm q) = q :=
-  (equiv U D up down).apply_symm_apply q
-
-theorem forbidden_iff : (∀ f : DeltaBTwoModelInterface.ModelSector up down, f = 0) ↔
-    ∀ q : Residual U D up down, q = 0 := by
-  exact LinearEquivComparison.forbidden (equiv U D up down)
-
-theorem nonzero_iff : (∃ f : DeltaBTwoModelInterface.ModelSector up down, f ≠ 0) ↔
-    ∃ q : Residual U D up down, q ≠ 0 := by
-  exact LinearEquivComparison.nonzero (equiv U D up down)
-
-def oneGenerationEquiv : Residual ℂ ℂ DeltaBTwoFlavorOneGeneration.scalar
-    DeltaBTwoFlavorOneGeneration.scalar ≃ₗ[ℂ] (Fin 2 → ℂ) :=
-  (equiv ℂ ℂ DeltaBTwoFlavorOneGeneration.scalar DeltaBTwoFlavorOneGeneration.scalar).symm.trans
-    DeltaBTwoFlavorOneGeneration.physicalTwoProbeEquiv
-
-end
-end GUT.GradedSixQuarkComparison
+assert_compatible GUT.GradedSixQuarkComparison.Ordered => Physics.GradedSixQuarkComparison.Ordered
+assert_compatible GUT.GradedSixQuarkComparison.Residual => Physics.GradedSixQuarkComparison.Residual
+assert_compatible GUT.GradedSixQuarkComparison.boson => Physics.GradedSixQuarkComparison.boson
+assert_compatible GUT.GradedSixQuarkComparison.comparison => Physics.GradedSixQuarkComparison.comparison
+assert_compatible GUT.GradedSixQuarkComparison.emptyEquiv => Physics.GradedSixQuarkComparison.emptyEquiv
+assert_compatible GUT.GradedSixQuarkComparison.emptyEquiv_symm_apply => Physics.GradedSixQuarkComparison.emptyEquiv_symm_apply
+assert_compatible GUT.GradedSixQuarkComparison.equiv => Physics.GradedSixQuarkComparison.equiv
+assert_compatible GUT.GradedSixQuarkComparison.equiv_def => Physics.GradedSixQuarkComparison.equiv_def
+assert_compatible GUT.GradedSixQuarkComparison.extract_reconstruct => Physics.GradedSixQuarkComparison.extract_reconstruct
+assert_compatible GUT.GradedSixQuarkComparison.extraction_commutes => Physics.GradedSixQuarkComparison.extraction_commutes
+assert_compatible GUT.GradedSixQuarkComparison.fermion => Physics.GradedSixQuarkComparison.fermion
+assert_compatible GUT.GradedSixQuarkComparison.field_apply => Physics.GradedSixQuarkComparison.field_apply
+assert_compatible GUT.GradedSixQuarkComparison.flavor => Physics.GradedSixQuarkComparison.flavor
+assert_compatible GUT.GradedSixQuarkComparison.forbidden_iff => Physics.GradedSixQuarkComparison.forbidden_iff
+assert_compatible GUT.GradedSixQuarkComparison.fromOrdered => Physics.GradedSixQuarkComparison.fromOrdered
+assert_compatible GUT.GradedSixQuarkComparison.localQuark => Physics.GradedSixQuarkComparison.localQuark
+assert_compatible GUT.GradedSixQuarkComparison.localQuark.eq_1 => Physics.GradedSixQuarkComparison.localQuark.eq_1
+assert_compatible GUT.GradedSixQuarkComparison.nonzero_iff => Physics.GradedSixQuarkComparison.nonzero_iff
+assert_compatible GUT.GradedSixQuarkComparison.oneGenerationEquiv => Physics.GradedSixQuarkComparison.oneGenerationEquiv
+assert_compatible GUT.GradedSixQuarkComparison.orderedEquiv => Physics.GradedSixQuarkComparison.orderedEquiv
+assert_compatible GUT.GradedSixQuarkComparison.pattern => Physics.GradedSixQuarkComparison.pattern
+assert_compatible GUT.GradedSixQuarkComparison.reconstruct_extract => Physics.GradedSixQuarkComparison.reconstruct_extract
+assert_compatible GUT.GradedSixQuarkComparison.reconstruction_commutes => Physics.GradedSixQuarkComparison.reconstruction_commutes
+assert_compatible GUT.GradedSixQuarkComparison.scalarFlavor => Physics.GradedSixQuarkComparison.scalarFlavor
+assert_compatible GUT.GradedSixQuarkComparison.scalarLocal => Physics.GradedSixQuarkComparison.scalarLocal
+assert_compatible GUT.GradedSixQuarkComparison.scalars => Physics.GradedSixQuarkComparison.scalars
+assert_compatible GUT.GradedSixQuarkComparison.toOrdered => Physics.GradedSixQuarkComparison.toOrdered

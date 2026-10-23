@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylMassSource
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteDiracBenchmark
 
+open Physics
+
 open Math
 
 /-!

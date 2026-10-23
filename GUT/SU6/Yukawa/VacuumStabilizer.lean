@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVStabilizer
 
+open Physics
+
 /-! Actual coordinate-fixing elements preserve the existing scalar vacuum. -/
 set_option autoImplicit false
 namespace GUT.SU6YukawaStabilizer

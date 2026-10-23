@@ -1,55 +1,36 @@
+import Physics.StandardModel.Operators.Support.Quark.SMQJointPresentation
 import Math.RepresentationTheory.SU3DoubleSpinAllPresentation
 import Physics.StandardModel.Operators.SMQCoreBranching
+import Math.Lean.Compatibility
 
-/-! Every actual Q/conjugate-Q single-generation exterior source has a
-joint positive support presentation, including overflow and Higgs weak
-constituents. Generation/species composition remains a separate consumer. -/
-namespace GUT.SMQJointPresentation
-set_option autoImplicit false
-noncomputable section
-open Math Representation JointSourcePresentation
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Support.Quark.SMQJointPresentation instead." (since := "source-api-v1")
 
-@[reducible] local instance (A B : Type*) [AddCommGroup A] [Module ℂ A]
-    [AddCommGroup B] [Module ℂ B] : AddCommGroup (A ⊗[ℂ] B) := inferInstance
-@[reducible] local instance : AddCommGroup (SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    (Module.Dual ℂ (SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup (Module.Dual ℂ SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((Module.Dual ℂ SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
+compatibility_declarations [
+  GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexColorDoublet => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexColorDoublet,
+  GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexColorDoublet_1 => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexColorDoublet_1,
+  GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet,
+  GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet_1 => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet_1,
+  GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet_2 => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet_2,
+  GUT.SMQJointPresentation.instAddCommGroupTensorProductComplex_physics => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplex_physics,
+  GUT.SMQJointPresentation.negative => Physics.SMQJointPresentation.negative,
+  GUT.SMQJointPresentation.negativeWithWeak => Physics.SMQJointPresentation.negativeWithWeak,
+  GUT.SMQJointPresentation.negative_allowed_iff => Physics.SMQJointPresentation.negative_allowed_iff,
+  GUT.SMQJointPresentation.positive => Physics.SMQJointPresentation.positive,
+  GUT.SMQJointPresentation.positiveWithWeak => Physics.SMQJointPresentation.positiveWithWeak,
+  GUT.SMQJointPresentation.positive_allowed_iff => Physics.SMQJointPresentation.positive_allowed_iff,
+  GUT.SMQJointPresentation.weak => Physics.SMQJointPresentation.weak
+]
 
-def positive (n : ℕ) : Presentation ((SMColoredCoreBranching.core 0).exteriorPower n) :=
-  alongEquiv (SMQCoreBranching.positiveEquiv.exteriorPower n) (SU3DoubleSpinAllPresentation.positive false n)
-
-def negative (n : ℕ) : Presentation ((SMColoredCoreBranching.core 5).exteriorPower n) :=
-  alongEquiv (SMQCoreBranching.negativeEquiv.exteriorPower n) (SU3DoubleSpinAllPresentation.negative true n)
-
-def weak (m : ℕ) : Presentation (SMGenerationCauchy.weak.symmetricPower m) :=
-  JointSourceSpinPresentation.pulledWeak m SMGenerationCauchy.weakProjection
-    (MonoidHom.id JointColorSpinWord.Group) (fun _ => rfl)
-
-def positiveWithWeak (n m : ℕ) : Presentation
-    (((SMColoredCoreBranching.core 0).exteriorPower n).tprod (SMGenerationCauchy.weak.symmetricPower m)) :=
-  tensor (positive n) (weak m)
-
-def negativeWithWeak (n m : ℕ) : Presentation
-    (((SMColoredCoreBranching.core 5).exteriorPower n).tprod (SMGenerationCauchy.weak.symmetricPower m)) :=
-  tensor (negative n) (weak m)
-
-theorem positive_allowed_iff (n m : ℕ) : SelectionCriteria.Allowed
-    (InvariantCoefficientTransport.Invariants
-      (((SMColoredCoreBranching.core 0).exteriorPower n).tprod (SMGenerationCauchy.weak.symmetricPower m))) ↔
-      JointSourceExpression.Supports (positiveWithWeak n m).expression :=
-  JointSourcePresentation.allowed_iff (positiveWithWeak n m)
-
-theorem negative_allowed_iff (n m : ℕ) : SelectionCriteria.Allowed
-    (InvariantCoefficientTransport.Invariants
-      (((SMColoredCoreBranching.core 5).exteriorPower n).tprod (SMGenerationCauchy.weak.symmetricPower m))) ↔
-      JointSourceExpression.Supports (negativeWithWeak n m).expression :=
-  JointSourcePresentation.allowed_iff (negativeWithWeak n m)
-
-end
-end GUT.SMQJointPresentation
+assert_compatible GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexColorDoublet => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexColorDoublet
+assert_compatible GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexColorDoublet_1 => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexColorDoublet_1
+assert_compatible GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet
+assert_compatible GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet_1 => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet_1
+assert_compatible GUT.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet_2 => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplexDualColorDoublet_2
+assert_compatible GUT.SMQJointPresentation.instAddCommGroupTensorProductComplex_physics => Physics.SMQJointPresentation.instAddCommGroupTensorProductComplex_physics
+assert_compatible GUT.SMQJointPresentation.negative => Physics.SMQJointPresentation.negative
+assert_compatible GUT.SMQJointPresentation.negativeWithWeak => Physics.SMQJointPresentation.negativeWithWeak
+assert_compatible GUT.SMQJointPresentation.negative_allowed_iff => Physics.SMQJointPresentation.negative_allowed_iff
+assert_compatible GUT.SMQJointPresentation.positive => Physics.SMQJointPresentation.positive
+assert_compatible GUT.SMQJointPresentation.positiveWithWeak => Physics.SMQJointPresentation.positiveWithWeak
+assert_compatible GUT.SMQJointPresentation.positive_allowed_iff => Physics.SMQJointPresentation.positive_allowed_iff
+assert_compatible GUT.SMQJointPresentation.weak => Physics.SMQJointPresentation.weak

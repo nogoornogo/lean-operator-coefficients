@@ -5,6 +5,8 @@ Topics own checkpoint verification; maps supplement theorem statements.
 
 - [Core interfaces](current/core/README.md).
 - [Input construction](current/inputs/README.md).
+- [Actual field, selection and symmetry connections](current/inputs/Physics/FIELD_CONNECTIONS.md).
+- [Additive derivative/EOM input adapters](current/inputs/Math/interfaces/derivative-adapters.md).
 - [Scalar-dependent mass](current/inputs/Physics/interfaces/scalar-dependent-mass.md).
 - [SU(5) embedding](current/inputs/GUT/interfaces/su5-embedding.md).
 - [SU(5) matter](current/inputs/GUT/interfaces/su5-matter.md).

@@ -7,6 +7,9 @@ work queue. See the [Li basis coverage ledger](li-basis-coverage.md) and
 [proton protection model ledger](proton-protection-model-coverage.md), and
 [Weyl extraction input ledger](weyl-extraction-coverage.md), and
 [structural exterior-support ledger](structural-exterior-support-coverage.md).
+The [derivative interface ledger](derivative-interface-coverage.md) records
+bounded scalar, component-polynomial and mixed-sign comparisons, including
+their partial physical-dictionary and basis boundaries.
 
 ## Findings across comparisons
 

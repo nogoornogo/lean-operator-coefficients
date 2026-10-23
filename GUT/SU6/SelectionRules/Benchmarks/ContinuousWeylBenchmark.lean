@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.ContinuousWeylModel
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylBenchmark
 
+open Physics
+
 open Math
 
 /-!

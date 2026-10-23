@@ -22,23 +22,23 @@ same named field/action input. The phase is before electroweak breaking.
 
 ## Proof sources and structure
 
-- [Charge filter](../../../../../Physics/StandardModel/Operators/InverseCyclicSMCharges.lean):
+- [Charge filter](../../../../../Physics/StandardModel/Operators/Selection/InverseCyclicSMCharges.lean):
   Yukawa parametrization, signed-charge dictionary, actual one-generation
   bounded iff and three-generation DUQL-based necessity, finite cardinalities.
-- [All-degree selection](../../../../../Physics/StandardModel/Operators/InverseLeptonParitySelection.lean):
+- [All-degree selection](../../../../../Physics/StandardModel/Operators/Selection/InverseLeptonParitySelection.lean):
   scalar action on actual fields, even-fermion Lorentz constraint, parity of
   summed baryon/lepton labels, and selected all-degree vanishing.
-- [Spectator radical](../../../../../Physics/FieldTheory/Mass/ConstructedSpectatorRadical.lean):
+- [Spectator radical](../../../../../Physics/FieldTheory/Mass/Surplus/ConstructedSpectatorRadical.lean):
   generic constructed invariant mass and exact radical equivalence.
-- [Actual realization](../../../../../Physics/StandardModel/Spectrum/InverseCyclicSMRealization.lean):
+- [Actual realization](../../../../../Physics/StandardModel/Spectrum/Representations/InverseCyclicSMRealization.lean):
   actual chiral carriers, three-copy equivalences, coefficient group/tensor
   regrouping, flavor duals, spectator mass and neutral Higgs action.
-- [Gauge Yukawa contractions](../../../../../Physics/StandardModel/Gauge/SMYukawaContractions.lean):
+- [Gauge Yukawa contractions](../../../../../Physics/StandardModel/Gauge/Tensors/SMYukawaContractions.lean):
   hypercharge-preserving contractions and explicit nonzero basis values.
-- [Two-species descent](../../../../../Physics/FieldTheory/Yukawa/TwoSpeciesExteriorYukawa.lean)
-  and [spinor contraction](../../../../../Physics/FieldTheory/Yukawa/SpinorYukawaContraction.lean):
+- [Two-species descent](../../../../../Physics/FieldTheory/Yukawa/Mass/TwoSpeciesExteriorYukawa.lean)
+  and [spinor contraction](../../../../../Physics/FieldTheory/Yukawa/Mass/SpinorYukawaContraction.lean):
   generic distinct-species exterior descent after a genuine Weyl contraction.
-- [Actual Yukawa consumer](../../../../../Physics/StandardModel/Operators/InverseCyclicSMYukawa.lean):
+- [Actual Yukawa consumer](../../../../../Physics/StandardModel/Operators/Selection/InverseCyclicSMYukawa.lean):
   residual/flavor contraction, physical exterior nonzero statements and bundle.
 
 A nonzero coefficient forces even total fermion degree n and even total L.
@@ -65,7 +65,7 @@ it must not be described as physical proton stability.
 
 ## Verification and provenance
 
-The [persistent audit](../../../../../Physics/StandardModel/Spectrum/Audit/AuditInverseCyclicSMConstruction.lean)
+The [persistent audit](../../../../../Physics/StandardModel/Spectrum/Representations/Audit/AuditInverseCyclicSMConstruction.lean)
 checks the result and reusable helpers transitively with only propext,
 Classical.choice and Quot.sound. Verification commands and outcomes belong to
 [the topic record](../../../../topics/inverse-cyclic-sm-construction/verification.md).
@@ -99,5 +99,5 @@ and an actual cyclic group generator relabeling. It preserves the three
 charge tests and effective phase-image size. Kernel enumeration gives 151
 unit orbits among 572 tuples. The phase-image cardinal counts distinguishable
 actual universal field phase pairs, not full model equivalence.
-The [follow-up audit](../../../../../Physics/StandardModel/Operators/Audit/AuditInverseCyclicFollowups.lean)
+The [follow-up audit](../../../../../Physics/StandardModel/Operators/Selection/Audit/AuditInverseCyclicFollowups.lean)
 checks all new declarations transitively under the same standard axiom policy.

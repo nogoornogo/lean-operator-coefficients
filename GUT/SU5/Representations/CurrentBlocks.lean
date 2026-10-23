@@ -1,7 +1,9 @@
 import GUT.SU5.Branching.ExteriorSquare
 import GUT.SU6.Embeddings.SpecialUnitaryLieAlgebra
-import Math.RepresentationTheory.ExteriorSquareCoordinates
+import Math.RepresentationTheory.Exterior.ExteriorSquareCoordinates
 import Mathlib.Analysis.Calculus.Deriv.Prod
+
+open Physics
 
 open Math
 

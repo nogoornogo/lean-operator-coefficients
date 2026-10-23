@@ -1,45 +1,7 @@
+import Physics.StandardModel.Operators.Support.Coordinates.Audit.AuditSMSparseCharacter
 import Physics.StandardModel.Operators.SMCoefficientAssembly
 import Physics.StandardModel.Operators.SMGroupedCharacter
 import Physics.StandardModel.Operators.SMHiggsStringExtraction
 import Physics.StandardModel.Operators.SMKernelWeightData
-import Math.Audit.ImportOrigin
-import Lean.Util.CollectAxioms
 
-run_cmd do
-  for mod in (← Lean.getEnv).header.moduleNames do
-    if (`GUT).isPrefixOf mod then
-      throwError "sparse SM audit imports {mod}; original {SourceLayout.originalModule mod}"
-  let ds := [``GUT.SMCoefficientAssembly.factor,
-    ``GUT.SMGroupedCharacter.boundedCoefficient_eq,
-    ``GUT.SMGroupedCharacter.solveBounded_eq,
-    ``GUT.SMGroupedCharacter.groups_verified,
-    ``GUT.SMGroupedCharacter.source_coefficient,
-    ``GUT.SMGroupedCharacter.solveGrouped_eq,
-    ``GUT.SMSparseCharacter.unpack_pack, ``GUT.SMSparseCharacter.pack_unpack,
-    ``GUT.SMSparseCharacter.terms_evaluation_general, ``GUT.SMSparseCharacter.terms_evaluation,
-    ``GUT.SMSparseCharacter.coefficient_reference, ``GUT.SMSparseCharacter.tables_lookup,
-    ``GUT.SMSparseCharacter.cached_evaluation_general, ``GUT.SMSparseCharacter.cached_coefficient,
-    ``GUT.SMSparseCharacter.cached_multiplicity, ``GUT.SMSparseCharacter.presents,
-    ``GUT.SMSparseCharacter.polynomial_coefficient, ``GUT.SMSparseCharacter.extractAt_pack,
-    ``GUT.SMSparseCharacter.extraction_eq, ``GUT.SMSparseCharacter.polynomial_reference,
-    ``GUT.SMSparseCharacter.multiplicity_reference,
-    ``GUT.SMSparseSupport.kernel_dimension_int, ``GUT.SMSparseSupport.kernel_dimension,
-    ``GUT.SMSparseSupport.rank_formula, ``GUT.SMSparseSupport.local_allowed_iff,
-    ``GUT.SMSparseQLSupport.test_reference, ``GUT.SMSparseQLSupport.test_allowed_iff,
-    ``GUT.SMSparseQLSupport.original_allowed_iff,
-    ``GUT.SMNeutralSparseRanks.input_count, ``GUT.SMNeutralSparseRanks.inputs_enumerated,
-    ``GUT.SMNeutralSparseRanks.counts_pattern, ``GUT.SMNeutralSparseRanks.solve_multiplicity,
-    ``GUT.SMNeutralSparseRanks.kernel_dimension, ``GUT.SMNeutralSparseRanks.rank_sound,
-    ``GUT.SMHiggsStringExtraction.packed_reference, ``GUT.SMHiggsStringExtraction.cached_source,
-    ``GUT.SMHiggsStringExtraction.coefficient_string, ``GUT.SMHiggsStringExtraction.multiplicity_eq,
-    ``GUT.SMHiggsStringExtraction.keyMatches_eq, ``GUT.SMHiggsStringExtraction.lookup_eq,
-    ``GUT.SMHiggsStringExtraction.a2Extract_eq, ``GUT.SMKernelWeightData.weights_verified,
-    ``GUT.SMKernelWeightData.tables_verified, ``GUT.SMNeutralSparseRanks.solve_eq_of_value,
-    ``GUT.SMNeutralSparseRanks.columnsFast_eq,
-    ``GUT.SMNeutralSparseRanks.constant_source_row, ``GUT.SMNeutralSparseRanks.solveDirect_eq,
-    ``GUT.SMNeutralSparseRanks.solveDirectWith_data]
-  for d in ds do
-    for ax in (← Lean.collectAxioms d) do
-      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
-        throwError "sparse SM audit: {d} uses unexpected axiom {ax}"
-  Lean.logInfo m!"sparse SM audit: layer and {ds.length} strict transitive checks passed; Weyl consumers remain conditional"
+deprecated_module "Use Physics.StandardModel.Operators.Support.Coordinates.Audit.AuditSMSparseCharacter instead." (since := "source-api-v1")

@@ -29,7 +29,7 @@ predicate. Legacy `ChargesSupported` checks all five species, including
 down/lepton even for qque. Thus the Q-only theorem refutes the **slotwise**
 universal prohibition, not the legacy full-support prohibition, which can
 be vacuous with missing spectators. `selection_rule_obstruction` with positive
-Q/down refutes the unchanged legacy predicate. See [support definitions](../../../../../../Physics/StandardModel/Operators/SlotSupport.lean).
+Q/down refutes the unchanged legacy predicate. See [support definitions](../../../../../../Physics/StandardModel/Operators/Selection/SlotSupport.lean).
 
 ### Finite Non-Abelian Targets
 
@@ -52,7 +52,7 @@ Q/down refutes the unchanged legacy predicate. See [support definitions](../../.
 - P_Q is nonzero for qque. P_down must also be nonzero for the pair.
   No equality of Q/down dimensions is required.
 
-See [the exact target definition](../../../../../../Physics/StandardModel/Spectrum/NonabelianSMTarget.lean)
+See [the exact target definition](../../../../../../Physics/StandardModel/Spectrum/Representations/NonabelianSMTarget.lean)
 and [source bridge results](../../../../../topics/nonabelian-light-source/results.md).
 The Abelian recovery theorem identifies the two target descriptions on their
 common actual unitary domain. It does not extend the finite non-Abelian
@@ -60,7 +60,7 @@ endpoint to every H or replace the infinite-Abelian theorem.
 
 ### Compact Continuous QQue
 
-[CompactLightQque](../../../../../../Physics/StandardModel/Operators/CompactLightQque.lean)
+[CompactLightQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/CompactLightQque.lean)
 uses the same four-weight target predicate and the same two actual conjugators.
 
 - H is a compact topological group. It need not be finite or Abelian.
@@ -127,7 +127,7 @@ input; the alternative below derives participating fields from species indices.
 
 The [source-derived connection](../../../../../topics/full-sm-light-bridge/implementation.md)
 is implemented by
-[LightSMSpeciesQque](../../../../../../Physics/StandardModel/Operators/LightSMSpeciesQque.lean).
+[LightSMSpeciesQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/LightSMSpeciesQque.lean).
 Its source inputs are the finite-dimensional E and G x H representation,
 T-unitarity, symmetric T x H mass B and two conjugations described above.
 H is a compact topological group. Write K for the **unchanged radical of B**.
@@ -179,7 +179,7 @@ these inputs for its zero-mass fermion sector.
 
 ### Exact-Spectrum Entry To Route B
 
-[ExactSMSpectrumQque](../../../../../../Physics/StandardModel/Operators/ExactSMSpectrumQque.lean)
+[ExactSMSpectrumQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/ExactSMSpectrumQque.lean)
 retains route B's ambient representation, T-unitarity, symmetric T x H mass,
 two conjugations and continuous compatible SM-cover x H action on K. Instead
 of supplied targets or either index package, it assumes
@@ -207,7 +207,7 @@ See [the original result and verification](../../../../../topics/exact-sm-spectr
 
 ### Signed Virtual-Index Entry
 
-[VirtualIndexQque](../../../../../../Physics/StandardModel/Operators/VirtualIndexQque.lean)
+[VirtualIndexQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/VirtualIndexQque.lean)
 retains the compact-continuous compatible SM action on K and the structural
 ambient/mass inputs. Instead of positive actual targets, it takes a finite
 family S_i of pairwise inequivalent, continuous irreducible finite-dimensional
@@ -240,7 +240,7 @@ it is not an end-to-end GUT source example. See [results and boundaries](../../.
 
 ### One Shared Positive Constituent
 
-[SharedPositiveQque](../../../../../../Physics/StandardModel/Operators/SharedPositiveQque.lean)
+[SharedPositiveQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/SharedPositiveQque.lean)
 keeps the same source carrier/mass interface and compatible continuous action
 D on K as the signed virtual-index entry. Its inputs include the same finite
 normalized family of continuous irreducibles and three species character
@@ -271,7 +271,7 @@ See [results](../../../../../topics/shared-positive-qque/results.md).
 
 ### Two Pairwise Positive Constituents
 
-[PairwisePositiveQque](../../../../../../Physics/StandardModel/Operators/PairwisePositiveQque.lean)
+[PairwisePositiveQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/PairwisePositiveQque.lean)
 retains the shared-positive entry's source, compatible continuous action and
 three normalized species equations. It replaces three-way shared support with
 `PairwisePositiveSpeciesIndex.PairwisePositive a`: some i has positive Q/up
@@ -295,7 +295,7 @@ See [results and verification](../../../../../topics/pairwise-positive-qque/resu
 
 ### Automatic Species-Index Presentation
 
-[AutomaticSpeciesQque](../../../../../../Physics/StandardModel/Operators/AutomaticSpeciesQque.lean)
+[AutomaticSpeciesQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/AutomaticSpeciesQque.lean)
 retains the direct pairwise entry's ambient/mass carrier interface, compact H
 and compatible jointly continuous SM-cover x H action D on K. It constructs
 a common finite normalized irreducible family from the actual species
@@ -325,7 +325,7 @@ See [construction and audits](../../../../../topics/normalized-virtual-presentat
 
 ### Balanced Species Extension
 
-[BalancedSpeciesQque](../../../../../../Physics/StandardModel/Operators/BalancedSpeciesQque.lean)
+[BalancedSpeciesQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/BalancedSpeciesQque.lean)
 compares a new source to an exact-SM reference with the same H, but possibly
 a different ambient group and mass. The reference requires positive
 generations, T-unitarity and two actual conjugations. The new source requires
@@ -349,7 +349,7 @@ See [the full statement](../../../applications/Physics/BALANCED_SPECIES_EXTENSIO
 
 ### Global Vectorlike Spectrum
 
-[VectorlikeSpectrumQque](../../../../../../Physics/StandardModel/Operators/VectorlikeSpectrumQque.lean)
+[VectorlikeSpectrumQque](../../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/VectorlikeSpectrumQque.lean)
 keeps the two actual source/mass interfaces of the balanced extension. Instead
 of three species decomposition certificates, it takes a finite-dimensional
 continuous SM-cover x H representation X and one actual equivariant equivalence

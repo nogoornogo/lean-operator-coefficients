@@ -5,7 +5,14 @@ support. These optional construction routes are not one mandatory input package.
 
 | Task | Entry points |
 | --- | --- |
+| Connect actual selected fields to coefficient inputs | [Field/selection/symmetry connections](Physics/FIELD_CONNECTIONS.md), [usage](../../../topics/model-input-connections/input-guide.md) |
+| Generate EOM from a local polynomial density | [Optional Lagrangian helper](Math/interfaces/local-lagrangian-helper.md), [usage](../../../topics/local-lagrangian-helper/input-guide.md) |
+| Package a density and reuse coefficient/selection operations | [Model packages](Math/LAGRANGIAN_MODELS.md), [registered entries and usage](../../../topics/lagrangian-model-connections/input-guide.md) |
+| Generate a scalar/Weyl Yukawa input with actual Lorentz symmetry | [Total density and generated equations](Physics/SCALAR_WEYL_YUKAWA.md) |
+| Generate a globally symmetric gaugeless Higgs input | [Actual Higgs entry](Physics/HIGGS_LAGRANGIAN_INPUT.md) |
+| Generate both Weyl equations with scalar spectators | [Paired kinetic entry](Physics/PAIRED_WEYL_LAGRANGIAN_INPUT.md) |
 | Algebraic hypotheses | [Math assumptions](Math/ASSUMPTIONS.md) |
+| Necessary prohibition conditions after derivatives, IBP and EOM | [Actual-quotient tests](Math/DERIVATIVE_PROHIBITION_INPUT.md) |
 | Actual fields and scope | [Physics assumptions](Physics/ASSUMPTIONS.md) |
 | Specified VEV and flavor stabilizers | [GUT assumptions](GUT/ASSUMPTIONS.md#specified-vev-and-flavor-stabilizers), [flavor](Physics/assumptions/flavor-stabilizers.md#flavor-stabilizer-inputs) |
 | Majorana/Takagi stabilizers | [Math assumptions](Math/ASSUMPTIONS.md#full-unitary-majorana-stabilizers-and-takagi-existence) |

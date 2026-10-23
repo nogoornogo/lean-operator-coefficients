@@ -6,9 +6,9 @@ The normalized local contraction printed in Li D.37 exhausts the independently
 defined derivative-free DUQL exterior coefficient sector. The certificate
 proves literal contraction agreement and both residual-coordinate inverses.
 
-Sources: [conventions](../../../../../Physics/StandardModel/Operators/LiDuqlConvention.lean),
-[certificate](../../../../../Physics/StandardModel/Operators/LiDuqlCertificate.lean),
-[strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditLiDuqlBasis.lean).
+Sources: [conventions](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/LiDuqlConvention.lean),
+[certificate](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/LiDuqlCertificate.lean),
+[strict audit](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/Audit/AuditLiDuqlBasis.lean).
 
 ## Inputs And Citation Role
 

@@ -1,33 +1,29 @@
+import Physics.StandardModel.Operators.BaryonTwo.HeeckLe.HeeckLeSixQuarkData
 import Physics.StandardModel.Operators.HeeckLeSixQuarkMatrix
+import Math.Lean.Compatibility
 
-/-! Compatibility presentations of the two literal source diagrams and their
-selected words. Both matrices are derived from the source recipe and symbolic
-extraction; no evaluated seed/basis/inverse table is supplied. -/
-namespace GUT.HeeckLeSixQuarkCertificate
-noncomputable section
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.HeeckLe.HeeckLeSixQuarkData instead." (since := "source-api-v1")
 
-abbrev rationalSeedCoordinates := HeeckLeSixQuarkRecipe.seed (K := ℚ)
-abbrev selectedSeed := HeeckLeSixQuarkRecipe.selectedSeed
-abbrev selectedWord := HeeckLeSixQuarkRecipe.selectedWord
+compatibility_declarations [
+  GUT.HeeckLeSixQuarkCertificate.basisRational => Physics.HeeckLeSixQuarkCertificate.basisRational,
+  GUT.HeeckLeSixQuarkCertificate.columnR => Physics.HeeckLeSixQuarkCertificate.columnR,
+  GUT.HeeckLeSixQuarkCertificate.inverseRational => Physics.HeeckLeSixQuarkCertificate.inverseRational,
+  GUT.HeeckLeSixQuarkCertificate.orbitR => Physics.HeeckLeSixQuarkCertificate.orbitR,
+  GUT.HeeckLeSixQuarkCertificate.orbitR_agrees => Physics.HeeckLeSixQuarkCertificate.orbitR_agrees,
+  GUT.HeeckLeSixQuarkCertificate.rationalSeedCoordinates => Physics.HeeckLeSixQuarkCertificate.rationalSeedCoordinates,
+  GUT.HeeckLeSixQuarkCertificate.rational_left_inverse => Physics.HeeckLeSixQuarkCertificate.rational_left_inverse,
+  GUT.HeeckLeSixQuarkCertificate.rational_right_inverse => Physics.HeeckLeSixQuarkCertificate.rational_right_inverse,
+  GUT.HeeckLeSixQuarkCertificate.selectedSeed => Physics.HeeckLeSixQuarkCertificate.selectedSeed,
+  GUT.HeeckLeSixQuarkCertificate.selectedWord => Physics.HeeckLeSixQuarkCertificate.selectedWord
+]
 
-def basisRational : Matrix (Fin 25) (Fin 25) ℚ := HeeckLeSixQuarkMatrix.basis
-
-def inverseRational : Matrix (Fin 25) (Fin 25) ℚ := HeeckLeSixQuarkMatrix.inverse
-
-theorem rational_left_inverse : inverseRational*basisRational = 1 :=
-  HeeckLeSixQuarkMatrix.left_inverse
-
-theorem rational_right_inverse : basisRational*inverseRational = 1 :=
-  HeeckLeSixQuarkMatrix.right_inverse
-
-def orbitR (j : Fin 25) : Fin 5 → Fin 5 → ℚ := HeeckLeSixQuarkRecipe.orbit j
-
-def columnR (j : Fin 25) (p q : Fin 5) : ℚ :=
-  basisRational ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25) (p,q)) j
-
-theorem orbitR_agrees (i j : Fin 25) :
-    orbitR j ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25).symm i).1
-      ((finProdFinEquiv : Fin 5 × Fin 5 ≃ Fin 25).symm i).2 = basisRational i j := rfl
-
-end
-end GUT.HeeckLeSixQuarkCertificate
+assert_compatible GUT.HeeckLeSixQuarkCertificate.basisRational => Physics.HeeckLeSixQuarkCertificate.basisRational
+assert_compatible GUT.HeeckLeSixQuarkCertificate.columnR => Physics.HeeckLeSixQuarkCertificate.columnR
+assert_compatible GUT.HeeckLeSixQuarkCertificate.inverseRational => Physics.HeeckLeSixQuarkCertificate.inverseRational
+assert_compatible GUT.HeeckLeSixQuarkCertificate.orbitR => Physics.HeeckLeSixQuarkCertificate.orbitR
+assert_compatible GUT.HeeckLeSixQuarkCertificate.orbitR_agrees => Physics.HeeckLeSixQuarkCertificate.orbitR_agrees
+assert_compatible GUT.HeeckLeSixQuarkCertificate.rationalSeedCoordinates => Physics.HeeckLeSixQuarkCertificate.rationalSeedCoordinates
+assert_compatible GUT.HeeckLeSixQuarkCertificate.rational_left_inverse => Physics.HeeckLeSixQuarkCertificate.rational_left_inverse
+assert_compatible GUT.HeeckLeSixQuarkCertificate.rational_right_inverse => Physics.HeeckLeSixQuarkCertificate.rational_right_inverse
+assert_compatible GUT.HeeckLeSixQuarkCertificate.selectedSeed => Physics.HeeckLeSixQuarkCertificate.selectedSeed
+assert_compatible GUT.HeeckLeSixQuarkCertificate.selectedWord => Physics.HeeckLeSixQuarkCertificate.selectedWord

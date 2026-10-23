@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.CovariantFourFermion
-import Math.RepresentationTheory.PointwiseGaugeRemoval
+import Math.RepresentationTheory.Constructions.PointwiseGaugeRemoval
+
+open Physics
 
 /-! Gauge comparison on the supported fourth exterior power of actual light
 fields. This does not construct Lorentz/SM BNV support. -/

@@ -73,8 +73,8 @@ See [the scope dossier](../../../applications/GUT/COMPACT_SYMPLECTIC_CHIRALITY.m
   `defining_eigen_norm`, `exists_eigenvector_pair` for every group element
   at positive rank, and `defining_preserves_orthogonal_pair`.
 
-- [QuaternionicSpectral](../../../../../../Math/LinearAlgebra/QuaternionicSpectral.lean)
-  and [QuaternionicEigenbasis](../../../../../../Math/LinearAlgebra/QuaternionicEigenbasis.lean),
+- [QuaternionicSpectral](../../../../../../Math/LinearAlgebra/Quaternion/QuaternionicSpectral.lean)
+  and [QuaternionicEigenbasis](../../../../../../Math/LinearAlgebra/Quaternion/QuaternionicEigenbasis.lean),
   namespace `GUT.QuaternionicSpectral`: invariant subspace restriction,
   normalized eigenvectors, maximal paired frames, `Data.exists_paired_eigenbasis`,
   and `Data.finrank_eq_twice`. No concrete gauge group is imported.
@@ -154,14 +154,14 @@ reuses the shared actual defining representation instead of duplicating it.
 SP-2 completion verification:
 
 ```sh
-lake build Math.LinearAlgebra.Audit.AuditQuaternionicEigenbasis GUT.Sp.Audit.AuditTorusConjugacy GUT.Sp.Audit.AuditChiralityObstruction GUT.Sp.Audit.AuditStandardChirality
+lake build Math.LinearAlgebra.Quaternion.Audit.AuditQuaternionicEigenbasis GUT.Sp.Audit.AuditTorusConjugacy GUT.Sp.Audit.AuditChiralityObstruction GUT.Sp.Audit.AuditStandardChirality
 lake build
 ```
 
 Targeted 3954 jobs / 168 reports; full 4466 jobs / 1789 reports, standard
 axioms only. New persistent controls:
 
-- [Abstract basis audit](../../../../../../Math/LinearAlgebra/Audit/AuditQuaternionicEigenbasis.lean):
+- [Abstract basis audit](../../../../../../Math/LinearAlgebra/Quaternion/Audit/AuditQuaternionicEigenbasis.lean):
   zero dimension, impossibility in complex dimension one, and no gauge imports.
 - [Conjugacy audit](../../../../../../GUT/Sp/Audit/AuditTorusConjugacy.lean): an actual element
   outside the chosen torus, its inverse conjugacy, failure of a fixed J to

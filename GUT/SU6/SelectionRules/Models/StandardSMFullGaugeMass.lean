@@ -1,5 +1,7 @@
-import Physics.FieldTheory.Mass.SplitWeylMass
+import Physics.FieldTheory.Mass.Algebra.SplitWeylMass
 import GUT.SU6.Adapters.StandardSMResidualTensor
+
+open Physics
 
 open Math
 

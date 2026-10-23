@@ -2,6 +2,8 @@ import GUT.SU6.Characters.ContinuousUnitaryWeightDecomposition
 import GUT.SU6.SelectionRules.StandardBranch.StandardAbelianCharge
 import Mathlib.Data.Finsupp.SMul
 
+open Physics
+
 open Math
 
 /-!

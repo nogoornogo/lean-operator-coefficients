@@ -1,4 +1,7 @@
 import GUT.SU6.SelectionRules.Models.ContinuousWeylFullMass
+import Lean.Util.CollectAxioms
+
+open Physics
 
 /-! Persistent audit: mass-preserving transport, full spectrum, non-vacuity. -/
 
@@ -38,3 +41,22 @@ example : Nonempty (StandardModelLocalOperator.SupportedInvariantOperator
 #print axioms ContinuousWeylFullMass.exists_exact_sm_radical
 
 end GUT.AuditContinuousWeylFullMass
+
+open Lean in
+run_cmd do
+  let ds := [
+    ``Physics.SymmetricMassTransport.certificate,
+    ``GUT.ContinuousWeylMassTransport.transport,
+    ``GUT.ContinuousWeylMassTransport.ofStandard,
+    ``GUT.ContinuousWeylMassTransport.mass_heq,
+    ``GUT.ContinuousWeylMassTransport.mass_nonzero_iff,
+    ``GUT.ContinuousWeylMassTransport.radicalEquiv,
+    ``GUT.ContinuousWeylMassTransport.radical_finrank,
+    ``GUT.ContinuousWeylMassTransport.radical_character,
+    ``GUT.ContinuousWeylMassTransport.actualSpectrum,
+    ``GUT.ContinuousWeylMassTransport.lightSpectrum]
+  for d in ds do
+    for ax in (← Lean.collectAxioms d) do
+      unless [``propext, ``Classical.choice, ``Quot.sound].contains ax do
+        throwError "Mass transport {d} uses unexpected axiom {ax}"
+  Lean.logInfo m!"Certified continuous mass transport: {ds.length} strict transitive checks passed"

@@ -1,5 +1,7 @@
 import GUT.Common.StandardChain.StandardChain
-import Physics.StandardModel.Spectrum.SelfDualChirality
+import Physics.StandardModel.Spectrum.Representations.SelfDualChirality
+
+open Physics
 
 open Math
 

@@ -1,107 +1,50 @@
+import Physics.StandardModel.Operators.Support.Coordinates.SMConstantContentRanks
 import Math.RepresentationTheory.ConstantPatternExterior
 import Physics.StandardModel.Operators.SMChargedKernelRank
 import Physics.StandardModel.Operators.LLHHKernelRank
 import Physics.StandardModel.Operators.SMParityKernelRank
+import Math.Lean.Compatibility
 
-/-! Numerical dimension and rank formulas for all constant-species contents. -/
-namespace GUT.SMConstantContentRanks
-set_option autoImplicit false
-noncomputable section
-open Math Representation
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Support.Coordinates.SMConstantContentRanks instead." (since := "source-api-v1")
 
-def dimension (s : DeltaLOneSignedInput.Species) : ℕ := ![36,18,18,12,6,36,18,18,12,6] s
-def pattern (s : DeltaLOneSignedInput.Species) (n : ℕ) (_ : Fin n) := s
-def columns (s : DeltaLOneSignedInput.Species) (n m : ℕ) := (dimension s).choose n * (m+1)
+compatibility_declarations [
+  GUT.SMConstantContentRanks.above_capacity_rank => Physics.SMConstantContentRanks.above_capacity_rank,
+  GUT.SMConstantContentRanks.actualRank => Physics.SMConstantContentRanks.actualRank,
+  GUT.SMConstantContentRanks.carrier_dimension => Physics.SMConstantContentRanks.carrier_dimension,
+  GUT.SMConstantContentRanks.charge => Physics.SMConstantContentRanks.charge,
+  GUT.SMConstantContentRanks.charged_rank => Physics.SMConstantContentRanks.charged_rank,
+  GUT.SMConstantContentRanks.columns => Physics.SMConstantContentRanks.columns,
+  GUT.SMConstantContentRanks.columns.eq_1 => Physics.SMConstantContentRanks.columns.eq_1,
+  GUT.SMConstantContentRanks.dimension => Physics.SMConstantContentRanks.dimension,
+  GUT.SMConstantContentRanks.evaluate => Physics.SMConstantContentRanks.evaluate,
+  GUT.SMConstantContentRanks.evaluate_sound => Physics.SMConstantContentRanks.evaluate_sound,
+  GUT.SMConstantContentRanks.fieldFinite => Physics.SMConstantContentRanks.fieldFinite,
+  GUT.SMConstantContentRanks.fixed_above => Physics.SMConstantContentRanks.fixed_above,
+  GUT.SMConstantContentRanks.fixed_charged => Physics.SMConstantContentRanks.fixed_charged,
+  GUT.SMConstantContentRanks.fixed_llhh => Physics.SMConstantContentRanks.fixed_llhh,
+  GUT.SMConstantContentRanks.fixed_odd => Physics.SMConstantContentRanks.fixed_odd,
+  GUT.SMConstantContentRanks.pattern => Physics.SMConstantContentRanks.pattern,
+  GUT.SMConstantContentRanks.pattern.eq_1 => Physics.SMConstantContentRanks.pattern.eq_1,
+  GUT.SMConstantContentRanks.source_dimension => Physics.SMConstantContentRanks.source_dimension,
+  GUT.SMContentWeakBound.hypercharge.eq_1 => Physics.SMContentWeakBound.hypercharge.eq_1
+]
 
-variable {H : Type*} [Group H]
-  (flavor : ∀ s, Representation ℂ H (ThreeGenerationFermionBound.Flavor s))
-  (s : DeltaLOneSignedInput.Species) (n m : ℕ) (delta : ℤ)
-
-local instance fieldFinite : FiniteDimensional ℂ
-    (DeltaLOneSignedFields.Field (F := ThreeGenerationFermionBound.Flavor) s) := by
-  fin_cases s <;> dsimp [DeltaLOneSignedFields.Field, ThreeGenerationFermionBound.Flavor,
-    DeltaLOneSignedFields.GaugeCarrier] <;> infer_instance
-
-theorem source_dimension : Module.finrank ℂ
-    (PatternExteriorSource.Source (DeltaLOneSignedFields.field flavor) (pattern s n)) =
-    (dimension s).choose n := by
-  unfold pattern
-  rw [← (ConstantPatternExterior.linearEquiv (DeltaLOneSignedFields.field flavor) s n).finrank_eq,
-    exteriorPower.finrank_eq, ThreeGenerationFermionBound.species_dimension]
-  rfl
-
-theorem carrier_dimension : Module.finrank ℂ
-    (SMFullLocalKernel.Carrier flavor (pattern s n) m) = columns s n m := by
-  change Module.finrank ℂ (_ ⊗[ℂ] Sym[ℂ]^m WeakDoubletScalars.Doublet) = _
-  rw [Module.finrank_tensorProduct, source_dimension, SymmetricPower.finrank_eq]
-  simp [WeakDoubletScalars.Doublet, Nat.multichoose_two, columns]
-
-theorem charge : SMContentWeakBound.hypercharge (pattern s n) =
-    (n : ℤ) * DeltaLOneSignedInput.hypercharge s := by
-  simp [SMContentWeakBound.hypercharge, pattern]
-
-theorem charged_rank (hc : (n : ℤ) * DeltaLOneSignedInput.hypercharge s + 3*delta ≠ 0) :
-    Module.finrank ℂ (LinearMap.range (SMFullLocalKernel.constraints flavor (pattern s n) m delta)) =
-      columns s n m := by
-  have h := SMChargedKernelRank.full_rank flavor (pattern s n) m delta (by rwa [charge])
-  simpa only [Fintype.card_fin, carrier_dimension] using h
-
-theorem above_capacity_rank (hn : dimension s < n) :
-    Module.finrank ℂ (LinearMap.range (SMFullLocalKernel.constraints flavor (pattern s n) m delta)) = 0 := by
-  have hd : Module.finrank ℂ (SMFullLocalKernel.Carrier flavor (pattern s n) m) = 0 := by
-    rw [carrier_dimension, columns, Nat.choose_eq_zero_of_lt hn, zero_mul]
-  have he := LinearMap.finrank_range_le (SMFullLocalKernel.constraints flavor (pattern s n) m delta)
-  have hb : Module.finrank ℂ
-      (Fin (Module.finrank ℂ (SMFullLocalKernel.Carrier flavor (pattern s n) m)) → ℂ) =
-      Module.finrank ℂ (SMFullLocalKernel.Carrier flavor (pattern s n) m) := by simp
-  exact Nat.eq_zero_of_le_zero (he.trans_eq (hb.trans hd))
-
-/-- Conservative executable classifier. `none` means unclassified, not forbidden. -/
-def evaluate (s : DeltaLOneSignedInput.Species) (n m : ℕ) (delta : ℤ) : Option ℕ :=
-  if dimension s < n then some 0
-  else if n % 2 ≠ 0 then some (columns s n m)
-  else if (n : ℤ) * DeltaLOneSignedInput.hypercharge s + 3*delta ≠ 0 then some (columns s n m)
-  else if s=3 ∧ n=2 ∧ m=2 ∧ delta=2 then some 192
-  else none
-
-def actualRank (s : DeltaLOneSignedInput.Species) (n m : ℕ) (delta : ℤ) : ℕ :=
-  Module.finrank ℂ (LinearMap.range (SMFullLocalKernel.constraints
-    LLHHKernelRank.flavor (pattern s n) m delta))
-
-theorem fixed_above (hn : dimension s < n) : actualRank s n m delta = 0 :=
-  above_capacity_rank LLHHKernelRank.flavor s n m delta hn
-
-theorem fixed_odd (hn : n % 2 ≠ 0) : actualRank s n m delta = columns s n m :=
-  (SMParityKernelRank.full_rank LLHHKernelRank.flavor (pattern s n) m delta hn).trans
-    (carrier_dimension LLHHKernelRank.flavor s n m)
-
-theorem fixed_charged (hc : (n : ℤ) * DeltaLOneSignedInput.hypercharge s + 3*delta ≠ 0) :
-    actualRank s n m delta = columns s n m :=
-  charged_rank LLHHKernelRank.flavor s n m delta hc
-
-theorem fixed_llhh : actualRank 3 2 2 2 = 192 := LLHHKernelRank.rank
-
-attribute [local irreducible] actualRank
-
-theorem evaluate_sound {s : DeltaLOneSignedInput.Species} {n m : ℕ} {delta : ℤ} {r : ℕ}
-    (he : evaluate s n m delta = some r) :
-    actualRank s n m delta = r := by
-  unfold evaluate at he
-  split at he
-  · cases he
-    exact fixed_above s n m delta ‹_›
-  · split at he
-    · cases he
-      exact fixed_odd s n m delta ‹_›
-    · split at he
-      · cases he
-        exact fixed_charged s n m delta ‹_›
-      · split at he
-        · obtain ⟨rfl,rfl,rfl,rfl⟩ := ‹s=3 ∧ n=2 ∧ m=2 ∧ delta=2›
-          cases he
-          exact fixed_llhh
-        · cases he
-
-end
-end GUT.SMConstantContentRanks
+assert_compatible GUT.SMConstantContentRanks.above_capacity_rank => Physics.SMConstantContentRanks.above_capacity_rank
+assert_compatible GUT.SMConstantContentRanks.actualRank => Physics.SMConstantContentRanks.actualRank
+assert_compatible GUT.SMConstantContentRanks.carrier_dimension => Physics.SMConstantContentRanks.carrier_dimension
+assert_compatible GUT.SMConstantContentRanks.charge => Physics.SMConstantContentRanks.charge
+assert_compatible GUT.SMConstantContentRanks.charged_rank => Physics.SMConstantContentRanks.charged_rank
+assert_compatible GUT.SMConstantContentRanks.columns => Physics.SMConstantContentRanks.columns
+assert_compatible GUT.SMConstantContentRanks.columns.eq_1 => Physics.SMConstantContentRanks.columns.eq_1
+assert_compatible GUT.SMConstantContentRanks.dimension => Physics.SMConstantContentRanks.dimension
+assert_compatible GUT.SMConstantContentRanks.evaluate => Physics.SMConstantContentRanks.evaluate
+assert_compatible GUT.SMConstantContentRanks.evaluate_sound => Physics.SMConstantContentRanks.evaluate_sound
+assert_compatible GUT.SMConstantContentRanks.fieldFinite => Physics.SMConstantContentRanks.fieldFinite
+assert_compatible GUT.SMConstantContentRanks.fixed_above => Physics.SMConstantContentRanks.fixed_above
+assert_compatible GUT.SMConstantContentRanks.fixed_charged => Physics.SMConstantContentRanks.fixed_charged
+assert_compatible GUT.SMConstantContentRanks.fixed_llhh => Physics.SMConstantContentRanks.fixed_llhh
+assert_compatible GUT.SMConstantContentRanks.fixed_odd => Physics.SMConstantContentRanks.fixed_odd
+assert_compatible GUT.SMConstantContentRanks.pattern => Physics.SMConstantContentRanks.pattern
+assert_compatible GUT.SMConstantContentRanks.pattern.eq_1 => Physics.SMConstantContentRanks.pattern.eq_1
+assert_compatible GUT.SMConstantContentRanks.source_dimension => Physics.SMConstantContentRanks.source_dimension
+assert_compatible GUT.SMContentWeakBound.hypercharge.eq_1 => Physics.SMContentWeakBound.hypercharge.eq_1

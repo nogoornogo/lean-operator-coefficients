@@ -1,6 +1,8 @@
 import GUT.SU6.Branching.StandardSMGroup
 import GUT.SU6.Branching.PhysicalSMTorusTarget
 
+open Physics
+
 /-!
 # Compatibility of the full standard gauge action with the physical torus
 

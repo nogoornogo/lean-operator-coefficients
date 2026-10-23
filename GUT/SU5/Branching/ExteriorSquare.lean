@@ -1,5 +1,7 @@
 import GUT.SU5.Branching.Fundamental
-import Physics.StandardModel.Gauge.ExteriorPairing
+import Physics.StandardModel.Gauge.Tensors.ExteriorPairing
+
+open Physics
 
 /-! Actual branching `10 = upRight.dual + quark + electronRight.dual`.
 The map is induced by alternating contractions; surjectivity is proved

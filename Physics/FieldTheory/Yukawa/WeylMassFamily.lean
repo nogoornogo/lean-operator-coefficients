@@ -1,122 +1,101 @@
+import Physics.FieldTheory.Yukawa.Mass.WeylMassFamily
 import Physics.FieldTheory.Mass.InvariantMassData
+import Math.Lean.Compatibility
 
-/-!
-# Scalar-dependent symmetric mass families
+deprecated_module "Use Physics.FieldTheory.Yukawa.Mass.WeylMassFamily instead." (since := "source-api-v1")
 
-Scalar dependence is an arbitrary equivariant function. Fermion dependence
-remains complex bilinear. Fixed-vacuum evaluation needs no scalar-linearity,
-continuity, unitarity, finite-dimensionality, or commutativity of the group.
-Polynomial or physical admissibility of a family is a separate source issue.
--/
+compatibility_declarations [
+  GUT.WeylMassFamily.EquivariantFamily => Physics.WeylMassFamily.EquivariantFamily,
+  GUT.WeylMassFamily.EquivariantFamily.add => Physics.WeylMassFamily.EquivariantFamily.add,
+  GUT.WeylMassFamily.EquivariantFamily.atVacuum => Physics.WeylMassFamily.EquivariantFamily.atVacuum,
+  GUT.WeylMassFamily.EquivariantFamily.atVacuum_form => Physics.WeylMassFamily.EquivariantFamily.atVacuum_form,
+  GUT.WeylMassFamily.EquivariantFamily.casesOn => Physics.WeylMassFamily.EquivariantFamily.casesOn,
+  GUT.WeylMassFamily.EquivariantFamily.const => Physics.WeylMassFamily.EquivariantFamily.const,
+  GUT.WeylMassFamily.EquivariantFamily.ctorIdx => Physics.WeylMassFamily.EquivariantFamily.ctorIdx,
+  GUT.WeylMassFamily.EquivariantFamily.invariant => Physics.WeylMassFamily.EquivariantFamily.invariant,
+  GUT.WeylMassFamily.EquivariantFamily.mk => Physics.WeylMassFamily.EquivariantFamily.mk,
+  GUT.WeylMassFamily.EquivariantFamily.mk.inj => Physics.WeylMassFamily.EquivariantFamily.mk.inj,
+  GUT.WeylMassFamily.EquivariantFamily.mk.injEq => Physics.WeylMassFamily.EquivariantFamily.mk.injEq,
+  GUT.WeylMassFamily.EquivariantFamily.mk.noConfusion => Physics.WeylMassFamily.EquivariantFamily.mk.noConfusion,
+  GUT.WeylMassFamily.EquivariantFamily.mk.sizeOf_spec => Physics.WeylMassFamily.EquivariantFamily.mk.sizeOf_spec,
+  GUT.WeylMassFamily.EquivariantFamily.noConfusion => Physics.WeylMassFamily.EquivariantFamily.noConfusion,
+  GUT.WeylMassFamily.EquivariantFamily.noConfusionType => Physics.WeylMassFamily.EquivariantFamily.noConfusionType,
+  GUT.WeylMassFamily.EquivariantFamily.rec => Physics.WeylMassFamily.EquivariantFamily.rec,
+  GUT.WeylMassFamily.EquivariantFamily.recOn => Physics.WeylMassFamily.EquivariantFamily.recOn,
+  GUT.WeylMassFamily.EquivariantFamily.restrict => Physics.WeylMassFamily.EquivariantFamily.restrict,
+  GUT.WeylMassFamily.EquivariantFamily.symmetric => Physics.WeylMassFamily.EquivariantFamily.symmetric,
+  GUT.WeylMassFamily.EquivariantFamily.toFun => Physics.WeylMassFamily.EquivariantFamily.toFun,
+  GUT.WeylMassFamily.EquivariantFamily.zero => Physics.WeylMassFamily.EquivariantFamily.zero,
+  GUT.WeylMassFamily.Sector => Physics.WeylMassFamily.Sector,
+  GUT.WeylMassFamily.Sector.bareMass => Physics.WeylMassFamily.Sector.bareMass,
+  GUT.WeylMassFamily.Sector.casesOn => Physics.WeylMassFamily.Sector.casesOn,
+  GUT.WeylMassFamily.Sector.ctorIdx => Physics.WeylMassFamily.Sector.ctorIdx,
+  GUT.WeylMassFamily.Sector.family => Physics.WeylMassFamily.Sector.family,
+  GUT.WeylMassFamily.Sector.mass => Physics.WeylMassFamily.Sector.mass,
+  GUT.WeylMassFamily.Sector.mass_form => Physics.WeylMassFamily.Sector.mass_form,
+  GUT.WeylMassFamily.Sector.mk => Physics.WeylMassFamily.Sector.mk,
+  GUT.WeylMassFamily.Sector.mk.inj => Physics.WeylMassFamily.Sector.mk.inj,
+  GUT.WeylMassFamily.Sector.mk.injEq => Physics.WeylMassFamily.Sector.mk.injEq,
+  GUT.WeylMassFamily.Sector.mk.noConfusion => Physics.WeylMassFamily.Sector.mk.noConfusion,
+  GUT.WeylMassFamily.Sector.mk.sizeOf_spec => Physics.WeylMassFamily.Sector.mk.sizeOf_spec,
+  GUT.WeylMassFamily.Sector.noConfusion => Physics.WeylMassFamily.Sector.noConfusion,
+  GUT.WeylMassFamily.Sector.noConfusionType => Physics.WeylMassFamily.Sector.noConfusionType,
+  GUT.WeylMassFamily.Sector.ofBareMass => Physics.WeylMassFamily.Sector.ofBareMass,
+  GUT.WeylMassFamily.Sector.ofBareMass_mass => Physics.WeylMassFamily.Sector.ofBareMass_mass,
+  GUT.WeylMassFamily.Sector.rec => Physics.WeylMassFamily.Sector.rec,
+  GUT.WeylMassFamily.Sector.recOn => Physics.WeylMassFamily.Sector.recOn,
+  GUT.WeylMassFamily.Sector.restrict => Physics.WeylMassFamily.Sector.restrict,
+  GUT.WeylMassFamily.Sector.restrict_mass => Physics.WeylMassFamily.Sector.restrict_mass,
+  GUT.WeylMassFamily.Sector.vacuum => Physics.WeylMassFamily.Sector.vacuum,
+  GUT.WeylMassFamily.atVacuumOn => Physics.WeylMassFamily.atVacuumOn,
+  GUT.WeylMassFamily.atVacuumOn_form => Physics.WeylMassFamily.atVacuumOn_form,
+  GUT.WeylMassFamily.atVacuumStabilizer => Physics.WeylMassFamily.atVacuumStabilizer,
+  GUT.WeylMassFamily.atVacuumStabilizer_form => Physics.WeylMassFamily.atVacuumStabilizer_form
+]
 
-set_option autoImplicit false
-
-namespace GUT.WeylMassFamily
-
-open InvariantWeylMass
-open DiracYukawaMass (InvariantVacuum)
-
-variable {G S V : Type*} [Group G] [AddCommGroup S] [Module ℂ S]
-variable [AddCommGroup V] [Module ℂ V]
-variable {rhoS : Representation ℂ G S} {rhoV : Representation ℂ G V}
-
-structure EquivariantFamily (rhoS : Representation ℂ G S) (rhoV : Representation ℂ G V) where
-  toFun : S → LinearMap.BilinForm ℂ V
-  symmetric : ∀ s, (toFun s).IsSymm
-  invariant : ∀ g s x y, toFun (rhoS g s) (rhoV g x) (rhoV g y) = toFun s x y
-
-namespace EquivariantFamily
-
-def zero : EquivariantFamily rhoS rhoV where
-  toFun := fun _ => 0
-  symmetric := fun _ => LinearMap.BilinForm.isSymm_zero
-  invariant := by intros; rfl
-
-def const (B : SymmetricMass rhoV) : EquivariantFamily rhoS rhoV where
-  toFun := fun _ => B.form
-  symmetric := fun _ => B.symmetric
-  invariant := fun g _ => B.invariant g
-
-def add (Y Z : EquivariantFamily rhoS rhoV) : EquivariantFamily rhoS rhoV where
-  toFun s := Y.toFun s + Z.toFun s
-  symmetric s := ⟨fun x y => congrArg₂ (· + ·) ((Y.symmetric s).eq x y)
-    ((Z.symmetric s).eq x y)⟩
-  invariant g s x y := congrArg₂ (· + ·) (Y.invariant g s x y) (Z.invariant g s x y)
-
-def restrict {K : Type*} [Group K] (Y : EquivariantFamily rhoS rhoV) (f : K →* G) :
-    EquivariantFamily (rhoS.comp f) (rhoV.comp f) where
-  toFun := Y.toFun
-  symmetric := Y.symmetric
-  invariant k := Y.invariant (f k)
-
-/-- Evaluate only after proving that the selected group fixes the vacuum. -/
-def atVacuum (Y : EquivariantFamily rhoS rhoV) (v : InvariantVacuum rhoS) :
-    SymmetricMass rhoV where
-  form := Y.toFun v.value
-  symmetric := Y.symmetric v.value
-  invariant g x y := by
-    have h := Y.invariant g v.value x y
-    rw [v.fixed'] at h
-    exact h
-
-@[simp] theorem atVacuum_form (Y : EquivariantFamily rhoS rhoV) (v : InvariantVacuum rhoS) :
-    (Y.atVacuum v).form = Y.toFun v.value := rfl
-
-end EquivariantFamily
-
-structure Sector (rhoS : Representation ℂ G S) (rhoV : Representation ℂ G V) where
-  bareMass : SymmetricMass rhoV
-  family : EquivariantFamily rhoS rhoV
-  vacuum : InvariantVacuum rhoS
-
-namespace Sector
-
-def mass (D : Sector rhoS rhoV) : SymmetricMass rhoV :=
-  ((EquivariantFamily.const D.bareMass).add D.family).atVacuum D.vacuum
-
-@[simp] theorem mass_form (D : Sector rhoS rhoV) :
-    D.mass.form = D.bareMass.form + D.family.toFun D.vacuum.value := rfl
-
-def ofBareMass (B : SymmetricMass rhoV) : Sector rhoS rhoV where
-  bareMass := B
-  family := EquivariantFamily.zero
-  vacuum := InvariantVacuum.zero
-
-@[simp] theorem ofBareMass_mass (B : SymmetricMass rhoV) :
-    (ofBareMass (rhoS := rhoS) B).mass = B := by
-  apply SymmetricMass.ext
-  exact add_zero B.form
-
-def restrict {K : Type*} [Group K] (D : Sector rhoS rhoV) (f : K →* G) :
-    Sector (rhoS.comp f) (rhoV.comp f) where
-  bareMass := D.bareMass.restrict f
-  family := D.family.restrict f
-  vacuum := D.vacuum.restrict f
-
-@[simp] theorem restrict_mass {K : Type*} [Group K]
-    (D : Sector rhoS rhoV) (f : K →* G) :
-    (D.restrict f).mass = D.mass.restrict f := rfl
-
-end Sector
-
-variable {K : Type*} [Group K]
-
-/-- The homomorphism need not be injective and the ambient group need not
-fix the vacuum. -/
-def atVacuumOn (B : SymmetricMass rhoV) (Y : EquivariantFamily rhoS rhoV)
-    (f : K →* G) (v : S) (hv : ∀ k, rhoS (f k) v = v) : SymmetricMass (rhoV.comp f) :=
-  (Sector.mk (B.restrict f) (Y.restrict f) ⟨v, hv⟩).mass
-
-@[simp] theorem atVacuumOn_form (B : SymmetricMass rhoV) (Y : EquivariantFamily rhoS rhoV)
-    (f : K →* G) (v : S) (hv : ∀ k, rhoS (f k) v = v) :
-    (atVacuumOn B Y f v hv).form = B.form + Y.toFun v := rfl
-
-def atVacuumStabilizer (B : SymmetricMass rhoV) (Y : EquivariantFamily rhoS rhoV) (v : S) :
-    SymmetricMass (rhoV.comp (WeylYukawaMass.vacuumStabilizer rhoS v).subtype) :=
-  atVacuumOn B Y _ v (fun g => g.property)
-
-@[simp] theorem atVacuumStabilizer_form (B : SymmetricMass rhoV)
-    (Y : EquivariantFamily rhoS rhoV) (v : S) :
-    (atVacuumStabilizer B Y v).form = B.form + Y.toFun v := rfl
-
-end GUT.WeylMassFamily
+assert_compatible GUT.WeylMassFamily.EquivariantFamily => Physics.WeylMassFamily.EquivariantFamily
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.add => Physics.WeylMassFamily.EquivariantFamily.add
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.atVacuum => Physics.WeylMassFamily.EquivariantFamily.atVacuum
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.atVacuum_form => Physics.WeylMassFamily.EquivariantFamily.atVacuum_form
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.casesOn => Physics.WeylMassFamily.EquivariantFamily.casesOn
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.const => Physics.WeylMassFamily.EquivariantFamily.const
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.ctorIdx => Physics.WeylMassFamily.EquivariantFamily.ctorIdx
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.invariant => Physics.WeylMassFamily.EquivariantFamily.invariant
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.mk => Physics.WeylMassFamily.EquivariantFamily.mk
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.mk.inj => Physics.WeylMassFamily.EquivariantFamily.mk.inj
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.mk.injEq => Physics.WeylMassFamily.EquivariantFamily.mk.injEq
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.mk.noConfusion => Physics.WeylMassFamily.EquivariantFamily.mk.noConfusion
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.mk.sizeOf_spec => Physics.WeylMassFamily.EquivariantFamily.mk.sizeOf_spec
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.noConfusion => Physics.WeylMassFamily.EquivariantFamily.noConfusion
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.noConfusionType => Physics.WeylMassFamily.EquivariantFamily.noConfusionType
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.rec => Physics.WeylMassFamily.EquivariantFamily.rec
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.recOn => Physics.WeylMassFamily.EquivariantFamily.recOn
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.restrict => Physics.WeylMassFamily.EquivariantFamily.restrict
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.symmetric => Physics.WeylMassFamily.EquivariantFamily.symmetric
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.toFun => Physics.WeylMassFamily.EquivariantFamily.toFun
+assert_compatible GUT.WeylMassFamily.EquivariantFamily.zero => Physics.WeylMassFamily.EquivariantFamily.zero
+assert_compatible GUT.WeylMassFamily.Sector => Physics.WeylMassFamily.Sector
+assert_compatible GUT.WeylMassFamily.Sector.bareMass => Physics.WeylMassFamily.Sector.bareMass
+assert_compatible GUT.WeylMassFamily.Sector.casesOn => Physics.WeylMassFamily.Sector.casesOn
+assert_compatible GUT.WeylMassFamily.Sector.ctorIdx => Physics.WeylMassFamily.Sector.ctorIdx
+assert_compatible GUT.WeylMassFamily.Sector.family => Physics.WeylMassFamily.Sector.family
+assert_compatible GUT.WeylMassFamily.Sector.mass => Physics.WeylMassFamily.Sector.mass
+assert_compatible GUT.WeylMassFamily.Sector.mass_form => Physics.WeylMassFamily.Sector.mass_form
+assert_compatible GUT.WeylMassFamily.Sector.mk => Physics.WeylMassFamily.Sector.mk
+assert_compatible GUT.WeylMassFamily.Sector.mk.inj => Physics.WeylMassFamily.Sector.mk.inj
+assert_compatible GUT.WeylMassFamily.Sector.mk.injEq => Physics.WeylMassFamily.Sector.mk.injEq
+assert_compatible GUT.WeylMassFamily.Sector.mk.noConfusion => Physics.WeylMassFamily.Sector.mk.noConfusion
+assert_compatible GUT.WeylMassFamily.Sector.mk.sizeOf_spec => Physics.WeylMassFamily.Sector.mk.sizeOf_spec
+assert_compatible GUT.WeylMassFamily.Sector.noConfusion => Physics.WeylMassFamily.Sector.noConfusion
+assert_compatible GUT.WeylMassFamily.Sector.noConfusionType => Physics.WeylMassFamily.Sector.noConfusionType
+assert_compatible GUT.WeylMassFamily.Sector.ofBareMass => Physics.WeylMassFamily.Sector.ofBareMass
+assert_compatible GUT.WeylMassFamily.Sector.ofBareMass_mass => Physics.WeylMassFamily.Sector.ofBareMass_mass
+assert_compatible GUT.WeylMassFamily.Sector.rec => Physics.WeylMassFamily.Sector.rec
+assert_compatible GUT.WeylMassFamily.Sector.recOn => Physics.WeylMassFamily.Sector.recOn
+assert_compatible GUT.WeylMassFamily.Sector.restrict => Physics.WeylMassFamily.Sector.restrict
+assert_compatible GUT.WeylMassFamily.Sector.restrict_mass => Physics.WeylMassFamily.Sector.restrict_mass
+assert_compatible GUT.WeylMassFamily.Sector.vacuum => Physics.WeylMassFamily.Sector.vacuum
+assert_compatible GUT.WeylMassFamily.atVacuumOn => Physics.WeylMassFamily.atVacuumOn
+assert_compatible GUT.WeylMassFamily.atVacuumOn_form => Physics.WeylMassFamily.atVacuumOn_form
+assert_compatible GUT.WeylMassFamily.atVacuumStabilizer => Physics.WeylMassFamily.atVacuumStabilizer
+assert_compatible GUT.WeylMassFamily.atVacuumStabilizer_form => Physics.WeylMassFamily.atVacuumStabilizer_form

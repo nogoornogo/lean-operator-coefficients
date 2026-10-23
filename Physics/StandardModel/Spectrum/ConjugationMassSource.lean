@@ -1,79 +1,27 @@
+import Physics.StandardModel.Spectrum.Mass.ConjugationMassSource
 import Physics.StandardModel.Spectrum.RestrictedConjugationMassSource
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Spectrum.Mass.ConjugationMassSource instead." (since := "source-api-v1")
 
-/-! Compatibility API for ambient-unitary, common-total models. The shared
-core requires only restricted unitarity and independent positive orbit totals. -/
+compatibility_declarations [
+  GUT.StructuralConjugationMass.chargesSupported => Physics.StructuralConjugationMass.chargesSupported,
+  GUT.StructuralConjugationMass.chiral_spectrum => Physics.StructuralConjugationMass.chiral_spectrum,
+  GUT.StructuralConjugationMass.exists_actual_signature_pair => Physics.StructuralConjugationMass.exists_actual_signature_pair,
+  GUT.StructuralConjugationMass.exists_zeroMode => Physics.StructuralConjugationMass.exists_zeroMode,
+  GUT.StructuralConjugationMass.restricted_unitary => Physics.StructuralConjugationMass.restricted_unitary,
+  GUT.StructuralConjugationMass.selection_rule_obstruction => Physics.StructuralConjugationMass.selection_rule_obstruction,
+  GUT.StructuralConjugationMass.spectrum => Physics.StructuralConjugationMass.spectrum,
+  GUT.StructuralConjugationMass.spectrum_eq_restricted => Physics.StructuralConjugationMass.spectrum_eq_restricted,
+  GUT.StructuralConjugationMass.spectrum_nonneg => Physics.StructuralConjugationMass.spectrum_nonneg
+]
 
-set_option autoImplicit false
-
-namespace GUT.StructuralConjugationMass
-
-noncomputable section
-
-open SU5 SU5.MaximalTorus SU5.TorusCharacter StructuralConjugation
-open StandardAbelianCharge FiniteAbelianChargeSectors StandardWeylDualTarget
-open StandardSMCharacterTarget FiniteChargeProfiles InvariantWeylMass
-open StandardBranchProtonObstruction StandardModelLocalOperator
-
-variable {G H E : Type*} [Group G] [CommGroup H] [NormedAddCommGroup E]
-  [InnerProductSpace ℂ E] [FiniteDimensional ℂ E]
-  (j : Torus →* G) (rho : Representation ℂ (G × H) E)
-  (hu : UnitaryMultiplicity.IsUnitaryRepresentation rho)
-  (B : SymmetricMass (restrict j rho))
-
-omit [FiniteDimensional ℂ E] in
-include hu in
-theorem restricted_unitary : UnitaryMultiplicity.IsUnitaryRepresentation (restrict j rho) :=
-  fun g v w => hu (inclusion j g) v w
-
-variable (P : Profiles (ChargeLabel H)) (s : ChargeLabel H →₀ ℤ)
-
-/-- Actual radical coefficients at the chosen integral weight characters.
-No completeness claim about the full spectrum follows from a dual target. -/
-def spectrum : ResolvedCharacter (ChargeLabel H) :=
-  RestrictedUnitary.spectrum j rho B (restricted_unitary j rho hu)
-
-theorem spectrum_eq_restricted : spectrum j rho hu B =
-    RestrictedUnitary.spectrum j rho B (restricted_unitary j rho hu) := rfl
-
-theorem spectrum_nonneg (key : ResolvedKey (ChargeLabel H)) :
-    0 ≤ spectrum j rho hu B key :=
-  RestrictedUnitary.spectrum_nonneg j rho B (restricted_unitary j rho hu) key
-
-theorem chiral_spectrum (ht : HasTarget j rho B P s) :
-    chiralDifference (spectrum j rho hu B) = chiralDifference (targetWithSinglets P s) :=
-  RestrictedUnitary.chiral_spectrum j rho B P s (restricted_unitary j rho hu) ht
-
-include hu in
-theorem exists_zeroMode (ht : HasTarget j rho B P s) (i : Fin 15) (q : ChargeLabel H)
-    (hq : 0 < smCharge P i q) :
-    ∃ v : B.radical.toSubmodule, v ≠ 0 ∧
-      ∀ g, B.radical.toRepresentation g v = keyCharacter (smReducedWeight i, q) g • v :=
-  RestrictedUnitary.exists_zeroMode j rho B P s (restricted_unitary j rho hu) ht i q hq
-
-theorem chargesSupported (ht : HasTarget j rho B P s)
-    (k : Charges (ChargeLabel H)) (hk : Occupied P k) :
-    ChargesSupported (spectrum j rho hu B) k :=
-  RestrictedUnitary.chargesSupported j rho B P s (restricted_unitary j rho hu) ht k hk
-
-variable (F : Family (ChargeLabel H))
-
-theorem exists_actual_signature_pair (c : ThreeConjugations j)
-    (ht : HasTarget j rho B F.profiles s) :
-    ∃ Q D : SupportedInvariantOperator (spectrum j rho hu B),
-      Q.operator = .qque ∧ D.operator = .duql ∧ Q.charges = D.charges ∧
-      ∀ i : Fin 15, ∃ v : B.radical.toSubmodule, v ≠ 0 ∧
-        ∀ g, B.radical.toRepresentation g v = keyCharacter (smResolvedKey Q.charges i) g • v :=
-  RestrictedUnitary.exists_actual_signature_pair j rho B F.profiles s
-    (restricted_unitary j rho hu) (F.totals.quark ▸ F.positive)
-    (F.totals.down ▸ F.positive) c ht
-
-theorem selection_rule_obstruction (c : ThreeConjugations j)
-    (ht : HasTarget j rho B F.profiles s) :
-    ¬ ForbidsEverySupportedPhysicalDeltaBOneOperator (spectrum j rho hu B) := by
-  obtain ⟨Q, _, _⟩ := exists_actual_signature_pair j rho hu B s F c ht
-  exact Q.not_forbidsEverySupportedPhysicalDeltaBOneOperator
-
-end
-end GUT.StructuralConjugationMass
+assert_compatible GUT.StructuralConjugationMass.chargesSupported => Physics.StructuralConjugationMass.chargesSupported
+assert_compatible GUT.StructuralConjugationMass.chiral_spectrum => Physics.StructuralConjugationMass.chiral_spectrum
+assert_compatible GUT.StructuralConjugationMass.exists_actual_signature_pair => Physics.StructuralConjugationMass.exists_actual_signature_pair
+assert_compatible GUT.StructuralConjugationMass.exists_zeroMode => Physics.StructuralConjugationMass.exists_zeroMode
+assert_compatible GUT.StructuralConjugationMass.restricted_unitary => Physics.StructuralConjugationMass.restricted_unitary
+assert_compatible GUT.StructuralConjugationMass.selection_rule_obstruction => Physics.StructuralConjugationMass.selection_rule_obstruction
+assert_compatible GUT.StructuralConjugationMass.spectrum => Physics.StructuralConjugationMass.spectrum
+assert_compatible GUT.StructuralConjugationMass.spectrum_eq_restricted => Physics.StructuralConjugationMass.spectrum_eq_restricted
+assert_compatible GUT.StructuralConjugationMass.spectrum_nonneg => Physics.StructuralConjugationMass.spectrum_nonneg

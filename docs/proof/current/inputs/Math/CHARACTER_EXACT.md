@@ -52,7 +52,7 @@ already pinned TauCeti package. Its trace input is
 
 ### Existing Mass Interfaces
 
-`Physics/FieldTheory/Mass/EquivariantMassIndex.lean` connects the previous inner-product
+`Physics/FieldTheory/Mass/Spectrum/EquivariantMassIndex.lean` connects the previous inner-product
 model to the algebraic theorem:
 
 - `orthogonalQuotientEquiv` identifies the invariant orthogonal complement

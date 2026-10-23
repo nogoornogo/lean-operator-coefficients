@@ -1,5 +1,7 @@
-import Physics.FieldTheory.Yukawa.ContinuousSymmetricScalar
+import Physics.FieldTheory.Yukawa.Mass.ContinuousSymmetricScalar
 import GUT.SU6.Representations.ContinuousUnitaryConstructions
+
+open Physics
 
 open Math
 

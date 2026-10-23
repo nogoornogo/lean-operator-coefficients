@@ -1,46 +1,21 @@
+import Physics.FieldTheory.Spinor.Weyl.DistinctFermionCoefficient
 import Math.LinearAlgebra.DistinctSpeciesBilinear
-import Mathlib.LinearAlgebra.TensorProduct.Basic
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.FieldTheory.Spinor.Weyl.DistinctFermionCoefficient instead." (since := "source-api-v1")
 
-/-! Ordered coefficients with two distinct fermions extend to an alternating
-two-fermion coefficient. Bosons stay in the value module. -/
-namespace GUT.DistinctFermionCoefficient
-set_option autoImplicit false
-noncomputable section
-open scoped TensorProduct
+compatibility_declarations [
+  GUT.DistinctFermionCoefficient.alternating => Physics.DistinctFermionCoefficient.alternating,
+  GUT.DistinctFermionCoefficient.extension => Physics.DistinctFermionCoefficient.extension,
+  GUT.DistinctFermionCoefficient.extension.eq_1 => Physics.DistinctFermionCoefficient.extension.eq_1,
+  GUT.DistinctFermionCoefficient.extension_injective => Physics.DistinctFermionCoefficient.extension_injective,
+  GUT.DistinctFermionCoefficient.ordered => Physics.DistinctFermionCoefficient.ordered,
+  GUT.DistinctFermionCoefficient.restriction => Physics.DistinctFermionCoefficient.restriction
+]
 
-variable {L E S F : Type*}
-  [AddCommGroup L] [Module ℂ L] [AddCommGroup E] [Module ℂ E]
-  [AddCommGroup S] [Module ℂ S] [AddCommGroup F] [Module ℂ F]
-
-def ordered (c : ((L ⊗[ℂ] E) ⊗[ℂ] (S ⊗[ℂ] F)) →ₗ[ℂ] ℂ) :
-    L →ₗ[ℂ] E →ₗ[ℂ] ((S ⊗[ℂ] F) →ₗ[ℂ] ℂ) :=
-  TensorProduct.curry (TensorProduct.curry c)
-
-def extension (c : ((L ⊗[ℂ] E) ⊗[ℂ] (S ⊗[ℂ] F)) →ₗ[ℂ] ℂ) :=
-  DistinctSpeciesBilinear.extend (ordered c)
-
-@[simp] theorem restriction (c : ((L ⊗[ℂ] E) ⊗[ℂ] (S ⊗[ℂ] F)) →ₗ[ℂ] ℂ)
-    (l : L) (e : E) (s : S) (f : F) :
-    extension c (l,0) (0,e) (s ⊗ₜ[ℂ] f) = c ((l ⊗ₜ[ℂ] e) ⊗ₜ[ℂ] (s ⊗ₜ[ℂ] f)) := by
-  rw [extension, DistinctSpeciesBilinear.extend_restrict]
-  rfl
-
-theorem alternating (c : ((L ⊗[ℂ] E) ⊗[ℂ] (S ⊗[ℂ] F)) →ₗ[ℂ] ℂ)
-    (x : L × E) : extension c x x = 0 := DistinctSpeciesBilinear.extend_diagonal _ x
-
-theorem extension_injective : Function.Injective (extension (L := L) (E := E) (S := S) (F := F)) := by
-  intro c d h
-  apply TensorProduct.ext
-  apply TensorProduct.ext
-  apply LinearMap.ext; intro l
-  apply LinearMap.ext; intro e
-  apply TensorProduct.ext
-  apply LinearMap.ext; intro s
-  apply LinearMap.ext; intro f
-  have he := congrArg (fun k => k (l,0) (0,e) (s ⊗ₜ[ℂ] f)) h
-  simpa using he
-
-end
-end GUT.DistinctFermionCoefficient
+assert_compatible GUT.DistinctFermionCoefficient.alternating => Physics.DistinctFermionCoefficient.alternating
+assert_compatible GUT.DistinctFermionCoefficient.extension => Physics.DistinctFermionCoefficient.extension
+assert_compatible GUT.DistinctFermionCoefficient.extension.eq_1 => Physics.DistinctFermionCoefficient.extension.eq_1
+assert_compatible GUT.DistinctFermionCoefficient.extension_injective => Physics.DistinctFermionCoefficient.extension_injective
+assert_compatible GUT.DistinctFermionCoefficient.ordered => Physics.DistinctFermionCoefficient.ordered
+assert_compatible GUT.DistinctFermionCoefficient.restriction => Physics.DistinctFermionCoefficient.restriction

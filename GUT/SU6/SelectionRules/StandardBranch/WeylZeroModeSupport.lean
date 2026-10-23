@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.AbelianActualSpectrum
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylSupportedOperator
 
+open Physics
+
 open Math
 
 /-!

@@ -1,76 +1,36 @@
+import Physics.StandardModel.Operators.Support.Joint.SMMixedCompactCoefficients
 import Physics.StandardModel.Operators.SMMixedCompactWeyl
 import Math.RepresentationTheory.SeparatedInvariantCoefficients
+import Math.Lean.Compatibility
 
-/-! Gauge/residual-retaining compact Weyl coefficient constraints and actual kernels. -/
-namespace GUT.SMMixedCompactCoefficients
-set_option autoImplicit false
-noncomputable section
-open Math Representation
-variable {H : Type*} [Group H]
-  (flavor : ∀ s, Representation ℂ H (ThreeGenerationFermionBound.Flavor s))
-  {n : ℕ} (p : Fin n → DeltaLOneSignedInput.Species) (m : ℕ) (delta : ℤ)
+deprecated_module "Use Physics.StandardModel.Operators.Support.Joint.SMMixedCompactCoefficients instead." (since := "source-api-v1")
 
-abbrev compactSpin := (SMMixedCompactWeyl.action flavor p m).comp SMMixedCompactWeyl.compact
+compatibility_declarations [
+  GUT.SMMixedCompactCoefficients.FullSpace => Physics.SMMixedCompactCoefficients.FullSpace,
+  GUT.SMMixedCompactCoefficients.LocalSpace => Physics.SMMixedCompactCoefficients.LocalSpace,
+  GUT.SMMixedCompactCoefficients.allowed_iff => Physics.SMMixedCompactCoefficients.allowed_iff,
+  GUT.SMMixedCompactCoefficients.compactSpin => Physics.SMMixedCompactCoefficients.compactSpin,
+  GUT.SMMixedCompactCoefficients.fullEquiv => Physics.SMMixedCompactCoefficients.fullEquiv,
+  GUT.SMMixedCompactCoefficients.full_decomposition => Physics.SMMixedCompactCoefficients.full_decomposition,
+  GUT.SMMixedCompactCoefficients.kernelEquiv => Physics.SMMixedCompactCoefficients.kernelEquiv,
+  GUT.SMMixedCompactCoefficients.kernel_dimension => Physics.SMMixedCompactCoefficients.kernel_dimension,
+  GUT.SMMixedCompactCoefficients.localEquiv => Physics.SMMixedCompactCoefficients.localEquiv,
+  GUT.SMMixedCompactCoefficients.local_decomposition => Physics.SMMixedCompactCoefficients.local_decomposition,
+  GUT.SMMixedCompactCoefficients.original_allowed_iff => Physics.SMMixedCompactCoefficients.original_allowed_iff,
+  GUT.SMMixedCompactCoefficients.retained => Physics.SMMixedCompactCoefficients.retained,
+  GUT.SMMixedCompactCoefficients.retained.eq_1 => Physics.SMMixedCompactCoefficients.retained.eq_1
+]
 
-def retained : (StandardSMGaugeTensor.GaugeGroup × H) →* NeutralHiggsPowers.G H where
-  toFun b := ((b.1,1),b.2)
-  map_one' := rfl
-  map_mul' _ _ := by simp
-
-theorem full_decomposition (g : NeutralHiggsPowers.G H) :
-    ∃ b w, g = retained b * SMWeylFiniteKernel.inclusion w := by
-  refine ⟨(g.1.1,g.2),g.1.2,?_⟩
-  simp [retained,SMWeylFiniteKernel.inclusion]
-
-/-- Gauge and arbitrary residual conditions are retained verbatim. -/
-abbrev FullSpace := SeparatedInvariantCoefficients.Space
-  (SMWeylFiniteKernel.fullAction flavor p m delta) (retained (H := H)) (compactSpin flavor p m)
-
-def fullEquiv : InvariantCoefficientTransport.Invariants (SMWeylFiniteKernel.fullAction flavor p m delta)
-    ≃ₗ[ℂ] FullSpace flavor p m delta :=
-  SeparatedInvariantCoefficients.equiv (V := SMFullLocalKernel.Carrier flavor p m)
-    (SMWeylFiniteKernel.fullAction flavor p m delta) (retained (H := H))
-    (SMWeylFiniteKernel.inclusion (H := H)) (compactSpin flavor p m)
-    (full_decomposition (H := H))
-    (fun f => SMMixedCompactWeyl.coefficient_fixed_iff flavor p m delta f)
-
-abbrev LocalSpace := SeparatedInvariantCoefficients.Space
-  (SMIntegralLocalWeights.action flavor p m delta)
-    (MonoidHom.inl StandardSMGaugeTensor.GaugeGroup WeylSpinor.Group) (compactSpin flavor p m)
-
-theorem local_decomposition (g : SMIntegralLocalWeights.Group) :
-    ∃ b w, g = MonoidHom.inl StandardSMGaugeTensor.GaugeGroup WeylSpinor.Group b *
-      SMIntegralLocalWeights.spin w := by
-  exact ⟨g.1,g.2,by simp [SMIntegralLocalWeights.spin]⟩
-
-def localEquiv : InvariantCoefficientTransport.Invariants (SMIntegralLocalWeights.action flavor p m delta)
-    ≃ₗ[ℂ] LocalSpace flavor p m delta :=
-  SeparatedInvariantCoefficients.equiv _ _ SMIntegralLocalWeights.spin _ local_decomposition
-    (fun f => SMMixedCompactWeyl.coefficient_fixed_iff flavor p m delta f)
-
-/-- The entire compact constraint space maps to the previously certified actual kernel. -/
-def kernelEquiv : LocalSpace flavor p m delta ≃ₗ[ℂ] SMFullLocalKernel.Kernel flavor p m delta :=
-  (localEquiv flavor p m delta).symm.trans (SMFullLocalKernel.coefficientEquiv flavor p m delta)
-
-theorem kernel_dimension : Module.finrank ℂ (LocalSpace flavor p m delta) =
-    Module.finrank ℂ (SMFullLocalKernel.Kernel flavor p m delta) :=
-  (kernelEquiv flavor p m delta).finrank_eq
-
-theorem allowed_iff : SelectionCriteria.Allowed (LocalSpace flavor p m delta) ↔
-    SelectionCriteria.Allowed (SMFullLocalKernel.Kernel flavor p m delta) :=
-  SelectionCriteria.allowed_equiv (kernelEquiv flavor p m delta)
-
-/-- Original arbitrary Higgs degrees retain full gauge/residual conditions, with compact Weyl tests. -/
-theorem original_allowed_iff (h d : ℕ) :
-    SelectionCriteria.Allowed (SMFiniteHiggsSupport.OriginalSpace flavor p h d) ↔
-      ∃ j : Fin (SMContentWeakBound.bound p+1), BoundedHiggsSupport.Admissible h d j.val ∧
-        SelectionCriteria.Allowed (FullSpace flavor p j.val ((h : ℤ)-d)) := by
-  refine (SMFiniteHiggsSupport.original_allowed_iff flavor p h d).trans ?_
-  apply exists_congr
-  intro j
-  apply and_congr_right
-  intro _
-  exact SelectionCriteria.allowed_equiv (fullEquiv flavor p j.val ((h : ℤ)-d))
-
-end
-end GUT.SMMixedCompactCoefficients
+assert_compatible GUT.SMMixedCompactCoefficients.FullSpace => Physics.SMMixedCompactCoefficients.FullSpace
+assert_compatible GUT.SMMixedCompactCoefficients.LocalSpace => Physics.SMMixedCompactCoefficients.LocalSpace
+assert_compatible GUT.SMMixedCompactCoefficients.allowed_iff => Physics.SMMixedCompactCoefficients.allowed_iff
+assert_compatible GUT.SMMixedCompactCoefficients.compactSpin => Physics.SMMixedCompactCoefficients.compactSpin
+assert_compatible GUT.SMMixedCompactCoefficients.fullEquiv => Physics.SMMixedCompactCoefficients.fullEquiv
+assert_compatible GUT.SMMixedCompactCoefficients.full_decomposition => Physics.SMMixedCompactCoefficients.full_decomposition
+assert_compatible GUT.SMMixedCompactCoefficients.kernelEquiv => Physics.SMMixedCompactCoefficients.kernelEquiv
+assert_compatible GUT.SMMixedCompactCoefficients.kernel_dimension => Physics.SMMixedCompactCoefficients.kernel_dimension
+assert_compatible GUT.SMMixedCompactCoefficients.localEquiv => Physics.SMMixedCompactCoefficients.localEquiv
+assert_compatible GUT.SMMixedCompactCoefficients.local_decomposition => Physics.SMMixedCompactCoefficients.local_decomposition
+assert_compatible GUT.SMMixedCompactCoefficients.original_allowed_iff => Physics.SMMixedCompactCoefficients.original_allowed_iff
+assert_compatible GUT.SMMixedCompactCoefficients.retained => Physics.SMMixedCompactCoefficients.retained
+assert_compatible GUT.SMMixedCompactCoefficients.retained.eq_1 => Physics.SMMixedCompactCoefficients.retained.eq_1

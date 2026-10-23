@@ -34,23 +34,23 @@ an arbitrary group with specified complex representations.
 
 Each family has a separate certificate:
 
-- [DUQL](../../../../../Physics/StandardModel/Operators/HeeckLeDuqlCertificate.lean):
+- [DUQL](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/HeeckLeDuqlCertificate.lean):
   `ordered_apply` matches D,U,Q,L literally. Distinct-species descent is the
   complete inverse. Finite bases require bases of the four flavor carriers;
   unrestricted counts additionally require trivial induced residual action.
-- [QQUE](../../../../../Physics/StandardModel/Operators/HeeckLeQqueCertificate.lean):
+- [QQUE](../../../../../Physics/StandardModel/Operators/BaryonOne/Qque/HeeckLeQqueCertificate.lean):
   `literal` matches physical Q,Q,U,E order. `restriction_candidate` proves
   that the normalized exterior inverse restricts to this contraction; both
   inverse identities hold on the symmetric-Q residual subspace. The factor
   1/2 is the independently established repeated-species lift normalization.
-- [QQQL convention](../../../../../Physics/StandardModel/Operators/HeeckLeQqqlConvention.lean)
-  and [certificate](../../../../../Physics/StandardModel/Operators/HeeckLeQqqlCertificate.lean):
+- [QQQL convention](../../../../../Physics/StandardModel/Operators/BaryonOne/Qqql/HeeckLeQqqlConvention.lean)
+  and [certificate](../../../../../Physics/StandardModel/Operators/BaryonOne/Qqql/HeeckLeQqqlCertificate.lean):
   weak (03)(12), spin (01)(23) gives local seed `!![-1,0;1,0]`.
   Its symmetry components are `(-1/6,-1/2,-2/3,1/3)`. The explicit six-term
   orbit inverse and source `-f₀-f₁/3+f₃` prove actual raw alternating descent
   equals the complete constrained inverse. Raw flavor permutations are not
   an independent basis; the domain already retains their relations.
-- [DUUE](../../../../../Physics/StandardModel/Operators/HeeckLeDuueCertificate.lean):
+- [DUUE](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/HeeckLeDuueCertificate.lean):
   D,U,U,E to U,U,D,E is even; the first bilinear reversal supplies a minus.
   The single cross-pairing source is `swap k`, so ordered coordinates are
   `(0,-swap k)`. Actual exterior alternation reconstructs
@@ -63,32 +63,32 @@ explicit additional conditions.
 
 ## Six-Quark Proof Structure
 
-[Literal conventions](../../../../../Physics/StandardModel/Operators/HeeckLeSixQuarkConvention.lean)
+[Literal conventions](../../../../../Physics/StandardModel/Operators/BaryonTwo/HeeckLe/HeeckLeSixQuarkConvention.lean)
 prove the color identities for triples (134)(025) and (124)(035), with spin
 (01)(23)(45), in repository U,D,U,D,D,D order. The reorder has no net sign.
 The seed arrays have only spin column 0: color columns `(-1,0,0,-1,1)`
 and `(-1,0,-1,0,1)`.
 
-[The rational presentation](../../../../../Physics/StandardModel/Operators/HeeckLeSixQuarkData.lean)
+[The rational presentation](../../../../../Physics/StandardModel/Operators/BaryonTwo/HeeckLe/HeeckLeSixQuarkData.lean)
 is derived from these two separated sources and their original exchange words.
 There is no supplied projected-seed, forward-matrix or inverse-matrix table.
-[Symbolic extraction](../../../../../Physics/StandardModel/Operators/HeeckLeSixQuarkExtraction.lean)
+[Symbolic extraction](../../../../../Physics/StandardModel/Operators/BaryonTwo/HeeckLe/HeeckLeSixQuarkExtraction.lean)
 uses the invariant color/spin blocks, a ten-coordinate quotient with two kernel
 parameters, five up-exchange pairs and five scalar coupling equations solved
 by back substitution. A spin-block rescaling gives integer internal coordinates;
 it does not rescale the physical contractions.
 
-[The matrix presentation](../../../../../Physics/StandardModel/Operators/HeeckLeSixQuarkMatrix.lean)
+[The matrix presentation](../../../../../Physics/StandardModel/Operators/BaryonTwo/HeeckLe/HeeckLeSixQuarkMatrix.lean)
 derives both inverse identities from uniform reconstruction over an exact field
 of characteristic zero. Existing rational certificate names are compatibility
 wrappers for that derivation, not stored inverse entries or closed numerical
-matrix products. [Coordinate certificates](../../../../../Physics/StandardModel/Operators/HeeckLeSixQuarkCertificate.lean)
+matrix products. [Coordinate certificates](../../../../../Physics/StandardModel/Operators/BaryonTwo/HeeckLe/HeeckLeSixQuarkCertificate.lean)
 retain agreement with the actual exchange words.
-[Local basis](../../../../../Physics/StandardModel/Operators/HeeckLeSixQuarkLocalBasis.lean)
+[Local basis](../../../../../Physics/StandardModel/Operators/BaryonTwo/HeeckLe/HeeckLeSixQuarkLocalBasis.lean)
 proves literal reconstruction and linear independence in the independently
 defined invariant submodule, rather than merely checking a rank table.
 
-[Residual transport](../../../../../Physics/StandardModel/Operators/HeeckLeSixQuarkResidual.lean)
+[Residual transport](../../../../../Physics/StandardModel/Operators/BaryonTwo/HeeckLe/HeeckLeSixQuarkResidual.lean)
 gives `statisticsEquiv`, `physicalEquiv`, actual-field `onFieldsEquiv`, and
 literal local assembly. The 25 entries are constrained flavor maps, not free
 Wilson coefficients. The typed Hom transport, coefficient and physical-sector
@@ -101,13 +101,13 @@ or a certificate of the paper's complete dimension-nine term count.
 
 ## Verification And Limits
 
-[The structural audit](../../../../../Physics/StandardModel/Operators/Audit/AuditHeeckLeSixQuarkStructural.lean)
+[The structural audit](../../../../../Physics/StandardModel/Operators/BaryonTwo/HeeckLe/Audit/AuditHeeckLeSixQuarkStructural.lean)
 checks all declarations owned by the new source/block modules, including private
 helpers, and excludes the old data/basis modules as imports. The
 [readability topic](../../../../topics/proof-readability-review/README.md)
 owns the replacement work and its verification.
 
-The [strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditHeeckLeBasis.lean)
+The [strict audit](../../../../../Physics/StandardModel/Operators/Selection/Audit/AuditHeeckLeBasis.lean)
 checks transitive axioms of all declarations in the comparison namespaces,
 allowing only `propext`, `Classical.choice`, `Quot.sound`, and rejects imports
 from the model layer. Literature completeness is not an axiom.

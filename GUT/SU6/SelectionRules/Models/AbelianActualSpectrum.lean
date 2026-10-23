@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylMassSource
 import Math.RepresentationTheory.Characters.UnitaryCharacterSpectrum
 
+open Physics
+
 open Math
 
 /-!

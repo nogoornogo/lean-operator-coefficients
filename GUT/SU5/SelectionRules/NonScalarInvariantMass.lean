@@ -2,6 +2,8 @@ import GUT.SU5.SelectionRules.InvariantMassNormalForm
 import GUT.SU5.SelectionRules.NonScalarCopyMass
 import Mathlib.LinearAlgebra.TensorProduct.Pi
 
+open Physics
+
 /-! Arbitrary invariant mass on common non-scalar copies: coordinate bridges
 are derived, and residual equivariance is extracted from the actual mass. -/
 namespace GUT.SU5.NonScalarInvariantMass

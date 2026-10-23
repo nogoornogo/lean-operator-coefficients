@@ -1,6 +1,8 @@
 import Math.Audit.ImportOrigin
 import GUT.SU5.SelectionRules.StandardChainBenchmark
-import Physics.StandardModel.Spectrum.Audit.AuditFiniteChargeProfiles
+import Physics.StandardModel.Spectrum.Charges.Audit.AuditFiniteChargeProfiles
+
+open Physics
 
 open Math
 

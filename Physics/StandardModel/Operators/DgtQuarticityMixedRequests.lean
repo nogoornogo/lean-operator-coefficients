@@ -1,101 +1,119 @@
+import Physics.StandardModel.Operators.Selection.DgtQuarticityMixedRequests
 import Physics.StandardModel.Operators.MixedSelectionPatterns
+import Math.Lean.Compatibility
 
-/-! Bounded existing-model consumers of indexed mixed requests. -/
-namespace GUT.DgtQuarticityMixedRequests
-set_option autoImplicit false
-noncomputable section
-open Math Representation SelectionCriteria MixedSelectionRequests
+deprecated_module "Use Physics.StandardModel.Operators.Selection.DgtQuarticityMixedRequests instead." (since := "source-api-v1")
 
-inductive DgtTarget where
-  | baryon
-  | dipole (i : Fin 2)
-  deriving DecidableEq
+compatibility_declarations [
+  GUT.DgtQuarticityMixedRequests.DgtTarget => Physics.DgtQuarticityMixedRequests.DgtTarget,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.baryon => Physics.DgtQuarticityMixedRequests.DgtTarget.baryon,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.baryon.elim => Physics.DgtQuarticityMixedRequests.DgtTarget.baryon.elim,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.baryon.sizeOf_spec => Physics.DgtQuarticityMixedRequests.DgtTarget.baryon.sizeOf_spec,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.casesOn => Physics.DgtQuarticityMixedRequests.DgtTarget.casesOn,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.ctorElim => Physics.DgtQuarticityMixedRequests.DgtTarget.ctorElim,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.ctorElimType => Physics.DgtQuarticityMixedRequests.DgtTarget.ctorElimType,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.ctorIdx => Physics.DgtQuarticityMixedRequests.DgtTarget.ctorIdx,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.dipole => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.elim => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.elim,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.inj => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.inj,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.injEq => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.injEq,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.noConfusion => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.noConfusion,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.sizeOf_spec => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.sizeOf_spec,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.noConfusion => Physics.DgtQuarticityMixedRequests.DgtTarget.noConfusion,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.noConfusionType => Physics.DgtQuarticityMixedRequests.DgtTarget.noConfusionType,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.rec => Physics.DgtQuarticityMixedRequests.DgtTarget.rec,
+  GUT.DgtQuarticityMixedRequests.DgtTarget.recOn => Physics.DgtQuarticityMixedRequests.DgtTarget.recOn,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget => Physics.DgtQuarticityMixedRequests.QuarticityTarget,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.bare => Physics.DgtQuarticityMixedRequests.QuarticityTarget.bare,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.bare.elim => Physics.DgtQuarticityMixedRequests.QuarticityTarget.bare.elim,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.bare.sizeOf_spec => Physics.DgtQuarticityMixedRequests.QuarticityTarget.bare.sizeOf_spec,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.casesOn => Physics.DgtQuarticityMixedRequests.QuarticityTarget.casesOn,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.ctorElim => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ctorElim,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.ctorElimType => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ctorElimType,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.ctorIdx => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ctorIdx,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.dressed => Physics.DgtQuarticityMixedRequests.QuarticityTarget.dressed,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.dressed.elim => Physics.DgtQuarticityMixedRequests.QuarticityTarget.dressed.elim,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.dressed.sizeOf_spec => Physics.DgtQuarticityMixedRequests.QuarticityTarget.dressed.sizeOf_spec,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.noConfusion => Physics.DgtQuarticityMixedRequests.QuarticityTarget.noConfusion,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.noConfusionType => Physics.DgtQuarticityMixedRequests.QuarticityTarget.noConfusionType,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.ofNat => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ofNat,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.ofNat_ctorIdx => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ofNat_ctorIdx,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.rec => Physics.DgtQuarticityMixedRequests.QuarticityTarget.rec,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.recOn => Physics.DgtQuarticityMixedRequests.QuarticityTarget.recOn,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo => Physics.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo.elim => Physics.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo.elim,
+  GUT.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo.sizeOf_spec => Physics.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo.sizeOf_spec,
+  GUT.DgtQuarticityMixedRequests.dgtDomain => Physics.DgtQuarticityMixedRequests.dgtDomain,
+  GUT.DgtQuarticityMixedRequests.dgtRequest => Physics.DgtQuarticityMixedRequests.dgtRequest,
+  GUT.DgtQuarticityMixedRequests.dgt_components => Physics.DgtQuarticityMixedRequests.dgt_components,
+  GUT.DgtQuarticityMixedRequests.dgt_satisfies => Physics.DgtQuarticityMixedRequests.dgt_satisfies,
+  GUT.DgtQuarticityMixedRequests.dgt_uv_not_allowed => Physics.DgtQuarticityMixedRequests.dgt_uv_not_allowed,
+  GUT.DgtQuarticityMixedRequests.forbidDressed => Physics.DgtQuarticityMixedRequests.forbidDressed,
+  GUT.DgtQuarticityMixedRequests.instDecidableEqDgtTarget => Physics.DgtQuarticityMixedRequests.instDecidableEqDgtTarget,
+  GUT.DgtQuarticityMixedRequests.instDecidableEqDgtTarget.decEq => Physics.DgtQuarticityMixedRequests.instDecidableEqDgtTarget.decEq,
+  GUT.DgtQuarticityMixedRequests.instDecidableEqQuarticityTarget => Physics.DgtQuarticityMixedRequests.instDecidableEqQuarticityTarget,
+  GUT.DgtQuarticityMixedRequests.instZeroDgtDomain => Physics.DgtQuarticityMixedRequests.instZeroDgtDomain,
+  GUT.DgtQuarticityMixedRequests.instZeroQuarticityDomain => Physics.DgtQuarticityMixedRequests.instZeroQuarticityDomain,
+  GUT.DgtQuarticityMixedRequests.quarticityDomain => Physics.DgtQuarticityMixedRequests.quarticityDomain,
+  GUT.DgtQuarticityMixedRequests.quarticityRequest => Physics.DgtQuarticityMixedRequests.quarticityRequest,
+  GUT.DgtQuarticityMixedRequests.quarticity_components => Physics.DgtQuarticityMixedRequests.quarticity_components,
+  GUT.DgtQuarticityMixedRequests.quarticity_dressed_not_forbidden => Physics.DgtQuarticityMixedRequests.quarticity_dressed_not_forbidden,
+  GUT.DgtQuarticityMixedRequests.quarticity_extended_request_inconsistent => Physics.DgtQuarticityMixedRequests.quarticity_extended_request_inconsistent,
+  GUT.DgtQuarticityMixedRequests.quarticity_satisfies => Physics.DgtQuarticityMixedRequests.quarticity_satisfies
+]
 
-/-- Both absolute B1/B2, all degrees, and each actual IR selector image. -/
-def dgtDomain : DgtTarget → Type
-  | .baryon => ∀ n m : ℕ, ComposableBLSupport.Input
-      DgtFlavorRestriction.irFlavor DgtFlavorRestriction.irScalar
-      ComposableBLSupport.bOneTwo n m
-  | .dipole i => (DipoleFlavorSelection.selector DgtFlavorRestriction.leptonIR
-      DgtFlavorRestriction.leptonIR DgtFlavorRestriction.mu
-      (DgtFlavorRestriction.targetCovector i)).range
-
-instance (t : DgtTarget) : Zero (dgtDomain t) := by
-  cases t <;> unfold dgtDomain <;> infer_instance
-
-def dgtRequest : Request DgtTarget where
-  forbid := {t | t = .baryon}
-  allow := {t | ∃ i, t = .dipole i}
-
-theorem dgt_satisfies : Satisfies dgtDomain dgtRequest := by
-  constructor
-  · intro t ht; change t = .baryon at ht; subst t
-    intro f; funext n m
-    exact DgtFlavorRestriction.all_bnv_forbidden n m (f n m)
-  · intro t ht
-    obtain ⟨i,rfl⟩ := ht
-    exact MixedSelectionPatterns.dgt_selector_range_allowed i
-
-theorem dgt_components : Forbidden (dgtDomain .baryon) ∧
-    (∀ i : Fin 2, Allowed (dgtDomain (.dipole i))) :=
-  ⟨forbidden dgtDomain dgtRequest dgt_satisfies .baryon rfl,
-   fun i => allowed dgtDomain dgtRequest dgt_satisfies (.dipole i) ⟨i,rfl⟩⟩
-
-/-- Switching from IR to UV removes allowance of these prescribed outputs. -/
-theorem dgt_uv_not_allowed (i : Fin 2) : ¬ Allowed
-    (DipoleFlavorSelection.selector DgtFlavorRestriction.leptonUV
-      DgtFlavorRestriction.leptonUV DgtFlavorRestriction.mu
-      (DgtFlavorRestriction.targetCovector i)).range := by
-  apply (forbidden_iff_not_allowed _).mp
-  apply (range_forbidden_iff _).mpr
-  apply LinearMap.ext
-  intro c
-  exact congrFun (LinearMap.congr_fun DgtFlavorRestriction.uv_dipoles_forbidden c) i
-
-inductive QuarticityTarget where
-  | smLTwo | bare | dressed
-  deriving DecidableEq
-
-/-- SM/Higgs all-degree L2, bare nuR pair, and eta-dressed nuR pair are distinct domains. -/
-def quarticityDomain : QuarticityTarget → Type
-  | .smLTwo => ∀ n m : ℕ, ComposableBLSupport.Input
-      QuarticityAdapters.smFlavor QuarticityAdapters.smScalar
-      (fun q => q.2.natAbs = 2) n m
-  | .bare => QuarticityAdapters.Bare
-  | .dressed => QuarticityAdapters.Dressed
-
-instance (t : QuarticityTarget) : Zero (quarticityDomain t) := by
-  cases t <;> unfold quarticityDomain <;> infer_instance
-
-def quarticityRequest : Request QuarticityTarget where
-  forbid := {t | t = .smLTwo ∨ t = .bare}
-  allow := {t | t = .dressed}
-
-theorem quarticity_satisfies : Satisfies quarticityDomain quarticityRequest := by
-  constructor
-  · intro t ht
-    rcases ht with rfl | rfl
-    · intro f; funext n m
-      exact QuarticityAdapters.sm_lTwo_forbidden n m (f n m)
-    · exact QuarticityAdapters.bare_forbidden
-  · intro t ht; change t = .dressed at ht; subst t
-    exact QuarticityAdapters.exists_dressed
-
-theorem quarticity_components : Forbidden (quarticityDomain .smLTwo) ∧
-    Forbidden (quarticityDomain .bare) ∧ Allowed (quarticityDomain .dressed) :=
-  ⟨forbidden quarticityDomain quarticityRequest quarticity_satisfies .smLTwo (Or.inl rfl),
-   forbidden quarticityDomain quarticityRequest quarticity_satisfies .bare (Or.inr rfl),
-   allowed quarticityDomain quarticityRequest quarticity_satisfies .dressed rfl⟩
-
-/-- The existing dressed witness prevents extending prohibition to that domain. -/
-theorem quarticity_dressed_not_forbidden : ¬ Forbidden (quarticityDomain .dressed) := by
-  intro h
-  exact (forbidden_iff_not_allowed _).mp h quarticity_components.2.2
-
-def forbidDressed : Request QuarticityTarget := ⟨{t | t = .dressed}, ∅⟩
-
-theorem quarticity_extended_request_inconsistent :
-    ¬ Satisfies quarticityDomain (combine quarticityRequest forbidDressed) :=
-  conflict quarticityDomain _ .dressed (Or.inr rfl) (Or.inl rfl)
-end
-end GUT.DgtQuarticityMixedRequests
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget => Physics.DgtQuarticityMixedRequests.DgtTarget
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.baryon => Physics.DgtQuarticityMixedRequests.DgtTarget.baryon
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.baryon.elim => Physics.DgtQuarticityMixedRequests.DgtTarget.baryon.elim
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.baryon.sizeOf_spec => Physics.DgtQuarticityMixedRequests.DgtTarget.baryon.sizeOf_spec
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.casesOn => Physics.DgtQuarticityMixedRequests.DgtTarget.casesOn
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.ctorElim => Physics.DgtQuarticityMixedRequests.DgtTarget.ctorElim
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.ctorElimType => Physics.DgtQuarticityMixedRequests.DgtTarget.ctorElimType
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.ctorIdx => Physics.DgtQuarticityMixedRequests.DgtTarget.ctorIdx
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.dipole => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.elim => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.elim
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.inj => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.inj
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.injEq => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.injEq
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.noConfusion => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.noConfusion
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.dipole.sizeOf_spec => Physics.DgtQuarticityMixedRequests.DgtTarget.dipole.sizeOf_spec
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.noConfusion => Physics.DgtQuarticityMixedRequests.DgtTarget.noConfusion
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.noConfusionType => Physics.DgtQuarticityMixedRequests.DgtTarget.noConfusionType
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.rec => Physics.DgtQuarticityMixedRequests.DgtTarget.rec
+assert_compatible GUT.DgtQuarticityMixedRequests.DgtTarget.recOn => Physics.DgtQuarticityMixedRequests.DgtTarget.recOn
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget => Physics.DgtQuarticityMixedRequests.QuarticityTarget
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.bare => Physics.DgtQuarticityMixedRequests.QuarticityTarget.bare
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.bare.elim => Physics.DgtQuarticityMixedRequests.QuarticityTarget.bare.elim
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.bare.sizeOf_spec => Physics.DgtQuarticityMixedRequests.QuarticityTarget.bare.sizeOf_spec
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.casesOn => Physics.DgtQuarticityMixedRequests.QuarticityTarget.casesOn
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.ctorElim => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ctorElim
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.ctorElimType => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ctorElimType
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.ctorIdx => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ctorIdx
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.dressed => Physics.DgtQuarticityMixedRequests.QuarticityTarget.dressed
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.dressed.elim => Physics.DgtQuarticityMixedRequests.QuarticityTarget.dressed.elim
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.dressed.sizeOf_spec => Physics.DgtQuarticityMixedRequests.QuarticityTarget.dressed.sizeOf_spec
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.noConfusion => Physics.DgtQuarticityMixedRequests.QuarticityTarget.noConfusion
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.noConfusionType => Physics.DgtQuarticityMixedRequests.QuarticityTarget.noConfusionType
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.ofNat => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ofNat
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.ofNat_ctorIdx => Physics.DgtQuarticityMixedRequests.QuarticityTarget.ofNat_ctorIdx
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.rec => Physics.DgtQuarticityMixedRequests.QuarticityTarget.rec
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.recOn => Physics.DgtQuarticityMixedRequests.QuarticityTarget.recOn
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo => Physics.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo.elim => Physics.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo.elim
+assert_compatible GUT.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo.sizeOf_spec => Physics.DgtQuarticityMixedRequests.QuarticityTarget.smLTwo.sizeOf_spec
+assert_compatible GUT.DgtQuarticityMixedRequests.dgtDomain => Physics.DgtQuarticityMixedRequests.dgtDomain
+assert_compatible GUT.DgtQuarticityMixedRequests.dgtRequest => Physics.DgtQuarticityMixedRequests.dgtRequest
+assert_compatible GUT.DgtQuarticityMixedRequests.dgt_components => Physics.DgtQuarticityMixedRequests.dgt_components
+assert_compatible GUT.DgtQuarticityMixedRequests.dgt_satisfies => Physics.DgtQuarticityMixedRequests.dgt_satisfies
+assert_compatible GUT.DgtQuarticityMixedRequests.dgt_uv_not_allowed => Physics.DgtQuarticityMixedRequests.dgt_uv_not_allowed
+assert_compatible GUT.DgtQuarticityMixedRequests.forbidDressed => Physics.DgtQuarticityMixedRequests.forbidDressed
+assert_compatible GUT.DgtQuarticityMixedRequests.instDecidableEqDgtTarget => Physics.DgtQuarticityMixedRequests.instDecidableEqDgtTarget
+assert_compatible GUT.DgtQuarticityMixedRequests.instDecidableEqDgtTarget.decEq => Physics.DgtQuarticityMixedRequests.instDecidableEqDgtTarget.decEq
+assert_compatible GUT.DgtQuarticityMixedRequests.instDecidableEqQuarticityTarget => Physics.DgtQuarticityMixedRequests.instDecidableEqQuarticityTarget
+assert_compatible GUT.DgtQuarticityMixedRequests.instZeroDgtDomain => Physics.DgtQuarticityMixedRequests.instZeroDgtDomain
+assert_compatible GUT.DgtQuarticityMixedRequests.instZeroQuarticityDomain => Physics.DgtQuarticityMixedRequests.instZeroQuarticityDomain
+assert_compatible GUT.DgtQuarticityMixedRequests.quarticityDomain => Physics.DgtQuarticityMixedRequests.quarticityDomain
+assert_compatible GUT.DgtQuarticityMixedRequests.quarticityRequest => Physics.DgtQuarticityMixedRequests.quarticityRequest
+assert_compatible GUT.DgtQuarticityMixedRequests.quarticity_components => Physics.DgtQuarticityMixedRequests.quarticity_components
+assert_compatible GUT.DgtQuarticityMixedRequests.quarticity_dressed_not_forbidden => Physics.DgtQuarticityMixedRequests.quarticity_dressed_not_forbidden
+assert_compatible GUT.DgtQuarticityMixedRequests.quarticity_extended_request_inconsistent => Physics.DgtQuarticityMixedRequests.quarticity_extended_request_inconsistent
+assert_compatible GUT.DgtQuarticityMixedRequests.quarticity_satisfies => Physics.DgtQuarticityMixedRequests.quarticity_satisfies

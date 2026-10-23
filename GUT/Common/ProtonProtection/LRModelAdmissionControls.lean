@@ -1,5 +1,7 @@
 import GUT.Common.ProtonProtection.LRLightHiggs
 
+open Physics
+
 /-! Countercontrols for the sufficiency of LR representation data. These
 are quadratic-operator checks, not complete scalar-potential realizations. -/
 namespace GUT.LRModelAdmissionControls

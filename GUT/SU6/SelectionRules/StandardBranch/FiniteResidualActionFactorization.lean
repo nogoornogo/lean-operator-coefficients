@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.StandardBranch.FiniteAbelianChargeSectors
 import GUT.SU6.Hypercharge.StandardCentralGauge
 
+open Physics
+
 open Math
 
 /-!

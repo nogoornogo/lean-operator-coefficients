@@ -1,0 +1,20 @@
+{
+  "kind": "one-family-structural-cubature",
+  "sources": {
+    "Math/Algebra/HiggsFourWaveCubature/Structural/Audit.lean": "7a0fc47e8aeae39a330cda2598eace262243e4e7840937299f2ddaf119ea8954",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/CollinearChecks.lean": "298263840cde726745862a3be17c1569c9a2f1618ee23d589bdc571af7a12d6f",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/CollinearData.lean": "b017c79231d2c7585f185dc91b95edefc319cf569bcf716b0e54a281ca3d9227",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/CollinearMoments.lean": "67cb473491cde257c97e67309dfef52b0ac80d757759082d0311e03118d3d85c",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/CollinearSymmetry.lean": "c3f16f0256685c59716ffe1769c688725767a4b2e993ee9cc786d816fc7a1507",
+    "Math/Algebra/HiggsFourWaveCubature/Structural/TensorShape.lean": "c31e4fb656c915d1180e42137b676a27574a9ef8423137ab700755f8f202935e"
+  },
+  "aggregate": "Math.lean",
+  "imports": [
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.Audit",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.CollinearChecks",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.CollinearData",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.CollinearMoments",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.CollinearSymmetry",
+    "import Math.Algebra.HiggsFourWaveCubature.Structural.TensorShape"
+  ]
+}

@@ -1,5 +1,7 @@
 import GUT.SU5.SelectionRules.MatrixTenMass
-import Math.RepresentationTheory.ProtectionConstraintPullback
+import Math.RepresentationTheory.Protection.ProtectionConstraintPullback
+
+open Physics
 
 /-! Necessary copy-count constraints for the existing scalar-ten matrix family. -/
 namespace GUT.SU5.CopyCountProtectionConstraint

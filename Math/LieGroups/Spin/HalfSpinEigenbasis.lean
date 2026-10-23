@@ -1,5 +1,5 @@
 import Math.LieGroups.Spin.SU5ExteriorAction
-import Math.LinearAlgebra.ExteriorEigenbasisTrace
+import Math.LinearAlgebra.Exterior.ExteriorEigenbasisTrace
 import TauCeti.LinearAlgebra.CliffordAlgebra.Grading
 import Mathlib.LinearAlgebra.FiniteDimensional.Lemmas
 

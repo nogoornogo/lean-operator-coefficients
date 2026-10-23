@@ -50,11 +50,11 @@ the [standard SU(N) specialization](standard-su-n.md) completes the
 | --- | --- |
 | `Math/RepresentationTheory/Characters/AbelianCharacterPolynomial.lean` | Integer `Finsupp` over complex monoid characters; faithful evaluation and dual involution |
 | `Math/RepresentationTheory/Characters/UnitaryCharacterSpectrum.lean` | Actual nonnegative finite spectrum from full character eigenspaces, equality to trace, and nonzero eigenvectors |
-| `Physics/FieldTheory/Mass/SymmetricMassIndex.lean` | Invariant radical, nondegenerate self-dual quotient, and exact dual-character conservation for arbitrary groups |
-| `Physics/FieldTheory/Mass/AbelianMassSpectrum.lean` | Coefficient-level conservation, lower bounds, and actual zero modes from positive target coefficients |
+| `Physics/FieldTheory/Mass/Spectrum/SymmetricMassIndex.lean` | Invariant radical, nondegenerate self-dual quotient, and exact dual-character conservation for arbitrary groups |
+| `Physics/FieldTheory/Mass/Spectrum/AbelianMassSpectrum.lean` | Coefficient-level conservation, lower bounds, and actual zero modes from positive target coefficients |
 
 The polynomial API retains the `GUT.AbelianActualSpectrum` namespace.
-The algebraic mass API retains `GUT.InvariantWeylMass.SymmetricMass`.
+The algebraic mass API retains `Physics.InvariantWeylMass.SymmetricMass`.
 Existing imports and declaration names remain available through the
 legacy entry points; no old result was discarded.
 
@@ -234,10 +234,10 @@ hypercharge-rigidity and independent flipped routes remain intact.
 
 | Module | Checked responsibility |
 | --- | --- |
-| `GUT/SU6/Representations/UnitaryVirtualRestriction.lean` | Restriction commutes with actual Hilbert products, copies and positive aggregation, as bundled-field equalities |
+| `Physics/FieldTheory/Mass/Spectrum/UnitaryVirtualRestriction.lean` | Restriction commutes with actual Hilbert products, copies and positive aggregation, as bundled-field equalities |
 | `GUT/SU6/Representations/ChargedAmbientRealization.lean` | Actual SU(6) x H realization of the charged summands; restriction exactly recovers the old canonical physical fields |
 | `GUT/SU6/Embeddings/StandardSU5Inclusion.lean` | Continuous injective standard SU(5) block inclusion, factoring the legacy (-2,3) physical torus action |
-| `Physics/FieldTheory/Mass/SurjectiveMassDescent.lean` | Invariant mass descent when an action factors through a surjective homomorphism; form and radical are preserved |
+| `Physics/FieldTheory/Mass/Surplus/SurjectiveMassDescent.lean` | Invariant mass descent when an action factors through a surjective homomorphism; form and radical are preserved |
 | `Math/RepresentationTheory/Characters/UnitarySpectrumRestriction.lean` | Character-polynomial restriction, and exact multiplicity recovery under surjectivity |
 | `GUT/SU6/SelectionRules/Models/PhysicalChainSource.lean` | Descent to the SU(5) torus, transfer of the exact dual target, and full old/new spectrum equality |
 | `GUT/SU6/SelectionRules/Models/CanonicalChainTransport.lean` | Constructed dependent-transport certificate, including a field isometry, mass compatibility and radical equivalence |
@@ -308,7 +308,7 @@ equals the new spectrum for every old bundled actual unitary representation,
 using faithful evaluation. This is exact polynomial equality, not a
 comparison on sampled group elements.
 
-`Physics/FieldTheory/Mass/Audit/AuditAbelianMassSpectrum.lean` rejects **transitive**
+`Physics/FieldTheory/Mass/Spectrum/Audit/AuditAbelianMassSpectrum.lean` rejects **transitive**
 SU(5)/SU(6) imports and checks:
 
 - An actual circle-character line and its positive zero-mass mode.
@@ -323,7 +323,7 @@ The old `AuditWeylZeroModeSupport` additionally prints the compatibility
 theorem's axioms and retains its existing concrete SU(6) regression cases.
 
 ```sh
-lake build Physics.FieldTheory.Mass.Audit.AuditAbelianMassSpectrum \
+lake build Physics.FieldTheory.Mass.Spectrum.Audit.AuditAbelianMassSpectrum \
   GUT.SU6.SelectionRules.Audit.AuditWeylZeroModeSupport
 lake build
 ```

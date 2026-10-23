@@ -4,9 +4,9 @@
 
 An algebraic coefficient sector is allowed precisely when it contains a
 nonzero coefficient, and forbidden precisely when all its coefficients vanish.
-The [common API](../../../../../Math/LinearAlgebra/SelectionCriteria.lean) transports
+The [common API](../../../../../Math/LinearAlgebra/Selection/SelectionCriteria.lean) transports
 both predicates through linear equivalences, including arbitrary indexed
-products and empty families. The [adapters](../../../../../Physics/StandardModel/Operators/ResidualSelectionCriteria.lean)
+products and empty families. The [adapters](../../../../../Physics/StandardModel/Operators/Selection/ResidualSelectionCriteria.lean)
 apply this to the four existing completeness endpoints without changing their
 physical domains or residual exchange constraints.
 
@@ -27,7 +27,7 @@ supplies the faithful charge test; no character-kernel premise is assumed.
 
 Charges `q,u,d,l,e` denote physical q, u_R, d_R, l, e_R carriers. The remaining
 five signed species have their negatives. The
-[cyclic representation](../../../../../Math/RepresentationTheory/CyclicCharge.lean)
+[cyclic representation](../../../../../Math/RepresentationTheory/Weights/CyclicCharge.lean)
 proves sum and dual-action rules. Physical right-handed charges must not be
 replaced by their conjugates' charges in the following table.
 
@@ -47,10 +47,10 @@ exactly when all four family charges are nonzero and `2l=0`.
 
 ## Proof And Controls
 
-[Scalar selection](../../../../../Physics/StandardModel/Operators/ScalarResidualSelection.lean)
+[Scalar selection](../../../../../Physics/StandardModel/Operators/Selection/ScalarResidualSelection.lean)
 extracts a nonzero scalar probe and constructs converse coefficients. Repeated
 Q symmetry and QQQL exchange relations are preserved, not discarded. The
-[cyclic specialization](../../../../../Physics/StandardModel/Operators/CyclicResidualSelection.lean)
+[cyclic specialization](../../../../../Physics/StandardModel/Operators/Selection/CyclicResidualSelection.lean)
 then converts invariance to charge equality using the faithful character.
 Z2 quark parity `(1,1,1,0,0)` satisfies the simultaneous criterion. The trivial
 assignment and every order-one assignment fail it.
@@ -63,8 +63,8 @@ charge neutrality is not asserted sufficient for arbitrary zero or
 exchange-degenerate flavor carriers. This is not an arbitrary-degree EFT
 classification. No external literature result is used as a new premise.
 
-The persistent [mathematical audit](../../../../../Math/RepresentationTheory/Audit/AuditSelectionCriteria.lean)
-and [physical audit](../../../../../Physics/StandardModel/Operators/Audit/AuditResidualSelectionCriteria.lean)
+The persistent [mathematical audit](../../../../../Math/RepresentationTheory/Protection/Audit/AuditSelectionCriteria.lean)
+and [physical audit](../../../../../Physics/StandardModel/Operators/Selection/Audit/AuditResidualSelectionCriteria.lean)
 allow only `propext`, `Classical.choice`, and `Quot.sound` transitively.
 Commands and verification results are recorded in the
 [topic](../../../../topics/residual-selection-criteria/README.md).

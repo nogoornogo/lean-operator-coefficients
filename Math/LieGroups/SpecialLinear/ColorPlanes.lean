@@ -1,5 +1,5 @@
 import Math.LieGroups.SpecialUnitary.ColorPlaneCircles
-import Math.RepresentationTheory.SL2SymmetricEmbeddings
+import Math.RepresentationTheory.SU2.SL2SymmetricEmbeddings
 import TauCeti.LinearAlgebra.Matrix.SpecialLinearGroup.Transvection
 
 /-! The three complex coordinate planes generate SL(3). Their compact parts

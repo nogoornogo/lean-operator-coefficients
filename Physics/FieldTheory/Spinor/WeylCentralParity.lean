@@ -1,25 +1,15 @@
+import Physics.FieldTheory.Spinor.Weyl.WeylCentralParity
 import Physics.FieldTheory.Spinor.FourSameWeylCompleteness
+import Math.Lean.Compatibility
 
-/-! The central minus identity acts as minus one on either Weyl chirality. -/
-namespace GUT.WeylCentralParity
-set_option autoImplicit false
-noncomputable section
-open WeylSpinor
-open scoped Matrix
+deprecated_module "Use Physics.FieldTheory.Spinor.Weyl.WeylCentralParity instead." (since := "source-api-v1")
 
-def minusIdentity : Group :=
-  ⟨!![-1, 0; 0, -1], by norm_num [Matrix.det_fin_two]⟩
+compatibility_declarations [
+  GUT.WeylCentralParity.action_minus => Physics.WeylCentralParity.action_minus,
+  GUT.WeylCentralParity.minusIdentity => Physics.WeylCentralParity.minusIdentity,
+  GUT.WeylCentralParity.minusIdentity.eq_1 => Physics.WeylCentralParity.minusIdentity.eq_1
+]
 
-theorem action_minus (rightHanded : Bool) (v : Space) :
-    FourSameWeylCompleteness.action rightHanded minusIdentity v = (-1 : ℂ) • v := by
-  cases rightHanded
-  · change left minusIdentity v = (-1 : ℂ) • v
-    ext i
-    fin_cases i <;> simp [left, minusIdentity, Matrix.toLin'_apply, Matrix.mulVec] <;> rfl
-  · change right minusIdentity v = (-1 : ℂ) • v
-    rw [right_apply]
-    ext i
-    fin_cases i <;> simp [minusIdentity, Matrix.mulVec, Matrix.map_apply]
-
-end
-end GUT.WeylCentralParity
+assert_compatible GUT.WeylCentralParity.action_minus => Physics.WeylCentralParity.action_minus
+assert_compatible GUT.WeylCentralParity.minusIdentity => Physics.WeylCentralParity.minusIdentity
+assert_compatible GUT.WeylCentralParity.minusIdentity.eq_1 => Physics.WeylCentralParity.minusIdentity.eq_1

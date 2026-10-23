@@ -3,6 +3,8 @@ import GUT.SU6.Yukawa.StabilizerWeights
 import Mathlib.LinearAlgebra.Dual.Basis
 import Mathlib.LinearAlgebra.Basis.Prod
 
+open Physics
+
 open Math
 
 /-! Coordinate bases for the actual analytic matter representation. -/

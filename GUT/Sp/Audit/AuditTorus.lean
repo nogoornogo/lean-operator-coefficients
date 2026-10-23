@@ -3,6 +3,8 @@ import GUT.Sp.TorusCharacters
 import Math.LieGroups.Symplectic.UnitaryEmbedding
 import Math.LieGroups.Symplectic.QuaternionicStructure
 
+open Physics
+
 open Math
 
 /-! SP-1: actual compact carrier, torus inversion, and boundary controls.

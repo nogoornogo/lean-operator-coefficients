@@ -1,6 +1,8 @@
 import GUT.SU6.Yukawa.IndependentCouplings
 import GUT.SU6.SelectionRules.Models.StandardSMUVStabilizer
-import Physics.FieldTheory.Yukawa.ProjectedYukawaEvaluation
+import Physics.FieldTheory.Yukawa.Mass.ProjectedYukawaEvaluation
+
+open Physics
 
 /-! Five mass directions realized by full-group equivariant Yukawa couplings.
 This is a lower-bound construction, not completeness of the Yukawa space. -/

@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.StandardBranch.StandardWeylMassSource
 
+open Physics
+
 open Math
 
 /-!

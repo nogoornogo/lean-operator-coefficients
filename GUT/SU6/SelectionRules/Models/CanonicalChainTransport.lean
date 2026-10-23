@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.PhysicalChainSource
 
+open Physics
+
 open Math
 
 /-! Keep dependent field transports behind a constructed certificate, as

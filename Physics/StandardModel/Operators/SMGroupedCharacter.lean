@@ -1,110 +1,47 @@
+import Physics.StandardModel.Operators.Support.Coordinates.SMGroupedCharacter
 import Physics.StandardModel.Operators.SMNeutralSparseRanks
 import Math.RepresentationTheory.GroupedExteriorPolynomial
 import Math.RepresentationTheory.BoundedExteriorCoefficient
+import Math.Lean.Compatibility
 
-/-! Group repeated flavor weights, retaining the original evaluator semantics. -/
-namespace GUT.SMGroupedCharacter
-set_option autoImplicit false
-open Math ComputableWeightPolynomial SMSparseCharacter SMNeutralSparseRanks
+deprecated_module "Use Physics.StandardModel.Operators.Support.Coordinates.SMGroupedCharacter instead." (since := "source-api-v1")
 
-def groups : DeltaLOneSignedInput.Species → List Key
-  | 0 => [(-1, 0, -1, -1, 0, -1), (-1, 0, -1, 1, 0, -1), (-1, 0, 1, -1, 0, -1), (-1, 0, 1, 1, 0, -1), (0, -1, -1, -1, 0, -1), (0, -1, -1, 1, 0, -1), (0, -1, 1, -1, 0, -1), (0, -1, 1, 1, 0, -1), (1, 1, -1, -1, 0, -1), (1, 1, -1, 1, 0, -1), (1, 1, 1, -1, 0, -1), (1, 1, 1, 1, 0, -1)]
-  | 1 => [(-1, 0, 0, 0, -1, -4), (-1, 0, 0, 0, 1, -4), (0, -1, 0, 0, -1, -4), (0, -1, 0, 0, 1, -4), (1, 1, 0, 0, -1, -4), (1, 1, 0, 0, 1, -4)]
-  | 2 => [(-1, 0, 0, 0, -1, 2), (-1, 0, 0, 0, 1, 2), (0, -1, 0, 0, -1, 2), (0, -1, 0, 0, 1, 2), (1, 1, 0, 0, -1, 2), (1, 1, 0, 0, 1, 2)]
-  | 3 => [(0, 0, -1, -1, 0, 3), (0, 0, -1, 1, 0, 3), (0, 0, 1, -1, 0, 3), (0, 0, 1, 1, 0, 3)]
-  | 4 => [(0, 0, 0, 0, -1, 6), (0, 0, 0, 0, 1, 6)]
-  | 5 => [(1, 0, 1, 0, -1, 1), (1, 0, 1, 0, 1, 1), (1, 0, -1, 0, -1, 1), (1, 0, -1, 0, 1, 1), (0, 1, 1, 0, -1, 1), (0, 1, 1, 0, 1, 1), (0, 1, -1, 0, -1, 1), (0, 1, -1, 0, 1, 1), (-1, -1, 1, 0, -1, 1), (-1, -1, 1, 0, 1, 1), (-1, -1, -1, 0, -1, 1), (-1, -1, -1, 0, 1, 1)]
-  | 6 => [(1, 0, 0, -1, 0, 4), (1, 0, 0, 1, 0, 4), (0, 1, 0, -1, 0, 4), (0, 1, 0, 1, 0, 4), (-1, -1, 0, -1, 0, 4), (-1, -1, 0, 1, 0, 4)]
-  | 7 => [(1, 0, 0, -1, 0, -2), (1, 0, 0, 1, 0, -2), (0, 1, 0, -1, 0, -2), (0, 1, 0, 1, 0, -2), (-1, -1, 0, -1, 0, -2), (-1, -1, 0, 1, 0, -2)]
-  | 8 => [(0, 0, 1, 0, -1, -3), (0, 0, 1, 0, 1, -3), (0, 0, -1, 0, -1, -3), (0, 0, -1, 0, 1, -3)]
-  | 9 => [(0, 0, 0, -1, 0, -6), (0, 0, 0, 1, 0, -6)]
+compatibility_declarations [
+  GUT.SMGroupedCharacter.boundedCoefficient => Physics.SMGroupedCharacter.boundedCoefficient,
+  GUT.SMGroupedCharacter.boundedCoefficient.eq_1 => Physics.SMGroupedCharacter.boundedCoefficient.eq_1,
+  GUT.SMGroupedCharacter.boundedCoefficient_eq => Physics.SMGroupedCharacter.boundedCoefficient_eq,
+  GUT.SMGroupedCharacter.groups => Physics.SMGroupedCharacter.groups,
+  GUT.SMGroupedCharacter.groups_verified => Physics.SMGroupedCharacter.groups_verified,
+  GUT.SMGroupedCharacter.linear => Physics.SMGroupedCharacter.linear,
+  GUT.SMGroupedCharacter.solveBounded => Physics.SMGroupedCharacter.solveBounded,
+  GUT.SMGroupedCharacter.solveBounded.eq_1 => Physics.SMGroupedCharacter.solveBounded.eq_1,
+  GUT.SMGroupedCharacter.solveBounded_eq => Physics.SMGroupedCharacter.solveBounded_eq,
+  GUT.SMGroupedCharacter.solveGrouped => Physics.SMGroupedCharacter.solveGrouped,
+  GUT.SMGroupedCharacter.solveGrouped.eq_1 => Physics.SMGroupedCharacter.solveGrouped.eq_1,
+  GUT.SMGroupedCharacter.solveGrouped_eq => Physics.SMGroupedCharacter.solveGrouped_eq,
+  GUT.SMGroupedCharacter.source => Physics.SMGroupedCharacter.source,
+  GUT.SMGroupedCharacter.source.eq_1 => Physics.SMGroupedCharacter.source.eq_1,
+  GUT.SMGroupedCharacter.source_coefficient => Physics.SMGroupedCharacter.source_coefficient,
+  GUT.SMGroupedCharacter.tests => Physics.SMGroupedCharacter.tests,
+  GUT.SMKernelWeightData.tables.eq_1 => Physics.SMKernelWeightData.tables.eq_1,
+  GUT.SMNeutralSparseRanks.solveDirectWith.eq_1 => Physics.SMNeutralSparseRanks.solveDirectWith.eq_1
+]
 
-theorem groups_verified (s : DeltaLOneSignedInput.Species) :
-    GroupedExteriorPolynomial.slots (groups s) = SMKernelWeightData.data s := by
-  fin_cases s <;> decide +kernel
-
-def source (s : DeltaLOneSignedInput.Species) (n : ℕ) : Terms Key :=
-  (GroupedExteriorPolynomial.rows n (groups s)).getD n []
-
-def solveGrouped (r : Row) : Result :=
-  let v := SMHiggsStringExtraction.extract (source r.species r.fermions) r.m r.delta
-  ⟨v,columnsFast r.species r.fermions r.m - v.toNat⟩
-
-theorem source_coefficient (s : DeltaLOneSignedInput.Species) (n : ℕ) (w : Key) :
-    coefficient (source s n) w = coefficient
-      (SparseWeightPolynomial.exterior (SMKernelWeightData.data s) n) w := by
-  let f : Key → AddMonoidAlgebra ℤ Key := fun a => AddMonoidAlgebra.single a 1
-  have hm (a b : Key) : f (a+b) = f a * f b := by
-    simp [f,AddMonoidAlgebra.single_mul_single]
-  have h := GroupedExteriorPolynomial.rows_evaluation f hm n (groups s) n (Nat.le_refl n)
-  rw [groups_verified] at h
-  have he := h.trans (SparseWeightPolynomial.exterior_evaluation f hm
-    (SMKernelWeightData.data s) n).symm
-  simpa only [source,f,SparseWeightPolynomial.formal_coefficient] using
-    congrArg (fun p : AddMonoidAlgebra ℤ Key => p.coeff w) he
-
-theorem solveGrouped_eq (r : Row) : solveGrouped r = solve r := by
-  have hs : rowSource SMKernelWeightData.tables r =
-      SparseWeightPolynomial.exterior (SMKernelWeightData.data r.species) r.fermions := by
-    simp only [rowSource,SMKernelWeightData.tables,List.getD,List.getElem?_ofFn,
-      r.species.isLt,dite_true,Option.getD_some,SparseWeightPolynomial.exterior]
-  have he : SMHiggsStringExtraction.lookup (source r.species r.fermions) =
-      SMHiggsStringExtraction.lookup (rowSource SMKernelWeightData.tables r) := by
-    funext w
-    simp only [SMHiggsStringExtraction.lookup_eq,hs,source_coefficient]
-  have hv : SMHiggsStringExtraction.extract (source r.species r.fermions) r.m r.delta =
-      SMHiggsStringExtraction.extract (rowSource SMKernelWeightData.tables r) r.m r.delta := by
-    simp only [SMHiggsStringExtraction.extract,he]
-  calc
-    solveGrouped r = solveDirectWith SMKernelWeightData.tables r := by
-      simp only [solveGrouped,solveDirectWith,hv]
-    _ = solve r := solveDirectWith_data r
-
-/-- Linear probes apply to arbitrary contents; their usefulness is algorithmic. -/
-def linear (a b c d e f g : ℤ) : BoundedExteriorCoefficient.Test Key where
-  toFun x := a*x.1 + b*x.2.1 + c*x.2.2.1 + d*x.2.2.2.1 +
-    e*x.2.2.2.2.1 + f*x.2.2.2.2.2.1 + g*x.2.2.2.2.2.2
-  map_zero' := by simp
-  map_add' := by intros; dsimp; ring
-
-def tests (s : DeltaLOneSignedInput.Species) : List (BoundedExteriorCoefficient.Test Key) :=
-  let sign : ℤ := if s.val < 5 then 1 else -1
-  [linear 1 (-2*sign) sign 0 0 0 0, linear 1 sign (-2*sign) 0 0 0 0, linear 1 sign sign 0 0 0 0,
-    linear 1 0 0 1 0 0 0, linear 1 0 0 (-1) 0 0 0] ++
-  (if s=0 ∨ s=3 then
-    [linear 1 0 0 0 1 0 0, linear 1 0 0 0 (-1) 0 0, linear 0 0 0 0 0 1 0]
-  else
-    [linear 1 0 0 0 0 1 0, linear 1 0 0 0 0 (-1) 0, linear 0 0 0 0 1 0 0]) ++
-  [linear (DeltaLOneSignedInput.hypercharge s) 0 0 0 0 0 1]
-
-def boundedCoefficient (s : DeltaLOneSignedInput.Species) (n : ℕ) (w : Key) : ℤ :=
-  BoundedExteriorCoefficient.compute (tests s) (groups s) n w
-
-def solveBounded (r : Row) : Result :=
-  let coeff := boundedCoefficient r.species r.fermions
-  let v := SMHiggsStringExtraction.a2Extract (fun w =>
-    coeff (w+SMHiggsStringExtraction.offset r.m r.delta) -
-    coeff (w+SMHiggsStringExtraction.offset r.m r.delta+(r.m+1) • SMHiggsStringExtraction.weak))
-  ⟨v,columnsFast r.species r.fermions r.m - v.toNat⟩
-
-theorem boundedCoefficient_eq (s : DeltaLOneSignedInput.Species) (n : ℕ) (w : Key) :
-    boundedCoefficient s n w = SMHiggsStringExtraction.lookup (source s n) w := by
-  rw [boundedCoefficient,BoundedExteriorCoefficient.compute_eq,groups_verified,
-    SMHiggsStringExtraction.lookup_eq,source_coefficient]
-  let f : Key → AddMonoidAlgebra ℤ Key := fun a => AddMonoidAlgebra.single a 1
-  have hm (a b : Key) : f (a+b) = f a * f b := by
-    simp [f,AddMonoidAlgebra.single_mul_single]
-  have he := SparseWeightPolynomial.exterior_evaluation f hm (SMKernelWeightData.data s) n
-  have hc := congrArg (fun p : AddMonoidAlgebra ℤ Key => p.coeff w) he
-  simpa only [f,SparseWeightPolynomial.formal_coefficient] using hc.symm
-
-theorem solveBounded_eq (r : Row) : solveBounded r = solve r := by
-  have he : boundedCoefficient r.species r.fermions =
-      SMHiggsStringExtraction.lookup (source r.species r.fermions) :=
-    funext (boundedCoefficient_eq r.species r.fermions)
-  calc
-    solveBounded r = solveGrouped r := by
-      simp only [solveBounded,solveGrouped,SMHiggsStringExtraction.extract,he]
-    _ = solve r := solveGrouped_eq r
-
-end GUT.SMGroupedCharacter
+assert_compatible GUT.SMGroupedCharacter.boundedCoefficient => Physics.SMGroupedCharacter.boundedCoefficient
+assert_compatible GUT.SMGroupedCharacter.boundedCoefficient.eq_1 => Physics.SMGroupedCharacter.boundedCoefficient.eq_1
+assert_compatible GUT.SMGroupedCharacter.boundedCoefficient_eq => Physics.SMGroupedCharacter.boundedCoefficient_eq
+assert_compatible GUT.SMGroupedCharacter.groups => Physics.SMGroupedCharacter.groups
+assert_compatible GUT.SMGroupedCharacter.groups_verified => Physics.SMGroupedCharacter.groups_verified
+assert_compatible GUT.SMGroupedCharacter.linear => Physics.SMGroupedCharacter.linear
+assert_compatible GUT.SMGroupedCharacter.solveBounded => Physics.SMGroupedCharacter.solveBounded
+assert_compatible GUT.SMGroupedCharacter.solveBounded.eq_1 => Physics.SMGroupedCharacter.solveBounded.eq_1
+assert_compatible GUT.SMGroupedCharacter.solveBounded_eq => Physics.SMGroupedCharacter.solveBounded_eq
+assert_compatible GUT.SMGroupedCharacter.solveGrouped => Physics.SMGroupedCharacter.solveGrouped
+assert_compatible GUT.SMGroupedCharacter.solveGrouped.eq_1 => Physics.SMGroupedCharacter.solveGrouped.eq_1
+assert_compatible GUT.SMGroupedCharacter.solveGrouped_eq => Physics.SMGroupedCharacter.solveGrouped_eq
+assert_compatible GUT.SMGroupedCharacter.source => Physics.SMGroupedCharacter.source
+assert_compatible GUT.SMGroupedCharacter.source.eq_1 => Physics.SMGroupedCharacter.source.eq_1
+assert_compatible GUT.SMGroupedCharacter.source_coefficient => Physics.SMGroupedCharacter.source_coefficient
+assert_compatible GUT.SMGroupedCharacter.tests => Physics.SMGroupedCharacter.tests
+assert_compatible GUT.SMKernelWeightData.tables.eq_1 => Physics.SMKernelWeightData.tables.eq_1
+assert_compatible GUT.SMNeutralSparseRanks.solveDirectWith.eq_1 => Physics.SMNeutralSparseRanks.solveDirectWith.eq_1

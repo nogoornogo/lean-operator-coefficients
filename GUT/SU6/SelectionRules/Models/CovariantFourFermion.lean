@@ -1,5 +1,7 @@
 import GUT.SU6.SelectionRules.Models.AutomorphismCovariantModel
-import Math.RepresentationTheory.AutomorphismCovariantExterior
+import Math.RepresentationTheory.Exterior.AutomorphismCovariantExterior
+
+open Physics
 
 /-! Degree-four exterior coefficient interface on actual SU(6) light fields.
 This gauge/residual interface alone is not a full Lorentz operator theorem. -/

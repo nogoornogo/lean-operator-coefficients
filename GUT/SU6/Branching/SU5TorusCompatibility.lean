@@ -1,6 +1,8 @@
 import GUT.SU5.Embeddings.PhysicalTorus
 import GUT.SU6.Branching.StandardSMCharacterTarget
 
+open Physics
+
 open Math
 
 /-! Exact comparison with the legacy physical Fourier evaluator. This

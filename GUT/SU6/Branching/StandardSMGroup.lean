@@ -3,6 +3,8 @@ import GUT.SU6.SelectionRules.Models.StandardSMFullGaugeMass
 import GUT.SU6.Representations.ConcreteSU6Representations
 import Math.RepresentationTheory.Decomposition.SplitRepresentationProjection
 
+open Physics
+
 open Math
 
 /-!

@@ -1,11 +1,11 @@
 import Math.RepresentationTheory.Decomposition.FiniteSemisimpleDecomposition
 import Math.RepresentationTheory.Decomposition.FiniteIrreducibleQuotient
 import Math.RepresentationTheory.Decomposition.IrreducibilityTransport
-import Math.RepresentationTheory.DirectSumResidualHom
+import Math.RepresentationTheory.Constructions.DirectSumResidualHom
 import Math.RepresentationTheory.Decomposition.FiniteBlockHom
-import Math.RepresentationTheory.InvariantTensorCurry
-import Math.RepresentationTheory.InvariantCoefficientTransport
-import Math.LinearAlgebra.SelectionCriteria
+import Math.RepresentationTheory.Tensors.InvariantTensorCurry
+import Math.RepresentationTheory.Coefficients.InvariantCoefficientTransport
+import Math.LinearAlgebra.Selection.SelectionCriteria
 
 /-! Finite constituent support without evaluating a character or a dimension.
 The decomposition is an actual equivariant direct sum; its blocks may repeat.

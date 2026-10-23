@@ -1,108 +1,76 @@
+import Physics.FieldTheory.Spinor.Weyl.RightWeylChargeConjugation
 import Physics.FieldTheory.Spinor.WeylSpinor
 import Physics.StandardModel.Gauge.SMEpsilonTensor
-import Mathlib.Tactic
+import Math.Lean.Compatibility
 
-/-! An explicit Euclidean four-component bilinear convention.
-The right subspace is the first block, and its CP bilinear is epsilon.
-The chirality orientation is stated explicitly rather than inferred from C. -/
-namespace GUT.RightWeylChargeConjugation
-set_option autoImplicit false
-noncomputable section
-open Matrix SMEpsilonTensor
+deprecated_module "Use Physics.FieldTheory.Spinor.Weyl.RightWeylChargeConjugation instead." (since := "source-api-v1")
 
-abbrev Dirac := Fin 4 → ℂ
+compatibility_declarations [
+  GUT.RightWeylChargeConjugation.Dirac => Physics.RightWeylChargeConjugation.Dirac,
+  GUT.RightWeylChargeConjugation.charge => Physics.RightWeylChargeConjugation.charge,
+  GUT.RightWeylChargeConjugation.charge.eq_1 => Physics.RightWeylChargeConjugation.charge.eq_1,
+  GUT.RightWeylChargeConjugation.charge_conjTranspose => Physics.RightWeylChargeConjugation.charge_conjTranspose,
+  GUT.RightWeylChargeConjugation.charge_eq => Physics.RightWeylChargeConjugation.charge_eq,
+  GUT.RightWeylChargeConjugation.charge_gamma => Physics.RightWeylChargeConjugation.charge_gamma,
+  GUT.RightWeylChargeConjugation.charge_transpose => Physics.RightWeylChargeConjugation.charge_transpose,
+  GUT.RightWeylChargeConjugation.chirality => Physics.RightWeylChargeConjugation.chirality,
+  GUT.RightWeylChargeConjugation.chirality.eq_1 => Physics.RightWeylChargeConjugation.chirality.eq_1,
+  GUT.RightWeylChargeConjugation.chirality_orientation => Physics.RightWeylChargeConjugation.chirality_orientation,
+  GUT.RightWeylChargeConjugation.diquark => Physics.RightWeylChargeConjugation.diquark,
+  GUT.RightWeylChargeConjugation.diquark.eq_1 => Physics.RightWeylChargeConjugation.diquark.eq_1,
+  GUT.RightWeylChargeConjugation.embedRight => Physics.RightWeylChargeConjugation.embedRight,
+  GUT.RightWeylChargeConjugation.embedRight.eq_1 => Physics.RightWeylChargeConjugation.embedRight.eq_1,
+  GUT.RightWeylChargeConjugation.gamma => Physics.RightWeylChargeConjugation.gamma,
+  GUT.RightWeylChargeConjugation.gamma.eq_1 => Physics.RightWeylChargeConjugation.gamma.eq_1,
+  GUT.RightWeylChargeConjugation.gammaFour => Physics.RightWeylChargeConjugation.gammaFour,
+  GUT.RightWeylChargeConjugation.gammaFour.eq_1 => Physics.RightWeylChargeConjugation.gammaFour.eq_1,
+  GUT.RightWeylChargeConjugation.gammaOne => Physics.RightWeylChargeConjugation.gammaOne,
+  GUT.RightWeylChargeConjugation.gammaOne.eq_1 => Physics.RightWeylChargeConjugation.gammaOne.eq_1,
+  GUT.RightWeylChargeConjugation.gammaThree => Physics.RightWeylChargeConjugation.gammaThree,
+  GUT.RightWeylChargeConjugation.gammaThree.eq_1 => Physics.RightWeylChargeConjugation.gammaThree.eq_1,
+  GUT.RightWeylChargeConjugation.gammaTwo => Physics.RightWeylChargeConjugation.gammaTwo,
+  GUT.RightWeylChargeConjugation.gammaTwo.eq_1 => Physics.RightWeylChargeConjugation.gammaTwo.eq_1,
+  GUT.RightWeylChargeConjugation.gamma_clifford => Physics.RightWeylChargeConjugation.gamma_clifford,
+  GUT.RightWeylChargeConjugation.gamma_hermitian => Physics.RightWeylChargeConjugation.gamma_hermitian,
+  GUT.RightWeylChargeConjugation.projector_embedRight => Physics.RightWeylChargeConjugation.projector_embedRight,
+  GUT.RightWeylChargeConjugation.projector_eq => Physics.RightWeylChargeConjugation.projector_eq,
+  GUT.RightWeylChargeConjugation.projector_idempotent => Physics.RightWeylChargeConjugation.projector_idempotent,
+  GUT.RightWeylChargeConjugation.rightProjector => Physics.RightWeylChargeConjugation.rightProjector,
+  GUT.RightWeylChargeConjugation.rightProjector.eq_1 => Physics.RightWeylChargeConjugation.rightProjector.eq_1,
+  GUT.RightWeylChargeConjugation.right_diquark => Physics.RightWeylChargeConjugation.right_diquark,
+  GUT.RightWeylChargeConjugation.three_right_diquarks => Physics.RightWeylChargeConjugation.three_right_diquarks
+]
 
-def charge : Matrix (Fin 4) (Fin 4) ℂ :=
-  !![0,1,0,0; -1,0,0,0; 0,0,0,-1; 0,0,1,0]
-
-def gammaTwo : Matrix (Fin 4) (Fin 4) ℂ :=
-  !![0,0,0,1; 0,0,-1,0; 0,-1,0,0; 1,0,0,0]
-
-def gammaFour : Matrix (Fin 4) (Fin 4) ℂ :=
-  !![0,0,1,0; 0,0,0,1; 1,0,0,0; 0,1,0,0]
-
-def gammaOne : Matrix (Fin 4) (Fin 4) ℂ :=
-  !![0,0,0,Complex.I; 0,0,Complex.I,0;
-    0,-Complex.I,0,0; -Complex.I,0,0,0]
-
-def gammaThree : Matrix (Fin 4) (Fin 4) ℂ :=
-  !![0,0,Complex.I,0; 0,0,0,-Complex.I;
-    -Complex.I,0,0,0; 0,Complex.I,0,0]
-
-def gamma (mu : Fin 4) : Matrix (Fin 4) (Fin 4) ℂ :=
-  ![gammaOne, gammaTwo, gammaThree, gammaFour] mu
-
-def chirality : Matrix (Fin 4) (Fin 4) ℂ :=
-  !![1,0,0,0; 0,1,0,0; 0,0,-1,0; 0,0,0,-1]
-
-def rightProjector : Matrix (Fin 4) (Fin 4) ℂ :=
-  !![1,0,0,0; 0,1,0,0; 0,0,0,0; 0,0,0,0]
-
-def embedRight (s : WeylSpinor.Space) : Dirac := ![s 0, s 1, 0, 0]
-
-/-- Transpose, not Hermitian conjugation: complex bilinearity is essential. -/
-def diquark (q r : Dirac) : ℂ := ∑ i, ∑ j, q i * (charge * rightProjector) i j * r j
-
-theorem charge_eq : charge = gammaTwo * gammaFour := by
-  ext i j; fin_cases i <;> fin_cases j <;>
-    norm_num [charge, gammaTwo, gammaFour, Matrix.mul_apply, Fin.sum_univ_succ]
-
-theorem gamma_hermitian (mu : Fin 4) : (gamma mu).conjTranspose = gamma mu := by
-  fin_cases mu <;> ext i j <;> fin_cases i <;> fin_cases j <;>
-    norm_num [gamma, gammaOne, gammaTwo, gammaThree, gammaFour,
-      Matrix.conjTranspose_apply]
-
-set_option maxHeartbeats 800000 in
-theorem gamma_clifford (mu nu : Fin 4) :
-    gamma mu * gamma nu + gamma nu * gamma mu =
-      if mu = nu then (2 : ℂ) • (1 : Matrix (Fin 4) (Fin 4) ℂ) else 0 := by
-  fin_cases mu <;> fin_cases nu <;> ext i j <;> fin_cases i <;> fin_cases j <;>
-    norm_num [gamma, gammaOne, gammaTwo, gammaThree, gammaFour,
-      Matrix.mul_apply, Fin.sum_univ_succ]
-
-/-- This fixes the gamma-five orientation of this adapter. -/
-theorem chirality_orientation :
-    chirality = -(gammaOne * gammaTwo * gammaThree * gammaFour) := by
-  ext i j; fin_cases i <;> fin_cases j <;>
-    norm_num [chirality, gammaOne, gammaTwo, gammaThree, gammaFour,
-      Matrix.mul_apply, Fin.sum_univ_succ]
-
-theorem charge_gamma (mu : Fin 4) :
-    charge * gamma mu * charge.conjTranspose = -(gamma mu).transpose := by
-  fin_cases mu <;> ext i j <;> fin_cases i <;> fin_cases j <;>
-    norm_num [charge, gamma, gammaOne, gammaTwo, gammaThree, gammaFour,
-      Matrix.mul_apply, Matrix.conjTranspose_apply, Fin.sum_univ_succ]
-
-theorem charge_transpose : charge.transpose = -charge := by
-  ext i j; fin_cases i <;> fin_cases j <;> norm_num [charge]
-
-theorem charge_conjTranspose : charge.conjTranspose = -charge := by
-  ext i j; fin_cases i <;> fin_cases j <;> norm_num [charge, Matrix.conjTranspose_apply]
-
-theorem projector_eq : rightProjector = (1 / 2 : ℂ) • (1 + chirality) := by
-  ext i j; fin_cases i <;> fin_cases j <;> norm_num [rightProjector, chirality]
-
-theorem projector_idempotent : rightProjector * rightProjector = rightProjector := by
-  ext i j; fin_cases i <;> fin_cases j <;>
-    norm_num [rightProjector, Matrix.mul_apply, Fin.sum_univ_succ]
-
-theorem projector_embedRight (s : WeylSpinor.Space) :
-    rightProjector.mulVec (embedRight s) = embedRight s := by
-  ext i; fin_cases i <;>
-    simp [rightProjector, embedRight, Matrix.mulVec]
-
-theorem right_diquark (s t : WeylSpinor.Space) :
-    diquark (embedRight s) (embedRight t) = eps2 s t := by
-  simp [diquark, embedRight, charge, rightProjector, Matrix.mul_apply,
-    Fin.sum_univ_succ, eps2]
-  ring
-
-theorem three_right_diquarks (s t u v w x : WeylSpinor.Space) :
-    diquark (embedRight s) (embedRight t) *
-      diquark (embedRight u) (embedRight v) *
-      diquark (embedRight w) (embedRight x) =
-        eps2 s t * eps2 u v * eps2 w x := by
-  simp only [right_diquark]
-
-end
-end GUT.RightWeylChargeConjugation
+assert_compatible GUT.RightWeylChargeConjugation.Dirac => Physics.RightWeylChargeConjugation.Dirac
+assert_compatible GUT.RightWeylChargeConjugation.charge => Physics.RightWeylChargeConjugation.charge
+assert_compatible GUT.RightWeylChargeConjugation.charge.eq_1 => Physics.RightWeylChargeConjugation.charge.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.charge_conjTranspose => Physics.RightWeylChargeConjugation.charge_conjTranspose
+assert_compatible GUT.RightWeylChargeConjugation.charge_eq => Physics.RightWeylChargeConjugation.charge_eq
+assert_compatible GUT.RightWeylChargeConjugation.charge_gamma => Physics.RightWeylChargeConjugation.charge_gamma
+assert_compatible GUT.RightWeylChargeConjugation.charge_transpose => Physics.RightWeylChargeConjugation.charge_transpose
+assert_compatible GUT.RightWeylChargeConjugation.chirality => Physics.RightWeylChargeConjugation.chirality
+assert_compatible GUT.RightWeylChargeConjugation.chirality.eq_1 => Physics.RightWeylChargeConjugation.chirality.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.chirality_orientation => Physics.RightWeylChargeConjugation.chirality_orientation
+assert_compatible GUT.RightWeylChargeConjugation.diquark => Physics.RightWeylChargeConjugation.diquark
+assert_compatible GUT.RightWeylChargeConjugation.diquark.eq_1 => Physics.RightWeylChargeConjugation.diquark.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.embedRight => Physics.RightWeylChargeConjugation.embedRight
+assert_compatible GUT.RightWeylChargeConjugation.embedRight.eq_1 => Physics.RightWeylChargeConjugation.embedRight.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.gamma => Physics.RightWeylChargeConjugation.gamma
+assert_compatible GUT.RightWeylChargeConjugation.gamma.eq_1 => Physics.RightWeylChargeConjugation.gamma.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.gammaFour => Physics.RightWeylChargeConjugation.gammaFour
+assert_compatible GUT.RightWeylChargeConjugation.gammaFour.eq_1 => Physics.RightWeylChargeConjugation.gammaFour.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.gammaOne => Physics.RightWeylChargeConjugation.gammaOne
+assert_compatible GUT.RightWeylChargeConjugation.gammaOne.eq_1 => Physics.RightWeylChargeConjugation.gammaOne.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.gammaThree => Physics.RightWeylChargeConjugation.gammaThree
+assert_compatible GUT.RightWeylChargeConjugation.gammaThree.eq_1 => Physics.RightWeylChargeConjugation.gammaThree.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.gammaTwo => Physics.RightWeylChargeConjugation.gammaTwo
+assert_compatible GUT.RightWeylChargeConjugation.gammaTwo.eq_1 => Physics.RightWeylChargeConjugation.gammaTwo.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.gamma_clifford => Physics.RightWeylChargeConjugation.gamma_clifford
+assert_compatible GUT.RightWeylChargeConjugation.gamma_hermitian => Physics.RightWeylChargeConjugation.gamma_hermitian
+assert_compatible GUT.RightWeylChargeConjugation.projector_embedRight => Physics.RightWeylChargeConjugation.projector_embedRight
+assert_compatible GUT.RightWeylChargeConjugation.projector_eq => Physics.RightWeylChargeConjugation.projector_eq
+assert_compatible GUT.RightWeylChargeConjugation.projector_idempotent => Physics.RightWeylChargeConjugation.projector_idempotent
+assert_compatible GUT.RightWeylChargeConjugation.rightProjector => Physics.RightWeylChargeConjugation.rightProjector
+assert_compatible GUT.RightWeylChargeConjugation.rightProjector.eq_1 => Physics.RightWeylChargeConjugation.rightProjector.eq_1
+assert_compatible GUT.RightWeylChargeConjugation.right_diquark => Physics.RightWeylChargeConjugation.right_diquark
+assert_compatible GUT.RightWeylChargeConjugation.three_right_diquarks => Physics.RightWeylChargeConjugation.three_right_diquarks

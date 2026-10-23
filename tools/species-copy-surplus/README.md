@@ -10,5 +10,5 @@ and a source/rest mixing negative control.
 The matrix enumeration is exhaustive only over that finite integer domain,
 not arbitrary complex masses. These computations are not theorem premises,
 Lean oracles, UV parameter witnesses or model branching proofs. They supplement
-[the proved general bridge](../../Physics/FieldTheory/Mass/PhysicalSpeciesCopySurplus.lean).
+[the proved general bridge](../../Physics/FieldTheory/Mass/Surplus/PhysicalSpeciesCopySurplus.lean).
 Rerun them when the corresponding mass/block/charge conventions change.

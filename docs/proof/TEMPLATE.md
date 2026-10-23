@@ -32,6 +32,10 @@ single-section narratives are split at their statement/implementation boundaries
 See the [reference review](REFERENCE_REVIEW.md) for individually checked external
 sources and the distinction between bibliographic checking and proof auditing.
 Never infer current completion from an old build count or a historical plan.
+Describe the shared mathematical argument under proof structure and follow
+the [structural proof policy](../architecture/PROOF_ENGINEERING.md). Numerical
+tables or repetitive generated cases must not replace that argument; identify
+the limited role of any small exact supporting checks.
 In interface maps, keep named milestones and then-pending notes as checkpoint
 context, separate from the result summary. Do not embed local work dates or
 Git IDs; source publication and dependency metadata remain explicit.

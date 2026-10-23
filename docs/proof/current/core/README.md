@@ -3,8 +3,11 @@
 - [All-degree coefficient-space decomposition](Math/GRADED_OPERATOR_COMPLETENESS.md).
 - [Composable prohibition specifications](Math/COMPOSABLE_PROHIBITION_SPECIFICATIONS.md).
 - [Symmetry-extension criterion and all-degree charge selection rules](Math/ALL_DEGREE_SYMMETRY_PROTECTION.md).
+- [Finite-group spurion evaluation](Math/FINITE_GROUP_SPURION_EVALUATION.md).
 - [Naturality and subgroup restriction](Math/GRADED_COMPLETENESS_NATURALITY.md).
 - [Relation quotient completeness](Math/RELATION_COMPLETENESS.md).
+- [All-order interacting Lagrangian coefficient coordinates](Math/INTERACTING_LAGRANGIAN_COORDINATES.md).
+- [Semantic Euler naturality and invariant density inputs](Math/EULER_NATURALITY.md).
 - [Mathematical inputs](../inputs/Math/ASSUMPTIONS.md#all-degree-coefficient-space-decomposition-for-derivative-free-operators).
 
 The construction proves inverse maps, not arbitrary Hom computation.

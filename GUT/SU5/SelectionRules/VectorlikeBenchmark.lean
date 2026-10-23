@@ -1,7 +1,9 @@
 import GUT.SU5.SelectionRules.GeorgiGlashowQque
-import Physics.StandardModel.Operators.VectorlikeSpectrumQque
-import Math.LinearAlgebra.FiniteBasisHilbertization
+import Physics.StandardModel.Operators.BaryonOne.Qque.VectorlikeSpectrumQque
+import Math.LinearAlgebra.Constructions.FiniteBasisHilbertization
 import Math.RepresentationTheory.Unitary.ContinuousRepresentationTransport
+
+open Physics
 
 open Math
 
@@ -9,6 +11,7 @@ open Math
 This checks a nonzero-extra source, not a vacuum or Yukawa construction. -/
 
 namespace GUT.SU5.VectorlikeBenchmark
+open Physics.SU5
 noncomputable section
 open Representation InvariantWeylMass ContinuousRepresentationScope
 open ProductFactorization SplitRepresentationProjection

@@ -7,9 +7,9 @@ and alternating repeated-U flavor components, exhausts the independently
 defined right-DUUE exterior sector. Actual raw exterior descent equals the
 complete inverse; this is stronger than matching a count.
 
-Sources: [conventions](../../../../../Physics/StandardModel/Operators/LiDuueConvention.lean),
-[certificate](../../../../../Physics/StandardModel/Operators/LiDuueCertificate.lean),
-[strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditLiDuueBasis.lean).
+Sources: [conventions](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/LiDuueConvention.lean),
+[certificate](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/LiDuueCertificate.lean),
+[strict audit](../../../../../Physics/StandardModel/Operators/BaryonOne/OtherFamilies/Audit/AuditLiDuueBasis.lean).
 
 ## Inputs, Conjugation And Citation Role
 

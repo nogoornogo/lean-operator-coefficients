@@ -1,5 +1,7 @@
 import GUT.Common.StandardChain.StandardChain
-import Physics.StandardModel.Spectrum.ConjugationMassSource
+import Physics.StandardModel.Spectrum.Mass.ConjugationMassSource
+
+open Physics
 
 open Math
 

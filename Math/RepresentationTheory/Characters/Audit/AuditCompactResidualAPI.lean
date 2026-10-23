@@ -20,9 +20,9 @@ theorem exists_unitary_model {H V : Type*}
     [NormedAddCommGroup V] [InnerProductSpace ℂ V] [FiniteDimensional ℂ V]
     (rho : Representation ℂ H V)
     (hr : ContinuousRepresentationScope.IsJointlyContinuous rho) :
-    ∃ e : V ≃L[ℂ] V, TauCeti.ContRepresentation.IsUnitary
-      (TauCeti.ContRepresentation.congr e (CompactHomDimension.asContinuous rho)) :=
-  TauCeti.ContRepresentation.exists_isUnitary_congr _
+    ∃ e : V ≃L[ℂ] V, ContRepresentation.IsUnitary
+      (ContinuousLinearEquiv.congr e (CompactHomDimension.asContinuous rho)) :=
+  ContRepresentation.exists_isUnitary_congr _
     (CompactHomDimension.continuous_asContinuous rho hr)
 
 theorem circle_infinite : Infinite Circle := by
@@ -61,7 +61,7 @@ run_cmd do
     ``Math.ContinuousRepresentationScope.IsJointlyContinuous.subrepresentation,
     ``Math.ContinuousRepresentationScope.IsJointlyContinuous.comp,
     ``Math.CompactResidualAPIAudit.exists_unitary_model,
-    ``TauCeti.ContRepresentation.IsUnitary.exists_orthogonal_irreducible_decomposition_of_congr,
+    ``ContRepresentation.IsUnitary.exists_orthogonal_irreducible_decomposition_of_congr,
     ``Math.CompactResidualAPIAudit.circle_infinite,
     ``Math.CompactResidualAPIAudit.circle_counting]
   for decl in declarations do

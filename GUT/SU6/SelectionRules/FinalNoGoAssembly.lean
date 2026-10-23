@@ -6,6 +6,8 @@ import GUT.SU6.SelectionRules.Models.PhysicalMassSpectrumBridge
 import GUT.SU6.Characters.PhysicalTorusCharacterBridge
 import GUT.SU6.SelectionRules.StandardBranch.StandardAbelianProtection
 
+open Physics
+
 open Math
 
 /-!

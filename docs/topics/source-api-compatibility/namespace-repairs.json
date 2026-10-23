@@ -1,0 +1,68 @@
+[
+  {
+    "kind": "namespace-resolution",
+    "canonical": "GUT/SU6/SelectionRules/StandardBranch/StandardBranchProtonObstruction.lean",
+    "changes": [
+      {
+        "before": "namespace StandardBranchProtonObstruction\n",
+        "after": "namespace StandardBranchProtonObstruction\nopen Physics.StandardBranchProtonObstruction\n",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "kind": "namespace-resolution",
+    "canonical": "GUT/PatiSalam/Matching/TypedVertex.lean",
+    "changes": [
+      {
+        "before": "open Math GUT Representation ExternalInvariantTensor\n",
+        "after": "open Math Representation ExternalInvariantTensor\n",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "kind": "namespace-resolution",
+    "canonical": "GUT/SU6/SelectionRules/StandardBranch/StandardAbelianCharge.lean",
+    "changes": [
+      {
+        "before": "namespace StandardAbelianCharge\n",
+        "after": "namespace StandardAbelianCharge\nopen Physics.StandardAbelianCharge\n",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "kind": "namespace-resolution",
+    "canonical": "GUT/SU6/SelectionRules/StandardBranch/FiniteAbelianChargeSectors.lean",
+    "changes": [
+      {
+        "before": "namespace FiniteAbelianChargeSectors\n",
+        "after": "namespace FiniteAbelianChargeSectors\nopen Physics.FiniteAbelianChargeSectors\n",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "kind": "namespace-resolution",
+    "canonical": "GUT/SU6/Branching/StandardSMCharacterTarget.lean",
+    "changes": [
+      {
+        "before": "namespace StandardSMCharacterTarget\n",
+        "after": "namespace StandardSMCharacterTarget\nopen Physics.StandardSMCharacterTarget\n",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "kind": "namespace-resolution",
+    "canonical": "GUT/SU6/SelectionRules/StandardBranch/StandardWeylFieldIdentification.lean",
+    "changes": [
+      {
+        "before": "open StandardPhysicalSource UnitaryVirtualRealization\n",
+        "after": "open StandardPhysicalSource Physics.UnitaryVirtualRealization\n",
+        "count": 1
+      }
+    ]
+  }
+]

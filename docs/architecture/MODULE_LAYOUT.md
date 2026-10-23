@@ -5,8 +5,15 @@ destination. The three Lake libraries share the existing dependency pins:
 
 ```text
 Math/
+  Algebra/                  jet symbols, total derivatives and scalar EOM/IBP sources
   LinearAlgebra/             bases, exterior algebra, quaternionic spectral theory
   RepresentationTheory/
+    Coefficients/            completeness, coefficient inputs and transport
+    Protection/              prohibition specifications and selection criteria
+    Jets/                    derivative inputs and covariant IBP
+    Lagrangian/              densities, generated equations and all-order inputs
+    Exterior/ Symmetric/     statistics-constrained power constructions
+    Color/ SU2/ Content/     constituent, tensor and species decompositions
     Characters/              characters, charge sectors, virtual representations
     Decomposition/           irreducibility, Schur, products and transport
     Multiplicity/            commutants, multiplicity models and centralizers
@@ -24,12 +31,18 @@ Math/
   Audit/                     relocation identity helper
 Physics/
   FieldTheory/
+    Jets/                    Lorentz actions and free massless scalar EOM/IBP
+      Scalar/ Higgs/ Weyl/   field-specific inputs and completeness results
+      Gauge/ Lagrangian/     connections, equations and density consumers
     Mass/                    invariant masses, radicals and character indices
     Yukawa/                  scalar-dependent and multilinear mass families
   StandardModel/
     Gauge/                   gauge tensor algebra and pairings
     Spectrum/                SM targets, charge profiles and chiral indices
     Operators/               supported signatures and charge selection rules
+      BaryonOne/ BaryonTwo/  separate operator families and source comparisons
+      Dipole/ Weinberg/      dedicated coefficient interfaces
+      Support/ Selection/   structural support, dimensions and prohibitions
 GUT/
   Common/
     StandardChain/           common ambient-group selection-rule consumers
@@ -71,6 +84,22 @@ Further API generalization is a separate topic, not an excuse for upward imports
 
 ## Imports And Names
 
+Canonical declaration roots follow ownership: `Math.*` for mathematics,
+`Physics.*` for shared physics and `GUT.*` for model applications. Choose a
+stable subject namespace within that root; it need not reproduce the full
+module path. Subdividing a directory does not by itself require renaming
+declarations. Resolve shared/reopened namespaces by the defining declaration's
+ownership rather than replacing every occurrence of a prefix.
+
+Public import/name changes must follow the registered compatibility policy:
+provide canonical replacements, retain changed imports through deprecated
+forwarding modules and changed public names through aliases, and check old
+clients, including constructors, projections,
+coercions, typeclass search and automation. Compatibility modules are the
+designated location for protected legacy names. Their future removal is a
+separate breaking-release decision; keep the [upgrade guide](../UPGRADING.md)
+current. Private compiler helpers are not automatically part of that API.
+
 Model-specific selection-rule applications use `SelectionRules/`. The former
 `ProtonStabilityNoGo/` directories were renamed without changing theorem names
 or their hypotheses. The source map retains their original audit identities.
@@ -79,17 +108,42 @@ The original file relocation kept declaration names. The subsequent
 [Math namespace migration](../topics/math-namespaces/README.md) changes
 Math-owned `GUT.*` names to `Math.*`, including uses in Physics and GUT.
 Shared Physics/GUT namespace extensions retain their own declaration ownership.
-No legacy declaration aliases are provided; external callers must update them.
-Import paths and historical module identities remain unchanged. For example:
+That earlier migration did not provide legacy aliases; its retired names are
+not restored by the current compatibility transition. For example:
 
 ```lean
 import Math.RepresentationTheory.Characters.CharacterRestriction
 #check Math.CharacterRestriction.virtualCharacter
 ```
 
-The [old-to-new path map](../../tools/layout/source-map.json) records relocated
-files. It is not a set of compatibility forwarding modules: old import paths
-must be updated. Keeping duplicate wrappers would obscure the layer boundary.
+The [original relocation map](../../tools/layout/source-map.json) retains those
+earlier module identities for audits; its obsolete keys stay retired. Its values
+follow the latest canonical implementations.
+
+The [source API transition](../topics/source-api-compatibility/migration-guide.md)
+subdivides the currently published source tree and moves Physics-owned `GUT.*`
+declarations to `Physics.*`. GUT application declarations retain their ownership,
+including extensions of namespace families shared with Physics. Math subject
+namespaces remain stable; a namespace need not repeat every directory component.
+Generated equations for imported types retain the namespace of that type.
+
+Currently supported import routes remain deprecated forwarding modules.
+Physics legacy names are checked aliases, including public types, projections,
+constructors and elimination principles. Their old type heads, pattern support
+and computational use are preserved; instances and simp rules are registered
+once on the canonical declarations. Compatibility modules may therefore contain
+historical `GUT.*` names while canonical Physics implementations use `Physics.*`.
+These shims are temporary and will be removed in a future breaking release after
+migration guidance. They do not permit upward imports or relax axiom checks.
+
+The old directories contain facades; substantive implementations live in their
+subject subdirectories. Retained certificate files and compatibility wrappers
+may preserve an earlier layout. They are not a pattern for adding large
+families of similar proof files: new work follows the
+[structural proof policy](PROOF_ENGINEERING.md#repetitive-case-splitting-is-prohibited).
+The frozen path/declaration registry and old-client controls are linked from
+the migration guide.
+
 `Math.lean` and `Physics.lean` aggregate their libraries; `GUT.lean` includes both
 and every application/audit. `lake build` still checks the entire project.
 

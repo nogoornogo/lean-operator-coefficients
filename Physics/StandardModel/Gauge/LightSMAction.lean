@@ -1,141 +1,71 @@
+import Physics.StandardModel.Gauge.Tensors.LightSMAction
 import Physics.StandardModel.Gauge.CompactExplicitSMTensor
-import TauCeti.Topology.Algebra.UnitaryGroup
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Gauge.Tensors.LightSMAction instead." (since := "source-api-v1")
 
-/-! A compatible SM action on the original mass radical. Preservation of
-the radical suffices; invariance of the whole mass is a separate constructor. -/
+compatibility_declarations [
+  GUT.LightSMAction.Compatible => Physics.LightSMAction.Compatible,
+  GUT.LightSMAction.Compatible.action => Physics.LightSMAction.Compatible.action,
+  GUT.LightSMAction.Compatible.casesOn => Physics.LightSMAction.Compatible.casesOn,
+  GUT.LightSMAction.Compatible.ctorIdx => Physics.LightSMAction.Compatible.ctorIdx,
+  GUT.LightSMAction.Compatible.mk => Physics.LightSMAction.Compatible.mk,
+  GUT.LightSMAction.Compatible.mk.inj => Physics.LightSMAction.Compatible.mk.inj,
+  GUT.LightSMAction.Compatible.mk.injEq => Physics.LightSMAction.Compatible.mk.injEq,
+  GUT.LightSMAction.Compatible.mk.noConfusion => Physics.LightSMAction.Compatible.mk.noConfusion,
+  GUT.LightSMAction.Compatible.mk.sizeOf_spec => Physics.LightSMAction.Compatible.mk.sizeOf_spec,
+  GUT.LightSMAction.Compatible.noConfusion => Physics.LightSMAction.Compatible.noConfusion,
+  GUT.LightSMAction.Compatible.noConfusionType => Physics.LightSMAction.Compatible.noConfusionType,
+  GUT.LightSMAction.Compatible.rec => Physics.LightSMAction.Compatible.rec,
+  GUT.LightSMAction.Compatible.recOn => Physics.LightSMAction.Compatible.recOn,
+  GUT.LightSMAction.Compatible.restriction => Physics.LightSMAction.Compatible.restriction,
+  GUT.LightSMAction.PreservesRadical => Physics.LightSMAction.PreservesRadical,
+  GUT.LightSMAction.dual_continuous => Physics.LightSMAction.dual_continuous,
+  GUT.LightSMAction.dual_residual_restriction => Physics.LightSMAction.dual_residual_restriction,
+  GUT.LightSMAction.dual_restriction => Physics.LightSMAction.dual_restriction,
+  GUT.LightSMAction.massForAction => Physics.LightSMAction.massForAction,
+  GUT.LightSMAction.massForAction_form => Physics.LightSMAction.massForAction_form,
+  GUT.LightSMAction.massForAction_radical => Physics.LightSMAction.massForAction_radical,
+  GUT.LightSMAction.ofDecomposition => Physics.LightSMAction.ofDecomposition,
+  GUT.LightSMAction.ofInvariantMass => Physics.LightSMAction.ofInvariantMass,
+  GUT.LightSMAction.ofInvariantMass_continuous => Physics.LightSMAction.ofInvariantMass_continuous,
+  GUT.LightSMAction.ofPreservesRadical => Physics.LightSMAction.ofPreservesRadical,
+  GUT.LightSMAction.ofPreservesRadical_apply => Physics.LightSMAction.ofPreservesRadical_apply,
+  GUT.LightSMAction.ofPreservesRadical_continuous => Physics.LightSMAction.ofPreservesRadical_continuous,
+  GUT.LightSMAction.preservesRadical_of_invariant => Physics.LightSMAction.preservesRadical_of_invariant,
+  GUT.LightSMAction.radicalSubrepresentation => Physics.LightSMAction.radicalSubrepresentation,
+  GUT.LightSMAction.residual_agrees => Physics.LightSMAction.residual_agrees,
+  GUT.LightSMAction.residual_restriction => Physics.LightSMAction.residual_restriction
+]
 
-namespace GUT.LightSMAction
-set_option autoImplicit false
-noncomputable section
-
-open Representation InvariantWeylMass ContinuousRepresentationScope
-open SU5.MaximalTorus
-
-variable {H G E : Type*} [Group H] [Group G]
-  [NormedAddCommGroup E] [InnerProductSpace ℂ E]
-  (j : Torus →* G) (rho : Representation ℂ (G × H) E)
-  (B : SymmetricMass (rho.comp (j.prodMap (MonoidHom.id H))))
-
-/-- This input does not specify particle subspaces, splittings or a tensor. -/
-structure Compatible where
-  action : Representation ℂ (StandardSMGaugeTensor.GaugeGroup × H) B.radical.toSubmodule
-  restriction : action.comp (SU5.PhysicalTorus.gaugeHom.prodMap (MonoidHom.id H)) =
-    B.radical.toRepresentation.comp (SU5.PhysicalTorus.toTorus.prodMap (MonoidHom.id H))
-
-theorem residual_agrees (D : Compatible j rho B) (h : H) :
-    D.action (1, h) = B.radical.toRepresentation (1, h) := by
-  have he := DFunLike.congr_fun D.restriction (1, h)
-  simpa using he
-
-theorem residual_restriction (D : Compatible j rho B) :
-    D.action.comp (MonoidHom.inr _ H) =
-      B.radical.toRepresentation.comp (MonoidHom.inr _ H) := by
-  apply MonoidHom.ext
-  exact residual_agrees j rho B D
-
-theorem dual_restriction (D : Compatible j rho B) :
-    D.action.dual.comp (SU5.PhysicalTorus.gaugeHom.prodMap (MonoidHom.id H)) =
-      B.radical.toRepresentation.dual.comp
-        (SU5.PhysicalTorus.toTorus.prodMap (MonoidHom.id H)) := by
-  rw [SplitRepresentationProjection.dual_comp, D.restriction,
-    SplitRepresentationProjection.dual_comp]
-
-theorem dual_residual_restriction (D : Compatible j rho B) :
-    D.action.dual.comp (MonoidHom.inr _ H) =
-      B.radical.toRepresentation.dual.comp (MonoidHom.inr _ H) := by
-  rw [SplitRepresentationProjection.dual_comp, residual_restriction,
-    SplitRepresentationProjection.dual_comp]
-
-def ofDecomposition (D : CompactExplicitSMTensor.Decomposition j rho B) :
-    Compatible j rho B := ⟨D.action, D.restriction⟩
-
-variable (gamma : Representation ℂ (StandardSMGaugeTensor.GaugeGroup × H) E)
-
-def PreservesRadical : Prop := ∀ g x, x ∈ B.radical.toSubmodule →
-  gamma g x ∈ B.radical.toSubmodule
-
-def radicalSubrepresentation (hp : PreservesRadical j rho B gamma) :
-    Subrepresentation gamma where
-  toSubmodule := B.radical.toSubmodule
-  apply_mem_toSubmodule g _ hx := hp g _ hx
-
-def ofPreservesRadical (hp : PreservesRadical j rho B gamma)
-    (hc : gamma.comp (SU5.PhysicalTorus.gaugeHom.prodMap (MonoidHom.id H)) =
-      (rho.comp (j.prodMap (MonoidHom.id H))).comp
-        (SU5.PhysicalTorus.toTorus.prodMap (MonoidHom.id H))) :
-    Compatible j rho B where
-  action := (radicalSubrepresentation j rho B gamma hp).toRepresentation
-  restriction := by
-    ext g x
-    exact LinearMap.congr_fun (DFunLike.congr_fun hc g) x.val
-
-@[simp] theorem ofPreservesRadical_apply
-    (hp : PreservesRadical j rho B gamma)
-    (hc : gamma.comp (SU5.PhysicalTorus.gaugeHom.prodMap (MonoidHom.id H)) =
-      (rho.comp (j.prodMap (MonoidHom.id H))).comp
-        (SU5.PhysicalTorus.toTorus.prodMap (MonoidHom.id H)))
-    (g : StandardSMGaugeTensor.GaugeGroup × H) (x : B.radical.toSubmodule) :
-    ((ofPreservesRadical j rho B gamma hp hc).action g x).val = gamma g x.val := rfl
-
-def massForAction
-    (hb : ∀ g x y, B.form (gamma g x) (gamma g y) = B.form x y) :
-    SymmetricMass gamma where
-  form := B.form
-  symmetric := B.symmetric
-  invariant := hb
-
-@[simp] theorem massForAction_form
-    (hb : ∀ g x y, B.form (gamma g x) (gamma g y) = B.form x y) :
-    (massForAction j rho B gamma hb).form = B.form := rfl
-
-@[simp] theorem massForAction_radical
-    (hb : ∀ g x y, B.form (gamma g x) (gamma g y) = B.form x y) :
-    (massForAction j rho B gamma hb).radical.toSubmodule = B.radical.toSubmodule := rfl
-
-theorem preservesRadical_of_invariant
-    (hb : ∀ g x y, B.form (gamma g x) (gamma g y) = B.form x y) :
-    PreservesRadical j rho B gamma := by
-  intro g x hx
-  exact (massForAction j rho B gamma hb).radical.apply_mem_toSubmodule g hx
-
-def ofInvariantMass
-    (hb : ∀ g x y, B.form (gamma g x) (gamma g y) = B.form x y)
-    (hc : gamma.comp (SU5.PhysicalTorus.gaugeHom.prodMap (MonoidHom.id H)) =
-      (rho.comp (j.prodMap (MonoidHom.id H))).comp
-        (SU5.PhysicalTorus.toTorus.prodMap (MonoidHom.id H))) :
-    Compatible j rho B :=
-  ofPreservesRadical j rho B gamma (preservesRadical_of_invariant j rho B gamma hb) hc
-
-variable [TopologicalSpace H]
-
-theorem ofPreservesRadical_continuous
-    (hp : PreservesRadical j rho B gamma)
-    (hc : gamma.comp (SU5.PhysicalTorus.gaugeHom.prodMap (MonoidHom.id H)) =
-      (rho.comp (j.prodMap (MonoidHom.id H))).comp
-        (SU5.PhysicalTorus.toTorus.prodMap (MonoidHom.id H)))
-    (hg : IsJointlyContinuous gamma) :
-    IsJointlyContinuous (ofPreservesRadical j rho B gamma hp hc).action :=
-  hg.subrepresentation (radicalSubrepresentation j rho B gamma hp)
-
-theorem ofInvariantMass_continuous
-    (hb : ∀ g x y, B.form (gamma g x) (gamma g y) = B.form x y)
-    (hc : gamma.comp (SU5.PhysicalTorus.gaugeHom.prodMap (MonoidHom.id H)) =
-      (rho.comp (j.prodMap (MonoidHom.id H))).comp
-        (SU5.PhysicalTorus.toTorus.prodMap (MonoidHom.id H)))
-    (hg : IsJointlyContinuous gamma) :
-    IsJointlyContinuous (ofInvariantMass j rho B gamma hb hc).action :=
-  ofPreservesRadical_continuous j rho B gamma
-    (preservesRadical_of_invariant j rho B gamma hb) hc hg
-
-variable [IsTopologicalGroup H] [FiniteDimensional ℂ E]
-
-theorem dual_continuous (D : Compatible j rho B) (hd : IsJointlyContinuous D.action) :
-    letI := ContinuousDual.dualNormedAddCommGroup (V := B.radical.toSubmodule)
-    letI := ContinuousDual.dualNormedSpace (V := B.radical.toSubmodule)
-    IsJointlyContinuous D.action.dual :=
-  ContinuousDual.jointlyContinuous_dual D.action hd
-
-end
-end GUT.LightSMAction
+assert_compatible GUT.LightSMAction.Compatible => Physics.LightSMAction.Compatible
+assert_compatible GUT.LightSMAction.Compatible.action => Physics.LightSMAction.Compatible.action
+assert_compatible GUT.LightSMAction.Compatible.casesOn => Physics.LightSMAction.Compatible.casesOn
+assert_compatible GUT.LightSMAction.Compatible.ctorIdx => Physics.LightSMAction.Compatible.ctorIdx
+assert_compatible GUT.LightSMAction.Compatible.mk => Physics.LightSMAction.Compatible.mk
+assert_compatible GUT.LightSMAction.Compatible.mk.inj => Physics.LightSMAction.Compatible.mk.inj
+assert_compatible GUT.LightSMAction.Compatible.mk.injEq => Physics.LightSMAction.Compatible.mk.injEq
+assert_compatible GUT.LightSMAction.Compatible.mk.noConfusion => Physics.LightSMAction.Compatible.mk.noConfusion
+assert_compatible GUT.LightSMAction.Compatible.mk.sizeOf_spec => Physics.LightSMAction.Compatible.mk.sizeOf_spec
+assert_compatible GUT.LightSMAction.Compatible.noConfusion => Physics.LightSMAction.Compatible.noConfusion
+assert_compatible GUT.LightSMAction.Compatible.noConfusionType => Physics.LightSMAction.Compatible.noConfusionType
+assert_compatible GUT.LightSMAction.Compatible.rec => Physics.LightSMAction.Compatible.rec
+assert_compatible GUT.LightSMAction.Compatible.recOn => Physics.LightSMAction.Compatible.recOn
+assert_compatible GUT.LightSMAction.Compatible.restriction => Physics.LightSMAction.Compatible.restriction
+assert_compatible GUT.LightSMAction.PreservesRadical => Physics.LightSMAction.PreservesRadical
+assert_compatible GUT.LightSMAction.dual_continuous => Physics.LightSMAction.dual_continuous
+assert_compatible GUT.LightSMAction.dual_residual_restriction => Physics.LightSMAction.dual_residual_restriction
+assert_compatible GUT.LightSMAction.dual_restriction => Physics.LightSMAction.dual_restriction
+assert_compatible GUT.LightSMAction.massForAction => Physics.LightSMAction.massForAction
+assert_compatible GUT.LightSMAction.massForAction_form => Physics.LightSMAction.massForAction_form
+assert_compatible GUT.LightSMAction.massForAction_radical => Physics.LightSMAction.massForAction_radical
+assert_compatible GUT.LightSMAction.ofDecomposition => Physics.LightSMAction.ofDecomposition
+assert_compatible GUT.LightSMAction.ofInvariantMass => Physics.LightSMAction.ofInvariantMass
+assert_compatible GUT.LightSMAction.ofInvariantMass_continuous => Physics.LightSMAction.ofInvariantMass_continuous
+assert_compatible GUT.LightSMAction.ofPreservesRadical => Physics.LightSMAction.ofPreservesRadical
+assert_compatible GUT.LightSMAction.ofPreservesRadical_apply => Physics.LightSMAction.ofPreservesRadical_apply
+assert_compatible GUT.LightSMAction.ofPreservesRadical_continuous => Physics.LightSMAction.ofPreservesRadical_continuous
+assert_compatible GUT.LightSMAction.preservesRadical_of_invariant => Physics.LightSMAction.preservesRadical_of_invariant
+assert_compatible GUT.LightSMAction.radicalSubrepresentation => Physics.LightSMAction.radicalSubrepresentation
+assert_compatible GUT.LightSMAction.residual_agrees => Physics.LightSMAction.residual_agrees
+assert_compatible GUT.LightSMAction.residual_restriction => Physics.LightSMAction.residual_restriction

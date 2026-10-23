@@ -1,5 +1,7 @@
-import Physics.FieldTheory.Mass.InvariantWeylMass
-import Physics.FieldTheory.Mass.WeylMassTwoTorsion
+import Physics.FieldTheory.Mass.Algebra.InvariantWeylMass
+import Physics.FieldTheory.Mass.Algebra.WeylMassTwoTorsion
+
+open Physics
 
 /-!
 # Audit of the general symmetric mass foundation and its convention boundary
@@ -11,7 +13,7 @@ identity or a lossy dual index as an actual light-spectrum classification.
 
 set_option autoImplicit false
 
-open GUT.InvariantWeylMass GUT.WeylMassTwoTorsion
+open Physics.InvariantWeylMass Physics.WeylMassTwoTorsion
 
 example {G V : Type*} [Group G] [AddCommGroup V] [Module ℂ V]
     (rho : Representation ℂ G V) : SymmetricMass rho := SymmetricMass.zero rho
@@ -30,9 +32,9 @@ example {G V : Type*} [Group G] [AddCommGroup V] [Module ℂ V] [FiniteDimension
     B.radical.toRepresentation.character g - B.radical.toRepresentation.dual.character g =
       rho.character g - rho.dual.character g := B.radical_dual_character_eq g
 
-#print axioms GUT.EquivariantMassIndex.orthogonalQuotientEquiv
-#print axioms GUT.EquivariantMassIndex.lightIndexCharacter_eq_indexCharacter
-#print axioms GUT.EquivariantMassIndex.lightIndexCharacter_eq_source_sub_target_of_target_unitary
+#print axioms Physics.EquivariantMassIndex.orthogonalQuotientEquiv
+#print axioms Physics.EquivariantMassIndex.lightIndexCharacter_eq_indexCharacter
+#print axioms Physics.EquivariantMassIndex.lightIndexCharacter_eq_source_sub_target_of_target_unitary
 #print axioms SymmetricMass.radical_dual_character_eq
 #print axioms SymmetricMass.toIntertwiningMap
 #print axioms SymmetricMass.radical

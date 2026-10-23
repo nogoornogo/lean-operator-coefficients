@@ -1,5 +1,7 @@
-import Physics.StandardModel.Spectrum.ProfileChiralIndex
+import Physics.StandardModel.Spectrum.Charges.ProfileChiralIndex
 import GUT.SU6.SelectionRules.StandardBranch.WeylZeroModeSupport
+
+open Physics
 
 open Math
 

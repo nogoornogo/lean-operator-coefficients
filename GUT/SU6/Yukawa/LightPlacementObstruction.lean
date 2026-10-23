@@ -1,5 +1,7 @@
 import GUT.SU6.Yukawa.LightEquations
 
+open Physics
+
 /-! Changing couplings in the fixed generated family cannot remove the
 first-five exterior components. No alternate vacuum or scalar is admitted. -/
 namespace GUT.SU6LightPlacementObstruction

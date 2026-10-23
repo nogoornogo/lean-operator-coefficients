@@ -3,6 +3,8 @@ import GUT.Common.ProtonProtection.BLResidualRestriction
 import Math.RepresentationTheory.Decomposition.RepresentationConjugation
 import Math.RepresentationTheory.Decomposition.SplitRepresentationProjection
 
+open Physics
+
 /-! One explicitly selected LR bidoublet column. The quadratic selection is
 an SM-stage hypothesis, not a derived LR scalar potential. -/
 namespace GUT.LRLightHiggs

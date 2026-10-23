@@ -1,0 +1,52 @@
+[
+  {
+    "kind": "compiler-helper-count-reconciliation",
+    "audit": "Physics/StandardModel/Operators/Support/Decomposition/Audit/AuditSMFiniteLeptonSupport.lean",
+    "prefixes": [
+      "Physics.SMLeptonChargeWitnesses",
+      "Physics.SMFiniteLeptonSupport",
+      "Physics.SMFiniteLeptonAssignments",
+      "Physics.SMFiniteLeptonSupportExamples"
+    ],
+    "baselineCount": 1199,
+    "rebuiltCount": 1056,
+    "removedCount": 741,
+    "addedCount": 598,
+    "removedSHA256": "d343ae61de292f17aa09690e6047575ab188b1bdaa68f9cdeab55194050c7e60",
+    "addedSHA256": "14bd1aee9f7ff763793e7177991a41de4b57b7c0a78618ea83b10d8486a370be",
+    "reason": "Recorded synchronous elaboration renumbers and shares compiler proof/match/simp helpers. Every source-declared parent and protected name remains present and subject to the unchanged strict transitive audit."
+  },
+  {
+    "kind": "compiler-helper-count-reconciliation",
+    "audit": "Physics/StandardModel/Operators/Support/Dimension/Audit/AuditSMMinimumOperatorDimension.lean",
+    "prefixes": [
+      "Physics.SMMinimumOperatorDimension",
+      "Physics.SMMinimumOperatorDimensionExamples"
+    ],
+    "baselineCount": 140,
+    "rebuiltCount": 138,
+    "removedCount": 87,
+    "addedCount": 85,
+    "removedSHA256": "0228c17b56dc770c11fb1f00cd76a59280f8f88dfb769f4e2f680a05a25cb64e",
+    "addedSHA256": "477265a4e83c849db553cb941364d65b07eb25ee05ee90c425a2b0fa550a52ec",
+    "reason": "Recorded synchronous elaboration renumbers and shares compiler proof/match/simp helpers. Every source-declared parent and protected name remains present and subject to the unchanged strict transitive audit."
+  },
+  {
+    "kind": "compiler-helper-count-reconciliation",
+    "audit": "Physics/StandardModel/Operators/Support/Dimension/Audit/AuditSMB1MinimumClassification.lean",
+    "prefixes": [
+      "Physics.SMB1DimensionBounds",
+      "Physics.SMB1DimensionProposals",
+      "Physics.SMB1DimensionWitnesses",
+      "Physics.SMB1MinimumClassification",
+      "Physics.SMB1MinimumClassificationExamples"
+    ],
+    "baselineCount": 288,
+    "rebuiltCount": 278,
+    "removedCount": 181,
+    "addedCount": 171,
+    "removedSHA256": "c905c7d961c07226763b1b01afc5f745c13b00f310641174125d7d074d915429",
+    "addedSHA256": "c74d994b172e0853206b93a41317f930a6af2f18e4cf2cb45a02ccba9a29f3b9",
+    "reason": "Recorded synchronous elaboration renumbers and shares compiler proof/match/simp helpers. Every source-declared parent and protected name remains present and subject to the unchanged strict transitive audit."
+  }
+]

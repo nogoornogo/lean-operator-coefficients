@@ -2,6 +2,8 @@ import GUT.SU6.SelectionRules.Models.CanonicalChainModel
 import GUT.SU6.SelectionRules.Audit.AuditContinuousProfileModel
 import GUT.SU6.SelectionRules.Benchmarks.NonuniformProfileModel
 
+open Physics
+
 /-! Actual legacy source regressions: the nonlinear nonzero mass with
 fifteen zero modes, and a two-charge example retaining extra zero modes. -/
 

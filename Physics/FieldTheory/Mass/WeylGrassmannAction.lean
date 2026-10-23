@@ -1,59 +1,39 @@
+import Physics.FieldTheory.Mass.Algebra.WeylGrassmannAction
 import Physics.FieldTheory.Spinor.RightWeylChargeConjugation
-import Mathlib.LinearAlgebra.ExteriorAlgebra.Basic
-import Mathlib.Tactic
+import Math.Lean.Compatibility
 
-/-! Two-spin-component Grassmann mass action. The left-handed field dictionary
-and kinetic action are supplied; no four-component charge-conjugation bridge. -/
-namespace GUT.WeylGrassmannAction
-set_option autoImplicit false
-noncomputable section
-variable {I : Type*}
-abbrev Coordinates (I : Type*) := I × Fin 2 → ℂ
-abbrev Algebra (I : Type*) := ExteriorAlgebra ℂ (Coordinates I)
+deprecated_module "Use Physics.FieldTheory.Mass.Algebra.WeylGrassmannAction instead." (since := "source-api-v1")
 
-def generator [DecidableEq I] (i : I) (s : Fin 2) : Algebra I :=
-  ExteriorAlgebra.ι ℂ (Pi.single (i,s) 1)
+compatibility_declarations [
+  GUT.WeylGrassmannAction.Algebra => Physics.WeylGrassmannAction.Algebra,
+  GUT.WeylGrassmannAction.Coordinates => Physics.WeylGrassmannAction.Coordinates,
+  GUT.WeylGrassmannAction.action => Physics.WeylGrassmannAction.action,
+  GUT.WeylGrassmannAction.action.eq_1 => Physics.WeylGrassmannAction.action.eq_1,
+  GUT.WeylGrassmannAction.fourPair => Physics.WeylGrassmannAction.fourPair,
+  GUT.WeylGrassmannAction.fourPair.eq_1 => Physics.WeylGrassmannAction.fourPair.eq_1,
+  GUT.WeylGrassmannAction.four_component_right => Physics.WeylGrassmannAction.four_component_right,
+  GUT.WeylGrassmannAction.generator => Physics.WeylGrassmannAction.generator,
+  GUT.WeylGrassmannAction.generator_swap => Physics.WeylGrassmannAction.generator_swap,
+  GUT.WeylGrassmannAction.pair => Physics.WeylGrassmannAction.pair,
+  GUT.WeylGrassmannAction.pair.eq_1 => Physics.WeylGrassmannAction.pair.eq_1,
+  GUT.WeylGrassmannAction.pair_symmetric => Physics.WeylGrassmannAction.pair_symmetric,
+  GUT.WeylGrassmannAction.rightComponents => Physics.WeylGrassmannAction.rightComponents,
+  GUT.WeylGrassmannAction.rightComponents.eq_1 => Physics.WeylGrassmannAction.rightComponents.eq_1,
+  GUT.WeylGrassmannAction.three_species_action => Physics.WeylGrassmannAction.three_species_action
+]
 
-def pair [DecidableEq I] (i j : I) : Algebra I :=
-  generator i 0 * generator j 1 - generator i 1 * generator j 0
-
-theorem generator_swap [DecidableEq I] (i j : I) (s t : Fin 2) :
-    generator i s * generator j t = -(generator j t * generator i s) :=
-  eq_neg_of_add_eq_zero_left (ExteriorAlgebra.ι_add_mul_swap _ _)
-
-theorem pair_symmetric [DecidableEq I] (i j : I) : pair i j = pair j i := by
-  unfold pair
-  rw [generator_swap i j 0 1, generator_swap i j 1 0]
-  abel
-
-/-- Grassmann-valued extension of the existing Euclidean right-block embedding. -/
-def rightComponents [DecidableEq I] (i : I) : Fin 4 → Algebra I :=
-  ![generator i 0, generator i 1, 0, 0]
-
-def fourPair [DecidableEq I] (i j : I) : Algebra I :=
-  ∑ a, ∑ b,
-    (GUT.RightWeylChargeConjugation.charge *
-      GUT.RightWeylChargeConjugation.rightProjector) a b •
-        (rightComponents i a * rightComponents j b)
-
-/-- The fixed Euclidean CP_R convention has no extra sqrt(2) factor. -/
-theorem four_component_right [DecidableEq I] (i j : I) : fourPair i j = pair i j := by
-  simp [fourPair, rightComponents, pair, GUT.RightWeylChargeConjugation.charge,
-    GUT.RightWeylChargeConjugation.rightProjector, Matrix.mul_apply,
-    Fin.sum_univ_succ, sub_eq_add_neg]
-
-def action (m : Matrix (Fin 3) (Fin 3) ℂ) : Algebra (Fin 3) :=
-  (- (1/2 : ℂ)) • ∑ i, ∑ j, m i j • pair i j
-
-/-- The off-diagonal factor two cancels the mass-action half because the
-fermionic epsilon contraction is symmetric in species. -/
-theorem three_species_action (d M mu : ℂ) :
-    action !![0,d,0;d,0,M;0,M,mu] =
-      -(d • pair 0 1 + M • pair 1 2 + (mu/2) • pair 2 2) := by
-  simp [action, Fin.sum_univ_succ]
-  rw [pair_symmetric (1 : Fin 3) 0, pair_symmetric (2 : Fin 3) 1]
-  simp only [smul_smul]
-  module
-
-end
-end GUT.WeylGrassmannAction
+assert_compatible GUT.WeylGrassmannAction.Algebra => Physics.WeylGrassmannAction.Algebra
+assert_compatible GUT.WeylGrassmannAction.Coordinates => Physics.WeylGrassmannAction.Coordinates
+assert_compatible GUT.WeylGrassmannAction.action => Physics.WeylGrassmannAction.action
+assert_compatible GUT.WeylGrassmannAction.action.eq_1 => Physics.WeylGrassmannAction.action.eq_1
+assert_compatible GUT.WeylGrassmannAction.fourPair => Physics.WeylGrassmannAction.fourPair
+assert_compatible GUT.WeylGrassmannAction.fourPair.eq_1 => Physics.WeylGrassmannAction.fourPair.eq_1
+assert_compatible GUT.WeylGrassmannAction.four_component_right => Physics.WeylGrassmannAction.four_component_right
+assert_compatible GUT.WeylGrassmannAction.generator => Physics.WeylGrassmannAction.generator
+assert_compatible GUT.WeylGrassmannAction.generator_swap => Physics.WeylGrassmannAction.generator_swap
+assert_compatible GUT.WeylGrassmannAction.pair => Physics.WeylGrassmannAction.pair
+assert_compatible GUT.WeylGrassmannAction.pair.eq_1 => Physics.WeylGrassmannAction.pair.eq_1
+assert_compatible GUT.WeylGrassmannAction.pair_symmetric => Physics.WeylGrassmannAction.pair_symmetric
+assert_compatible GUT.WeylGrassmannAction.rightComponents => Physics.WeylGrassmannAction.rightComponents
+assert_compatible GUT.WeylGrassmannAction.rightComponents.eq_1 => Physics.WeylGrassmannAction.rightComponents.eq_1
+assert_compatible GUT.WeylGrassmannAction.three_species_action => Physics.WeylGrassmannAction.three_species_action

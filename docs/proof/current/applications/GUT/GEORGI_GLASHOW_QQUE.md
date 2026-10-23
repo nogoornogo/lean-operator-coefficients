@@ -39,7 +39,7 @@ from the existing gauge action.
 
 ### Positive Support And Exterior Endpoint
 
-The reusable [ExactSMAutomaticPositive](../../../../../Physics/StandardModel/Spectrum/ExactSMAutomaticPositive.lean)
+The reusable [ExactSMAutomaticPositive](../../../../../Physics/StandardModel/Spectrum/Representations/ExactSMAutomaticPositive.lean)
 lemma combines an exact SM spectrum with the structural conjugation hypotheses:
 
 1. Opposite-species multiplicities vanish, so species indices are actual target characters.

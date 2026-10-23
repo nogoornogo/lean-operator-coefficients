@@ -1,6 +1,8 @@
 import GUT.SU5.Branching.ExteriorSquare
 import GUT.SU5.Embeddings.StandardModelQuotient
 
+open Physics
+
 /-! Descending the actual matter blocks through the proved central kernel.
 The quotient representation is constructed on the same SM block spaces,
 and its pullback is exactly the original full covering-group action. -/

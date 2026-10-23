@@ -1,6 +1,8 @@
 import GUT.SU6.Yukawa.BlockCoordinates
 import TauCeti.RepresentationTheory.Irreducible
 
+open Physics
+
 open Math
 
 /-! The singlet kernel is a genuine trivial residual subrepresentation. -/

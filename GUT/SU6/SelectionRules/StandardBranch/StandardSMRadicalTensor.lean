@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.StandardSMFullGaugeMass
 import Math.RepresentationTheory.Decomposition.SplitRepresentationProjection
 
+open Physics
+
 open Math
 
 /-!

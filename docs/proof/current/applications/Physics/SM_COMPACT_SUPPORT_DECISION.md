@@ -7,7 +7,7 @@ or a general compiled request solver.
 
 ## Mathematical enumeration
 
-[Math.CompactGenerationOccupations](../../../../../Math/RepresentationTheory/CompactGenerationOccupations.lean)
+[Math.CompactGenerationOccupations](../../../../../Math/RepresentationTheory/Exterior/CompactGenerationOccupations.lean)
 proves attainability iff the three counts sum to n. The reverse direction
 constructs an actual contiguous generation word with the requested counts.
 
@@ -26,12 +26,12 @@ statistics, residual action or coefficient-space comparison changes.
 
 ## Physics consumer and closed checks
 
-[SMCompactSupportDecision](../../../../../Physics/StandardModel/Operators/SMCompactSupportDecision.lean)
+[SMCompactSupportDecision](../../../../../Physics/StandardModel/Operators/Support/Decomposition/SMCompactSupportDecision.lean)
 provides named `contentDecision` and `higgsDecision`. They return `Decidable`
 for the **same** `SMJointContentSupport.Supports` and
 `SMJointHiggsSupport.HiggsSupport` predicates. Local helpers decide the finite
 owner, path and expression conditions. A caller opts in explicitly, for example
-with a local instance attribute on `GUT.SMCompactSupportDecision.higgsDecision`.
+with a local instance attribute on `Physics.SMCompactSupportDecision.higgsDecision`.
 Previously elaborated default decisions do not automatically change.
 
 The definitions remain noncomputable for compiled execution because they
@@ -43,7 +43,7 @@ use symbolic exclusions and explicit witnesses in reproducible diagnostic
 files. Those fixed-domain checks preserve actual coefficient semantics but
 do not provide a general compiled evaluator.
 
-[SMCompactSupportExamples](../../../../../Physics/StandardModel/Operators/SMCompactSupportExamples.lean)
+[SMCompactSupportExamples](../../../../../Physics/StandardModel/Operators/Support/Decomposition/SMCompactSupportExamples.lean)
 proves actual original-space statements at k=1,q=l=0:
 
 - `q18Allowed`: Q^18 with h=0,d=6 is allowed.

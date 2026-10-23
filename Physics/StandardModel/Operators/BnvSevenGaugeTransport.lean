@@ -1,226 +1,96 @@
+import Physics.StandardModel.Operators.BaryonOne.Inputs.BnvSevenGaugeTransport
 import Physics.StandardModel.Gauge.HyperchargeTensorTransport
 import Physics.StandardModel.Gauge.WeakContragredient
 import Physics.StandardModel.Operators.BnvSevenLocal
 import Math.RepresentationTheory.InvariantCoefficientTransport
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.BaryonOne.Inputs.BnvSevenGaugeTransport instead." (since := "source-api-v1")
 
-/-! Charge-preserving gauge transports for dimension-seven typed patterns. -/
-namespace GUT.BnvSevenGaugeTransport
-set_option autoImplicit false
-noncomputable section
-open Representation StandardSMGaugeTensor StandardSMContragredient ExternalInvariantTensor
+compatibility_declarations [
+  GUT.BnvSevenGaugeTransport.antiElectron => Physics.BnvSevenGaugeTransport.antiElectron,
+  GUT.BnvSevenGaugeTransport.antiHiggs => Physics.BnvSevenGaugeTransport.antiHiggs,
+  GUT.BnvSevenGaugeTransport.antiLepton => Physics.BnvSevenGaugeTransport.antiLepton,
+  GUT.BnvSevenGaugeTransport.core => Physics.BnvSevenGaugeTransport.core,
+  GUT.BnvSevenGaugeTransport.cover => Physics.BnvSevenGaugeTransport.cover,
+  GUT.BnvSevenGaugeTransport.cover_surjective => Physics.BnvSevenGaugeTransport.cover_surjective,
+  GUT.BnvSevenGaugeTransport.ddd => Physics.BnvSevenGaugeTransport.ddd,
+  GUT.BnvSevenGaugeTransport.dddCore => Physics.BnvSevenGaugeTransport.dddCore,
+  GUT.BnvSevenGaugeTransport.dddInvariantEquiv => Physics.BnvSevenGaugeTransport.dddInvariantEquiv,
+  GUT.BnvSevenGaugeTransport.dddPairing => Physics.BnvSevenGaugeTransport.dddPairing,
+  GUT.BnvSevenGaugeTransport.dddProbe => Physics.BnvSevenGaugeTransport.dddProbe,
+  GUT.BnvSevenGaugeTransport.dddRepresentation => Physics.BnvSevenGaugeTransport.dddRepresentation,
+  GUT.BnvSevenGaugeTransport.ddd_unique => Physics.BnvSevenGaugeTransport.ddd_unique,
+  GUT.BnvSevenGaugeTransport.fourWeakCore => Physics.BnvSevenGaugeTransport.fourWeakCore,
+  GUT.BnvSevenGaugeTransport.fourWeakNeutral => Physics.BnvSevenGaugeTransport.fourWeakNeutral,
+  GUT.BnvSevenGaugeTransport.moveWeak => Physics.BnvSevenGaugeTransport.moveWeak,
+  GUT.BnvSevenGaugeTransport.neutralRepresentation => Physics.BnvSevenGaugeTransport.neutralRepresentation,
+  GUT.BnvSevenGaugeTransport.qdd => Physics.BnvSevenGaugeTransport.qdd,
+  GUT.BnvSevenGaugeTransport.qddCore => Physics.BnvSevenGaugeTransport.qddCore,
+  GUT.BnvSevenGaugeTransport.qddInvariantEquiv => Physics.BnvSevenGaugeTransport.qddInvariantEquiv,
+  GUT.BnvSevenGaugeTransport.qddNeutral => Physics.BnvSevenGaugeTransport.qddNeutral,
+  GUT.BnvSevenGaugeTransport.qddPairing => Physics.BnvSevenGaugeTransport.qddPairing,
+  GUT.BnvSevenGaugeTransport.qddProbe => Physics.BnvSevenGaugeTransport.qddProbe,
+  GUT.BnvSevenGaugeTransport.qddRepresentation => Physics.BnvSevenGaugeTransport.qddRepresentation,
+  GUT.BnvSevenGaugeTransport.qdd_unique => Physics.BnvSevenGaugeTransport.qdd_unique,
+  GUT.BnvSevenGaugeTransport.qqd => Physics.BnvSevenGaugeTransport.qqd,
+  GUT.BnvSevenGaugeTransport.qqdCore => Physics.BnvSevenGaugeTransport.qqdCore,
+  GUT.BnvSevenGaugeTransport.qqdInvariantEquiv => Physics.BnvSevenGaugeTransport.qqdInvariantEquiv,
+  GUT.BnvSevenGaugeTransport.qqdPairing => Physics.BnvSevenGaugeTransport.qqdPairing,
+  GUT.BnvSevenGaugeTransport.qqdProbe => Physics.BnvSevenGaugeTransport.qqdProbe,
+  GUT.BnvSevenGaugeTransport.qqdRepresentation => Physics.BnvSevenGaugeTransport.qqdRepresentation,
+  GUT.BnvSevenGaugeTransport.qqd_reconstruction => Physics.BnvSevenGaugeTransport.qqd_reconstruction,
+  GUT.BnvSevenGaugeTransport.regroup => Physics.BnvSevenGaugeTransport.regroup,
+  GUT.BnvSevenGaugeTransport.regroupFourWeak => Physics.BnvSevenGaugeTransport.regroupFourWeak,
+  GUT.BnvSevenGaugeTransport.regroupQdd => Physics.BnvSevenGaugeTransport.regroupQdd,
+  GUT.BnvSevenGaugeTransport.udd => Physics.BnvSevenGaugeTransport.udd,
+  GUT.BnvSevenGaugeTransport.uddCore => Physics.BnvSevenGaugeTransport.uddCore,
+  GUT.BnvSevenGaugeTransport.uddInvariantEquiv => Physics.BnvSevenGaugeTransport.uddInvariantEquiv,
+  GUT.BnvSevenGaugeTransport.uddPairing => Physics.BnvSevenGaugeTransport.uddPairing,
+  GUT.BnvSevenGaugeTransport.uddProbe => Physics.BnvSevenGaugeTransport.uddProbe,
+  GUT.BnvSevenGaugeTransport.uddRepresentation => Physics.BnvSevenGaugeTransport.uddRepresentation,
+  GUT.BnvSevenGaugeTransport.udd_unique => Physics.BnvSevenGaugeTransport.udd_unique
+]
 
-def antiLepton : Representation.Equiv StandardSMGaugeTensor.lepton.dual (twist weak 3) :=
-  (chargedWeakDualEquiv 3).symm
-
-def antiHiggs : Representation.Equiv (twist weak 3).dual (twist weak (-3)) := by
-  have e := (chargedWeakDualEquiv (-3)).symm
-  norm_num only [neg_neg] at e
-  exact e
-
-def antiElectron : Representation.Equiv electronRight.dual
-    (twist (Representation.trivial ℂ GaugeGroup ℂ) 6) := by
-  have e := HyperchargeTensorTransport.dualLine (-6)
-  norm_num only [neg_neg] at e
-  exact e
-
-def uddRepresentation := ((upRight.tprod downRight).tprod
-  (downRight.tprod StandardSMGaugeTensor.lepton.dual)).tprod (twist weak 3).dual
-
-def dddRepresentation := ((downRight.tprod downRight).tprod
-  (downRight.tprod StandardSMGaugeTensor.lepton.dual)).tprod (twist weak 3)
-
-def neutralRepresentation := ((color.tprod color).tprod (color.tprod weak)).tprod weak
-
-def qddRepresentation := ((quark.tprod downRight).tprod
-  (downRight.tprod electronRight.dual)).tprod (twist weak 3).dual
-
-def qddNeutral := (((color.tprod weak).tprod color).tprod
-  (color.tprod (Representation.trivial ℂ GaugeGroup ℂ))).tprod weak
-
-def qdd : Representation.Equiv qddRepresentation qddNeutral :=
-  (tensorEquiv (tensorEquiv (Representation.Equiv.refl _)
-    (tensorEquiv (Representation.Equiv.refl _) antiElectron)) antiHiggs).trans
-    (HyperchargeTensorTransport.fiveNeutral (color.tprod weak) color color
-      (Representation.trivial ℂ GaugeGroup ℂ) weak 1 (-2) (-2) 6 (-3) (by norm_num))
-
-def moveWeak : Representation.Equiv ((color.tprod weak).tprod color)
-    ((color.tprod color).tprod weak) :=
-  (Representation.TensorProduct.assoc color weak color).trans
-    ((tensorEquiv (Representation.Equiv.refl color)
-      (Representation.TensorProduct.comm weak color)).trans
-      (Representation.TensorProduct.assoc color color weak).symm)
-
-def regroupQdd : Representation.Equiv qddNeutral
-    (((color.tprod color).tprod color).tprod (weak.tprod weak)) :=
-  (tensorEquiv (tensorEquiv moveWeak (Representation.TensorProduct.rid ℂ color))
-    (Representation.Equiv.refl weak)).trans
-    ((tensorEquiv
-      ((Representation.TensorProduct.assoc (color.tprod color) weak color).trans
-        ((tensorEquiv (Representation.Equiv.refl (color.tprod color))
-          (Representation.TensorProduct.comm weak color)).trans
-          (Representation.TensorProduct.assoc (color.tprod color) color weak).symm))
-      (Representation.Equiv.refl weak)).trans
-      (Representation.TensorProduct.assoc ((color.tprod color).tprod color) weak weak))
-
-def qqdRepresentation := ((quark.tprod quark).tprod
-  (downRight.tprod StandardSMGaugeTensor.lepton.dual)).tprod (twist weak 3).dual
-
-def fourWeakNeutral := (((color.tprod weak).tprod (color.tprod weak)).tprod
-  (color.tprod weak)).tprod weak
-
-def qqd : Representation.Equiv qqdRepresentation fourWeakNeutral :=
-  (tensorEquiv (tensorEquiv (Representation.Equiv.refl _)
-      (tensorEquiv (Representation.Equiv.refl _) antiLepton)) antiHiggs).trans
-    (HyperchargeTensorTransport.fiveNeutral (color.tprod weak) (color.tprod weak)
-      color weak weak 1 1 (-2) 3 (-3) (by norm_num))
-
-def regroupFourWeak : Representation.Equiv fourWeakNeutral
-    (((color.tprod color).tprod color).tprod ((weak.tprod weak).tprod (weak.tprod weak))) :=
-  (tensorEquiv (tensorEquiv (regroupPairDiagonal color color weak weak)
-      (Representation.Equiv.refl (color.tprod weak))) (Representation.Equiv.refl weak)).trans
-    ((tensorEquiv (regroupPairDiagonal (color.tprod color) color (weak.tprod weak) weak)
-      (Representation.Equiv.refl weak)).trans
-      ((Representation.TensorProduct.assoc ((color.tprod color).tprod color)
-        ((weak.tprod weak).tprod weak) weak).trans
-        (tensorEquiv (Representation.Equiv.refl ((color.tprod color).tprod color))
-          (Representation.TensorProduct.assoc (weak.tprod weak) weak weak))))
-
-def udd : Representation.Equiv uddRepresentation neutralRepresentation :=
-  (tensorEquiv (tensorEquiv (Representation.Equiv.refl _)
-      (tensorEquiv (Representation.Equiv.refl _) antiLepton)) antiHiggs).trans
-    (HyperchargeTensorTransport.fiveNeutral color color color weak weak
-      4 (-2) (-2) 3 (-3) (by norm_num))
-
-def ddd : Representation.Equiv dddRepresentation neutralRepresentation :=
-  (tensorEquiv (tensorEquiv (Representation.Equiv.refl _)
-      (tensorEquiv (Representation.Equiv.refl _) antiLepton))
-      (Representation.Equiv.refl _)).trans
-    (HyperchargeTensorTransport.fiveNeutral color color color weak weak
-      (-2) (-2) (-2) 3 3 (by norm_num))
-
-def regroup : Representation.Equiv neutralRepresentation
-    (((color.tprod color).tprod color).tprod (weak.tprod weak)) :=
-  (tensorEquiv (Representation.TensorProduct.assoc (color.tprod color) color weak).symm
-    (Representation.Equiv.refl weak)).trans
-    (Representation.TensorProduct.assoc ((color.tprod color).tprod color) weak weak)
-
-def cover : GaugeGroup →* (Matrix.specialUnitaryGroup (Fin 3) ℂ ×
-    Matrix.specialUnitaryGroup (Fin 2) ℂ) where
-  toFun g := (g.1, g.2.1)
-  map_one' := rfl
-  map_mul' _ _ := rfl
-
-theorem cover_surjective : Function.Surjective cover := by
-  intro g
-  exact ⟨(g.1, g.2, 1), rfl⟩
-
-def core : Representation.Equiv
-    (((color.tprod color).tprod color).tprod (weak.tprod weak))
-    (BnvSevenLocal.gaugeRepresentation.comp cover) where
-  toLinearEquiv := LinearEquiv.refl ℂ _
-  isIntertwining' g := by
-    ext a b c u v
-    rfl
-
-def fourWeakCore : Representation.Equiv
-    (((color.tprod color).tprod color).tprod ((weak.tprod weak).tprod (weak.tprod weak)))
-    (BnvSevenLocal.fourWeakGaugeRepresentation.comp cover) where
-  toLinearEquiv := LinearEquiv.refl ℂ _
-  isIntertwining' g := by
-    ext a b c u v w x
-    rfl
-
-def qqdCore : Representation.Equiv qqdRepresentation
-    (BnvSevenLocal.fourWeakGaugeRepresentation.comp cover) :=
-  qqd.trans (regroupFourWeak.trans fourWeakCore)
-
-def qqdInvariantEquiv : InvariantCoefficientTransport.Invariants qqdRepresentation ≃ₗ[ℂ]
-    InvariantCoefficientTransport.Invariants BnvSevenLocal.fourWeakGaugeRepresentation :=
-  (InvariantCoefficientTransport.alongEquiv qqdCore).trans
-    (InvariantCoefficientTransport.alongSurjection BnvSevenLocal.fourWeakGaugeRepresentation
-      cover cover_surjective)
-
-def qqdPairing (i : Fin 2) := qqdInvariantEquiv.symm (BnvSevenLocal.fourWeakGaugePairing i)
-def qqdProbe (i : Fin 2) := qqdCore.symm (BnvSevenLocal.fourWeakGaugeProbe i)
-
-theorem qqd_reconstruction (f : InvariantCoefficientTransport.Invariants qqdRepresentation) :
-    f = ∑ i, f (qqdProbe i) • qqdPairing i := by
-  apply qqdInvariantEquiv.injective
-  rw [map_sum]
-  simp only [map_smul]
-  calc
-    _ = ∑ i, (qqdInvariantEquiv f) (BnvSevenLocal.fourWeakGaugeProbe i) •
-        BnvSevenLocal.fourWeakGaugePairing i :=
-      BnvSevenLocal.fourWeakGauge_reconstruction (qqdInvariantEquiv f)
-    _ = _ := by
-      apply Finset.sum_congr rfl
-      intro i hi
-      rw [show qqdInvariantEquiv (qqdPairing i) = BnvSevenLocal.fourWeakGaugePairing i
-        from qqdInvariantEquiv.apply_symm_apply _]
-      rfl
-
-def uddCore : Representation.Equiv uddRepresentation
-    (BnvSevenLocal.gaugeRepresentation.comp cover) := udd.trans (regroup.trans core)
-
-def qddCore : Representation.Equiv qddRepresentation
-    (BnvSevenLocal.gaugeRepresentation.comp cover) := qdd.trans (regroupQdd.trans core)
-
-def qddInvariantEquiv : InvariantCoefficientTransport.Invariants qddRepresentation ≃ₗ[ℂ]
-    InvariantCoefficientTransport.Invariants BnvSevenLocal.gaugeRepresentation :=
-  (InvariantCoefficientTransport.alongEquiv qddCore).trans
-    (InvariantCoefficientTransport.alongSurjection BnvSevenLocal.gaugeRepresentation
-      cover cover_surjective)
-
-def qddPairing := qddInvariantEquiv.symm BnvSevenLocal.gaugePairing
-def qddProbe := qddCore.symm BnvSevenLocal.gaugeProbe
-
-theorem qdd_unique (f : InvariantCoefficientTransport.Invariants qddRepresentation) :
-    f = f qddProbe • qddPairing := by
-  apply qddInvariantEquiv.injective
-  rw [map_smul]
-  rw [show qddInvariantEquiv qddPairing = BnvSevenLocal.gaugePairing from
-    qddInvariantEquiv.apply_symm_apply _]
-  exact BnvSevenLocal.gauge_unique (qddInvariantEquiv f)
-
-def dddCore : Representation.Equiv dddRepresentation
-    (BnvSevenLocal.gaugeRepresentation.comp cover) := ddd.trans (regroup.trans core)
-
-def uddInvariantEquiv : InvariantCoefficientTransport.Invariants uddRepresentation ≃ₗ[ℂ]
-    InvariantCoefficientTransport.Invariants BnvSevenLocal.gaugeRepresentation :=
-  (InvariantCoefficientTransport.alongEquiv uddCore).trans
-    (InvariantCoefficientTransport.alongSurjection BnvSevenLocal.gaugeRepresentation
-      cover cover_surjective)
-
-def dddInvariantEquiv : InvariantCoefficientTransport.Invariants dddRepresentation ≃ₗ[ℂ]
-    InvariantCoefficientTransport.Invariants BnvSevenLocal.gaugeRepresentation :=
-  (InvariantCoefficientTransport.alongEquiv dddCore).trans
-    (InvariantCoefficientTransport.alongSurjection BnvSevenLocal.gaugeRepresentation
-      cover cover_surjective)
-
-def uddPairing := uddInvariantEquiv.symm BnvSevenLocal.gaugePairing
-def dddPairing := dddInvariantEquiv.symm BnvSevenLocal.gaugePairing
-def uddProbe := uddCore.symm BnvSevenLocal.gaugeProbe
-def dddProbe := dddCore.symm BnvSevenLocal.gaugeProbe
-
-theorem udd_unique (f : InvariantCoefficientTransport.Invariants uddRepresentation) :
-    f = f uddProbe • uddPairing := by
-  apply uddInvariantEquiv.injective
-  rw [map_smul]
-  have hp : uddInvariantEquiv uddPairing = BnvSevenLocal.gaugePairing :=
-    uddInvariantEquiv.apply_symm_apply _
-  rw [hp]
-  exact BnvSevenLocal.gauge_unique (uddInvariantEquiv f)
-
-theorem ddd_unique (f : InvariantCoefficientTransport.Invariants dddRepresentation) :
-    f = f dddProbe • dddPairing := by
-  apply dddInvariantEquiv.injective
-  rw [map_smul]
-  have hp : dddInvariantEquiv dddPairing = BnvSevenLocal.gaugePairing :=
-    dddInvariantEquiv.apply_symm_apply _
-  rw [hp]
-  exact BnvSevenLocal.gauge_unique (dddInvariantEquiv f)
-
-end
-end GUT.BnvSevenGaugeTransport
+assert_compatible GUT.BnvSevenGaugeTransport.antiElectron => Physics.BnvSevenGaugeTransport.antiElectron
+assert_compatible GUT.BnvSevenGaugeTransport.antiHiggs => Physics.BnvSevenGaugeTransport.antiHiggs
+assert_compatible GUT.BnvSevenGaugeTransport.antiLepton => Physics.BnvSevenGaugeTransport.antiLepton
+assert_compatible GUT.BnvSevenGaugeTransport.core => Physics.BnvSevenGaugeTransport.core
+assert_compatible GUT.BnvSevenGaugeTransport.cover => Physics.BnvSevenGaugeTransport.cover
+assert_compatible GUT.BnvSevenGaugeTransport.cover_surjective => Physics.BnvSevenGaugeTransport.cover_surjective
+assert_compatible GUT.BnvSevenGaugeTransport.ddd => Physics.BnvSevenGaugeTransport.ddd
+assert_compatible GUT.BnvSevenGaugeTransport.dddCore => Physics.BnvSevenGaugeTransport.dddCore
+assert_compatible GUT.BnvSevenGaugeTransport.dddInvariantEquiv => Physics.BnvSevenGaugeTransport.dddInvariantEquiv
+assert_compatible GUT.BnvSevenGaugeTransport.dddPairing => Physics.BnvSevenGaugeTransport.dddPairing
+assert_compatible GUT.BnvSevenGaugeTransport.dddProbe => Physics.BnvSevenGaugeTransport.dddProbe
+assert_compatible GUT.BnvSevenGaugeTransport.dddRepresentation => Physics.BnvSevenGaugeTransport.dddRepresentation
+assert_compatible GUT.BnvSevenGaugeTransport.ddd_unique => Physics.BnvSevenGaugeTransport.ddd_unique
+assert_compatible GUT.BnvSevenGaugeTransport.fourWeakCore => Physics.BnvSevenGaugeTransport.fourWeakCore
+assert_compatible GUT.BnvSevenGaugeTransport.fourWeakNeutral => Physics.BnvSevenGaugeTransport.fourWeakNeutral
+assert_compatible GUT.BnvSevenGaugeTransport.moveWeak => Physics.BnvSevenGaugeTransport.moveWeak
+assert_compatible GUT.BnvSevenGaugeTransport.neutralRepresentation => Physics.BnvSevenGaugeTransport.neutralRepresentation
+assert_compatible GUT.BnvSevenGaugeTransport.qdd => Physics.BnvSevenGaugeTransport.qdd
+assert_compatible GUT.BnvSevenGaugeTransport.qddCore => Physics.BnvSevenGaugeTransport.qddCore
+assert_compatible GUT.BnvSevenGaugeTransport.qddInvariantEquiv => Physics.BnvSevenGaugeTransport.qddInvariantEquiv
+assert_compatible GUT.BnvSevenGaugeTransport.qddNeutral => Physics.BnvSevenGaugeTransport.qddNeutral
+assert_compatible GUT.BnvSevenGaugeTransport.qddPairing => Physics.BnvSevenGaugeTransport.qddPairing
+assert_compatible GUT.BnvSevenGaugeTransport.qddProbe => Physics.BnvSevenGaugeTransport.qddProbe
+assert_compatible GUT.BnvSevenGaugeTransport.qddRepresentation => Physics.BnvSevenGaugeTransport.qddRepresentation
+assert_compatible GUT.BnvSevenGaugeTransport.qdd_unique => Physics.BnvSevenGaugeTransport.qdd_unique
+assert_compatible GUT.BnvSevenGaugeTransport.qqd => Physics.BnvSevenGaugeTransport.qqd
+assert_compatible GUT.BnvSevenGaugeTransport.qqdCore => Physics.BnvSevenGaugeTransport.qqdCore
+assert_compatible GUT.BnvSevenGaugeTransport.qqdInvariantEquiv => Physics.BnvSevenGaugeTransport.qqdInvariantEquiv
+assert_compatible GUT.BnvSevenGaugeTransport.qqdPairing => Physics.BnvSevenGaugeTransport.qqdPairing
+assert_compatible GUT.BnvSevenGaugeTransport.qqdProbe => Physics.BnvSevenGaugeTransport.qqdProbe
+assert_compatible GUT.BnvSevenGaugeTransport.qqdRepresentation => Physics.BnvSevenGaugeTransport.qqdRepresentation
+assert_compatible GUT.BnvSevenGaugeTransport.qqd_reconstruction => Physics.BnvSevenGaugeTransport.qqd_reconstruction
+assert_compatible GUT.BnvSevenGaugeTransport.regroup => Physics.BnvSevenGaugeTransport.regroup
+assert_compatible GUT.BnvSevenGaugeTransport.regroupFourWeak => Physics.BnvSevenGaugeTransport.regroupFourWeak
+assert_compatible GUT.BnvSevenGaugeTransport.regroupQdd => Physics.BnvSevenGaugeTransport.regroupQdd
+assert_compatible GUT.BnvSevenGaugeTransport.udd => Physics.BnvSevenGaugeTransport.udd
+assert_compatible GUT.BnvSevenGaugeTransport.uddCore => Physics.BnvSevenGaugeTransport.uddCore
+assert_compatible GUT.BnvSevenGaugeTransport.uddInvariantEquiv => Physics.BnvSevenGaugeTransport.uddInvariantEquiv
+assert_compatible GUT.BnvSevenGaugeTransport.uddPairing => Physics.BnvSevenGaugeTransport.uddPairing
+assert_compatible GUT.BnvSevenGaugeTransport.uddProbe => Physics.BnvSevenGaugeTransport.uddProbe
+assert_compatible GUT.BnvSevenGaugeTransport.uddRepresentation => Physics.BnvSevenGaugeTransport.uddRepresentation
+assert_compatible GUT.BnvSevenGaugeTransport.udd_unique => Physics.BnvSevenGaugeTransport.udd_unique

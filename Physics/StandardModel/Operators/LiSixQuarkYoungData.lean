@@ -1,15 +1,16 @@
-import Mathlib.Tactic
+import Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkYoungData
+import Math.Lean.Compatibility
 
-/-! Literal tableau and relabelling dictionary. These are source data, not
-a matrix rank, inverse or cached seed-coordinate certificate. -/
-namespace GUT.LiSixQuarkYoungData
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkYoungData instead." (since := "source-api-v1")
 
-def permutationData : Fin 48 → Fin 6 → Fin 6 := ![![0,1,2,3,4,5],![0,1,2,3,5,4],![0,1,3,2,4,5],![0,1,3,2,5,4],![0,2,1,3,4,5],![0,2,1,3,5,4],![0,2,3,1,4,5],![0,2,3,1,5,4],![0,3,1,2,4,5],![0,3,1,2,5,4],![0,3,2,1,4,5],![0,3,2,1,5,4],![1,0,2,3,4,5],![1,0,2,3,5,4],![1,0,3,2,4,5],![1,0,3,2,5,4],![1,2,0,3,4,5],![1,2,0,3,5,4],![1,2,3,0,4,5],![1,2,3,0,5,4],![1,3,0,2,4,5],![1,3,0,2,5,4],![1,3,2,0,4,5],![1,3,2,0,5,4],![2,0,1,3,4,5],![2,0,1,3,5,4],![2,0,3,1,4,5],![2,0,3,1,5,4],![2,1,0,3,4,5],![2,1,0,3,5,4],![2,1,3,0,4,5],![2,1,3,0,5,4],![2,3,0,1,4,5],![2,3,0,1,5,4],![2,3,1,0,4,5],![2,3,1,0,5,4],![3,0,1,2,4,5],![3,0,1,2,5,4],![3,0,2,1,4,5],![3,0,2,1,5,4],![3,1,0,2,4,5],![3,1,0,2,5,4],![3,1,2,0,4,5],![3,1,2,0,5,4],![3,2,0,1,4,5],![3,2,0,1,5,4],![3,2,1,0,4,5],![3,2,1,0,5,4]]
+compatibility_declarations [
+  GUT.LiSixQuarkYoungData.normalization => Physics.LiSixQuarkYoungData.normalization,
+  GUT.LiSixQuarkYoungData.permutationData => Physics.LiSixQuarkYoungData.permutationData,
+  GUT.LiSixQuarkYoungData.seedColorData => Physics.LiSixQuarkYoungData.seedColorData,
+  GUT.LiSixQuarkYoungData.youngWeights => Physics.LiSixQuarkYoungData.youngWeights
+]
 
-def seedColorData : Fin 11 → Fin 6 → Fin 6 := ![![0,2,4,1,3,5],![0,3,5,1,2,4],![0,2,4,1,3,5],![0,3,5,1,2,4],![0,2,4,1,3,5],![0,1,4,2,3,5],![0,3,5,1,2,4],![0,2,4,1,3,5],![0,1,5,2,3,4],![0,2,4,1,3,5],![0,2,4,1,3,5]]
-
-def youngWeights : Fin 11 → Fin 48 → ℚ := ![![1,1,0,0,-1,-1,0,0,0,0,0,0,-1,-1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,-1,-1,0,0,0,0,0,0,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1],![1,1,0,0,-1,-1,0,0,0,0,0,0,-1,-1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,-1,-1,0,0,0,0,0,0,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1],![1,1,1,1,0,0,0,0,0,0,0,0,-1,-1,-1,-1,0,0,0,0,0,0,0,0,-1,-1,-1,-1,1,1,1,1,0,0,0,0,-1,-1,-1,-1,1,1,1,1,0,0,0,0],![1,1,1,1,0,0,0,0,0,0,0,0,-1,-1,-1,-1,0,0,0,0,0,0,0,0,-1,-1,-1,-1,1,1,1,1,0,0,0,0,-1,-1,-1,-1,1,1,1,1,0,0,0,0],![1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1],![1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1,-1,1,1,-1],![1,-1,0,0,-1,1,0,0,0,0,0,0,-1,1,0,0,1,-1,0,0,0,0,0,0,1,-1,0,0,-1,1,0,0,0,0,0,0,1,-1,-1,1,-1,1,1,-1,1,-1,-1,1],![1,-1,-1,1,0,0,-1,1,0,0,1,-1,-1,1,1,-1,0,0,1,-1,0,0,-1,1,-1,1,0,0,1,-1,0,0,1,-1,-1,1,1,-1,0,0,-1,1,0,0,-1,1,1,-1],![1,-1,-1,1,0,0,-1,1,0,0,1,-1,-1,1,1,-1,0,0,1,-1,0,0,-1,1,-1,1,0,0,1,-1,0,0,1,-1,-1,1,1,-1,0,0,-1,1,0,0,-1,1,1,-1],![1,-1,1,-1,0,0,0,0,0,0,0,0,-1,1,-1,1,0,0,0,0,0,0,0,0,-1,1,-1,1,1,-1,1,-1,0,0,0,0,-1,1,-1,1,1,-1,1,-1,0,0,0,0],![1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1]]
-
-def normalization : Fin 11 → ℚ := ![2,2,1,2,2,2,2,2,2,1,2]
-
-end GUT.LiSixQuarkYoungData
+assert_compatible GUT.LiSixQuarkYoungData.normalization => Physics.LiSixQuarkYoungData.normalization
+assert_compatible GUT.LiSixQuarkYoungData.permutationData => Physics.LiSixQuarkYoungData.permutationData
+assert_compatible GUT.LiSixQuarkYoungData.seedColorData => Physics.LiSixQuarkYoungData.seedColorData
+assert_compatible GUT.LiSixQuarkYoungData.youngWeights => Physics.LiSixQuarkYoungData.youngWeights

@@ -68,11 +68,11 @@ import GUT.SU5.Branching.ExteriorSquare
 import GUT.SU5.Branching.Fundamental
 import GUT.SU5.Branching.ProfileEvaluation
 import GUT.SU5.Branching.QuotientDescent
-import GUT.SU5.Branching.TorusCharacter
+import GUT.SU5.Embeddings.MaximalTorus
+import Physics.StandardModel.Spectrum.Representations.TorusCharacter
 import GUT.SU5.Branching.TorusCharacterSource
 import GUT.SU5.Branching.TorusMatterCharacter
 import GUT.SU5.Branching.Unitary
-import GUT.SU5.Embeddings.MaximalTorus
 import GUT.SU5.Embeddings.PhysicalTorus
 import GUT.SU5.Embeddings.StandardModel
 import GUT.SU5.Embeddings.StandardModelKernel
@@ -299,7 +299,7 @@ import GUT.SU6.Representations.ConcreteSU6Representations
 import GUT.SU6.Representations.ContinuousSU6Unitarization
 import GUT.SU6.Representations.ContinuousUnitaryConstructions
 import GUT.SU6.Representations.FundamentalRepresentation
-import GUT.SU6.Representations.UnitaryVirtualRestriction
+import Physics.FieldTheory.Mass.Spectrum.UnitaryVirtualRestriction
 import GUT.SU6.Yukawa.UnitarySymmetricScalar
 import GUT.SU6.Yukawa.GeneratedMassFamily
 import GUT.SU6.Yukawa.TwoBlockSpectrum
@@ -414,6 +414,15 @@ import GUT.SU6.SelectionRules.Models.FiniteIndexCertificate
 import GUT.SU6.Audit.AuditFiniteIndexCertificate
 import GUT.SU6.SelectionRules.Models.PhysicalIndexObstruction
 import GUT.SU6.Audit.AuditPhysicalIndexObstruction
+import GUT.SU6.SelectionRules.Models.CyclicProtectionFeasibility
+import GUT.SU6.SelectionRules.Models.ProtectionFeasibilityControls
+import GUT.SU6.Audit.AuditProtectionFeasibility
+import GUT.SU6.Boundary.ExteriorCube
+import GUT.SU6.Boundary.ChiralSelection
+import GUT.SU6.Boundary.BaryonAction
+import GUT.SU6.Boundary.Interactions
+import GUT.SU6.Boundary.Protection
+import GUT.SU6.Audit.AuditBoundaryProtection
 import GUT.SU5.SelectionRules.CopyCountProtectionConstraint
 import GUT.SU5.Audit.AuditCopyCountProtectionConstraint
 import GUT.SU5.SelectionRules.ExoticCopyIndexBounds
@@ -457,3 +466,16 @@ import GUT.Common.ProtonProtection.Audit.AuditBLLRInputBridges
 
 import GUT.Common.ProtonProtection.LRModelAdmissionControls
 import GUT.Common.ProtonProtection.Audit.AuditBLLRModelAdmission
+import GUT.Compatibility.Audit.LegacyRestriction
+import GUT.SU5.Branching.TorusCharacter
+import GUT.SU5.SelectionRules.InvariantMassNormalForm
+import GUT.SU5.SelectionRules.MatrixTenMass
+import GUT.SU5.SelectionRules.MixedTenMass
+import GUT.SU5.SelectionRules.NonScalarCopyMass
+import GUT.SU5.SelectionRules.NonScalarInvariantMass
+import GUT.SU5.SelectionRules.PhysicalCommonCopyAdapter
+import GUT.SU5.SelectionRules.ScalarBlockMassExtension
+import GUT.SU5.SelectionRules.ScalarBlockQque
+import GUT.SU6.Representations.UnitaryVirtualRestriction
+import GUT.SU6.Boundary.FieldConnection
+import GUT.SU6.Audit.AuditFieldConnection

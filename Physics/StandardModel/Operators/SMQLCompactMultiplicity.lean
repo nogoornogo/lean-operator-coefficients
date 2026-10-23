@@ -1,43 +1,20 @@
+import Physics.StandardModel.Operators.Support.Quark.SMQLCompactMultiplicity
 import Physics.StandardModel.Operators.SMCompactMultiplicity
 import Physics.StandardModel.Operators.SMQLFullKernel
+import Math.Lean.Compatibility
 
-/-! Full support for the existing scalar cyclic q/l residual action, through
-actual local character extraction and the original all-degree Higgs reduction. -/
-namespace GUT.SMQLCompactMultiplicity
-set_option autoImplicit false
-noncomputable section
-open Math Representation
-variable {k : ℕ} [NeZero k] (q l : ZMod k)
-  {n : ℕ} (p : Fin n → DeltaLOneSignedInput.Species)
+deprecated_module "Use Physics.StandardModel.Operators.Support.Quark.SMQLCompactMultiplicity instead." (since := "source-api-v1")
 
-abbrev multiplicity (m : ℕ) (delta : ℤ) :=
-  SMCompactMultiplicity.multiplicity (QLFiniteSupport.flavor q l) p m delta
-abbrev Input (m : ℕ) (delta : ℤ) := SMCompactMultiplicity.Input (QLFiniteSupport.flavor q l) p m delta
+compatibility_declarations [
+  GUT.SMQLCompactMultiplicity.Input => Physics.SMQLCompactMultiplicity.Input,
+  GUT.SMQLCompactMultiplicity.multiplicity => Physics.SMQLCompactMultiplicity.multiplicity,
+  GUT.SMQLCompactMultiplicity.original_allowed_iff => Physics.SMQLCompactMultiplicity.original_allowed_iff,
+  GUT.SMQLCompactMultiplicity.original_forbidden_iff => Physics.SMQLCompactMultiplicity.original_forbidden_iff,
+  GUT.SMQLCompactMultiplicity.test_allowed_iff => Physics.SMQLCompactMultiplicity.test_allowed_iff
+]
 
-theorem test_allowed_iff (m : ℕ) (delta : ℤ) (input : Input q l p m delta) :
-    SelectionCriteria.Allowed (QLFiniteSupport.Test q l p m delta) ↔
-      QLFiniteSupport.charge q l p = 0 ∧ 0 < multiplicity q l p m delta :=
-  (QLFiniteSupport.test_allowed_iff q l p m delta).trans
-    (and_congr Iff.rfl (SMCompactMultiplicity.local_allowed_iff
-      (QLFiniteSupport.flavor q l) p m delta input))
-
-theorem original_allowed_iff (h d : ℕ)
-    (input : ∀ m : Fin (SMContentWeakBound.bound p+1), Input q l p m.val ((h : ℤ)-d)) :
-    SelectionCriteria.Allowed (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d) ↔
-      QLFiniteSupport.charge q l p = 0 ∧
-        ∃ m : Fin (SMContentWeakBound.bound p+1), BoundedHiggsSupport.Admissible h d m.val ∧
-          0 < multiplicity q l p m.val ((h : ℤ)-d) :=
-  (QLFiniteSupport.original_allowed_iff q l p h d).trans
-    (and_congr Iff.rfl (exists_congr (fun m => and_congr Iff.rfl
-      (SMCompactMultiplicity.local_allowed_iff (QLFiniteSupport.flavor q l) p m.val ((h : ℤ)-d) (input m)))))
-
-theorem original_forbidden_iff (h d : ℕ)
-    (input : ∀ m : Fin (SMContentWeakBound.bound p+1), Input q l p m.val ((h : ℤ)-d)) :
-    SelectionCriteria.Forbidden (SMFiniteHiggsSupport.OriginalSpace (QLFiniteSupport.flavor q l) p h d) ↔
-      ¬ (QLFiniteSupport.charge q l p = 0 ∧
-        ∃ m : Fin (SMContentWeakBound.bound p+1), BoundedHiggsSupport.Admissible h d m.val ∧
-          0 < multiplicity q l p m.val ((h : ℤ)-d)) := by
-  rw [SelectionCriteria.forbidden_iff_not_allowed,original_allowed_iff q l p h d input]
-
-end
-end GUT.SMQLCompactMultiplicity
+assert_compatible GUT.SMQLCompactMultiplicity.Input => Physics.SMQLCompactMultiplicity.Input
+assert_compatible GUT.SMQLCompactMultiplicity.multiplicity => Physics.SMQLCompactMultiplicity.multiplicity
+assert_compatible GUT.SMQLCompactMultiplicity.original_allowed_iff => Physics.SMQLCompactMultiplicity.original_allowed_iff
+assert_compatible GUT.SMQLCompactMultiplicity.original_forbidden_iff => Physics.SMQLCompactMultiplicity.original_forbidden_iff
+assert_compatible GUT.SMQLCompactMultiplicity.test_allowed_iff => Physics.SMQLCompactMultiplicity.test_allowed_iff

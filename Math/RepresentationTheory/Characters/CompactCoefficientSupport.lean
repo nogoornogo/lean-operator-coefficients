@@ -1,6 +1,6 @@
 import Math.RepresentationTheory.Characters.CompactHomSupport
-import Math.RepresentationTheory.InvariantTensorCurry
-import Math.RepresentationTheory.InvariantCoefficientTransport
+import Math.RepresentationTheory.Tensors.InvariantTensorCurry
+import Math.RepresentationTheory.Coefficients.InvariantCoefficientTransport
 
 /-! Invariant coefficient support from constituent support, using compact Hom
 symmetry. Continuity and equivalent finite normed models are explicit inputs;

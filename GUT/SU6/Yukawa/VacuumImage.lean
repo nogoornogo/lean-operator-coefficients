@@ -1,6 +1,8 @@
 import GUT.SU6.Yukawa.StabilizerBasis
 import GUT.SU6.Yukawa.FiveCouplings
 
+open Physics
+
 open Math
 
 /-! All actual Yukawa evaluations at the specified vacuum lie in the

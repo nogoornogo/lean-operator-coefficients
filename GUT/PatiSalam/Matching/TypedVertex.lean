@@ -1,6 +1,8 @@
-import Physics.StandardModel.Operators.BnvSevenResidualCoordinates
-import Math.RepresentationTheory.MixedSinglePatternEvaluation
-open Math GUT Representation ExternalInvariantTensor
+import Physics.StandardModel.Operators.BaryonOne.Inputs.BnvSevenResidualCoordinates
+import Math.RepresentationTheory.Content.MixedSinglePatternEvaluation
+
+open Physics
+open Math Representation ExternalInvariantTensor
 open scoped TensorProduct
 namespace GUT.PatiSalam.TypedVertex
 noncomputable section

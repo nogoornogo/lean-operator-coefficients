@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.ProfileZeroModeSupport
 import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylFullMass
-import Physics.StandardModel.Spectrum.Audit.AuditProfileChiralIndex
+import Physics.StandardModel.Spectrum.Charges.Audit.AuditProfileChiralIndex
+
+open Physics
 
 /-! Actual-radical regression of the profile interface, with nonzero mass
 and with extra zero modes. No supplied eigenvectors or UV support premise. -/

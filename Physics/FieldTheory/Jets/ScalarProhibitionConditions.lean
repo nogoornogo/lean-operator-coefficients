@@ -1,0 +1,26 @@
+import Physics.FieldTheory.Jets.Scalar.Inputs.ScalarProhibitionConditions
+import Math.RepresentationTheory.DerivativeProhibition
+import Physics.FieldTheory.Jets.ScalarDerivativeInterface
+import Math.Lean.Compatibility
+
+deprecated_module "Use Physics.FieldTheory.Jets.Scalar.Inputs.ScalarProhibitionConditions instead." (since := "source-api-v1")
+
+compatibility_declarations [
+  GUT.ScalarProhibitionConditions.cubic_constraint => Physics.ScalarProhibitionConditions.cubic_constraint,
+  GUT.ScalarProhibitionConditions.cubic_zero_of_coupling => Physics.ScalarProhibitionConditions.cubic_zero_of_coupling,
+  GUT.ScalarProhibitionConditions.nonzero_cubic_requires_zero_coupling => Physics.ScalarProhibitionConditions.nonzero_cubic_requires_zero_coupling,
+  GUT.ScalarProhibitionConditions.selected_cubic_zero => Physics.ScalarProhibitionConditions.selected_cubic_zero,
+  GUT.ScalarProhibitionConditions.selected_wave_zero => Physics.ScalarProhibitionConditions.selected_wave_zero,
+  GUT.ScalarProhibitionConditions.wave_coefficient_zero => Physics.ScalarProhibitionConditions.wave_coefficient_zero,
+  GUT.ScalarProhibitionConditions.wave_is_divergence => Physics.ScalarProhibitionConditions.wave_is_divergence,
+  GUT.ScalarProhibitionConditions.wave_mem => Physics.ScalarProhibitionConditions.wave_mem
+]
+
+assert_compatible GUT.ScalarProhibitionConditions.cubic_constraint => Physics.ScalarProhibitionConditions.cubic_constraint
+assert_compatible GUT.ScalarProhibitionConditions.cubic_zero_of_coupling => Physics.ScalarProhibitionConditions.cubic_zero_of_coupling
+assert_compatible GUT.ScalarProhibitionConditions.nonzero_cubic_requires_zero_coupling => Physics.ScalarProhibitionConditions.nonzero_cubic_requires_zero_coupling
+assert_compatible GUT.ScalarProhibitionConditions.selected_cubic_zero => Physics.ScalarProhibitionConditions.selected_cubic_zero
+assert_compatible GUT.ScalarProhibitionConditions.selected_wave_zero => Physics.ScalarProhibitionConditions.selected_wave_zero
+assert_compatible GUT.ScalarProhibitionConditions.wave_coefficient_zero => Physics.ScalarProhibitionConditions.wave_coefficient_zero
+assert_compatible GUT.ScalarProhibitionConditions.wave_is_divergence => Physics.ScalarProhibitionConditions.wave_is_divergence
+assert_compatible GUT.ScalarProhibitionConditions.wave_mem => Physics.ScalarProhibitionConditions.wave_mem

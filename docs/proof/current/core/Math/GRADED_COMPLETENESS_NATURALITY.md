@@ -30,7 +30,7 @@ species sets and complex local/multiplicity modules are supplied. No finite
 dimension, compactness, continuity or semisimplicity is required. Field changes
 are species-wise invertible equivariant maps compatible with the local action.
 Factorwise local/multiplicity equivalences supply this interface via
-[LocalMultiplicityEquiv](../../../../../Math/RepresentationTheory/LocalMultiplicityEquiv.lean).
+[LocalMultiplicityEquiv](../../../../../Math/RepresentationTheory/Constructions/LocalMultiplicityEquiv.lean).
 The implementation also accepts paired-field equivalences with that proved
 compatibility, without requiring a particular tensor factorization of the map.
 
@@ -47,50 +47,50 @@ species, or prove a representative-reselection coherence theorem.
 
 ## Proof Structure
 
-[RelationQuotientNaturality](../../../../../Math/RepresentationTheory/RelationQuotientNaturality.lean)
+[RelationQuotientNaturality](../../../../../Math/RepresentationTheory/Relations/RelationQuotientNaturality.lean)
 constructs maps on stable-relation quotients directly, with generator,
 identity and composition formulas.
-[LocalCoinvariantNaturality](../../../../../Math/RepresentationTheory/LocalCoinvariantNaturality.lean)
+[LocalCoinvariantNaturality](../../../../../Math/RepresentationTheory/Relations/LocalCoinvariantNaturality.lean)
 proves preservation of the span of local-action differences.
-[LocalRelationNaturality](../../../../../Math/RepresentationTheory/LocalRelationNaturality.lean)
+[LocalRelationNaturality](../../../../../Math/RepresentationTheory/Relations/LocalRelationNaturality.lean)
 then transports the image of the exchange relations. Equivalences have explicit
 two-sided quotient inverses.
 
-[TypedMixedExchangeNaturality](../../../../../Math/RepresentationTheory/TypedMixedExchangeNaturality.lean)
+[TypedMixedExchangeNaturality](../../../../../Math/RepresentationTheory/Relations/TypedMixedExchangeNaturality.lean)
 proves preservation of the actual signed fermion and unsigned boson relations.
-[TypedMixedCarrierNaturality](../../../../../Math/RepresentationTheory/TypedMixedCarrierNaturality.lean)
+[TypedMixedCarrierNaturality](../../../../../Math/RepresentationTheory/Constructions/TypedMixedCarrierNaturality.lean)
 separates carriers independently of functional completeness.
-[TypedMixedSeparatedTransport](../../../../../Math/RepresentationTheory/TypedMixedSeparatedTransport.lean)
+[TypedMixedSeparatedTransport](../../../../../Math/RepresentationTheory/Constructions/TypedMixedSeparatedTransport.lean)
 uses those carrier equivalences and direct ordered quotient maps. It does not
 define residual transport by conjugating coefficient completeness.
 
-[GradedCompletenessFieldTransport](../../../../../Math/RepresentationTheory/GradedCompletenessFieldTransport.lean)
+[GradedCompletenessFieldTransport](../../../../../Math/RepresentationTheory/Coefficients/GradedCompletenessFieldTransport.lean)
 compares the actual exterior/symmetric field pullback with these independent
 content-wise maps, then proves extraction and reconstruction, selected-support
 and all-degree squares. Functionals are contravariant. The all-degree Hom map
 uses only independent factor maps and the direct-sum universal property.
 
-[GradedCompletenessRestriction](../../../../../Math/RepresentationTheory/GradedCompletenessRestriction.lean)
+[GradedCompletenessRestriction](../../../../../Math/RepresentationTheory/Coefficients/GradedCompletenessRestriction.lean)
 keeps underlying functionals unchanged and verifies the pulled-back residual
 action on each quotient. Its
-[all-degree extension](../../../../../Math/RepresentationTheory/GradedCompletenessAllRestriction.lean)
+[all-degree extension](../../../../../Math/RepresentationTheory/Coefficients/GradedCompletenessAllRestriction.lean)
 proves injectivity, the allowance/prohibition directions, surjective
 equivalences and the direct-sum squares. The existing
-[species pullbacks](../../../../../Math/RepresentationTheory/MixedSpeciesTransport.lean)
+[species pullbacks](../../../../../Math/RepresentationTheory/Content/MixedSpeciesTransport.lean)
 and ordered pullbacks satisfy identity/composition laws. The general
-[square laws](../../../../../Math/LinearAlgebra/CompletenessSquareLaws.lean)
+[square laws](../../../../../Math/LinearAlgebra/Selection/CompletenessSquareLaws.lean)
 transfer those proved laws to output maps without defining them through `E`.
 
 ## Consumers And Verification
 
-[CompletenessNaturalityExamples](../../../../../Math/RepresentationTheory/CompletenessNaturalityExamples.lean)
+[CompletenessNaturalityExamples](../../../../../Math/RepresentationTheory/Coefficients/CompletenessNaturalityExamples.lean)
 checks mixed degree `(1,2)`, a surjective cover, a subgroup restriction that is
 not surjective, and containment of stabilizers after adding preserved data.
 The latter uses only established subgroup containment; it does not classify a
 new stabilizer.
 
 The persistent
-[strict transitive audit](../../../../../Math/RepresentationTheory/Audit/AuditCompletenessNaturality.lean)
+[strict transitive audit](../../../../../Math/RepresentationTheory/Coefficients/Audit/AuditCompletenessNaturality.lean)
 allows only `propext`, `Classical.choice` and `Quot.sound`. The
 [topic results](../../../../topics/graded-completeness-naturality/results.md) record
 the focused and full-build acceptance evidence.

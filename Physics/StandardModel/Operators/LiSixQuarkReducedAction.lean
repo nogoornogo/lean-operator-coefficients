@@ -1,148 +1,81 @@
+import Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkReducedAction
 import Physics.StandardModel.Operators.LiSixQuarkSeedRecipe
+import Math.Lean.Compatibility
 
-/-! The generator action after the explicit 2+3 splitting. The first two
-coordinates and last three coordinates never mix. Every formula is an
-identity on arbitrary vectors over an exact field. -/
-namespace GUT.LiSixQuarkReducedAction
-noncomputable section
-open LiSixQuarkLocalAction LiSixQuarkYoungOperators
-variable {K : Type*} [Field K] [CharZero K]
+deprecated_module "Use Physics.StandardModel.Operators.BaryonTwo.Li.LiSixQuarkReducedAction instead." (since := "source-api-v1")
 
-def colorExtract (x : Vec (K := K)) : Vec (K := K) :=
-  ![x 1/2,x 2/2,x 0+(x 1-x 2)/2,x 3+x 1/2,x 4+x 2/2]
-def spinExtract (x : Vec (K := K)) : Vec (K := K) :=
-  ![(2*x 0+2*x 2-x 1-x 3-x 4)/6,
-    (x 0+x 2+x 1+x 3-2*x 4)/6,
-    (x 0-x 2+x 4)/2,(x 1-x 3+x 4)/2,x 4]
+compatibility_declarations [
+  GUT.LiSixQuarkReducedAction.colorAssemble => Physics.LiSixQuarkReducedAction.colorAssemble,
+  GUT.LiSixQuarkReducedAction.colorAssemble.eq_1 => Physics.LiSixQuarkReducedAction.colorAssemble.eq_1,
+  GUT.LiSixQuarkReducedAction.colorExtract => Physics.LiSixQuarkReducedAction.colorExtract,
+  GUT.LiSixQuarkReducedAction.colorExtract.eq_1 => Physics.LiSixQuarkReducedAction.colorExtract.eq_1,
+  GUT.LiSixQuarkReducedAction.colorReduced => Physics.LiSixQuarkReducedAction.colorReduced,
+  GUT.LiSixQuarkReducedAction.colorReduced.eq_1 => Physics.LiSixQuarkReducedAction.colorReduced.eq_1,
+  GUT.LiSixQuarkReducedAction.colorReduced.eq_2 => Physics.LiSixQuarkReducedAction.colorReduced.eq_2,
+  GUT.LiSixQuarkReducedAction.colorReduced.eq_3 => Physics.LiSixQuarkReducedAction.colorReduced.eq_3,
+  GUT.LiSixQuarkReducedAction.colorReduced.eq_4 => Physics.LiSixQuarkReducedAction.colorReduced.eq_4,
+  GUT.LiSixQuarkReducedAction.color_injective => Physics.LiSixQuarkReducedAction.color_injective,
+  GUT.LiSixQuarkReducedAction.color_intertwine => Physics.LiSixQuarkReducedAction.color_intertwine,
+  GUT.LiSixQuarkReducedAction.color_left_inverse => Physics.LiSixQuarkReducedAction.color_left_inverse,
+  GUT.LiSixQuarkReducedAction.extractColor => Physics.LiSixQuarkReducedAction.extractColor,
+  GUT.LiSixQuarkReducedAction.extractSpin => Physics.LiSixQuarkReducedAction.extractSpin,
+  GUT.LiSixQuarkReducedAction.extraction => Physics.LiSixQuarkReducedAction.extraction,
+  GUT.LiSixQuarkReducedAction.extraction_action => Physics.LiSixQuarkReducedAction.extraction_action,
+  GUT.LiSixQuarkReducedAction.extraction_injective => Physics.LiSixQuarkReducedAction.extraction_injective,
+  GUT.LiSixQuarkReducedAction.extraction_word => Physics.LiSixQuarkReducedAction.extraction_word,
+  GUT.LiSixQuarkReducedAction.extraction_young => Physics.LiSixQuarkReducedAction.extraction_young,
+  GUT.LiSixQuarkReducedAction.reducedAction => Physics.LiSixQuarkReducedAction.reducedAction,
+  GUT.LiSixQuarkReducedAction.reducedAction_apply => Physics.LiSixQuarkReducedAction.reducedAction_apply,
+  GUT.LiSixQuarkReducedAction.reducedColor => Physics.LiSixQuarkReducedAction.reducedColor,
+  GUT.LiSixQuarkReducedAction.reducedSpin => Physics.LiSixQuarkReducedAction.reducedSpin,
+  GUT.LiSixQuarkReducedAction.row_column_commute => Physics.LiSixQuarkReducedAction.row_column_commute,
+  GUT.LiSixQuarkReducedAction.spinAssemble => Physics.LiSixQuarkReducedAction.spinAssemble,
+  GUT.LiSixQuarkReducedAction.spinAssemble.eq_1 => Physics.LiSixQuarkReducedAction.spinAssemble.eq_1,
+  GUT.LiSixQuarkReducedAction.spinExtract => Physics.LiSixQuarkReducedAction.spinExtract,
+  GUT.LiSixQuarkReducedAction.spinExtract.eq_1 => Physics.LiSixQuarkReducedAction.spinExtract.eq_1,
+  GUT.LiSixQuarkReducedAction.spinReduced => Physics.LiSixQuarkReducedAction.spinReduced,
+  GUT.LiSixQuarkReducedAction.spinReduced.eq_1 => Physics.LiSixQuarkReducedAction.spinReduced.eq_1,
+  GUT.LiSixQuarkReducedAction.spinReduced.eq_2 => Physics.LiSixQuarkReducedAction.spinReduced.eq_2,
+  GUT.LiSixQuarkReducedAction.spinReduced.eq_3 => Physics.LiSixQuarkReducedAction.spinReduced.eq_3,
+  GUT.LiSixQuarkReducedAction.spinReduced.eq_4 => Physics.LiSixQuarkReducedAction.spinReduced.eq_4,
+  GUT.LiSixQuarkReducedAction.spin_injective => Physics.LiSixQuarkReducedAction.spin_injective,
+  GUT.LiSixQuarkReducedAction.spin_intertwine => Physics.LiSixQuarkReducedAction.spin_intertwine,
+  GUT.LiSixQuarkReducedAction.spin_left_inverse => Physics.LiSixQuarkReducedAction.spin_left_inverse
+]
 
-def colorAssemble (x : Vec (K := K)) : Vec (K := K) :=
-  ![-x 0+x 1+x 2,2*x 0,2*x 1,-x 0+x 3,-x 1+x 4]
-def spinAssemble (x : Vec (K := K)) : Vec (K := K) :=
-  ![x 0+x 1+x 2,-x 0+2*x 1+x 3,x 0+x 1-x 2+x 4,
-    -x 0+2*x 1-x 3+x 4,x 4]
-
-theorem color_left_inverse (x : Vec (K := K)) : colorAssemble (colorExtract x) = x := by
-  ext i; fin_cases i <;> simp [colorExtract, colorAssemble] <;> ring
-theorem spin_left_inverse (x : Vec (K := K)) : spinAssemble (spinExtract x) = x := by
-  ext i; fin_cases i <;> simp [spinExtract, spinAssemble] <;> ring
-
-theorem color_injective : Function.Injective (colorExtract (K := K)) :=
-  Function.LeftInverse.injective color_left_inverse
-theorem spin_injective : Function.Injective (spinExtract (K := K)) :=
-  Function.LeftInverse.injective spin_left_inverse
-
-def colorReduced (g : Fin 4) (x : Vec (K := K)) : Vec (K := K) := match g with
-  | 0 => ![x 0,x 1,-x 2,-x 3,-x 4]
-  | 1 => ![-x 0-x 1,x 1,-x 3,-x 2,-x 4]
-  | 2 => ![x 1,x 0,-x 2,x 4,x 3]
-  | 3 => ![-x 0-x 1,x 1,-x 2-x 4,-x 3-x 4,x 4]
-def spinReduced (g : Fin 4) (x : Vec (K := K)) : Vec (K := K) := match g with
-  | 0 => ![-x 0,-x 1,x 2,x 3,x 4]
-  | 1 => ![-x 0,-x 0+x 1,x 2+x 3-x 4,x 3,2*x 3-x 4]
-  | 2 => ![x 1,x 0,x 2,x 2-x 3,x 4]
-  | 3 => ![-x 0,-x 0+x 1,-x 2+x 3+x 4,x 3,x 4]
-
-def extractColor : Vec (K := K) →ₗ[K] Vec (K := K) where
-  toFun := colorExtract
-  map_add' x y := by ext i; fin_cases i <;> simp [colorExtract] <;> ring
-  map_smul' z x := by ext i; fin_cases i <;> simp [colorExtract] <;> ring
-
-def extractSpin : Vec (K := K) →ₗ[K] Vec (K := K) where
-  toFun := spinExtract
-  map_add' x y := by ext i; fin_cases i <;> simp [spinExtract] <;> ring
-  map_smul' z x := by ext i; fin_cases i <;> simp [spinExtract] <;> ring
-
-def reducedColor (g : Fin 4) : Vec (K := K) →ₗ[K] Vec (K := K) where
-  toFun := colorReduced g
-  map_add' x y := by ext i; fin_cases g <;> fin_cases i <;> simp [colorReduced] <;> ring
-  map_smul' z x := by ext i; fin_cases g <;> fin_cases i <;> simp [colorReduced] <;> ring
-
-def reducedSpin (g : Fin 4) : Vec (K := K) →ₗ[K] Vec (K := K) where
-  toFun := spinReduced g
-  map_add' x y := by ext i; fin_cases g <;> fin_cases i <;> simp [spinReduced] <;> ring
-  map_smul' z x := by ext i; fin_cases g <;> fin_cases i <;> simp [spinReduced] <;> ring
-
-def extraction : Arr (K := K) →ₗ[K] Arr (K := K) :=
-  (row extractSpin).comp (column extractColor)
-def reducedAction (g : Fin 4) : Module.End K (Arr (K := K)) :=
-  (row (reducedSpin g)).comp (column (reducedColor g))
-
-theorem extraction_injective : Function.Injective (extraction (K := K)) := by
-  intro c d h
-  have hs (p : Fin 5) :
-      (fun q => colorExtract (fun i => c i q) p) =
-        (fun q => colorExtract (fun i => d i q) p) :=
-    spin_injective (congrFun h p)
-  ext p q
-  exact congrFun (color_injective (funext (fun i => congrFun (hs i) q))) p
-
-omit [CharZero K] in
-@[simp] theorem reducedAction_apply (g : Fin 4) (c : Arr (K := K)) (p q : Fin 5) :
-    reducedAction g c p q = spinReduced g (fun j => colorReduced g (fun i => c i j) p) q := rfl
-
-theorem color_intertwine (g : Fin 4) (x : Vec (K := K)) :
-    colorExtract (color g x) = colorReduced g (colorExtract x) := by
-  ext i
-  fin_cases g <;> fin_cases i <;> simp [colorExtract, color, colorReduced] <;> ring
-
-theorem spin_intertwine (g : Fin 4) (x : Vec (K := K)) :
-    spinExtract (spin g x) = spinReduced g (spinExtract x) := by
-  ext i
-  fin_cases g <;> fin_cases i <;> simp [spinExtract, spin, spinReduced] <;> ring
-
-omit [CharZero K] in
-/-- Row operations commute with column operations, by linearity alone. -/
-theorem row_column_commute (S C : Vec (K := K) →ₗ[K] Vec (K := K))
-    (c : Arr (K := K)) : row S (column C c) = column C (row S c) := by
-  -- Expansion in the five coordinate vectors proves this uniformly in C,S,c.
-  have expand (x : Vec (K := K)) : x = ∑ i : Fin 5, x i • Pi.single i 1 := by
-    ext j
-    simp [Finset.sum_apply, Pi.single_apply]
-  have hc (x : Vec (K := K)) (p : Fin 5) :
-      C x p = ∑ i : Fin 5, x i * C (Pi.single i 1) p := by
-    conv_lhs => rw [expand x]
-    simp [map_sum, map_smul, Finset.sum_apply, smul_eq_mul]
-  ext p q
-  change S (fun j => C (fun i => c i j) p) q = C (fun i => S (c i) q) p
-  have hl : (fun j => C (fun i => c i j) p) =
-      (fun j => ∑ i : Fin 5, c i j * C (Pi.single i 1) p) :=
-    funext (fun j => hc (fun i => c i j) p)
-  rw [hl]
-  conv_rhs => rw [hc]
-  have he : (fun j => ∑ i : Fin 5, c i j * C (Pi.single i 1) p) =
-      ∑ i : Fin 5, C (Pi.single i 1) p • c i := by
-    ext j
-    simp [Finset.sum_apply, smul_eq_mul, mul_comm]
-  rw [he]
-  simp [map_sum, map_smul, Finset.sum_apply, smul_eq_mul, mul_comm]
-
-theorem extraction_action (g : Fin 4) (c : Arr (K := K)) :
-    extraction (action g c) = reducedAction g (extraction c) := by
-  change row extractSpin (column extractColor
-    (row (spinLinear g) (column (colorLinear g) c))) =
-    row (reducedSpin g) (column (reducedColor g)
-      (row extractSpin (column extractColor c)))
-  rw [← row_column_commute, ← row_column_commute]
-  have hc : column extractColor (column (colorLinear g) c) =
-      column (reducedColor g) (column extractColor c) := by
-    ext p q; exact congrFun (color_intertwine g (fun i => c i q)) p
-  rw [hc]
-  ext p q
-  exact congrFun (spin_intertwine g _) q
-
-theorem extraction_young (k : Fin 11) (c : Arr (K := K)) :
-    extraction (young action k c) = young reducedAction k (extraction c) :=
-  map_young extraction action reducedAction extraction_action k c
-
-theorem extraction_word (w : List (Fin 4)) (c : Arr (K := K)) :
-    extraction (w.foldl (fun c g => action g c) c) =
-      w.foldl (fun c g => reducedAction g c) (extraction c) := by
-  induction w generalizing c with
-  | nil => rfl
-  | cons g w ih =>
-    change extraction (w.foldl (fun c g => action g c) (action g c)) = _
-    rw [ih, extraction_action]
-    rfl
-
-end
-end GUT.LiSixQuarkReducedAction
+assert_compatible GUT.LiSixQuarkReducedAction.colorAssemble => Physics.LiSixQuarkReducedAction.colorAssemble
+assert_compatible GUT.LiSixQuarkReducedAction.colorAssemble.eq_1 => Physics.LiSixQuarkReducedAction.colorAssemble.eq_1
+assert_compatible GUT.LiSixQuarkReducedAction.colorExtract => Physics.LiSixQuarkReducedAction.colorExtract
+assert_compatible GUT.LiSixQuarkReducedAction.colorExtract.eq_1 => Physics.LiSixQuarkReducedAction.colorExtract.eq_1
+assert_compatible GUT.LiSixQuarkReducedAction.colorReduced => Physics.LiSixQuarkReducedAction.colorReduced
+assert_compatible GUT.LiSixQuarkReducedAction.colorReduced.eq_1 => Physics.LiSixQuarkReducedAction.colorReduced.eq_1
+assert_compatible GUT.LiSixQuarkReducedAction.colorReduced.eq_2 => Physics.LiSixQuarkReducedAction.colorReduced.eq_2
+assert_compatible GUT.LiSixQuarkReducedAction.colorReduced.eq_3 => Physics.LiSixQuarkReducedAction.colorReduced.eq_3
+assert_compatible GUT.LiSixQuarkReducedAction.colorReduced.eq_4 => Physics.LiSixQuarkReducedAction.colorReduced.eq_4
+assert_compatible GUT.LiSixQuarkReducedAction.color_injective => Physics.LiSixQuarkReducedAction.color_injective
+assert_compatible GUT.LiSixQuarkReducedAction.color_intertwine => Physics.LiSixQuarkReducedAction.color_intertwine
+assert_compatible GUT.LiSixQuarkReducedAction.color_left_inverse => Physics.LiSixQuarkReducedAction.color_left_inverse
+assert_compatible GUT.LiSixQuarkReducedAction.extractColor => Physics.LiSixQuarkReducedAction.extractColor
+assert_compatible GUT.LiSixQuarkReducedAction.extractSpin => Physics.LiSixQuarkReducedAction.extractSpin
+assert_compatible GUT.LiSixQuarkReducedAction.extraction => Physics.LiSixQuarkReducedAction.extraction
+assert_compatible GUT.LiSixQuarkReducedAction.extraction_action => Physics.LiSixQuarkReducedAction.extraction_action
+assert_compatible GUT.LiSixQuarkReducedAction.extraction_injective => Physics.LiSixQuarkReducedAction.extraction_injective
+assert_compatible GUT.LiSixQuarkReducedAction.extraction_word => Physics.LiSixQuarkReducedAction.extraction_word
+assert_compatible GUT.LiSixQuarkReducedAction.extraction_young => Physics.LiSixQuarkReducedAction.extraction_young
+assert_compatible GUT.LiSixQuarkReducedAction.reducedAction => Physics.LiSixQuarkReducedAction.reducedAction
+assert_compatible GUT.LiSixQuarkReducedAction.reducedAction_apply => Physics.LiSixQuarkReducedAction.reducedAction_apply
+assert_compatible GUT.LiSixQuarkReducedAction.reducedColor => Physics.LiSixQuarkReducedAction.reducedColor
+assert_compatible GUT.LiSixQuarkReducedAction.reducedSpin => Physics.LiSixQuarkReducedAction.reducedSpin
+assert_compatible GUT.LiSixQuarkReducedAction.row_column_commute => Physics.LiSixQuarkReducedAction.row_column_commute
+assert_compatible GUT.LiSixQuarkReducedAction.spinAssemble => Physics.LiSixQuarkReducedAction.spinAssemble
+assert_compatible GUT.LiSixQuarkReducedAction.spinAssemble.eq_1 => Physics.LiSixQuarkReducedAction.spinAssemble.eq_1
+assert_compatible GUT.LiSixQuarkReducedAction.spinExtract => Physics.LiSixQuarkReducedAction.spinExtract
+assert_compatible GUT.LiSixQuarkReducedAction.spinExtract.eq_1 => Physics.LiSixQuarkReducedAction.spinExtract.eq_1
+assert_compatible GUT.LiSixQuarkReducedAction.spinReduced => Physics.LiSixQuarkReducedAction.spinReduced
+assert_compatible GUT.LiSixQuarkReducedAction.spinReduced.eq_1 => Physics.LiSixQuarkReducedAction.spinReduced.eq_1
+assert_compatible GUT.LiSixQuarkReducedAction.spinReduced.eq_2 => Physics.LiSixQuarkReducedAction.spinReduced.eq_2
+assert_compatible GUT.LiSixQuarkReducedAction.spinReduced.eq_3 => Physics.LiSixQuarkReducedAction.spinReduced.eq_3
+assert_compatible GUT.LiSixQuarkReducedAction.spinReduced.eq_4 => Physics.LiSixQuarkReducedAction.spinReduced.eq_4
+assert_compatible GUT.LiSixQuarkReducedAction.spin_injective => Physics.LiSixQuarkReducedAction.spin_injective
+assert_compatible GUT.LiSixQuarkReducedAction.spin_intertwine => Physics.LiSixQuarkReducedAction.spin_intertwine
+assert_compatible GUT.LiSixQuarkReducedAction.spin_left_inverse => Physics.LiSixQuarkReducedAction.spin_left_inverse

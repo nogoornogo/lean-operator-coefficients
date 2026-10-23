@@ -51,8 +51,8 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
 - The same module constructs `centralNegOne`, proves it projects to one
   but acts as `-Id`, proves `not_descends_to_SO`, and computes the algebraic
   and unitary characters at that element as `-16`.
-- [ExteriorNaturality](../../../../../../Math/LinearAlgebra/ExteriorNaturality.lean)
-  and [PolarizedExteriorAction](../../../../../../Math/LinearAlgebra/PolarizedExteriorAction.lean):
+- [ExteriorNaturality](../../../../../../Math/LinearAlgebra/Exterior/ExteriorNaturality.lean)
+  and [PolarizedExteriorAction](../../../../../../Math/LinearAlgebra/Exterior/PolarizedExteriorAction.lean):
   exterior functoriality intertwines creation and contraction, with the
   inverse covector action; these modules do not import a gauge family.
 - [CliffordCovariance](../../../../../../Math/LieGroups/Spin/CliffordCovariance.lean): the full
@@ -77,10 +77,10 @@ qualifications. Source declarations, rather than this map, fix elaborated types.
   `exists_character_basis` for an Abelian unitary action and
   `exists_element_basis` for one element of an arbitrary unitary group
   action, by cyclic restriction. No spectral certificate is an input.
-- [ExteriorEigenbasisTrace](../../../../../../Math/LinearAlgebra/ExteriorEigenbasisTrace.lean):
+- [ExteriorEigenbasisTrace](../../../../../../Math/LinearAlgebra/Exterior/ExteriorEigenbasisTrace.lean):
   the new `algebra_eigen` extends the existing exterior-power trace API to
   the full exterior algebra basis.
-- [RankFiveExteriorSum](../../../../../../Math/LinearAlgebra/RankFiveExteriorSum.lean):
+- [RankFiveExteriorSum](../../../../../../Math/LinearAlgebra/Exterior/RankFiveExteriorSum.lean):
   `by_degree`, `degree_four`, and `determinant_one` split the even subset sum
   into degrees 0/2/4 and identify degree 4 with inverse weights.
 - [HalfSpinEigenbasis](../../../../../../Math/LieGroups/Spin/HalfSpinEigenbasis.lean): 16 independent
@@ -147,7 +147,7 @@ for this pass's checks.
 
 ```sh
 lake build Math.LieGroups.Spin.Audit.AuditHalfSpin
-lake build Math.LieGroups.Spin.Audit.AuditSU5ExteriorAction Math.LinearAlgebra.Audit.AuditExteriorNaturality Math.Topology.Audit.AuditCompactCharacters
+lake build Math.LieGroups.Spin.Audit.AuditSU5ExteriorAction Math.LinearAlgebra.Exterior.Audit.AuditExteriorNaturality Math.Topology.Audit.AuditCompactCharacters
 lake build GUT.Spin10.Audit.AuditSU5Branching Math.RepresentationTheory.Unitary.Audit.AuditUnitaryExteriorTrace
 lake build GUT.Spin10.Audit.AuditHalfSpinBenchmark
 lake build
@@ -164,7 +164,7 @@ quadratic value, and the nontrivial central character. Its import guard
 rejects SU(5) matter, SU(6), and USp dependencies. It is in the default build.
 
 The exterior-comparison checkpoint adds three default-build audits:
-[AuditExteriorNaturality](../../../../../../Math/LinearAlgebra/Audit/AuditExteriorNaturality.lean),
+[AuditExteriorNaturality](../../../../../../Math/LinearAlgebra/Exterior/Audit/AuditExteriorNaturality.lean),
 [AuditCompactCharacters](../../../../../../Math/Topology/Audit/AuditCompactCharacters.lean),
 and [AuditSU5ExteriorAction](../../../../../../Math/LieGroups/Spin/Audit/AuditSU5ExteriorAction.lean).
 They check inverse-versus-forward covectors on a dilation, the zero-rank

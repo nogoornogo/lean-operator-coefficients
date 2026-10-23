@@ -1,5 +1,7 @@
 import GUT.Common.ProtonProtection.ConditionalInputChecks
-import Physics.StandardModel.Operators.DgtFlavorRestriction
+import Physics.StandardModel.Operators.Selection.DgtFlavorRestriction
+
+open Physics
 
 /-! Explicit X=3(B-L) action restriction. Light-spectrum origin is not assumed proved. -/
 namespace GUT.BLResidualRestriction

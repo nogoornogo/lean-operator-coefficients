@@ -46,36 +46,36 @@ one is nonempty. `simultaneous_iff` adds existence of a neutral LL pair.
 
 ## Proof And Source Interfaces
 
-[CyclicWeightCoordinates](../../../../../Math/RepresentationTheory/CyclicWeightCoordinates.lean)
+[CyclicWeightCoordinates](../../../../../Math/RepresentationTheory/Weights/CyclicWeightCoordinates.lean)
 proves that invariant functionals in a weight basis vanish precisely on
 nonneutral indices, using the faithful character's proved injectivity.
 Its inverse is zero extension. Tensor and symmetric-power weight rules are
 proved without assuming invariance equivalent to neutrality.
 
-[SymmetricTensorFunctional](../../../../../Math/RepresentationTheory/SymmetricTensorFunctional.lean)
+[SymmetricTensorFunctional](../../../../../Math/RepresentationTheory/Symmetric/SymmetricTensorFunctional.lean)
 descends symmetric tensor functionals through the symmetric square. This keeps
 the physical carrier convention intact: no new identification with a physical
 dual or bidual carrier is assumed.
 
-[TripleFlavorWeights](../../../../../Math/RepresentationTheory/TripleFlavorWeights.lean)
+[TripleFlavorWeights](../../../../../Math/RepresentationTheory/Content/TripleFlavorWeights.lean)
 proves that diagonal scaling commutes with all three triple-coordinate
 reconstruction dictionaries. Thus the existing alternating and mixed branches
 provide the needed statistics weight blocks without a new exterior-basis
-foundation. [QqqlDiagonalCoordinates](../../../../../Physics/StandardModel/Operators/QqqlDiagonalCoordinates.lean)
+foundation. [QqqlDiagonalCoordinates](../../../../../Physics/StandardModel/Operators/BaryonOne/Qqql/QqqlDiagonalCoordinates.lean)
 converts the actual reconstructed residual equations to neutral support and
 proves extraction/reconstruction and cardinality formulas. Arbitrary finite
 indices are reindexed through `Fintype.equivFin`; this is a proved basis
 reindexing, not an equal-dimension restriction.
 
-[FlavoredCyclicCoordinates](../../../../../Physics/StandardModel/Operators/FlavoredCyclicCoordinates.lean)
-connects the other four sectors. [FlavoredCyclicSelection](../../../../../Physics/StandardModel/Operators/FlavoredCyclicSelection.lean)
+[FlavoredCyclicCoordinates](../../../../../Physics/StandardModel/Operators/Selection/FlavoredCyclicCoordinates.lean)
+connects the other four sectors. [FlavoredCyclicSelection](../../../../../Physics/StandardModel/Operators/Selection/FlavoredCyclicSelection.lean)
 composes these with the existing all-signed-species completeness equivalence;
 it does not assume the four-family support as a new input. Both inverse
 identities, total finrank, prohibition and allowance are explicit theorems.
 
 ## Controls And Verification
 
-[Controls](../../../../../Physics/StandardModel/Operators/FlavoredCyclicControls.lean)
+[Controls](../../../../../Physics/StandardModel/Operators/Selection/FlavoredCyclicControls.lean)
 recover the scalar singleton family-charge criterion and LLHH criterion.
 They also certify zero-dimensional inputs, unequal dimensions `(2,1,0,3,1)`,
 the trivial-charge three-generation dimension 273, and quark parity.
@@ -83,7 +83,7 @@ A nonuniform Z2 QQQL example has four neutral ordered triples but only three
 independent coefficients. These finite computations use `decide +kernel`,
 not an external rank calculation or `native_decide`.
 
-The [strict audit](../../../../../Physics/StandardModel/Operators/Audit/AuditFlavoredCyclicSelection.lean)
+The [strict audit](../../../../../Physics/StandardModel/Operators/Selection/Audit/AuditFlavoredCyclicSelection.lean)
 checks transitive axioms and excludes model-layer imports. Verification commands
 and integration status are maintained in the [topic](../../../../topics/flavored-cyclic-selection/README.md).
 

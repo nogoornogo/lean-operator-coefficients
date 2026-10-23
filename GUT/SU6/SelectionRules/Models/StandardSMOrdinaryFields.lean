@@ -3,6 +3,8 @@ import GUT.SU6.SelectionRules.Benchmarks.ConcreteWeylBenchmark
 import GUT.SU6.Adapters.AbelianCharacterEquivalence
 import Math.RepresentationTheory.Unitary.ContinuousRepresentationTransport
 
+open Physics
+
 open Math
 
 /-!

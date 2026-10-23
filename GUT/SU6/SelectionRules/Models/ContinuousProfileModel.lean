@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.PhysicalProfileSource
 import GUT.SU6.SelectionRules.Models.ContinuousWeylFamilyModel
 
+open Physics
+
 /-!
 # Continuous SU(6) models with family-dependent charge profiles
 

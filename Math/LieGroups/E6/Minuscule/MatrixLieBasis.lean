@@ -13,6 +13,9 @@ set_option autoImplicit false
 set_option maxRecDepth 16000
 set_option maxHeartbeats 4000000
 
+-- Check finite certificates sequentially to avoid blocked elaboration worker stacks.
+set_option Elab.async false
+
 namespace Math.E6.Minuscule
 
 open TauCeti.E6Minuscule SparseMatrixCertificate LieData LieChecks

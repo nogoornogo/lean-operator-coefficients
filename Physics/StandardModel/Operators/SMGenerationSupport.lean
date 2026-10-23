@@ -1,109 +1,50 @@
+import Physics.StandardModel.Operators.Support.Decomposition.SMGenerationSupport
 import Physics.StandardModel.Operators.SMGenerationCauchy
 import Math.RepresentationTheory.InvariantVectorInjection
 import Math.RepresentationTheory.SU2SymmetricSupport
+import Math.RepresentationTheory.CarrierPresentation
+import Math.Lean.Compatibility
 
-/-! Lower-half Q/L weak constituents from independent generation blocks. -/
-namespace GUT.SMGenerationSupport
-set_option autoImplicit false
-noncomputable section
-open Math Representation SMGenerationCauchy
-open scoped TensorProduct
+deprecated_module "Use Physics.StandardModel.Operators.Support.Decomposition.SMGenerationSupport instead." (since := "source-api-v1")
 
--- Keep finite-sum constructions behind their proved interfaces when
--- specializing the structural witnesses to Q6/Q12/Q18 or L2/L4/L6.
-attribute [local irreducible] TopExteriorCauchy.map SymmetricCauchy.map
-  SU2SymmetricEmbeddings.omegaPower
+compatibility_declarations [
+  GUT.SMGenerationSupport.SpinPair => Physics.SMGenerationSupport.SpinPair,
+  GUT.SMGenerationSupport.WeakPair => Physics.SMGenerationSupport.WeakPair,
+  GUT.SMGenerationSupport.WeakSpin => Physics.SMGenerationSupport.WeakSpin,
+  GUT.SMGenerationSupport.generation_triple => Physics.SMGenerationSupport.generation_triple,
+  GUT.SMGenerationSupport.generation_triple_presented_coefficient => Physics.SMGenerationSupport.generation_triple_presented_coefficient,
+  GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexColorDoublet => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexColorDoublet,
+  GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexColorDoublet_1 => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexColorDoublet_1,
+  GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexDoublet_physics => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexDoublet_physics,
+  GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexForallFinOfNatNat_physics => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexForallFinOfNatNat_physics,
+  GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexSymmetricPowerFinDoublet_physics => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexSymmetricPowerFinDoublet_physics,
+  GUT.SMGenerationSupport.lepton_four => Physics.SMGenerationSupport.lepton_four,
+  GUT.SMGenerationSupport.lepton_six => Physics.SMGenerationSupport.lepton_six,
+  GUT.SMGenerationSupport.lepton_two => Physics.SMGenerationSupport.lepton_two,
+  GUT.SMGenerationSupport.omega_invariant => Physics.SMGenerationSupport.omega_invariant,
+  GUT.SMGenerationSupport.quark_eighteen => Physics.SMGenerationSupport.quark_eighteen,
+  GUT.SMGenerationSupport.quark_six => Physics.SMGenerationSupport.quark_six,
+  GUT.SMGenerationSupport.quark_twelve => Physics.SMGenerationSupport.quark_twelve,
+  GUT.SMGenerationSupport.spinInsert => Physics.SMGenerationSupport.spinInsert,
+  GUT.SMGenerationSupport.spinInsert_injective => Physics.SMGenerationSupport.spinInsert_injective
+]
 
-@[reducible] local instance (V : Type*) [AddCommGroup V] [Module ℂ V] :
-    AddCommGroup (V ⊗[ℂ] (Fin 3 → ℂ)) := inferInstance
-@[reducible] local instance (k : ℕ) : AddCommGroup
-    (Sym[ℂ]^k WeakDoubletScalars.Doublet ⊗[ℂ] Sym[ℂ]^k WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    (SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    ((SMEpsilonTensor.Color ⊗[ℂ] WeakDoubletScalars.Doublet) ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-@[reducible] local instance : AddCommGroup
-    (WeakDoubletScalars.Doublet ⊗[ℂ] WeakDoubletScalars.Doublet) := inferInstance
-
-abbrev WeakPair (k : ℕ) := (weak.symmetricPower k).tprod (weak.symmetricPower k)
-abbrev SpinPair (k : ℕ) := (spin.symmetricPower k).tprod (spin.symmetricPower k)
-abbrev WeakSpin (k : ℕ) := (weak.symmetricPower k).tprod (spin.symmetricPower k)
-
-theorem omega_invariant (k : ℕ) (g : Group) :
-    SpinPair k g (SU2SymmetricEmbeddings.omegaPower k) = SU2SymmetricEmbeddings.omegaPower k :=
-  SU2SymmetricEmbeddings.omegaPower_invariant k (spinProjection g)
-
-def spinInsert (k : ℕ) : IntertwiningMap (WeakPair k) ((WeakSpin k).tprod (WeakSpin k)) :=
-  (ExternalInvariantTensor.regroupPairDiagonal (weak.symmetricPower k) (weak.symmetricPower k)
-    (spin.symmetricPower k) (spin.symmetricPower k)).symm.toIntertwiningMap.comp
-      (InvariantVectorInjection.map (WeakPair k) (SpinPair k)
-        (SU2SymmetricEmbeddings.omegaPower k) (omega_invariant k))
-
-theorem spinInsert_injective (k : ℕ) : Function.Injective (spinInsert k) :=
-  (ExternalInvariantTensor.regroupPairDiagonal (weak.symmetricPower k) (weak.symmetricPower k)
-    (spin.symmetricPower k) (spin.symmetricPower k)).symm.injective.comp
-      (InvariantVectorInjection.injective (WeakPair k) (SpinPair k)
-        (SU2SymmetricEmbeddings.omegaPower k) (omega_invariant k)
-        (SymmetricPowerOperations.biEval k k SU2SymmetricEmbeddings.phi SU2SymmetricEmbeddings.psi)
-        (SU2SymmetricEmbeddings.omegaPower_evaluation k))
-
-theorem quark_six (m : ℕ) (hm : m % 2 = 0) (hmax : m ≤ 6) :
-    ∃ f : IntertwiningMap (weak.symmetricPower m) ((generations quark).exteriorPower 6),
-      Function.Injective f := by
-  obtain ⟨f,hf⟩ := SU2SymmetricSupport.pair 3 m hm hmax
-  let g := SU2SymmetricSupport.pullback weakProjection f
-  let t := (GenerationExteriorBlocks.pairMap quarkThree).comp (spinInsert 3)
-  exact ⟨t.comp g,
-    ((GenerationExteriorBlocks.pairMap_injective quarkThree quarkThree_injective).comp
-      (spinInsert_injective 3)).comp hf⟩
-
-theorem quark_twelve (m : ℕ) (hm : m % 2 = 0) (hmax : m ≤ 12) :
-    ∃ f : IntertwiningMap (weak.symmetricPower m) ((generations quark).exteriorPower 12),
-      Function.Injective f := by
-  obtain ⟨f,hf⟩ := SU2SymmetricSupport.pair 6 m hm hmax
-  exact ⟨(GenerationExteriorBlocks.pairMap quarkSix).comp
-    (SU2SymmetricSupport.pullback weakProjection f),
-      (GenerationExteriorBlocks.pairMap_injective quarkSix quarkSix_injective).comp hf⟩
-
-theorem quark_eighteen (m : ℕ) (hm : m % 2 = 0) (hmax : m ≤ 18) :
-    ∃ f : IntertwiningMap (weak.symmetricPower m) ((generations quark).exteriorPower 18),
-      Function.Injective f := by
-  obtain ⟨f,hf⟩ := SU2SymmetricSupport.triple 6 m (by decide) hm hmax
-  refine ⟨(GenerationExteriorBlocks.tripleMap quarkSix).comp
-    (SU2SymmetricSupport.pullback weakProjection f), ?_⟩
-  intro x y he
-  apply hf
-  apply GenerationExteriorBlocks.tripleMap_injective quarkSix quarkSix_injective
-  exact he
-
-theorem lepton_two (m : ℕ) (hm : m % 2 = 0) (hmax : m ≤ 2) :
-    ∃ f : IntertwiningMap (weak.symmetricPower m) ((generations lepton).exteriorPower 2),
-      Function.Injective f := by
-  obtain ⟨f,hf⟩ := SU2SymmetricSupport.pair 1 m hm hmax
-  let g := SU2SymmetricSupport.pullback weakProjection f
-  let t := (GenerationExteriorBlocks.pairMap leptonOne.toIntertwiningMap).comp (spinInsert 1)
-  exact ⟨t.comp g,
-    ((GenerationExteriorBlocks.pairMap_injective leptonOne.toIntertwiningMap leptonOne.injective).comp
-      (spinInsert_injective 1)).comp hf⟩
-
-theorem lepton_four (m : ℕ) (hm : m % 2 = 0) (hmax : m ≤ 4) :
-    ∃ f : IntertwiningMap (weak.symmetricPower m) ((generations lepton).exteriorPower 4),
-      Function.Injective f := by
-  obtain ⟨f,hf⟩ := SU2SymmetricSupport.pair 2 m hm hmax
-  exact ⟨(GenerationExteriorBlocks.pairMap leptonTwo).comp
-    (SU2SymmetricSupport.pullback weakProjection f),
-      (GenerationExteriorBlocks.pairMap_injective leptonTwo leptonTwo_injective).comp hf⟩
-
-theorem lepton_six (m : ℕ) (hm : m % 2 = 0) (hmax : m ≤ 6) :
-    ∃ f : IntertwiningMap (weak.symmetricPower m) ((generations lepton).exteriorPower 6),
-      Function.Injective f := by
-  obtain ⟨f,hf⟩ := SU2SymmetricSupport.triple 2 m (by decide) hm hmax
-  refine ⟨(GenerationExteriorBlocks.tripleMap leptonTwo).comp
-    (SU2SymmetricSupport.pullback weakProjection f), ?_⟩
-  intro x y he
-  apply hf
-  apply GenerationExteriorBlocks.tripleMap_injective leptonTwo leptonTwo_injective
-  exact he
-
-end
-end GUT.SMGenerationSupport
+assert_compatible GUT.SMGenerationSupport.SpinPair => Physics.SMGenerationSupport.SpinPair
+assert_compatible GUT.SMGenerationSupport.WeakPair => Physics.SMGenerationSupport.WeakPair
+assert_compatible GUT.SMGenerationSupport.WeakSpin => Physics.SMGenerationSupport.WeakSpin
+assert_compatible GUT.SMGenerationSupport.generation_triple => Physics.SMGenerationSupport.generation_triple
+assert_compatible GUT.SMGenerationSupport.generation_triple_presented_coefficient => Physics.SMGenerationSupport.generation_triple_presented_coefficient
+assert_compatible GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexColorDoublet => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexColorDoublet
+assert_compatible GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexColorDoublet_1 => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexColorDoublet_1
+assert_compatible GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexDoublet_physics => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexDoublet_physics
+assert_compatible GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexForallFinOfNatNat_physics => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexForallFinOfNatNat_physics
+assert_compatible GUT.SMGenerationSupport.instAddCommGroupTensorProductComplexSymmetricPowerFinDoublet_physics => Physics.SMGenerationSupport.instAddCommGroupTensorProductComplexSymmetricPowerFinDoublet_physics
+assert_compatible GUT.SMGenerationSupport.lepton_four => Physics.SMGenerationSupport.lepton_four
+assert_compatible GUT.SMGenerationSupport.lepton_six => Physics.SMGenerationSupport.lepton_six
+assert_compatible GUT.SMGenerationSupport.lepton_two => Physics.SMGenerationSupport.lepton_two
+assert_compatible GUT.SMGenerationSupport.omega_invariant => Physics.SMGenerationSupport.omega_invariant
+assert_compatible GUT.SMGenerationSupport.quark_eighteen => Physics.SMGenerationSupport.quark_eighteen
+assert_compatible GUT.SMGenerationSupport.quark_six => Physics.SMGenerationSupport.quark_six
+assert_compatible GUT.SMGenerationSupport.quark_twelve => Physics.SMGenerationSupport.quark_twelve
+assert_compatible GUT.SMGenerationSupport.spinInsert => Physics.SMGenerationSupport.spinInsert
+assert_compatible GUT.SMGenerationSupport.spinInsert_injective => Physics.SMGenerationSupport.spinInsert_injective

@@ -1,81 +1,27 @@
-import Math.RepresentationTheory.Characters.AbelianCharge
+import Physics.StandardModel.Operators.Selection.AbelianProtonCharacter
 import Physics.StandardModel.Operators.AbelianProtonCharge
+import Math.Lean.Compatibility
 
-open Math
+deprecated_module "Use Physics.StandardModel.Operators.Selection.AbelianProtonCharacter instead." (since := "source-api-v1")
 
-/-!
-# Residual characters of the two Standard Model proton-operator signatures
+compatibility_declarations [
+  GUT.FiniteAbelianChargeSectors.protonCharacters_eq_one_of_su5OrbitCompatible => Physics.FiniteAbelianChargeSectors.protonCharacters_eq_one_of_su5OrbitCompatible,
+  GUT.FiniteAbelianChargeSectors.protonFirstCharacter => Physics.FiniteAbelianChargeSectors.protonFirstCharacter,
+  GUT.FiniteAbelianChargeSectors.protonFirstCharacter.eq_1 => Physics.FiniteAbelianChargeSectors.protonFirstCharacter.eq_1,
+  GUT.FiniteAbelianChargeSectors.protonFirstCharacter_apply => Physics.FiniteAbelianChargeSectors.protonFirstCharacter_apply,
+  GUT.FiniteAbelianChargeSectors.protonFirstCharacter_eq_one_of_eq_zero => Physics.FiniteAbelianChargeSectors.protonFirstCharacter_eq_one_of_eq_zero,
+  GUT.FiniteAbelianChargeSectors.protonSecondCharacter => Physics.FiniteAbelianChargeSectors.protonSecondCharacter,
+  GUT.FiniteAbelianChargeSectors.protonSecondCharacter.eq_1 => Physics.FiniteAbelianChargeSectors.protonSecondCharacter.eq_1,
+  GUT.FiniteAbelianChargeSectors.protonSecondCharacter_apply => Physics.FiniteAbelianChargeSectors.protonSecondCharacter_apply,
+  GUT.FiniteAbelianChargeSectors.protonSecondCharacter_eq_one_of_eq_zero => Physics.FiniteAbelianChargeSectors.protonSecondCharacter_eq_one_of_eq_zero
+]
 
-These character identities are independent of any UV gauge representation.
--/
-
-namespace GUT.FiniteAbelianChargeSectors
-
-open Math.FiniteAbelianChargeSectors
-noncomputable section
-
-open StandardBranchProtonObstruction
-
-/-- The physical residual-group character carried by the first proton
-contraction. -/
-def protonFirstCharacter
-    {H : Type*} [CommGroup H]
-    (k : Charges (ChargeLabel H)) : H →* Circle :=
-  (protonFirst k).toMul
-
-/-- The physical residual-group character carried by the second proton
-contraction. -/
-def protonSecondCharacter
-    {H : Type*} [CommGroup H]
-    (k : Charges (ChargeLabel H)) : H →* Circle :=
-  (protonSecond k).toMul
-
-@[simp]
-theorem protonFirstCharacter_apply
-    {H : Type*} [CommGroup H]
-    (k : Charges (ChargeLabel H)) (h : H) :
-    protonFirstCharacter k h =
-      k.quark.toMul h * k.quark.toMul h *
-        (k.up.toMul h)⁻¹ * (k.electron.toMul h)⁻¹ := by
-  rfl
-
-@[simp]
-theorem protonSecondCharacter_apply
-    {H : Type*} [CommGroup H]
-    (k : Charges (ChargeLabel H)) (h : H) :
-    protonSecondCharacter k h =
-      k.quark.toMul h * k.lepton.toMul h *
-        (k.up.toMul h)⁻¹ * (k.down.toMul h)⁻¹ := by
-  rfl
-
-theorem protonFirstCharacter_eq_one_of_eq_zero
-    {H : Type*} [CommGroup H]
-    (k : Charges (ChargeLabel H))
-    (hk : protonFirst k = 0) : protonFirstCharacter k = 1 := by
-  apply MonoidHom.ext
-  intro h
-  have hAt := congrArg (fun q : ChargeLabel H => q.toMul h) hk
-  simpa [protonFirstCharacter] using hAt
-
-theorem protonSecondCharacter_eq_one_of_eq_zero
-    {H : Type*} [CommGroup H]
-    (k : Charges (ChargeLabel H))
-    (hk : protonSecond k = 0) : protonSecondCharacter k = 1 := by
-  apply MonoidHom.ext
-  intro h
-  have hAt := congrArg (fun q : ChargeLabel H => q.toMul h) hk
-  simpa [protonSecondCharacter] using hAt
-
-
-/-- Multiplet-compatible charges give trivial characters, including torsion. -/
-theorem protonCharacters_eq_one_of_su5OrbitCompatible
-    {H : Type*} [CommGroup H] (k : Charges (ChargeLabel H))
-    (hk : SU5OrbitCompatible k) :
-    protonFirstCharacter k = 1 ∧ protonSecondCharacter k = 1 := by
-  obtain ⟨hFirst, hSecond⟩ := proton_functionals_eq_zero_of_su5OrbitCompatible k hk
-  exact ⟨protonFirstCharacter_eq_one_of_eq_zero k hFirst,
-    protonSecondCharacter_eq_one_of_eq_zero k hSecond⟩
-
-end
-
-end GUT.FiniteAbelianChargeSectors
+assert_compatible GUT.FiniteAbelianChargeSectors.protonCharacters_eq_one_of_su5OrbitCompatible => Physics.FiniteAbelianChargeSectors.protonCharacters_eq_one_of_su5OrbitCompatible
+assert_compatible GUT.FiniteAbelianChargeSectors.protonFirstCharacter => Physics.FiniteAbelianChargeSectors.protonFirstCharacter
+assert_compatible GUT.FiniteAbelianChargeSectors.protonFirstCharacter.eq_1 => Physics.FiniteAbelianChargeSectors.protonFirstCharacter.eq_1
+assert_compatible GUT.FiniteAbelianChargeSectors.protonFirstCharacter_apply => Physics.FiniteAbelianChargeSectors.protonFirstCharacter_apply
+assert_compatible GUT.FiniteAbelianChargeSectors.protonFirstCharacter_eq_one_of_eq_zero => Physics.FiniteAbelianChargeSectors.protonFirstCharacter_eq_one_of_eq_zero
+assert_compatible GUT.FiniteAbelianChargeSectors.protonSecondCharacter => Physics.FiniteAbelianChargeSectors.protonSecondCharacter
+assert_compatible GUT.FiniteAbelianChargeSectors.protonSecondCharacter.eq_1 => Physics.FiniteAbelianChargeSectors.protonSecondCharacter.eq_1
+assert_compatible GUT.FiniteAbelianChargeSectors.protonSecondCharacter_apply => Physics.FiniteAbelianChargeSectors.protonSecondCharacter_apply
+assert_compatible GUT.FiniteAbelianChargeSectors.protonSecondCharacter_eq_one_of_eq_zero => Physics.FiniteAbelianChargeSectors.protonSecondCharacter_eq_one_of_eq_zero

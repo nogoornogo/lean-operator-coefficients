@@ -89,7 +89,7 @@ See the [extension plan](../../../../topics/mass-profile-foundations/plans/MASS_
 
 ### Audit
 
-[AuditFiniteChargeProfiles](../../../../../Physics/StandardModel/Spectrum/Audit/AuditFiniteChargeProfiles.lean)
+[AuditFiniteChargeProfiles](../../../../../Physics/StandardModel/Spectrum/Charges/Audit/AuditFiniteChargeProfiles.lean)
 is imported by `GUT.lean` and checks:
 
 - Actual circle-valued characters of `Multiplicative (ZMod n)`, using

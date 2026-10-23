@@ -1,6 +1,6 @@
 # Actual SU2 Symmetric Tensor Decomposition
 
-[SU2ClebschGordan](../../../../../Math/RepresentationTheory/SU2ClebschGordan.lean)
+[SU2ClebschGordan](../../../../../Math/RepresentationTheory/SU2/SU2ClebschGordan.lean)
 constructs `dualEquivalence h d` for all natural h,d:
 
     Sym^h H tensor Sym^d Hdual
@@ -19,14 +19,14 @@ The group is exactly TauCeti.SU2 and the field exactly C. Symmetric powers
 use the existing quotient construction. Pinned SU2 irreducibility and its
 dimension formula are directly reused. Symmetric multiplication, averaged
 splitting, determinant-tensor insertion and their group covariance are proved
-in [SymmetricPowerOperations](../../../../../Math/RepresentationTheory/SymmetricPowerOperations.lean)
-and [SU2SymmetricEmbeddings](../../../../../Math/RepresentationTheory/SU2SymmetricEmbeddings.lean).
+in [SymmetricPowerOperations](../../../../../Math/RepresentationTheory/Symmetric/SymmetricPowerOperations.lean)
+and [SU2SymmetricEmbeddings](../../../../../Math/RepresentationTheory/SU2/SU2SymmetricEmbeddings.lean).
 Every proposed constituent embedding has a proved scalar evaluation 1.
 
 [DistinctIrreducibleAssembly](../../../../../Math/RepresentationTheory/Decomposition/DistinctIrreducibleAssembly.lean)
 proves injectivity of the finite sum from irreducibility and pairwise different
 dimensions, with no target semisimplicity assumption. The exact dimension
-sum proves surjectivity. [SU2DoubletDuality](../../../../../Math/RepresentationTheory/SU2DoubletDuality.lean)
+sum proves surjectivity. [SU2DoubletDuality](../../../../../Math/RepresentationTheory/SU2/SU2DoubletDuality.lean)
 proves the actual epsilon duality used in the final transport.
 
 ## Application boundary

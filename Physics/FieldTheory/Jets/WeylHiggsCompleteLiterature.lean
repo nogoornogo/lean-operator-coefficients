@@ -1,0 +1,64 @@
+import Physics.FieldTheory.Jets.Weyl.Higgs.WeylHiggsCompleteLiterature
+import Physics.FieldTheory.Jets.WeylHiggsCompleteness
+import Physics.FieldTheory.Jets.WeylHiggsLiterature
+import Math.Lean.Compatibility
+
+deprecated_module "Use Physics.FieldTheory.Jets.Weyl.Higgs.WeylHiggsCompleteLiterature instead." (since := "source-api-v1")
+
+compatibility_declarations [
+  GUT.WeylHiggsCompleteLiterature.generatedNormalized => Physics.WeylHiggsCompleteLiterature.generatedNormalized,
+  GUT.WeylHiggsCompleteLiterature.generated_native_values => Physics.WeylHiggsCompleteLiterature.generated_native_values,
+  GUT.WeylHiggsCompleteLiterature.instAddCommGroupA_physics => Physics.WeylHiggsCompleteLiterature.instAddCommGroupA_physics,
+  GUT.WeylHiggsCompleteLiterature.instModuleComplexA_physics => Physics.WeylHiggsCompleteLiterature.instModuleComplexA_physics,
+  GUT.WeylHiggsCompleteLiterature.instRingA_physics => Physics.WeylHiggsCompleteLiterature.instRingA_physics,
+  GUT.WeylHiggsCompleteLiterature.li => Physics.WeylHiggsCompleteLiterature.li,
+  GUT.WeylHiggsCompleteLiterature.liCoordinate => Physics.WeylHiggsCompleteLiterature.liCoordinate,
+  GUT.WeylHiggsCompleteLiterature.li_extraction => Physics.WeylHiggsCompleteLiterature.li_extraction,
+  GUT.WeylHiggsCompleteLiterature.li_in_full_quotient_nonzero => Physics.WeylHiggsCompleteLiterature.li_in_full_quotient_nonzero,
+  GUT.WeylHiggsCompleteLiterature.li_inverse => Physics.WeylHiggsCompleteLiterature.li_inverse,
+  GUT.WeylHiggsCompleteLiterature.li_normalized => Physics.WeylHiggsCompleteLiterature.li_normalized,
+  GUT.WeylHiggsCompleteLiterature.li_roundtrip => Physics.WeylHiggsCompleteLiterature.li_roundtrip,
+  GUT.WeylHiggsCompleteLiterature.murphy => Physics.WeylHiggsCompleteLiterature.murphy,
+  GUT.WeylHiggsCompleteLiterature.murphyCoordinate => Physics.WeylHiggsCompleteLiterature.murphyCoordinate,
+  GUT.WeylHiggsCompleteLiterature.murphy_extraction => Physics.WeylHiggsCompleteLiterature.murphy_extraction,
+  GUT.WeylHiggsCompleteLiterature.murphy_inverse => Physics.WeylHiggsCompleteLiterature.murphy_inverse,
+  GUT.WeylHiggsCompleteLiterature.murphy_normalized => Physics.WeylHiggsCompleteLiterature.murphy_normalized,
+  GUT.WeylHiggsCompleteLiterature.murphy_roundtrip => Physics.WeylHiggsCompleteLiterature.murphy_roundtrip,
+  GUT.WeylHiggsCompleteLiterature.native_agreement => Physics.WeylHiggsCompleteLiterature.native_agreement,
+  GUT.WeylHiggsCompleteLiterature.native_equal => Physics.WeylHiggsCompleteLiterature.native_equal,
+  GUT.WeylHiggsCompleteLiterature.reversal_density => Physics.WeylHiggsCompleteLiterature.reversal_density,
+  GUT.WeylHiggsCompleteLiterature.reversed => Physics.WeylHiggsCompleteLiterature.reversed,
+  GUT.WeylHiggsCompleteLiterature.reversedDensity => Physics.WeylHiggsCompleteLiterature.reversedDensity,
+  GUT.WeylHiggsCompleteLiterature.reversedDensity.eq_1 => Physics.WeylHiggsCompleteLiterature.reversedDensity.eq_1,
+  GUT.WeylHiggsCompleteLiterature.reversed_normalized => Physics.WeylHiggsCompleteLiterature.reversed_normalized,
+  GUT.WeylHiggsCompleteLiterature.wrong_factor_detected => Physics.WeylHiggsCompleteLiterature.wrong_factor_detected,
+  GUT.WeylHiggsCompleteLiterature.wrong_reversal_detected => Physics.WeylHiggsCompleteLiterature.wrong_reversal_detected
+]
+
+assert_compatible GUT.WeylHiggsCompleteLiterature.generatedNormalized => Physics.WeylHiggsCompleteLiterature.generatedNormalized
+assert_compatible GUT.WeylHiggsCompleteLiterature.generated_native_values => Physics.WeylHiggsCompleteLiterature.generated_native_values
+assert_compatible GUT.WeylHiggsCompleteLiterature.instAddCommGroupA_physics => Physics.WeylHiggsCompleteLiterature.instAddCommGroupA_physics
+assert_compatible GUT.WeylHiggsCompleteLiterature.instModuleComplexA_physics => Physics.WeylHiggsCompleteLiterature.instModuleComplexA_physics
+assert_compatible GUT.WeylHiggsCompleteLiterature.instRingA_physics => Physics.WeylHiggsCompleteLiterature.instRingA_physics
+assert_compatible GUT.WeylHiggsCompleteLiterature.li => Physics.WeylHiggsCompleteLiterature.li
+assert_compatible GUT.WeylHiggsCompleteLiterature.liCoordinate => Physics.WeylHiggsCompleteLiterature.liCoordinate
+assert_compatible GUT.WeylHiggsCompleteLiterature.li_extraction => Physics.WeylHiggsCompleteLiterature.li_extraction
+assert_compatible GUT.WeylHiggsCompleteLiterature.li_in_full_quotient_nonzero => Physics.WeylHiggsCompleteLiterature.li_in_full_quotient_nonzero
+assert_compatible GUT.WeylHiggsCompleteLiterature.li_inverse => Physics.WeylHiggsCompleteLiterature.li_inverse
+assert_compatible GUT.WeylHiggsCompleteLiterature.li_normalized => Physics.WeylHiggsCompleteLiterature.li_normalized
+assert_compatible GUT.WeylHiggsCompleteLiterature.li_roundtrip => Physics.WeylHiggsCompleteLiterature.li_roundtrip
+assert_compatible GUT.WeylHiggsCompleteLiterature.murphy => Physics.WeylHiggsCompleteLiterature.murphy
+assert_compatible GUT.WeylHiggsCompleteLiterature.murphyCoordinate => Physics.WeylHiggsCompleteLiterature.murphyCoordinate
+assert_compatible GUT.WeylHiggsCompleteLiterature.murphy_extraction => Physics.WeylHiggsCompleteLiterature.murphy_extraction
+assert_compatible GUT.WeylHiggsCompleteLiterature.murphy_inverse => Physics.WeylHiggsCompleteLiterature.murphy_inverse
+assert_compatible GUT.WeylHiggsCompleteLiterature.murphy_normalized => Physics.WeylHiggsCompleteLiterature.murphy_normalized
+assert_compatible GUT.WeylHiggsCompleteLiterature.murphy_roundtrip => Physics.WeylHiggsCompleteLiterature.murphy_roundtrip
+assert_compatible GUT.WeylHiggsCompleteLiterature.native_agreement => Physics.WeylHiggsCompleteLiterature.native_agreement
+assert_compatible GUT.WeylHiggsCompleteLiterature.native_equal => Physics.WeylHiggsCompleteLiterature.native_equal
+assert_compatible GUT.WeylHiggsCompleteLiterature.reversal_density => Physics.WeylHiggsCompleteLiterature.reversal_density
+assert_compatible GUT.WeylHiggsCompleteLiterature.reversed => Physics.WeylHiggsCompleteLiterature.reversed
+assert_compatible GUT.WeylHiggsCompleteLiterature.reversedDensity => Physics.WeylHiggsCompleteLiterature.reversedDensity
+assert_compatible GUT.WeylHiggsCompleteLiterature.reversedDensity.eq_1 => Physics.WeylHiggsCompleteLiterature.reversedDensity.eq_1
+assert_compatible GUT.WeylHiggsCompleteLiterature.reversed_normalized => Physics.WeylHiggsCompleteLiterature.reversed_normalized
+assert_compatible GUT.WeylHiggsCompleteLiterature.wrong_factor_detected => Physics.WeylHiggsCompleteLiterature.wrong_factor_detected
+assert_compatible GUT.WeylHiggsCompleteLiterature.wrong_reversal_detected => Physics.WeylHiggsCompleteLiterature.wrong_reversal_detected

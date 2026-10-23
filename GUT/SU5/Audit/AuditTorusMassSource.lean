@@ -1,7 +1,9 @@
 import Math.Audit.ImportOrigin
 import GUT.SU5.SelectionRules.TorusMassSource
 import Math.RepresentationTheory.Unitary.CommutingUnitaryActions
-import Physics.StandardModel.Spectrum.Audit.AuditFiniteChargeProfiles
+import Physics.StandardModel.Spectrum.Charges.Audit.AuditFiniteChargeProfiles
+
+open Physics
 
 open Math Math.SU5
 
@@ -18,6 +20,7 @@ run_cmd do
       throwError "Actual SU(5) torus source imports SU(6): {mod}"
 
 namespace GUT.SU5.AuditTorusMassSource
+open Physics.SU5
 
 noncomputable section
 

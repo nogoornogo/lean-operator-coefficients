@@ -1,5 +1,5 @@
 import Math.RepresentationTheory.Unitary.SmallSpecialUnitary
-import Math.RepresentationTheory.FourTensorMultilinear
+import Math.RepresentationTheory.Tensors.FourTensorMultilinear
 import Mathlib.LinearAlgebra.TensorProduct.Basis
 
 /-! Four defining SU(2) doublets: two epsilon products exhaust invariants.

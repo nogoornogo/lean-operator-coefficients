@@ -2,6 +2,8 @@ import GUT.PatiSalam.Matching.LightFields
 import GUT.PatiSalam.Matching.CoefficientParameters
 import GUT.PatiSalam.Matching.UVComponent
 
+open Physics
+
 /-! Conditional one-generation PS coefficient application, with explicit UV,
 mass, VEV and chirality conventions. No canonically normalized finite-mu
 matching, amplitude, decay rate or ultraviolet generation of C_X is proved. -/

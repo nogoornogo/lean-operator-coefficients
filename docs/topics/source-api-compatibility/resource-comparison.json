@@ -1,0 +1,29 @@
+{
+  "kind": "isolated-fierz-resource-comparison",
+  "sourceInventory": "layout-plan.json",
+  "originalChecksumMatches": 12,
+  "changedOriginalTargetText": "Import paths and the GUT/Physics namespace only; original proof body retained",
+  "addressSpaceLimitGiB": 16,
+  "timeoutSecondsPerModule": 540,
+  "leanTaskManagerThreads": 2,
+  "samplingIntervalSeconds": 0.2,
+  "repositoryCompiledArtifactsExcluded": true,
+  "variants": [
+    {
+      "variant": "original",
+      "localDependencyBuilds": 11,
+      "targetOutcome": "std::bad_alloc; SIGABRT",
+      "sampledPeakVirtualKiB": 16755548,
+      "sampledPeakResidentKiB": 11288924,
+      "sampledPeakOSThreads": 5
+    },
+    {
+      "variant": "renamed-without-proof-repair",
+      "localDependencyBuilds": 11,
+      "targetOutcome": "std::bad_alloc; SIGABRT",
+      "sampledPeakVirtualKiB": 16755564,
+      "sampledPeakResidentKiB": 11201576,
+      "sampledPeakOSThreads": 5
+    }
+  ]
+}

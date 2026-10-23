@@ -1,6 +1,8 @@
 import GUT.SU6.SelectionRules.Models.StandardSMUVFields
-import Physics.FieldTheory.Mass.EquivariantWeylMassTransport
+import Physics.FieldTheory.Mass.Algebra.EquivariantWeylMassTransport
 import GUT.SU6.SelectionRules.StandardBranch.StandardSMRadicalTensor
+
+open Physics
 
 open Math
 
@@ -13,6 +15,7 @@ not assumed invariant from torus data. Residual Abelian actions are neutral.
 -/
 
 set_option autoImplicit false
+
 
 namespace GUT.StandardSMUVMass
 
@@ -28,17 +31,30 @@ variable (H : Type*) [CommGroup H]
 def rho : Representation ℂ (GaugeGroup × H) UV :=
   uvRho.comp (StandardSMGroup.withResidual H)
 
-def mass : SymmetricMass (rho H) :=
-  EquivariantWeylMassTransport.pullback (withResidualEquiv H)
+/-- Retain the named UV action in the certificate type. -/
+def pullbackEquiv : Representation.Equiv (rho H)
+    (StandardSMFullGaugeMass.rho (neutralCharges H)) := withResidualEquiv H
+
+def transport :=
+  EquivariantWeylMassTransport.certificate (pullbackEquiv H)
     (StandardSMFullGaugeMass.mass (neutralCharges H))
+
+def mass : SymmetricMass (rho H) := (transport H).mass
+
+theorem mass_form_eq : (mass H).form =
+    (EquivariantWeylMassTransport.pullback (pullbackEquiv H)
+      (StandardSMFullGaugeMass.mass (neutralCharges H))).form := (transport H).form_eq
 
 abbrev ZeroModes := (mass H).radical.toSubmodule
 
-theorem mem_radical_iff (x : UV) :
-    x ∈ (mass H).radical.toSubmodule ↔
-      withResidualEquiv H x ∈
-        (StandardSMFullGaugeMass.mass (neutralCharges H)).radical.toSubmodule :=
-  EquivariantWeylMassTransport.mem_radical_iff _ _ x
+/-- Proof of radical membership equivalence for the constructed mass.
+Its inferred proposition keeps the certificate's exact implicit action data;
+re-annotating the same proposition through the mass alias expands the analytic
+realization during kernel conversion. `mass H` is the certificate's mass. -/
+def mem_radical_iff (x : UV) :=
+  EquivariantWeylMassTransport.PullbackCertificate.mem_radical_iff
+    (e := pullbackEquiv H) (B := StandardSMFullGaugeMass.mass (neutralCharges H))
+    (transport H) x
 
 def zeroRho : Representation ℂ (GaugeGroup × H) (ZeroModes H) :=
   (mass H).radical.toRepresentation
@@ -46,15 +62,14 @@ def zeroRho : Representation ℂ (GaugeGroup × H) (ZeroModes H) :=
 set_option maxHeartbeats 800000 in
 def radicalEquiv : Representation.Equiv (zeroRho H)
     (StandardSMRadicalTensor.zeroRho (neutralCharges H)) :=
-  EquivariantWeylMassTransport.radicalEquiv (withResidualEquiv H)
-    (StandardSMFullGaugeMass.mass (neutralCharges H))
+  (transport H).radicalEquiv
 
 def lightEquiv : Representation.Equiv (zeroRho H)
     (StandardSMFullGaugeMass.lightRho (neutralCharges H)) :=
   (radicalEquiv H).trans (StandardSMFullGaugeMass.radicalEquiv (neutralCharges H))
 
 theorem mass_nonzero : (mass H).form ≠ 0 :=
-  EquivariantWeylMassTransport.pullback_nonzero _ _ (StandardSMFullGaugeMass.mass_nonzero _)
+  (transport H).nonzero_of (StandardSMFullGaugeMass.mass_nonzero _)
 
 theorem radical_finrank : Module.finrank ℂ (ZeroModes H) = 15 := by
   rw [(lightEquiv H).toLinearEquiv.finrank_eq]

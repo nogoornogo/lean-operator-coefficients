@@ -1,0 +1,68 @@
+{
+  "kind": "public-api-registry",
+  "migration": "source-api-v1",
+  "source": "fresh successful branch build; elaborated declaration ownership",
+  "publicationBaseline": "local publish/v1.0 tag; not a remote publication verification",
+  "entries": [
+    {
+      "old": "GUT.AbelianMassSpectrum.coefficient_lower_bound",
+      "new": "Physics.AbelianMassSpectrum.coefficient_lower_bound",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.exists_radical_vector_of_pos",
+      "new": "Physics.AbelianMassSpectrum.exists_radical_vector_of_pos",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.exists_zeroMode_of_pos",
+      "new": "Physics.AbelianMassSpectrum.exists_zeroMode_of_pos",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.radicalSpectrum",
+      "new": "Physics.AbelianMassSpectrum.radicalSpectrum",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.radicalSpectrum_eval",
+      "new": "Physics.AbelianMassSpectrum.radicalSpectrum_eval",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.radicalSpectrum_nonneg",
+      "new": "Physics.AbelianMassSpectrum.radicalSpectrum_nonneg",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.radical_dual_spectrum_eq",
+      "new": "Physics.AbelianMassSpectrum.radical_dual_spectrum_eq",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.radical_dual_spectrum_eq_target",
+      "new": "Physics.AbelianMassSpectrum.radical_dual_spectrum_eq_target",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.radical_unitary",
+      "new": "Physics.AbelianMassSpectrum.radical_unitary",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    },
+    {
+      "old": "GUT.AbelianMassSpectrum.source_target_of_radical_target",
+      "new": "Physics.AbelianMassSpectrum.source_target_of_radical_target",
+      "module": "Physics.FieldTheory.Mass.AbelianMassSpectrum",
+      "canonicalModule": "Physics.FieldTheory.Mass.Spectrum.AbelianMassSpectrum"
+    }
+  ]
+}

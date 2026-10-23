@@ -1,5 +1,7 @@
 import GUT.SU5.Representations.Matter
-import Physics.StandardModel.Gauge.WeakContragredient
+import Physics.StandardModel.Gauge.Tensors.WeakContragredient
+
+open Physics
 
 open Math
 

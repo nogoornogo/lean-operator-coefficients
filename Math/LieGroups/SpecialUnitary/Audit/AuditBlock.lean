@@ -1,6 +1,6 @@
 import Math.Audit.ImportOrigin
 import Math.LieGroups.SpecialUnitary.Matter
-import Math.LinearAlgebra.ExteriorEigenbasisTrace
+import Math.LinearAlgebra.Exterior.ExteriorEigenbasisTrace
 
 /-! The arbitrary-rank SU block and matter construction must not import
 an SU(5)/SU(6) source, branching theorem, or physical model. -/

@@ -1,4 +1,4 @@
-import Math.RepresentationTheory.GeneratorInvariantTests
+import Math.RepresentationTheory.Invariants.GeneratorInvariantTests
 import Mathlib.LinearAlgebra.UnitaryGroup
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Tactic

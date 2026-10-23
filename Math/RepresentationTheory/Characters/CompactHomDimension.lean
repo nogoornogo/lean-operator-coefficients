@@ -54,17 +54,17 @@ theorem integral_character_mul_eq_finrank
     (continuous_asContinuous rho hr) (continuous_asContinuous sigma hs)
   rw [ContRepresentation.intertwiningMapEquiv.finrank_eq] at hc
   rw [asContinuous_toRepresentation rho, asContinuous_toRepresentation sigma] at hc
-  simpa only [TauCeti.ContRepresentation.coe_character, asContinuous_toRepresentation] using hc
+  simpa only [ContRepresentation.coe_character, asContinuous_toRepresentation] using hc
 
 theorem integrable_character_mul
     (rho : Representation ℂ H V) (sigma : Representation ℂ H W)
     (hr : IsJointlyContinuous rho) (hs : IsJointlyContinuous sigma) :
     Integrable (fun h => rho.character h⁻¹ * sigma.character h) (TauCeti.haarProb H) := by
   have cr : Continuous rho.character :=
-    (TauCeti.ContRepresentation.character (asContinuous rho)
+    (ContRepresentation.character (asContinuous rho)
       (continuous_asContinuous rho hr)).continuous
   have cs : Continuous sigma.character :=
-    (TauCeti.ContRepresentation.character (asContinuous sigma)
+    (ContRepresentation.character (asContinuous sigma)
       (continuous_asContinuous sigma hs)).continuous
   exact ((cr.comp continuous_inv).mul cs).integrable_of_hasCompactSupport
     (HasCompactSupport.of_compactSpace _)

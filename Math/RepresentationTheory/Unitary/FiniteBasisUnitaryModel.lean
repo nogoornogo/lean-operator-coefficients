@@ -1,4 +1,4 @@
-import Math.LinearAlgebra.FiniteBasisHilbertization
+import Math.LinearAlgebra.Constructions.FiniteBasisHilbertization
 import TauCeti.RepresentationTheory.Compact.UnitaryModel
 
 /-!
@@ -56,17 +56,17 @@ variable [IsTopologicalGroup G] [CompactSpace G] [MeasurableSpace G] [BorelSpace
 variable (h : ∀ i j, Continuous fun g => b.coord i (rho g (b j)))
 
 def conjugator : Copy b ≃L[ℂ] Copy b :=
-  (TauCeti.ContRepresentation.exists_isUnitary_congr (seed b rho)
+  (ContRepresentation.exists_isUnitary_congr (seed b rho)
     (seed_continuous b rho h)).choose
 
 def model : ContRepresentation ℂ G (Copy b) :=
-  TauCeti.ContRepresentation.congr (conjugator b rho h) (seed b rho)
+  ContinuousLinearEquiv.congr (conjugator b rho h) (seed b rho)
 
 theorem model_continuous : Continuous (model b rho h) :=
-  TauCeti.ContRepresentation.continuous_congr _ (seed_continuous b rho h)
+  ContinuousLinearEquiv.continuous_congr _ (seed_continuous b rho h)
 
-theorem model_unitary : TauCeti.ContRepresentation.IsUnitary (model b rho h) :=
-  (TauCeti.ContRepresentation.exists_isUnitary_congr (seed b rho)
+theorem model_unitary : ContRepresentation.IsUnitary (model b rho h) :=
+  (ContRepresentation.exists_isUnitary_congr (seed b rho)
     (seed_continuous b rho h)).choose_spec
 
 theorem model_inner (g : G) (x y : Copy b) :

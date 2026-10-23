@@ -1,6 +1,6 @@
 import Math.LieGroups.SpecialUnitary.AffinePairBoundary
-import Math.RepresentationTheory.IntegralTorusTests
-import Math.RepresentationTheory.FiniteInvariantKernel
+import Math.RepresentationTheory.Weights.IntegralTorusTests
+import Math.RepresentationTheory.Invariants.FiniteInvariantKernel
 import TauCeti.RepresentationTheory.SU2.Basic
 import Mathlib.Analysis.SpecialFunctions.Complex.Arg
 

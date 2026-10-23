@@ -1,5 +1,8 @@
-import GUT.SU5.Branching.TorusCharacter
-import Physics.StandardModel.Gauge.PhysicalTorus
+import GUT.SU5.Embeddings.MaximalTorus
+import Physics.StandardModel.Spectrum.Representations.TorusCharacter
+import Physics.StandardModel.Gauge.Charges.PhysicalTorus
+
+open Physics
 
 open Math
 
@@ -8,6 +11,8 @@ open Math
 set_option autoImplicit false
 open scoped BigOperators
 namespace GUT.SU5.PhysicalTorus
+open Physics.SU5.PhysicalTorus
+open Physics.SU5
 open Math.SU5.MaximalTorus
 noncomputable section
 open MaximalTorus StandardAbelianCharge TorusCharacter

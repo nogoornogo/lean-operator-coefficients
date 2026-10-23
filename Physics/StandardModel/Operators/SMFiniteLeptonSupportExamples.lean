@@ -1,29 +1,17 @@
+import Physics.StandardModel.Operators.Support.Decomposition.SMFiniteLeptonSupportExamples
 import Physics.StandardModel.Operators.SMFiniteLeptonAssignments
+import Math.Lean.Compatibility
 
-/-! Importing consumers of the uniform theorem, including moduli outside
-the retained 572-row domain and a counterexample to unrestricted congruences. -/
-namespace GUT.SMFiniteLeptonSupportExamples
-open Math SMFiniteLeptonSupport
+deprecated_module "Use Physics.StandardModel.Operators.Support.Decomposition.SMFiniteLeptonSupportExamples instead." (since := "source-api-v1")
 
-theorem k101_b1_allowed :
-    SMQLPatternRequests.OriginalAllowed (28 : ZMod 101) 1 (fun c => c.1.natAbs=3) := by
-  apply (SMFiniteLeptonSupport.b1_allowed_iff _ _).mpr
-  exact ⟨17, by decide +kernel, by decide +kernel⟩
+compatibility_declarations [
+  GUT.SMFiniteLeptonSupportExamples.imported_row_request => Physics.SMFiniteLeptonSupportExamples.imported_row_request,
+  GUT.SMFiniteLeptonSupportExamples.k101_b1_allowed => Physics.SMFiniteLeptonSupportExamples.k101_b1_allowed,
+  GUT.SMFiniteLeptonSupportExamples.k101_b1_forbidden => Physics.SMFiniteLeptonSupportExamples.k101_b1_forbidden,
+  GUT.SMFiniteLeptonSupportExamples.unrestricted_congruence_insufficient => Physics.SMFiniteLeptonSupportExamples.unrestricted_congruence_insufficient
+]
 
-theorem k101_b1_forbidden :
-    SMQLPatternRequests.OriginalForbidden (10 : ZMod 101) 1 (fun c => c.1.natAbs=3) := by
-  apply (SMFiniteLeptonSupport.original_forbidden_iff _ _ 3 (Or.inl rfl)).mpr
-  decide +kernel
-
-/-- An odd neutral L exists arithmetically but exceeds exterior capacity. -/
-theorem unrestricted_congruence_insufficient :
-    (71 : ℤ)%2=1 ∧ (3 : ZMod 101)*10 + (71 : ZMod 101)*1=0 ∧
-    SMQLPatternRequests.OriginalForbidden (10 : ZMod 101) 1 (fun c => c.1.natAbs=3) := by
-  exact ⟨by decide +kernel, by decide +kernel, k101_b1_forbidden⟩
-
-theorem imported_row_request :
-    SMQLPatternRequests.Satisfies (0 : ZMod 2) 1 SMQLPatternRequests.b1ForbiddenB2Allowed := by
-  exact (SMFiniteLeptonAssignments.request_iff 0 ⟨2,0,1,true,false⟩
-    (by decide +kernel)).mpr ⟨rfl,rfl⟩
-
-end GUT.SMFiniteLeptonSupportExamples
+assert_compatible GUT.SMFiniteLeptonSupportExamples.imported_row_request => Physics.SMFiniteLeptonSupportExamples.imported_row_request
+assert_compatible GUT.SMFiniteLeptonSupportExamples.k101_b1_allowed => Physics.SMFiniteLeptonSupportExamples.k101_b1_allowed
+assert_compatible GUT.SMFiniteLeptonSupportExamples.k101_b1_forbidden => Physics.SMFiniteLeptonSupportExamples.k101_b1_forbidden
+assert_compatible GUT.SMFiniteLeptonSupportExamples.unrestricted_congruence_insufficient => Physics.SMFiniteLeptonSupportExamples.unrestricted_congruence_insufficient
